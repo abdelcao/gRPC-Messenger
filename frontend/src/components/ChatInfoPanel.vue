@@ -1,6 +1,6 @@
 <!-- src/components/ChatInfoPanel.vue -->
 <template>
-  <div class="w-72 bg-white dark:bg-gray-800 border-l p-4 overflow-y-auto">
+  <div class="w-72 bg-white dark:bg-gray-800 border-l border-gray-200 p-4 overflow-y-auto">
     <div class="flex items-center gap-2 mb-2">
       <img src="/images/default_avatar.jpg" class="w-10 h-10 rounded-full" />
       <div>

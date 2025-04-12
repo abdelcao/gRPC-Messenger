@@ -2,10 +2,13 @@
 <template>
   <div class="flex-1 flex flex-col bg-white dark:bg-gray-800">
     <!-- Header -->
-    <div class="flex items-center justify-between px-4 py-3 border-b">
-      <div>
-        <h2 class="font-semibold">TechPulse Company</h2>
-        <p class="text-xs text-gray-500">32 members, 6 online</p>
+    <div class="flex items-center justify-between px-4 py-3 border-b border-gray-500">
+      <div class="flex items-center gap-2">
+        <img src="/images/default_avatar.jpg" class="w-10 h-10 rounded-full" />
+        <div class="flex-1">
+          <div class="font-semibold text-sm">Selected Chat</div>
+          <div class="text-xs text-gray-400">Online</div>
+        </div>
       </div>
     </div>
 
@@ -18,25 +21,14 @@
     </div>
 
     <!-- Input -->
-    <div class="border-t p-4 flex gap-2 items-center">
-      <InputText v-model="message" placeholder="Your message" class="flex-1" />
-      <Button icon="pi pi-send" @click="sendMessage" />
-    </div>
+    <ChatSender />
+
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import Button from 'primevue/button'
-import InputText from 'primevue/inputtext'
 import MessageBubble from './MessageBubble.vue'
+import ChatSender from './ChatSender.vue'
 
-const message = ref('')
-
-function sendMessage() {
-  if (message.value.trim()) {
-    // Send logic here...
-    message.value = ''
-  }
-}
 </script>

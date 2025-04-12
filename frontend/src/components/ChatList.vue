@@ -1,6 +1,6 @@
 <!-- src/components/ChatList.vue -->
 <template>
-  <div class="max-w-72 bg-white dark:bg-gray-800 border-r p-4 overflow-y-auto">
+  <div class="max-w-72 bg-white dark:bg-gray-800 border-r border-gray-500 p-4 overflow-y-auto">
     <InputText v-model="search" placeholder="Search..." class="w-full mb-4" />
 
     <ul>

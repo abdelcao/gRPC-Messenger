@@ -1,5 +1,5 @@
 <template>
-  <div class="w-16 bg-white dark:bg-gray-800 border-r flex flex-col items-center py-4">
+  <div class="w-16 bg-white dark:bg-gray-800 border-r border-gray-500 flex flex-col items-center py-4">
     <img src="/images/default_avatar.jpg" class="w-10 h-10 rounded-full mb-6" alt="User Avatar" />
     <div class="space-y-6 flex flex-col">
       <div class="p-4 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center">
@@ -32,7 +32,7 @@ import { ref } from 'vue';
 
 
 const sidebarLinks = ref([
-  
+
 ])
 
 </script>
