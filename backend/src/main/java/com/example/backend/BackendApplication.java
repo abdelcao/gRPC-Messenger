@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
 @SpringBootApplication
-public class BachendApplication {
+public class BackendApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BachendApplication.class, args);
+		SpringApplication.run(BackendApplication.class, args);
 	}
 	@GetMapping("/")
 	public String getMethodName() {
