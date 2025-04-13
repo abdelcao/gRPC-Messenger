@@ -1,4 +1,4 @@
-package com.example.bachend;
+package com.example.backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,10 +13,14 @@ public class BackendApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BackendApplication.class, args);
 	}
+	
 	@GetMapping("/")
 	public String getMethodName() {
 		return "hello world!";
 	}
-	
 
+	@GetMapping("/api/hello")
+	public String hello() {
+		return "Hello from backend";
+	}
 }
