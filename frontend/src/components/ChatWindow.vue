@@ -2,15 +2,7 @@
 <template>
   <div class="flex-1 flex flex-col bg-white dark:bg-gray-800">
     <!-- Header -->
-    <div class="flex items-center justify-between px-4 py-3 border-b border-gray-500">
-      <div class="flex items-center gap-2">
-        <img src="/images/default_avatar.jpg" class="w-10 h-10 rounded-full" />
-        <div class="flex-1">
-          <div class="font-semibold text-sm">Selected Chat</div>
-          <div class="text-xs text-gray-400">Online</div>
-        </div>
-      </div>
-    </div>
+    <ChatHeader />
 
     <!-- Messages -->
     <div class="flex-1 p-4 overflow-y-auto space-y-2">
@@ -30,5 +22,6 @@
 import { ref } from 'vue'
 import MessageBubble from './MessageBubble.vue'
 import ChatSender from './ChatSender.vue'
+import ChatHeader from './ChatHeader.vue';
 
 </script>
