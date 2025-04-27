@@ -19,26 +19,79 @@ static_resources:
                       domains: ["*"]
                       routes:
                         - match:
-                            prefix: "/"
+                            prefix: "/admin"
                           route:
-                            cluster: grpc-backend
-                            max_grpc_timeout: 0s
+                            cluster: grpc-admin
+                        - match:
+                            prefix: "/user"
+                          route:
+                            cluster: grpc-user
+                        - match:
+                            prefix: "/chat"
+                          route:
+                            cluster: grpc-chat
+                        - match:
+                            prefix: "/auth"
+                          route:
+                            cluster: grpc-auth
                 http_filters:
                   - name: envoy.filters.http.router
                     typed_config:
                       "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
 
   clusters:
-    - name: grpc-backend
+    - name: grpc-admin
       connect_timeout: 0.25s
       type: logical_dns
       http2_protocol_options: {}
       load_assignment:
-        cluster_name: grpc-backend
+        cluster_name: grpc-admin
         endpoints:
           - lb_endpoints:
               - endpoint:
                   address:
                     socket_address:
-                      address: chat-backend
-                      port_value: 9090
+                      address: admin-service
+                      port_value: 9091
+
+    - name: grpc-user
+      connect_timeout: 0.25s
+      type: logical_dns
+      http2_protocol_options: {}
+      load_assignment:
+        cluster_name: grpc-user
+        endpoints:
+          - lb_endpoints:
+              - endpoint:
+                  address:
+                    socket_address:
+                      address: user-service
+                      port_value: 9092
+
+    - name: grpc-chat
+      connect_timeout: 0.25s
+      type: logical_dns
+      http2_protocol_options: {}
+      load_assignment:
+        cluster_name: grpc-chat
+        endpoints:
+          - lb_endpoints:
+              - endpoint:
+                  address:
+                    socket_address:
+                      address: chat-service
+                      port_value: 9093
+
+    - name: grpc-auth
+      connect_timeout: 0.25s
+      type: logical_dns
+      http2_protocol_options: {}
+      load_assignment:
+        cluster_name: grpc-auth
+        endpoints:
+          - lb_endpoints:
+              - endpoint:
+                  address:
+                    socket_address:
+                      address: auth-service
+                      port_value: 9094

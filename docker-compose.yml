@@ -1,13 +1,13 @@
 services:
   admin-service:
     build:
-      context: ./backend/admin-service
+      context: ./backend/admin
       dockerfile: Dockerfile
     container_name: admin-service
     ports:
       - "9091:9091"
     env_file:
-      - ./backend/admin-service/.env
+      - ./backend/admin/.env
     depends_on:
       - mysql
       - redis
@@ -16,13 +16,13 @@ services:
 
   auth-service:
     build:
-      context: ./backend/auth-service
+      context: ./backend/auth
       dockerfile: Dockerfile
     container_name: auth-service
     ports:
-      - "9091:9091"
+      - "9092:9092"
     env_file:
-      - ./backend/auth-service/.env
+      - ./backend/auth/.env
     depends_on:
       - mysql
       - redis
@@ -31,13 +31,13 @@ services:
 
   user-service:
     build:
-      context: ./backend/user-service
+      context: ./backend/user
       dockerfile: Dockerfile
     container_name: user-service
     ports:
-      - "9091:9091"
+      - "9093:9093"
     env_file:
-      - ./backend/user-service/.env
+      - ./backend/user/.env
     depends_on:
       - mysql
       - redis
@@ -46,13 +46,13 @@ services:
 
   chat-service:
     build:
-      context: ./backend/chat-service
+      context: ./backend/chat
       dockerfile: Dockerfile
     container_name: chat-service
     ports:
-      - "9091:9091"
+      - "9094:9094"
     env_file:
-      - ./backend/chat-service/.env
+      - ./backend/chat/.env
     depends_on:
       - mysql
       - redis

@@ -2,5 +2,5 @@
 version: v1
 plugins:
   - name: es
-    out: gen/ts
+    out: frontend/src/grpc/ts
     opt: target=ts,import_extension=js

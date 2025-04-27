@@ -1,1 +1,9 @@
 version: v1
+deps:
+  - buf.build/google/protobuf
+build:
+  excludes:
+    - backend/admin/target
+    - backend/chat/target
+    - backend/user/target
+    - backend/auth/target

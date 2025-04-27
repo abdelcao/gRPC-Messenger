@@ -11,6 +11,16 @@ service AdminService {
   rpc GetAllUsers (UserListRequest) returns (UserListResponse);
   rpc BanUser (UserActionRequest) returns (UserActionResponse);
   rpc DeleteMessage (MessageActionRequest) returns (MessageActionResponse);
+  rpc Check (CheckRequest) returns (CheckResponse);
+}
+
+message CheckRequest {
+  string data = 1;
+}
+
+message CheckResponse {
+  bool status = 1;
+  string message = 2;
 }
 
 // Messages pour la gestion des utilisateurs
