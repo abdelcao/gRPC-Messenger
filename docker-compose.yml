@@ -1,20 +1,58 @@
 services:
-  backend:
+  admin-service:
     build:
-      context: ./backend
+      context: ./backend/admin-service
       dockerfile: Dockerfile
-    container_name: chat-backend
+    container_name: admin-service
     ports:
-      - "${BACKEND_PORT}:${BACKEND_PORT}"
-    environment:
-      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
-      - DB_HOST=${DB_HOST}
-      - REDIS_HOST=${REDIS_HOST}
-      - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
-      - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
-      - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
-      - SPRING_REDIS_HOST=${SPRING_REDIS_HOST}
-      - SPRING_REDIS_PORT=${SPRING_REDIS_PORT}
+      - "9091:9091"
+    env_file:
+      - ./backend/admin-service/.env
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      - chat-net
+
+  auth-service:
+    build:
+      context: ./backend/auth-service
+      dockerfile: Dockerfile
+    container_name: auth-service
+    ports:
+      - "9091:9091"
+    env_file:
+      - ./backend/auth-service/.env
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      - chat-net
+
+  user-service:
+    build:
+      context: ./backend/user-service
+      dockerfile: Dockerfile
+    container_name: user-service
+    ports:
+      - "9091:9091"
+    env_file:
+      - ./backend/user-service/.env
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      - chat-net
+
+  chat-service:
+    build:
+      context: ./backend/chat-service
+      dockerfile: Dockerfile
+    container_name: chat-service
+    ports:
+      - "9091:9091"
+    env_file:
+      - ./backend/chat-service/.env
     depends_on:
       - mysql
       - redis
