@@ -1,11 +1,7 @@
-version: v1
+version: v2
 plugins:
-  - name: es
+  - local: protoc-gen-es
     out: frontend/src/grpc
-    opt:
-      - import_extension=ts
-
-  - name: connect-es
-    out: frontend/src/grpc
-    opt:
-      - import_extension=ts
+    # Also generate any imported dependencies
+    include_imports: true
+    opt: target=ts

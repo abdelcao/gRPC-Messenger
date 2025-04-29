@@ -1,9 +1,10 @@
-version: v1
-deps:
-  - buf.build/google/protobuf
-build:
-  excludes:
-    - backend/admin/target
-    - backend/chat/target
-    - backend/user/target
-    - backend/auth/target
+# For details on buf.yaml configuration, visit https://buf.build/docs/configuration/v2/buf-yaml
+version: v2
+modules:
+  - path: protos
+lint:
+  use:
+    - STANDARD
+breaking:
+  use:
+    - FILE
