@@ -3,7 +3,7 @@ syntax = "proto3";
 package admin;
 
 option java_multiple_files = true;
-option java_package = "com.chat.admin";
+option java_package = "com.grpc.admin";
 option java_outer_classname = "AdminProto";
 
 // Service d'administration

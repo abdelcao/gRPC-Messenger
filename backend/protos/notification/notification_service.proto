@@ -3,7 +3,7 @@ syntax = "proto3";
 package notification;
 
 option java_multiple_files = true;
-option java_package = "com.chat.notification";
+option java_package = "com.grpc.notification";
 option java_outer_classname = "NotificationProto";
 
 // Service de notifications

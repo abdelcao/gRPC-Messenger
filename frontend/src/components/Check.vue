@@ -2,27 +2,30 @@
 import { ref } from "vue";
 
 // Import from your generated gRPC files
-import { createPromiseClient } from '@connectrpc/connect-web';
-import { AdminService } from "@/grpc/protos/admin/admin_service_connect";
-import { CheckRequest } from "@/grpc/protos/admin/admin_service_pb";
+import { createConnectTransport } from "@connectrpc/connect-web";
+import { createClient } from "@connectrpc/connect";
+import { AdminService } from "@/grpc/protos/admin/admin_service_pb";
+import type { CheckRequest } from "@/grpc/protos/admin/admin_service_pb";
 
-// Create a gRPC-Web Promise client
-const client = createPromiseClient(AdminService, {
-  baseUrl: "http://localhost:8080", // envoy
-  useHttpGet: false,                // POST requests (standard gRPC-Web)
+// Set up the gRPC-Web transport (http1 POST)
+const transport = createConnectTransport({
+  baseUrl: "http://localhost:8080",
 });
+
+// Create the gRPC Promise Client
+const client = createClient(AdminService, transport);
 
 // Reactive data
 const inputData = ref("");
 const status = ref<boolean | null>(null);
 const message = ref<string | null>(null);
 
-// Call AdminService.Check RPC
+// Call AdminService.Check
 const callCheck = async () => {
   try {
-    const request = new CheckRequest({ data: inputData.value });
-
-    const response = await client.check(request);
+    const response = await client.check({
+      data: inputData.value,
+    } satisfies CheckRequest);
 
     status.value = response.status;
     message.value = response.message;
