@@ -10,16 +10,10 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
-import { createClient } from '@connectrpc/connect'
-import { createConnectTransport } from '@connectrpc/connect-web'
-import { AdminService } from '@/grpc/admin/admin_pb'
+import { ref } from 'vue'
+import { useAdminService } from '@/composables/useAdminService'
 
-const transport = createConnectTransport({
-  baseUrl: 'http://localhost:9090',
-})
-
-const client = createClient(AdminService, transport) // this gives you a Promise-based client
+const client = useAdminService()
 // Form state
 const inputData = ref('')
 const response = ref<{ status: boolean; message: string } | null>(null)
