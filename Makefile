@@ -19,6 +19,10 @@ build:
 	@echo "Building and starting containers..."
 	docker-compose up --build
 
+no-cache-build:
+	@echo "Building and starting containers..."
+	docker compose build --no-cache
+
 # Start containers without rebuilding
 up:
 	@echo "Starting containers..."

@@ -1,58 +1,21 @@
 services:
-  admin-service:
-    build:
-      context: ./backend/admin
-      dockerfile: Dockerfile
-    container_name: admin-service
-    ports:
-      - "9091:9091"
-    env_file:
-      - ./backend/admin/.env
-    depends_on:
-      - mysql
-      - redis
-    networks:
-      - chat-net
 
-  auth-service:
+  backend:
     build:
-      context: ./backend/auth
+      context: ./backend
       dockerfile: Dockerfile
-    container_name: auth-service
+    container_name: chat-backend
     ports:
-      - "9092:9092"
-    env_file:
-      - ./backend/auth/.env
-    depends_on:
-      - mysql
-      - redis
-    networks:
-      - chat-net
-
-  user-service:
-    build:
-      context: ./backend/user
-      dockerfile: Dockerfile
-    container_name: user-service
-    ports:
-      - "9093:9093"
-    env_file:
-      - ./backend/user/.env
-    depends_on:
-      - mysql
-      - redis
-    networks:
-      - chat-net
-
-  chat-service:
-    build:
-      context: ./backend/chat
-      dockerfile: Dockerfile
-    container_name: chat-service
-    ports:
-      - "9094:9094"
-    env_file:
-      - ./backend/chat/.env
+      - "${BACKEND_PORT}:${BACKEND_PORT}"
+    environment:
+      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
+      - DB_HOST=${DB_HOST}
+      - REDIS_HOST=${REDIS_HOST}
+      - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
+      - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
+      - SPRING_REDIS_HOST=${SPRING_REDIS_HOST}
+      - SPRING_REDIS_PORT=${SPRING_REDIS_PORT}
     depends_on:
       - mysql
       - redis
