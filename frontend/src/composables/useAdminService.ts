@@ -4,7 +4,7 @@ import { AdminService } from '@/grpc/admin/admin_pb'
 
 export function useAdminService() {
   const transport = createConnectTransport({
-    baseUrl: import.meta.env.ENVOY_URL, // your Envoy port
+    baseUrl: "http://localhost:8080", // your Envoy port
   })
 
   const client = createClient(AdminService, transport)

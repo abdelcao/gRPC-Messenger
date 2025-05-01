@@ -2,7 +2,7 @@
 import { onMounted } from 'vue';
 
 onMounted(() => {
-  fetch('http://localhost:9090/api/hello')
+  fetch('http://localhost:8888/')
     .then(res => res.text())
     .then(console.log)
     .catch(console.error);
