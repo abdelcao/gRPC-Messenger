@@ -4,7 +4,7 @@ import com.adia.admin.AdminServiceGrpc;
 import com.adia.admin.CheckRequest;
 import com.adia.admin.CheckResponse;
 import io.grpc.stub.StreamObserver;
-import org.springframework.grpc.server.service.GrpcService;
+import net.devh.boot.grpc.server.service.GrpcService;
 
 @GrpcService
 public class AdminServiceImpl extends AdminServiceGrpc.AdminServiceImplBase {
@@ -15,7 +15,7 @@ public class AdminServiceImpl extends AdminServiceGrpc.AdminServiceImplBase {
                 .setMessage(req.getData())
                 .setStatus(true)
                 .build();
-        
+
         responseObserver.onNext(res);
         responseObserver.onCompleted();
     }

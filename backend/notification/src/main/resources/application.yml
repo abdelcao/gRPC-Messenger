@@ -1,6 +1,6 @@
 server:
-  port: ${SERVER_PORT:9095} # default to 9091, can be overridden by Docker env
-
+  port: 8892
+  
 spring:
   application:
     name: notification-service

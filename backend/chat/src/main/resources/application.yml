@@ -1,5 +1,5 @@
 server:
-  port: ${SERVER_PORT:9094} # default to 9091, can be overridden by Docker env
+  port: 8890 # default to 9091, can be overridden by Docker env
 
 spring:
   application:
