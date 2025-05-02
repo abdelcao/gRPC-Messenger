@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package com.adia.admin;
+package admin;
 
 option java_multiple_files = true;
 option java_package = "com.adia.admin";
@@ -8,10 +8,10 @@ option java_outer_classname = "AdminProto";
 
 // Service d'administration
 service AdminService {
-  rpc GetAllUsers (UserListRequest) returns (UserListResponse);
-  rpc BanUser (UserActionRequest) returns (UserActionResponse);
-  rpc DeleteMessage (MessageActionRequest) returns (MessageActionResponse);
-  rpc Check (CheckRequest) returns (CheckResponse);
+  rpc getAllUsers (UserListRequest) returns (UserListResponse);
+  rpc banUser (UserActionRequest) returns (UserActionResponse);
+  rpc deleteMessage (MessageActionRequest) returns (MessageActionResponse);
+  rpc DoCheck (CheckRequest) returns (CheckResponse);
 }
 
 message CheckRequest {

@@ -20,7 +20,8 @@ const response = ref<{ status: boolean; message: string } | null>(null)
 
 const callCheck = async () => {
   try {
-    const res = await client.check({ data: inputData.value })
+    const res = await client.doCheck({ data: inputData.value })
+    console.log(res);
     response.value = res
   } catch (error) {
     console.error('Error calling check:', error)

@@ -1,7 +1,6 @@
 version: v2
+clean: true
 plugins:
   - local: protoc-gen-es
     out: src/grpc
-    # Also generate any imported dependencies
-    include_imports: true
     opt: target=ts
