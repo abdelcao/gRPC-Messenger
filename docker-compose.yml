@@ -4,7 +4,7 @@ services:
     build:
       context: ./backend/admin
     ports:
-      - "${SERVER_ADMIN_PORT}:${SERVER_ADMIN_PORT}"
+      - "${ADMIN_PORT}:${ADMIN_PORT}"
     container_name: admin-service
     environment:
       - GRPC_PORT=${ADMIN_PORT}
