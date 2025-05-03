@@ -17,7 +17,7 @@ help:
 # Build (or rebuild) images and start containers
 build:
 	@echo "Building and starting containers..."
-	docker-compose up --build
+	docker-compose build
 
 no-cache-build:
 	@echo "Building and starting containers..."

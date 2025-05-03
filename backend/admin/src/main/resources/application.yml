@@ -1,6 +1,6 @@
 server:
-  port: ${SERVER_PORT:8091} # not the same as grpc server
-
+  port: ${SERVER_PORT:8091} 
+  
 spring:
   application:
     name: admin-service

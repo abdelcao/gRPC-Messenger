@@ -1,5 +1,5 @@
 server:
-  port: 8889 # default to 9091, can be overridden by Docker env
+  port: ${SERVER_PORT:8092}
 
 spring:
   application:
@@ -25,7 +25,7 @@ spring:
 
 grpc:
   server:
-    port: ${SERVER_PORT:9092}
+    port: ${GRPC_PORT:9092}
     reflection-service-enabled: true
 
 logging:
