@@ -15,7 +15,7 @@ service UserService {
 }
 
 message User {
-  string id = 1;
+  uint64 id = 1;
   string username = 2;
   string email = 3;
   bool isAdmin = 4;
@@ -37,11 +37,11 @@ message CreateUserRequest {
 }
 
 message GetUserRequest {
-  string id = 1;
+  uint64 id = 1;
 }
 
 message UpdateUserRequest {
-  string id = 1;
+  uint64 id  = 1;
   string username = 2;
   string email = 3;
   bool isAdmin = 4;
@@ -51,7 +51,7 @@ message UpdateUserRequest {
 }
 
 message DeleteUserRequest {
-  string id = 1;
+  uint64 id  = 1;
 }
 
 message ListUsersRequest {}

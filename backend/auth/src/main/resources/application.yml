@@ -27,6 +27,10 @@ grpc:
   server:
     port: ${GRPC_PORT:9092}
     reflection-service-enabled: true
+  client:
+    user-service:
+      address: static://user-service:9093
+      negotiation-type: plaintext
 
 logging:
   level:

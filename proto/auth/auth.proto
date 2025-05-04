@@ -47,8 +47,13 @@ message VerifyTokenResponse {
 
 // The data you may embed as claims in JWT
 message User {
-  string id = 1;
+  uint64 id = 1;
   string username = 2;
   string email = 3;
-  string role = 4;
+  bool isAdmin = 4;
+  bool isEmailVerified = 5;
+  bool isActivated = 6;
+  bool isSuspended = 7;
+  string createdAt = 8;
+  string updatedAt = 9;
 }

@@ -59,7 +59,7 @@ message MessageActionResponse {
 
 // Structure d'utilisateur
 message User {
-  string id = 1;
+  uint64 id  = 1;
   string email = 2;
   string username = 3;
   string role = 4;

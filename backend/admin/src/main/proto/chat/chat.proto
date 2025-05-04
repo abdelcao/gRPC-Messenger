@@ -44,7 +44,7 @@ message StreamRequest {
 
 // Structure de message
 message Message {
-  string id = 1;
+  uint64 id  = 1;
   string senderId = 2;
   string senderName = 3;
   string receiverId = 4;
@@ -75,7 +75,7 @@ message UserGroupsResponse {
 }
 
 message Group {
-  string id = 1;
+  uint64 id  = 1;
   string name = 2;
   string creatorId = 3;
   repeated string memberIds = 4;
