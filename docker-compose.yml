@@ -165,6 +165,8 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
       - "${MYSQL_PORT}:3306"
+    volumes:
+      - ./mysql/init:/docker-entrypoint-initdb.d
     networks:
       - chat-net
 
