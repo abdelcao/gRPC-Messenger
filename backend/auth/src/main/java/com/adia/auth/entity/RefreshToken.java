@@ -22,7 +22,7 @@ public class RefreshToken {
     @Column(length = 512, nullable = false, unique = true)
     private String token;
 
-    @Column(name = "user_id", nullable = false)
+    @Column(name= "user_id", nullable = false)
     private long userId; // store as string if proto uses string
 
     @Column(name = "expiry_date", nullable = false)

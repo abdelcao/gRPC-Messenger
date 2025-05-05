@@ -1,9 +1,6 @@
 package com.adia.user.grpc;
 
-import com.adia.user.CreateUserRequest;
-import com.adia.user.User;
-import com.adia.user.UserResponse;
-import com.adia.user.UserServiceGrpc;
+import com.adia.user.*;
 import com.adia.user.entity.UserEntity;
 import com.adia.user.repository.UserRepository;
 import io.grpc.Status;
@@ -11,6 +8,9 @@ import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.List;
+import java.util.Optional;
 
 @GrpcService
 public class UserServiceImpl extends UserServiceGrpc.UserServiceImplBase {
@@ -26,6 +26,8 @@ public class UserServiceImpl extends UserServiceGrpc.UserServiceImplBase {
     @Override
     public void createUser(CreateUserRequest request, StreamObserver<UserResponse> responseObserver) {
         try {
+
+            System.out.println(request.toString());
 
             if (userRepository.existsByEmail(request.getEmail())) {
                 responseObserver.onError(Status.ALREADY_EXISTS
@@ -65,6 +67,9 @@ public class UserServiceImpl extends UserServiceGrpc.UserServiceImplBase {
             responseObserver.onNext(response);
             responseObserver.onCompleted();
         } catch (Exception e) {
+
+            System.out.println(e.getMessage());
+
             responseObserver.onNext(UserResponse.newBuilder()
                     .setSuccess(false)
                     .setMessage("Error: " + e.getMessage())
@@ -73,10 +78,64 @@ public class UserServiceImpl extends UserServiceGrpc.UserServiceImplBase {
         }
     }
 
+    @Override
+    public void listUsers(Empty request, StreamObserver<ListUsersResponse> responseObserver) {
+        try {
+            List<UserEntity> userEntities = userRepository.findAll();
 
-    private User toProtoUser(UserEntity user) {
+            ListUsersResponse.Builder responseBuilder = ListUsersResponse.newBuilder();
+
+            for (UserEntity entity : userEntities) {
+                User user = this.toProtoUser(entity).build();
+                responseBuilder.addUsers(user);
+            }
+
+            responseBuilder.setMessage("Users retrived successfully");
+            responseBuilder.setSuccess(true);
+
+            responseObserver.onNext(responseBuilder.build());
+            responseObserver.onCompleted();
+        } catch (Exception e) {
+            responseObserver.onNext(ListUsersResponse.newBuilder()
+                    .setMessage("Error: " + e.getMessage())
+                    .build());
+            responseObserver.onCompleted();
+        }
+    }
+
+    @Override
+    public void getUser(GetUserRequest request, StreamObserver<UserResponse> responseObserver) {
+        try {
+            Optional<UserEntity> userEntity = userRepository.getUserEntityById(request.getId());
+
+            if (userEntity.isEmpty()) {
+                responseObserver.onError(Status.NOT_FOUND
+                        .withDescription("User not found")
+                        .asRuntimeException());
+                return;
+            }
+
+            UserResponse response = UserResponse.newBuilder()
+                    .setMessage("User retrived")
+                    .setSuccess(true)
+                    .setUser(toProtoUser(userEntity.get()))
+                    .build();
+
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+
+        } catch (Exception e) {
+            responseObserver.onNext(UserResponse.newBuilder()
+                    .setSuccess(false)
+                    .setMessage("Error: " + e.getMessage())
+                    .build());
+            responseObserver.onCompleted();
+        }
+    }
+
+    private User.Builder toProtoUser(UserEntity user) {
         return User.newBuilder()
-                .setId(user.getId().toString())
+                .setId(user.getId())
                 .setUsername(user.getUsername())
                 .setEmail(user.getEmail())
                 .setIsAdmin(user.getIsAdmin())
@@ -84,8 +143,7 @@ public class UserServiceImpl extends UserServiceGrpc.UserServiceImplBase {
                 .setIsActivated(user.getIsActivated())
                 .setIsSuspended(user.getIsSuspended())
                 .setCreatedAt(user.getCreatedAt().toString())
-                .setUpdatedAt(user.getUpdatedAt().toString())
-                .build();
+                .setUpdatedAt(user.getUpdatedAt().toString());
     }
 
 }

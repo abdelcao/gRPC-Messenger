@@ -6,9 +6,9 @@ spring:
     name: auth-service
 
   datasource:
-    url: ${SPRING_DATASOURCE_URL}
-    username: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/chatdb}
+    username: ${SPRING_DATASOURCE_USERNAME:chatuser}
+    password: ${SPRING_DATASOURCE_PASSWORD:chatpassword}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -17,22 +17,29 @@ spring:
     show-sql: true
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
+        dialect: org.hibernate.dialect.MySQLDialect
+
   data:
     redis:
-      host: ${SPRING_REDIS_HOST}
+      host: ${SPRING_REDIS_HOST:redis}
       port: ${SPRING_REDIS_PORT:6379}
 
 grpc:
   server:
-    port: ${GRPC_PORT:9092}
+    port: ${GRPC_SERVER_PORT:9092}
     reflection-service-enabled: true
   client:
     user-service:
-      address: static://user-service:9093
+      address: static://localhost:9093
       negotiation-type: plaintext
+
+jwt:
+  secret: 8fda3eac6d5a4f94b3b97a1ff63c5f7e
+  expiration: 86400000         # 1 day
+  refreshExpiration: 604800000 # 7 days
 
 logging:
   level:
     root: INFO
     org.springframework: INFO
+    org.springframework.boot.env: DEBUG

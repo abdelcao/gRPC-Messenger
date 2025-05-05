@@ -43,6 +43,7 @@ message VerifyTokenResponse {
   bool valid = 1;
   string message = 2;
   User user = 3;
+  bool success = 4;
 }
 
 // The data you may embed as claims in JWT

@@ -36,6 +36,8 @@ public class AuthServiceIml extends AuthServiceGrpc.AuthServiceImplBase {
     @Override
     public void register(RegisterRequest request, StreamObserver<AuthResponse> responseObserver) {
 
+        System.out.println(request.toString());
+
         try {
             CreateUserRequest userRequest = CreateUserRequest.newBuilder()
                     .setEmail(request.getEmail())
@@ -75,8 +77,7 @@ public class AuthServiceIml extends AuthServiceGrpc.AuthServiceImplBase {
 
             // 4. Create and persist refresh token
             RefreshToken refreshToken = refreshTokenService.createRefreshToken(
-                    userResponse.getUser().getId(),
-                    7 * 24 * 60 * 60 * 1000L // 7 days in milliseconds
+                    user.getId(), 30 * 24 * 60 * 60 * 1000L // 7 days in milliseconds
             );
 
             AuthResponse response = AuthResponse.newBuilder()
@@ -89,6 +90,7 @@ public class AuthServiceIml extends AuthServiceGrpc.AuthServiceImplBase {
             responseObserver.onNext(response);
             responseObserver.onCompleted();
         } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
             responseObserver.onError(Status.INTERNAL
                     .withDescription("Error: " + e.getMessage())
                     .asRuntimeException());

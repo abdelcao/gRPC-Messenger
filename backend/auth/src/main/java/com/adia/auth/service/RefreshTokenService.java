@@ -1,9 +1,7 @@
 package com.adia.auth.service;
 
 import com.adia.auth.entity.RefreshToken;
-import com.adia.auth.entity.UserEntity;
 import com.adia.auth.repository.RefreshTokenRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

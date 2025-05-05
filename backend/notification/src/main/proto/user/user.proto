@@ -11,7 +11,7 @@ service UserService {
   rpc GetUser(GetUserRequest) returns (UserResponse);
   rpc UpdateUser(UpdateUserRequest) returns (UserResponse);
   rpc DeleteUser(DeleteUserRequest) returns (UserResponse);
-  rpc ListUsers(ListUsersRequest) returns (ListUsersResponse);
+  rpc ListUsers(Empty) returns (ListUsersResponse);
 }
 
 message User {
@@ -54,10 +54,12 @@ message DeleteUserRequest {
   uint64 id  = 1;
 }
 
-message ListUsersRequest {}
+message Empty {}
 
 message ListUsersResponse {
   repeated User users = 1;
+  bool success = 3;
+  string message = 4;
 }
 
 message UserResponse {
