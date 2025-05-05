@@ -1,11 +1,13 @@
-package com.chat.service.impl;
+package com.adia.chat.service.impl;
 
-import com.chat.entity.*;
-import com.chat.repository.*;
-import com.chat.service.ChatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.adia.chat.entity.*;
+import com.adia.chat.repository.*;
+import com.adia.chat.service.ChatService;
+
 import java.time.LocalDateTime;
 import java.util.List;
 

@@ -1,8 +1,10 @@
-package com.chat.repository;
+package com.adia.chat.repository;
 
-import com.chat.entity.GroupeConversation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import com.adia.chat.entity.GroupeConversation;
+
 import java.util.Optional;
 
 @Repository

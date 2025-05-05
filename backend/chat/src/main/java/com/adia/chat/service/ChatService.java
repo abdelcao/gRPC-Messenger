@@ -1,10 +1,11 @@
-package com.chat.service;
+package com.adia.chat.service;
 
-import com.chat.entity.Message;
-import com.chat.entity.Conversation;
-import com.chat.entity.PrivateConversation;
-import com.chat.entity.GroupeConversation;
 import java.util.List;
+
+import com.adia.chat.entity.Conversation;
+import com.adia.chat.entity.GroupeConversation;
+import com.adia.chat.entity.Message;
+import com.adia.chat.entity.PrivateConversation;
 
 public interface ChatService {
     // Conversation methods

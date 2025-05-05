@@ -1,4 +1,4 @@
-package com.chat.entity;
+package com.adia.chat.entity;
 
 import java.io.Serializable;
 import java.util.Objects;

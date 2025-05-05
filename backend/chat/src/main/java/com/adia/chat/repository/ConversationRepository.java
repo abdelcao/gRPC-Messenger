@@ -1,8 +1,9 @@
-package com.chat.repository;
+package com.adia.chat.repository;
 
-import com.chat.entity.Conversation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import com.adia.chat.entity.Conversation;
  
 @Repository
 public interface ConversationRepository extends JpaRepository<Conversation, Long> {
