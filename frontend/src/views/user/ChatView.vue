@@ -1,10 +1,11 @@
 <template>
   <MainLayout>
-    <div>Chat here</div>
+    <ChatWindow />
   </MainLayout>
 </template>
 
 <script setup lang="ts">
+import ChatWindow from '@/components/ChatWindow.vue';
 import MainLayout from '@/layouts/MainLayout.vue';
 
 
