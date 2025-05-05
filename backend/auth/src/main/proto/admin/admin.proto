@@ -8,10 +8,10 @@ option java_outer_classname = "AdminProto";
 
 // Service d'administration
 service AdminService {
-  rpc GetAllUsers (UserListRequest) returns (UserListResponse);
-  rpc BanUser (UserActionRequest) returns (UserActionResponse);
-  rpc DeleteMessage (MessageActionRequest) returns (MessageActionResponse);
-  rpc Check (CheckRequest) returns (CheckResponse);
+  rpc getAllUsers (UserListRequest) returns (UserListResponse);
+  rpc banUser (UserActionRequest) returns (UserActionResponse);
+  rpc deleteMessage (MessageActionRequest) returns (MessageActionResponse);
+  rpc DoCheck (CheckRequest) returns (CheckResponse);
 }
 
 message CheckRequest {
@@ -59,7 +59,7 @@ message MessageActionResponse {
 
 // Structure d'utilisateur
 message User {
-  string id = 1;
+  uint64 id  = 1;
   string email = 2;
   string username = 3;
   string role = 4;

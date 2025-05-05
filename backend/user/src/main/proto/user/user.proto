@@ -7,33 +7,63 @@ option java_package = "com.adia.user";
 option java_outer_classname = "UserProto";
 
 service UserService {
-  rpc GetUserProfile(GetUserProfileRequest) returns (GetUserProfileResponse);
-  rpc UpdateUserProfile(UpdateUserProfileRequest) returns (UpdateUserProfileResponse);
-}
-
-message GetUserProfileRequest {
-  string user_id = 1;
-}
-
-message GetUserProfileResponse {
-  User user = 1;
-}
-
-message UpdateUserProfileRequest {
-  string user_id = 1;
-  string username = 2;
-  string avatar_url = 3;
-}
-
-message UpdateUserProfileResponse {
-  bool success = 1;
-  string message = 2;
+  rpc CreateUser(CreateUserRequest) returns (UserResponse);
+  rpc GetUser(GetUserRequest) returns (UserResponse);
+  rpc UpdateUser(UpdateUserRequest) returns (UserResponse);
+  rpc DeleteUser(DeleteUserRequest) returns (UserResponse);
+  rpc ListUsers(Empty) returns (ListUsersResponse);
 }
 
 message User {
-  string id = 1;
+  uint64 id = 1;
   string username = 2;
   string email = 3;
-  string avatar_url = 4;
-  string created_at = 5;
+  bool isAdmin = 4;
+  bool isEmailVerified = 5;
+  bool isActivated = 6;
+  bool isSuspended = 7;
+  string createdAt = 8;
+  string updatedAt = 9;
+}
+
+message CreateUserRequest {
+  string username = 1;
+  string email = 2;
+  string password = 3;
+  bool isAdmin = 4;
+  bool isEmailVerified = 5;
+  bool isActivated = 6;
+  bool isSuspended = 7;
+}
+
+message GetUserRequest {
+  uint64 id = 1;
+}
+
+message UpdateUserRequest {
+  uint64 id  = 1;
+  string username = 2;
+  string email = 3;
+  bool isAdmin = 4;
+  bool isEmailVerified = 5;
+  bool isActivated = 6;
+  bool isSuspended = 7;
+}
+
+message DeleteUserRequest {
+  uint64 id  = 1;
+}
+
+message Empty {}
+
+message ListUsersResponse {
+  repeated User users = 1;
+  bool success = 3;
+  string message = 4;
+}
+
+message UserResponse {
+  bool success = 1;
+  string message = 2;
+  User user = 3;
 }
