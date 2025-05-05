@@ -2,59 +2,59 @@ package com.adia.auth.util;
 
 import com.adia.auth.User;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.MacAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
+import java.security.Key;
 import java.time.Instant;
 import java.util.Date;
+
 
 @Component
 public class JwtUtil {
 
-    @Value("${jwt.secret}")
+    @Value("${jwt.secret:MdMa4RidWdbS2qJQP69LmMAJW8dRuFHbitgWqxFqWh4=}")
     private String jwtSecret;
 
-    @Value("${jwt.expiration}")
-    private long expiration;
-
-    @Value("${jwt.refreshExpiration}")
-    private long refreshExpiration;
+    private final MacAlgorithm alg = Jwts.SIG.HS256;
 
     private SecretKey getSigningKey() {
         return Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
     }
 
-    public String generateToken(User user) {
-        Date now = new Date();
-        Date expiry = new Date(now.getTime() + expiration);
-
+    // Generate token with subject (e.g., username)
+    public String generateToken(String subject) {
+        Instant now = Instant.now();
         return Jwts.builder()
-                .issuer("auth-service")
-                .subject(String.valueOf(user.getId()))
-                .issuedAt(now)
-                .expiration(expiry)
-                .claim("email", user.getEmail())
-                .claim("username", user.getUsername())
-                .claim("role", user.getIsAdmin() ? "ADMIN" : "USER")
-                .signWith(getSigningKey(), Jwts.SIG.HS256)
+                .subject(subject)
+                .issuedAt(Date.from(now))
+                .expiration(Date.from(now.plusSeconds(60 * 60)))
+                .signWith(getSigningKey())
                 .compact();
     }
 
-    public String generateRefreshToken(User user) {
-        Date now = new Date();
-        Date expiry = new Date(now.getTime() + refreshExpiration);
+    // Extract subject (e.g., username)
+    public String extractSubject(String token) {
+        return Jwts.parser()
+                .verifyWith(getSigningKey())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload()
+                .getSubject();
+    }
 
-        return Jwts.builder()
-                .issuer("auth-service")
-                .subject(String.valueOf(user.getId()))
-                .issuedAt(now)
-                .expiration(expiry)
-                .signWith(getSigningKey(), Jwts.SIG.HS256)
-                .compact();
+    // Validate token
+    public boolean isTokenValid(String token, String expectedSubject) {
+        try {
+            String subject = extractSubject(token);
+            return subject.equals(expectedSubject);
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
 

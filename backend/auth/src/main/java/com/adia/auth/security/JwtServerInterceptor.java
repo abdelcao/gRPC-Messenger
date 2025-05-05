@@ -1,4 +1,4 @@
-package com.adia.auth.config;
+package com.adia.auth.security;
 
 
 import com.adia.auth.util.JwtUtil;
@@ -9,8 +9,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class JwtServerInterceptor implements ServerInterceptor {
 
-    @Autowired
-    private JwtUtil jwtUtil;
+    private final JwtUtil jwtUtil;
+
+    public JwtServerInterceptor(JwtUtil jwtUtil) {
+        this.jwtUtil = jwtUtil;
+    }
 
     @Override
     public <ReqT, RespT> ServerCall.Listener<ReqT> interceptCall(
@@ -22,9 +25,7 @@ public class JwtServerInterceptor implements ServerInterceptor {
         String authHeader = headers.get(Metadata.Key.of("Authorization", Metadata.ASCII_STRING_MARSHALLER));
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String jwt = authHeader.substring(7);
-            if (jwtUtil.isTokenValid(jwt, jwtUtil.extractSubject(jwt))) {
-                // You can store it in context here if needed
-            } else {
+            if (!jwtUtil.isTokenValid(jwt, jwtUtil.extractSubject(jwt))) {
                 call.close(Status.UNAUTHENTICATED.withDescription("Invalid token"), headers);
                 return new ServerCall.Listener<>() {}; // return empty listener
             }

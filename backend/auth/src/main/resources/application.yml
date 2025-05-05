@@ -34,9 +34,9 @@ grpc:
       negotiation-type: plaintext
 
 jwt:
-  secret: 8fda3eac6d5a4f94b3b97a1ff63c5f7e
-  expiration: 86400000         # 1 day
-  refreshExpiration: 604800000 # 7 days
+  secret: MdMa4RidWdbS2qJQP69LmMAJW8dRuFHbitgWqxFqWh4=
+  expiresIn: 86400000         # 1 day
+  refreshExpiration: 2592000000 # 30 days
 
 logging:
   level:

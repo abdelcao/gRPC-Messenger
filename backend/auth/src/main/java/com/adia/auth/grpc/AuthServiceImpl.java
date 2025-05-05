@@ -10,27 +10,29 @@ import com.adia.user.UserResponse;
 import com.adia.user.UserServiceGrpc;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
+import lombok.RequiredArgsConstructor;
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;
 
 @GrpcService
-public class AuthServiceIml extends AuthServiceGrpc.AuthServiceImplBase {
+public class AuthServiceImpl extends AuthServiceGrpc.AuthServiceImplBase {
 
     private static final Logger logger = LoggerFactory.getLogger(AuthServiceImpl.class);
+
     private final RefreshTokenService refreshTokenService;
     private final JwtUtil jwtUtil;
 
     @GrpcClient("user-service")
     private UserServiceGrpc.UserServiceBlockingStub userService;
 
-    public AuthServiceIml(RefreshTokenService refreshTokenService) {
-        super();
+    public AuthServiceImpl(RefreshTokenService refreshTokenService, JwtUtil jwtUtil) {
         this.refreshTokenService = refreshTokenService;
-        this.jwtUtil = new JwtUtil();
+        this.jwtUtil = jwtUtil;
     }
 
     @Override
@@ -148,7 +150,7 @@ public class AuthServiceIml extends AuthServiceGrpc.AuthServiceImplBase {
             responseObserver.onCompleted();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Error during user registration", e);
             responseObserver.onError(Status.INTERNAL
                     .withDescription("Error: " + e.getMessage())
                     .asRuntimeException());

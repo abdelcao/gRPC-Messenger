@@ -35,8 +35,10 @@ message TokenRequest {
 message AuthResponse {
   bool success = 1;
   string message = 2;
-  string token = 3;     // JJWT token (compact JWS)
-  User user = 4;
+  string accessToken = 3;
+  string refreshToken = 4;
+  int64 expiresIn=5;
+  User user = 6;
 }
 
 message VerifyTokenResponse {
