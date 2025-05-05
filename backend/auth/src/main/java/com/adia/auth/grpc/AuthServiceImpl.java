@@ -1,13 +1,11 @@
 package com.adia.auth.grpc;
 
 import com.adia.auth.*;
+import com.adia.auth.User;
 import com.adia.auth.entity.RefreshToken;
 import com.adia.auth.service.RefreshTokenService;
 import com.adia.auth.util.JwtUtil;
-import com.adia.user.CreateUserRequest;
-import com.adia.user.GetUserRequest;
-import com.adia.user.UserResponse;
-import com.adia.user.UserServiceGrpc;
+import com.adia.user.*;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
@@ -91,6 +89,57 @@ public class AuthServiceImpl extends AuthServiceGrpc.AuthServiceImplBase {
             responseObserver.onCompleted();
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
+            responseObserver.onError(Status.INTERNAL
+                    .withDescription("Error: " + e.getMessage())
+                    .asRuntimeException());
+        }
+    }
+
+    @Override
+    public void login(LoginRequest request, StreamObserver<AuthResponse> responseObserver) {
+        try {
+            String email = request.getEmail();
+            String password = request.getPassword();
+
+            // check if user exists with email
+
+            UserResponse userResponse = userService.getUserByEmail(
+                    GetUserByEmailRequest.newBuilder().setEmail(email).build()
+            );
+
+            if (!userResponse.getSuccess()) {
+                responseObserver.onNext(AuthResponse.newBuilder()
+                        .setSuccess(false)
+                        .setMessage("User not found")
+                        .build());
+                responseObserver.onCompleted();
+                return;
+            }
+
+            User user = (User) userResponse.getUser();
+
+            if (!userResponse.getUser().getIsActivated()) {
+                responseObserver.onNext(AuthResponse.newBuilder()
+                        .setSuccess(false)
+                        .setMessage("Your account deactivated, contact support!")
+                        .build());
+                responseObserver.onCompleted();
+            }
+
+            if (!userResponse.getUser().getIsSuspended()) {
+                responseObserver.onNext(AuthResponse.newBuilder()
+                        .setSuccess(false)
+                        .setMessage("This account is permanently suspended, contact support!")
+                        .build());
+            }
+
+            // if yes validate password
+            if (userResponse.get)
+
+            // if valide return access + refresh tokens
+
+        } catch (Exception e) {
+            logger.error("Error during user login", e);
             responseObserver.onError(Status.INTERNAL
                     .withDescription("Error: " + e.getMessage())
                     .asRuntimeException());

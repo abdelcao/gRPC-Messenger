@@ -10,99 +10,16 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file user/user.proto.
  */
 export const file_user_user: GenFile = /*@__PURE__*/
-  fileDesc("Cg91c2VyL3VzZXIucHJvdG8SBHVzZXIiKAoVR2V0VXNlclByb2ZpbGVSZXF1ZXN0Eg8KB3VzZXJfaWQYASABKAkiMgoWR2V0VXNlclByb2ZpbGVSZXNwb25zZRIYCgR1c2VyGAEgASgLMgoudXNlci5Vc2VyIlEKGFVwZGF0ZVVzZXJQcm9maWxlUmVxdWVzdBIPCgd1c2VyX2lkGAEgASgJEhAKCHVzZXJuYW1lGAIgASgJEhIKCmF2YXRhcl91cmwYAyABKAkiPQoZVXBkYXRlVXNlclByb2ZpbGVSZXNwb25zZRIPCgdzdWNjZXNzGAEgASgIEg8KB21lc3NhZ2UYAiABKAkiWwoEVXNlchIKCgJpZBgBIAEoCRIQCgh1c2VybmFtZRgCIAEoCRINCgVlbWFpbBgDIAEoCRISCgphdmF0YXJfdXJsGAQgASgJEhIKCmNyZWF0ZWRfYXQYBSABKAkysAEKC1VzZXJTZXJ2aWNlEksKDkdldFVzZXJQcm9maWxlEhsudXNlci5HZXRVc2VyUHJvZmlsZVJlcXVlc3QaHC51c2VyLkdldFVzZXJQcm9maWxlUmVzcG9uc2USVAoRVXBkYXRlVXNlclByb2ZpbGUSHi51c2VyLlVwZGF0ZVVzZXJQcm9maWxlUmVxdWVzdBofLnVzZXIuVXBkYXRlVXNlclByb2ZpbGVSZXNwb25zZUIcCg1jb20uYWRpYS51c2VyQglVc2VyUHJvdG9QAWIGcHJvdG8z");
-
-/**
- * @generated from message user.GetUserProfileRequest
- */
-export type GetUserProfileRequest = Message<"user.GetUserProfileRequest"> & {
-  /**
-   * @generated from field: string user_id = 1;
-   */
-  userId: string;
-};
-
-/**
- * Describes the message user.GetUserProfileRequest.
- * Use `create(GetUserProfileRequestSchema)` to create a new message.
- */
-export const GetUserProfileRequestSchema: GenMessage<GetUserProfileRequest> = /*@__PURE__*/
-  messageDesc(file_user_user, 0);
-
-/**
- * @generated from message user.GetUserProfileResponse
- */
-export type GetUserProfileResponse = Message<"user.GetUserProfileResponse"> & {
-  /**
-   * @generated from field: user.User user = 1;
-   */
-  user?: User;
-};
-
-/**
- * Describes the message user.GetUserProfileResponse.
- * Use `create(GetUserProfileResponseSchema)` to create a new message.
- */
-export const GetUserProfileResponseSchema: GenMessage<GetUserProfileResponse> = /*@__PURE__*/
-  messageDesc(file_user_user, 1);
-
-/**
- * @generated from message user.UpdateUserProfileRequest
- */
-export type UpdateUserProfileRequest = Message<"user.UpdateUserProfileRequest"> & {
-  /**
-   * @generated from field: string user_id = 1;
-   */
-  userId: string;
-
-  /**
-   * @generated from field: string username = 2;
-   */
-  username: string;
-
-  /**
-   * @generated from field: string avatar_url = 3;
-   */
-  avatarUrl: string;
-};
-
-/**
- * Describes the message user.UpdateUserProfileRequest.
- * Use `create(UpdateUserProfileRequestSchema)` to create a new message.
- */
-export const UpdateUserProfileRequestSchema: GenMessage<UpdateUserProfileRequest> = /*@__PURE__*/
-  messageDesc(file_user_user, 2);
-
-/**
- * @generated from message user.UpdateUserProfileResponse
- */
-export type UpdateUserProfileResponse = Message<"user.UpdateUserProfileResponse"> & {
-  /**
-   * @generated from field: bool success = 1;
-   */
-  success: boolean;
-
-  /**
-   * @generated from field: string message = 2;
-   */
-  message: string;
-};
-
-/**
- * Describes the message user.UpdateUserProfileResponse.
- * Use `create(UpdateUserProfileResponseSchema)` to create a new message.
- */
-export const UpdateUserProfileResponseSchema: GenMessage<UpdateUserProfileResponse> = /*@__PURE__*/
-  messageDesc(file_user_user, 3);
+  fileDesc("Cg91c2VyL3VzZXIucHJvdG8SBHVzZXIirQEKBFVzZXISCgoCaWQYASABKAQSEAoIdXNlcm5hbWUYAiABKAkSDQoFZW1haWwYAyABKAkSDwoHaXNBZG1pbhgEIAEoCBIXCg9pc0VtYWlsVmVyaWZpZWQYBSABKAgSEwoLaXNBY3RpdmF0ZWQYBiABKAgSEwoLaXNTdXNwZW5kZWQYByABKAgSEQoJY3JlYXRlZEF0GAggASgJEhEKCXVwZGF0ZWRBdBgJIAEoCSKaAQoRQ3JlYXRlVXNlclJlcXVlc3QSEAoIdXNlcm5hbWUYASABKAkSDQoFZW1haWwYAiABKAkSEAoIcGFzc3dvcmQYAyABKAkSDwoHaXNBZG1pbhgEIAEoCBIXCg9pc0VtYWlsVmVyaWZpZWQYBSABKAgSEwoLaXNBY3RpdmF0ZWQYBiABKAgSEwoLaXNTdXNwZW5kZWQYByABKAgiHAoOR2V0VXNlclJlcXVlc3QSCgoCaWQYASABKAQiJgoVR2V0VXNlckJ5RW1haWxSZXF1ZXN0Eg0KBWVtYWlsGAEgASgJIpQBChFVcGRhdGVVc2VyUmVxdWVzdBIKCgJpZBgBIAEoBBIQCgh1c2VybmFtZRgCIAEoCRINCgVlbWFpbBgDIAEoCRIPCgdpc0FkbWluGAQgASgIEhcKD2lzRW1haWxWZXJpZmllZBgFIAEoCBITCgtpc0FjdGl2YXRlZBgGIAEoCBITCgtpc1N1c3BlbmRlZBgHIAEoCCIfChFEZWxldGVVc2VyUmVxdWVzdBIKCgJpZBgBIAEoBCIHCgVFbXB0eSJQChFMaXN0VXNlcnNSZXNwb25zZRIZCgV1c2VycxgBIAMoCzIKLnVzZXIuVXNlchIPCgdzdWNjZXNzGAMgASgIEg8KB21lc3NhZ2UYBCABKAkiSgoMVXNlclJlc3BvbnNlEg8KB3N1Y2Nlc3MYASABKAgSDwoHbWVzc2FnZRgCIAEoCRIYCgR1c2VyGAMgASgLMgoudXNlci5Vc2VyMukCCgtVc2VyU2VydmljZRI5CgpDcmVhdGVVc2VyEhcudXNlci5DcmVhdGVVc2VyUmVxdWVzdBoSLnVzZXIuVXNlclJlc3BvbnNlEjMKB0dldFVzZXISFC51c2VyLkdldFVzZXJSZXF1ZXN0GhIudXNlci5Vc2VyUmVzcG9uc2USQQoOR2V0VXNlckJ5RW1haWwSGy51c2VyLkdldFVzZXJCeUVtYWlsUmVxdWVzdBoSLnVzZXIuVXNlclJlc3BvbnNlEjkKClVwZGF0ZVVzZXISFy51c2VyLlVwZGF0ZVVzZXJSZXF1ZXN0GhIudXNlci5Vc2VyUmVzcG9uc2USOQoKRGVsZXRlVXNlchIXLnVzZXIuRGVsZXRlVXNlclJlcXVlc3QaEi51c2VyLlVzZXJSZXNwb25zZRIxCglMaXN0VXNlcnMSCy51c2VyLkVtcHR5GhcudXNlci5MaXN0VXNlcnNSZXNwb25zZUIcCg1jb20uYWRpYS51c2VyQglVc2VyUHJvdG9QAWIGcHJvdG8z");
 
 /**
  * @generated from message user.User
  */
 export type User = Message<"user.User"> & {
   /**
-   * @generated from field: string id = 1;
+   * @generated from field: uint64 id = 1;
    */
-  id: string;
+  id: bigint;
 
   /**
    * @generated from field: string username = 2;
@@ -115,14 +32,34 @@ export type User = Message<"user.User"> & {
   email: string;
 
   /**
-   * @generated from field: string avatar_url = 4;
+   * @generated from field: bool isAdmin = 4;
    */
-  avatarUrl: string;
+  isAdmin: boolean;
 
   /**
-   * @generated from field: string created_at = 5;
+   * @generated from field: bool isEmailVerified = 5;
+   */
+  isEmailVerified: boolean;
+
+  /**
+   * @generated from field: bool isActivated = 6;
+   */
+  isActivated: boolean;
+
+  /**
+   * @generated from field: bool isSuspended = 7;
+   */
+  isSuspended: boolean;
+
+  /**
+   * @generated from field: string createdAt = 8;
    */
   createdAt: string;
+
+  /**
+   * @generated from field: string updatedAt = 9;
+   */
+  updatedAt: string;
 };
 
 /**
@@ -130,27 +67,271 @@ export type User = Message<"user.User"> & {
  * Use `create(UserSchema)` to create a new message.
  */
 export const UserSchema: GenMessage<User> = /*@__PURE__*/
+  messageDesc(file_user_user, 0);
+
+/**
+ * @generated from message user.CreateUserRequest
+ */
+export type CreateUserRequest = Message<"user.CreateUserRequest"> & {
+  /**
+   * @generated from field: string username = 1;
+   */
+  username: string;
+
+  /**
+   * @generated from field: string email = 2;
+   */
+  email: string;
+
+  /**
+   * @generated from field: string password = 3;
+   */
+  password: string;
+
+  /**
+   * @generated from field: bool isAdmin = 4;
+   */
+  isAdmin: boolean;
+
+  /**
+   * @generated from field: bool isEmailVerified = 5;
+   */
+  isEmailVerified: boolean;
+
+  /**
+   * @generated from field: bool isActivated = 6;
+   */
+  isActivated: boolean;
+
+  /**
+   * @generated from field: bool isSuspended = 7;
+   */
+  isSuspended: boolean;
+};
+
+/**
+ * Describes the message user.CreateUserRequest.
+ * Use `create(CreateUserRequestSchema)` to create a new message.
+ */
+export const CreateUserRequestSchema: GenMessage<CreateUserRequest> = /*@__PURE__*/
+  messageDesc(file_user_user, 1);
+
+/**
+ * @generated from message user.GetUserRequest
+ */
+export type GetUserRequest = Message<"user.GetUserRequest"> & {
+  /**
+   * @generated from field: uint64 id = 1;
+   */
+  id: bigint;
+};
+
+/**
+ * Describes the message user.GetUserRequest.
+ * Use `create(GetUserRequestSchema)` to create a new message.
+ */
+export const GetUserRequestSchema: GenMessage<GetUserRequest> = /*@__PURE__*/
+  messageDesc(file_user_user, 2);
+
+/**
+ * @generated from message user.GetUserByEmailRequest
+ */
+export type GetUserByEmailRequest = Message<"user.GetUserByEmailRequest"> & {
+  /**
+   * @generated from field: string email = 1;
+   */
+  email: string;
+};
+
+/**
+ * Describes the message user.GetUserByEmailRequest.
+ * Use `create(GetUserByEmailRequestSchema)` to create a new message.
+ */
+export const GetUserByEmailRequestSchema: GenMessage<GetUserByEmailRequest> = /*@__PURE__*/
+  messageDesc(file_user_user, 3);
+
+/**
+ * @generated from message user.UpdateUserRequest
+ */
+export type UpdateUserRequest = Message<"user.UpdateUserRequest"> & {
+  /**
+   * @generated from field: uint64 id = 1;
+   */
+  id: bigint;
+
+  /**
+   * @generated from field: string username = 2;
+   */
+  username: string;
+
+  /**
+   * @generated from field: string email = 3;
+   */
+  email: string;
+
+  /**
+   * @generated from field: bool isAdmin = 4;
+   */
+  isAdmin: boolean;
+
+  /**
+   * @generated from field: bool isEmailVerified = 5;
+   */
+  isEmailVerified: boolean;
+
+  /**
+   * @generated from field: bool isActivated = 6;
+   */
+  isActivated: boolean;
+
+  /**
+   * @generated from field: bool isSuspended = 7;
+   */
+  isSuspended: boolean;
+};
+
+/**
+ * Describes the message user.UpdateUserRequest.
+ * Use `create(UpdateUserRequestSchema)` to create a new message.
+ */
+export const UpdateUserRequestSchema: GenMessage<UpdateUserRequest> = /*@__PURE__*/
   messageDesc(file_user_user, 4);
+
+/**
+ * @generated from message user.DeleteUserRequest
+ */
+export type DeleteUserRequest = Message<"user.DeleteUserRequest"> & {
+  /**
+   * @generated from field: uint64 id = 1;
+   */
+  id: bigint;
+};
+
+/**
+ * Describes the message user.DeleteUserRequest.
+ * Use `create(DeleteUserRequestSchema)` to create a new message.
+ */
+export const DeleteUserRequestSchema: GenMessage<DeleteUserRequest> = /*@__PURE__*/
+  messageDesc(file_user_user, 5);
+
+/**
+ * @generated from message user.Empty
+ */
+export type Empty = Message<"user.Empty"> & {
+};
+
+/**
+ * Describes the message user.Empty.
+ * Use `create(EmptySchema)` to create a new message.
+ */
+export const EmptySchema: GenMessage<Empty> = /*@__PURE__*/
+  messageDesc(file_user_user, 6);
+
+/**
+ * @generated from message user.ListUsersResponse
+ */
+export type ListUsersResponse = Message<"user.ListUsersResponse"> & {
+  /**
+   * @generated from field: repeated user.User users = 1;
+   */
+  users: User[];
+
+  /**
+   * @generated from field: bool success = 3;
+   */
+  success: boolean;
+
+  /**
+   * @generated from field: string message = 4;
+   */
+  message: string;
+};
+
+/**
+ * Describes the message user.ListUsersResponse.
+ * Use `create(ListUsersResponseSchema)` to create a new message.
+ */
+export const ListUsersResponseSchema: GenMessage<ListUsersResponse> = /*@__PURE__*/
+  messageDesc(file_user_user, 7);
+
+/**
+ * @generated from message user.UserResponse
+ */
+export type UserResponse = Message<"user.UserResponse"> & {
+  /**
+   * @generated from field: bool success = 1;
+   */
+  success: boolean;
+
+  /**
+   * @generated from field: string message = 2;
+   */
+  message: string;
+
+  /**
+   * @generated from field: user.User user = 3;
+   */
+  user?: User;
+};
+
+/**
+ * Describes the message user.UserResponse.
+ * Use `create(UserResponseSchema)` to create a new message.
+ */
+export const UserResponseSchema: GenMessage<UserResponse> = /*@__PURE__*/
+  messageDesc(file_user_user, 8);
 
 /**
  * @generated from service user.UserService
  */
 export const UserService: GenService<{
   /**
-   * @generated from rpc user.UserService.GetUserProfile
+   * @generated from rpc user.UserService.CreateUser
    */
-  getUserProfile: {
+  createUser: {
     methodKind: "unary";
-    input: typeof GetUserProfileRequestSchema;
-    output: typeof GetUserProfileResponseSchema;
+    input: typeof CreateUserRequestSchema;
+    output: typeof UserResponseSchema;
   },
   /**
-   * @generated from rpc user.UserService.UpdateUserProfile
+   * @generated from rpc user.UserService.GetUser
    */
-  updateUserProfile: {
+  getUser: {
     methodKind: "unary";
-    input: typeof UpdateUserProfileRequestSchema;
-    output: typeof UpdateUserProfileResponseSchema;
+    input: typeof GetUserRequestSchema;
+    output: typeof UserResponseSchema;
+  },
+  /**
+   * @generated from rpc user.UserService.GetUserByEmail
+   */
+  getUserByEmail: {
+    methodKind: "unary";
+    input: typeof GetUserByEmailRequestSchema;
+    output: typeof UserResponseSchema;
+  },
+  /**
+   * @generated from rpc user.UserService.UpdateUser
+   */
+  updateUser: {
+    methodKind: "unary";
+    input: typeof UpdateUserRequestSchema;
+    output: typeof UserResponseSchema;
+  },
+  /**
+   * @generated from rpc user.UserService.DeleteUser
+   */
+  deleteUser: {
+    methodKind: "unary";
+    input: typeof DeleteUserRequestSchema;
+    output: typeof UserResponseSchema;
+  },
+  /**
+   * @generated from rpc user.UserService.ListUsers
+   */
+  listUsers: {
+    methodKind: "unary";
+    input: typeof EmptySchema;
+    output: typeof ListUsersResponseSchema;
   },
 }> = /*@__PURE__*/
   serviceDesc(file_user_user, 0);
