@@ -9,23 +9,23 @@ import com.adia.chat.entity.PrivateConversation;
 
 public interface ChatService {
     // Conversation methods
-    Conversation createConversation(Long ownerId);
-    Conversation getConversation(Long id);
+    Conversation createConversation(Integer ownerId);
+    Conversation getConversation(Integer id);
     
     // Message methods
-    Message sendMessage(Long userId, Long conversationId, String text);
-    Message editMessage(Long messageId, String newText);
-    void updateMessageStatus(Long messageId, Message.MessageStatus status);
-    List<Message> getConversationMessages(Long conversationId);
+    Message sendMessage(Integer userId, Integer conversationId, String text);
+    Message editMessage(Integer messageId, String newText);
+    void updateMessageStatus(Integer messageId, Message.MessageStatus status);
+    List<Message> getConversationMessages(Integer conversationId);
     
     // Private conversation methods
-    PrivateConversation createPrivateConversation(Long ownerId, Long receiverId);
-    PrivateConversation getPrivateConversation(Long conversationId);
+    PrivateConversation createPrivateConversation(Integer ownerId, Integer receiverId);
+    PrivateConversation getPrivateConversation(Integer conversationId);
     
     // Group conversation methods
-    GroupeConversation createGroupConversation(Long ownerId, String name);
-    GroupeConversation getGroupConversation(Long conversationId);
-    void addMemberToGroup(Long groupId, Long userId);
-    void removeMemberFromGroup(Long groupId, Long userId);
-    void makeGroupAdmin(Long groupId, Long userId);
+    GroupeConversation createGroupConversation(Integer ownerId, String name);
+    GroupeConversation getGroupConversation(Integer conversationId);
+    void addMemberToGroup(Integer groupId, Integer userId);
+    void removeMemberFromGroup(Integer groupId, Integer userId);
+    void makeGroupAdmin(Integer groupId, Integer userId);
 } 

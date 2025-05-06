@@ -41,7 +41,7 @@ public class ChatGrpcService extends com.adia.chat.grpc.ChatServiceGrpc.ChatServ
 
     @Override
     public void createConversation(com.adia.chat.grpc.CreateConversationRequest request, StreamObserver<Conversation> responseObserver) {
-        com.adia.chat.entity.Conversation entityConversation = chatService.createConversation(request.getOwnerId());
+        com.adia.chat.entity.Conversation entityConversation = chatService.createConversation(Integer.valueOf((int) request.getOwnerId()));
         Conversation grpcConversation = mapToGrpcConversation(entityConversation);
         responseObserver.onNext(grpcConversation);
         responseObserver.onCompleted();
@@ -49,7 +49,7 @@ public class ChatGrpcService extends com.adia.chat.grpc.ChatServiceGrpc.ChatServ
 
     @Override
     public void getConversation(com.adia.chat.grpc.GetConversationRequest request, StreamObserver<Conversation> responseObserver) {
-        com.adia.chat.entity.Conversation entityConversation = chatService.getConversation(request.getId());
+        com.adia.chat.entity.Conversation entityConversation = chatService.getConversation(Integer.valueOf((int) request.getId()));
         Conversation grpcConversation = mapToGrpcConversation(entityConversation);
         responseObserver.onNext(grpcConversation);
         responseObserver.onCompleted();
@@ -58,8 +58,8 @@ public class ChatGrpcService extends com.adia.chat.grpc.ChatServiceGrpc.ChatServ
     @Override
     public void sendMessage(com.adia.chat.grpc.SendMessageRequest request, StreamObserver<Message> responseObserver) {
         com.adia.chat.entity.Message entityMessage = chatService.sendMessage(
-            request.getUserId(),
-            request.getConversationId(),
+            Integer.valueOf((int) request.getUserId()),
+            Integer.valueOf((int) request.getConversationId()),
             request.getText()
         );
         Message grpcMessage = mapToGrpcMessage(entityMessage);
@@ -70,7 +70,7 @@ public class ChatGrpcService extends com.adia.chat.grpc.ChatServiceGrpc.ChatServ
     @Override
     public void editMessage(com.adia.chat.grpc.EditMessageRequest request, StreamObserver<Message> responseObserver) {
         com.adia.chat.entity.Message entityMessage = chatService.editMessage(
-            request.getMessageId(),
+            Integer.valueOf((int) request.getMessageId()),
             request.getNewText()
         );
         Message grpcMessage = mapToGrpcMessage(entityMessage);
@@ -81,7 +81,7 @@ public class ChatGrpcService extends com.adia.chat.grpc.ChatServiceGrpc.ChatServ
     @Override
     public void updateMessageStatus(com.adia.chat.grpc.UpdateMessageStatusRequest request, StreamObserver<Message> responseObserver) {
         chatService.updateMessageStatus(
-            request.getMessageId(),
+            Integer.valueOf((int) request.getMessageId()),
             com.adia.chat.entity.Message.MessageStatus.valueOf(request.getStatus().name())
         );
         responseObserver.onCompleted();
@@ -89,7 +89,7 @@ public class ChatGrpcService extends com.adia.chat.grpc.ChatServiceGrpc.ChatServ
 
     @Override
     public void getConversationMessages(com.adia.chat.grpc.GetConversationMessagesRequest request, StreamObserver<Message> responseObserver) {
-        chatService.getConversationMessages(request.getConversationId())
+        chatService.getConversationMessages(Integer.valueOf((int) request.getConversationId()))
             .forEach(entityMessage -> {
                 Message grpcMessage = mapToGrpcMessage(entityMessage);
                 responseObserver.onNext(grpcMessage);
@@ -100,8 +100,8 @@ public class ChatGrpcService extends com.adia.chat.grpc.ChatServiceGrpc.ChatServ
     @Override
     public void createPrivateConversation(com.adia.chat.grpc.CreatePrivateConversationRequest request, StreamObserver<PrivateConversation> responseObserver) {
         com.adia.chat.entity.PrivateConversation entityConversation = chatService.createPrivateConversation(
-            request.getOwnerId(),
-            request.getReceiverId()
+            Integer.valueOf((int) request.getOwnerId()),
+            Integer.valueOf((int) request.getReceiverId())
         );
         PrivateConversation grpcConversation = mapToGrpcPrivateConversation(entityConversation);
         responseObserver.onNext(grpcConversation);
@@ -110,7 +110,7 @@ public class ChatGrpcService extends com.adia.chat.grpc.ChatServiceGrpc.ChatServ
 
     @Override
     public void getPrivateConversation(com.adia.chat.grpc.GetPrivateConversationRequest request, StreamObserver<PrivateConversation> responseObserver) {
-        com.adia.chat.entity.PrivateConversation entityConversation = chatService.getPrivateConversation(request.getConversationId());
+        com.adia.chat.entity.PrivateConversation entityConversation = chatService.getPrivateConversation(Integer.valueOf((int) request.getConversationId()));
         PrivateConversation grpcConversation = mapToGrpcPrivateConversation(entityConversation);
         responseObserver.onNext(grpcConversation);
         responseObserver.onCompleted();
@@ -119,7 +119,7 @@ public class ChatGrpcService extends com.adia.chat.grpc.ChatServiceGrpc.ChatServ
     @Override
     public void createGroupConversation(com.adia.chat.grpc.CreateGroupConversationRequest request, StreamObserver<GroupConversation> responseObserver) {
         com.adia.chat.entity.GroupeConversation entityConversation = chatService.createGroupConversation(
-            request.getOwnerId(),
+            Integer.valueOf((int) request.getOwnerId()),
             request.getName()
         );
         GroupConversation grpcConversation = mapToGrpcGroupConversation(entityConversation);
@@ -129,7 +129,7 @@ public class ChatGrpcService extends com.adia.chat.grpc.ChatServiceGrpc.ChatServ
 
     @Override
     public void getGroupConversation(com.adia.chat.grpc.GetGroupConversationRequest request, StreamObserver<GroupConversation> responseObserver) {
-        com.adia.chat.entity.GroupeConversation entityConversation = chatService.getGroupConversation(request.getConversationId());
+        com.adia.chat.entity.GroupeConversation entityConversation = chatService.getGroupConversation(Integer.valueOf((int) request.getConversationId()));
         GroupConversation grpcConversation = mapToGrpcGroupConversation(entityConversation);
         responseObserver.onNext(grpcConversation);
         responseObserver.onCompleted();
@@ -137,20 +137,20 @@ public class ChatGrpcService extends com.adia.chat.grpc.ChatServiceGrpc.ChatServ
 
     @Override
     public void addMemberToGroup(com.adia.chat.grpc.AddMemberToGroupRequest request, StreamObserver<GroupMember> responseObserver) {
-        chatService.addMemberToGroup(request.getGroupId(), request.getUserId());
+        chatService.addMemberToGroup(Integer.valueOf((int) request.getGroupId()), Integer.valueOf((int) request.getUserId()));
         responseObserver.onCompleted();
     }
 
     @Override
     public void removeMemberFromGroup(com.adia.chat.grpc.RemoveMemberFromGroupRequest request, StreamObserver<Empty> responseObserver) {
-        chatService.removeMemberFromGroup(request.getGroupId(), request.getUserId());
+        chatService.removeMemberFromGroup(Integer.valueOf((int) request.getGroupId()), Integer.valueOf((int) request.getUserId()));
         responseObserver.onNext(Empty.getDefaultInstance());
         responseObserver.onCompleted();
     }
 
     @Override
     public void makeGroupAdmin(com.adia.chat.grpc.MakeGroupAdminRequest request, StreamObserver<GroupMember> responseObserver) {
-        chatService.makeGroupAdmin(request.getGroupId(), request.getUserId());
+        chatService.makeGroupAdmin(Integer.valueOf((int) request.getGroupId()), Integer.valueOf((int) request.getUserId()));
         responseObserver.onCompleted();
     }
 
@@ -171,7 +171,7 @@ public class ChatGrpcService extends com.adia.chat.grpc.ChatServiceGrpc.ChatServ
             .setConversationId(entity.getConversationId())
             .setText(entity.getText())
             .setEdited(entity.isEdited())
-            .setStatus(MessageStatus.valueOf(entity.getStatus().name()))
+            .setStatus(MessageStatus.valueOf(entity.getStatus().name().toUpperCase()))
             .setCreatedAt(entity.getCreatedAt().format(DATE_TIME_FORMATTER))
             .setUpdatedAt(entity.getUpdatedAt().format(DATE_TIME_FORMATTER))
             .build();

@@ -11,11 +11,11 @@ import java.time.LocalDateTime;
 public class GroupeMember {
     @Id
     @Column(name = "user_id", nullable = false)
-    private Long userId;
+    private Integer userId;
 
     @Id
     @Column(name = "groupe_id", nullable = false)
-    private Long groupeId;
+    private Integer groupeId;
 
     @Column(name = "is_admin", nullable = false)
     private boolean isAdmin = false;

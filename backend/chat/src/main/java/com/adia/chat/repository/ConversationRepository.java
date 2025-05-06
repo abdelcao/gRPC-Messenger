@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import com.adia.chat.entity.Conversation;
  
 @Repository
-public interface ConversationRepository extends JpaRepository<Conversation, Long> {
+public interface ConversationRepository extends JpaRepository<Conversation, Integer> {
 } 

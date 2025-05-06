@@ -10,13 +10,13 @@ import java.time.LocalDateTime;
 public class PrivateConversation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(name = "conversation_id", nullable = false)
-    private Long conversationId;
+    private Integer conversationId;
 
     @Column(name = "receiver_id", nullable = false)
-    private Long receiverId;
+    private Integer receiverId;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;

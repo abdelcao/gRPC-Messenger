@@ -4,29 +4,29 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class GroupeMemberId implements Serializable {
-    private Long userId;
-    private Long groupeId;
+    private Integer userId;
+    private Integer groupeId;
 
     public GroupeMemberId() {}
 
-    public GroupeMemberId(Long userId, Long groupeId) {
+    public GroupeMemberId(Integer userId, Integer groupeId) {
         this.userId = userId;
         this.groupeId = groupeId;
     }
 
-    public Long getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
-    public Long getGroupeId() {
+    public Integer getGroupeId() {
         return groupeId;
     }
 
-    public void setGroupeId(Long groupeId) {
+    public void setGroupeId(Integer groupeId) {
         this.groupeId = groupeId;
     }
 

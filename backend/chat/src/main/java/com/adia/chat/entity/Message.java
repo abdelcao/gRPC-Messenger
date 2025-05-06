@@ -10,20 +10,20 @@ import java.time.LocalDateTime;
 public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(nullable = false)
     private String text;
 
     @Column(name = "user_id", nullable = false)
-    private Long userId;
+    private Integer userId;
 
     @Column(name = "conversation_id", nullable = false)
-    private Long conversationId;
+    private Integer conversationId;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private MessageStatus status = MessageStatus.SENT;
+    private MessageStatus status = MessageStatus.sent;
 
     @Column(name = "is_edited", nullable = false)
     private boolean isEdited = false;
@@ -35,6 +35,6 @@ public class Message {
     private LocalDateTime updatedAt;
 
     public enum MessageStatus {
-        SENT, DELIVERED, READ
+        sent, delivered, read
     }
 } 

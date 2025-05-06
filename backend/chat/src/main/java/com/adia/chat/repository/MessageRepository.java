@@ -8,7 +8,7 @@ import com.adia.chat.entity.Message;
 import java.util.List;
 
 @Repository
-public interface MessageRepository extends JpaRepository<Message, Long> {
-    List<Message> findByConversationIdOrderByCreatedAtAsc(Long conversationId);
-    List<Message> findByUserIdAndConversationId(Long userId, Long conversationId);
+public interface MessageRepository extends JpaRepository<Message, Integer> {
+    List<Message> findByConversationIdOrderByCreatedAtAsc(Integer conversationId);
+    List<Message> findByUserIdAndConversationId(Integer userId, Integer conversationId);
 } 

@@ -8,7 +8,7 @@ import com.adia.chat.entity.PrivateConversation;
 import java.util.Optional;
 
 @Repository
-public interface PrivateConversationRepository extends JpaRepository<PrivateConversation, Long> {
-    Optional<PrivateConversation> findByConversationId(Long conversationId);
-    Optional<PrivateConversation> findByConversationIdAndReceiverId(Long conversationId, Long receiverId);
+public interface PrivateConversationRepository extends JpaRepository<PrivateConversation, Integer> {
+    Optional<PrivateConversation> findByConversationId(Integer conversationId);
+    Optional<PrivateConversation> findByConversationIdAndReceiverId(Integer conversationId, Integer receiverId);
 } 

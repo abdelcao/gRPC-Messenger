@@ -31,7 +31,7 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     @Transactional
-    public Conversation createConversation(Long ownerId) {
+    public Conversation createConversation(Integer ownerId) {
         Conversation conversation = new Conversation();
         conversation.setOwnerId(ownerId);
         conversation.setCreatedAt(LocalDateTime.now());
@@ -40,19 +40,19 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
-    public Conversation getConversation(Long id) {
+    public Conversation getConversation(Integer id) {
         return conversationRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Conversation not found"));
     }
 
     @Override
     @Transactional
-    public Message sendMessage(Long userId, Long conversationId, String text) {
+    public Message sendMessage(Integer userId, Integer conversationId, String text) {
         Message message = new Message();
         message.setText(text);
         message.setUserId(userId);
         message.setConversationId(conversationId);
-        message.setStatus(Message.MessageStatus.SENT);
+        message.setStatus(Message.MessageStatus.sent);
         message.setCreatedAt(LocalDateTime.now());
         message.setUpdatedAt(LocalDateTime.now());
         return messageRepository.save(message);
@@ -60,7 +60,7 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     @Transactional
-    public Message editMessage(Long messageId, String newText) {
+    public Message editMessage(Integer messageId, String newText) {
         Message message = messageRepository.findById(messageId)
                 .orElseThrow(() -> new RuntimeException("Message not found"));
         message.setText(newText);
@@ -71,7 +71,7 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     @Transactional
-    public void updateMessageStatus(Long messageId, Message.MessageStatus status) {
+    public void updateMessageStatus(Integer messageId, Message.MessageStatus status) {
         Message message = messageRepository.findById(messageId)
                 .orElseThrow(() -> new RuntimeException("Message not found"));
         message.setStatus(status);
@@ -80,13 +80,13 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
-    public List<Message> getConversationMessages(Long conversationId) {
+    public List<Message> getConversationMessages(Integer conversationId) {
         return messageRepository.findByConversationIdOrderByCreatedAtAsc(conversationId);
     }
 
     @Override
     @Transactional
-    public PrivateConversation createPrivateConversation(Long ownerId, Long receiverId) {
+    public PrivateConversation createPrivateConversation(Integer ownerId, Integer receiverId) {
         Conversation conversation = createConversation(ownerId);
         
         PrivateConversation privateConversation = new PrivateConversation();
@@ -99,14 +99,14 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
-    public PrivateConversation getPrivateConversation(Long conversationId) {
+    public PrivateConversation getPrivateConversation(Integer conversationId) {
         return privateConversationRepository.findByConversationId(conversationId)
                 .orElseThrow(() -> new RuntimeException("Private conversation not found"));
     }
 
     @Override
     @Transactional
-    public GroupeConversation createGroupConversation(Long ownerId, String name) {
+    public GroupeConversation createGroupConversation(Integer ownerId, String name) {
         Conversation conversation = createConversation(ownerId);
         
         GroupeConversation groupeConversation = new GroupeConversation();
@@ -129,14 +129,14 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
-    public GroupeConversation getGroupConversation(Long conversationId) {
+    public GroupeConversation getGroupConversation(Integer conversationId) {
         return groupeConversationRepository.findByConversationId(conversationId)
                 .orElseThrow(() -> new RuntimeException("Group conversation not found"));
     }
 
     @Override
     @Transactional
-    public void addMemberToGroup(Long groupId, Long userId) {
+    public void addMemberToGroup(Integer groupId, Integer userId) {
         if (groupeMemberRepository.existsByUserIdAndGroupeId(userId, groupId)) {
             throw new RuntimeException("User is already a member of this group");
         }
@@ -151,15 +151,17 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     @Transactional
-    public void removeMemberFromGroup(Long groupId, Long userId) {
-        groupeMemberRepository.deleteByUserIdAndGroupeId(userId, groupId);
+    public void removeMemberFromGroup(Integer groupId, Integer userId) {
+        GroupeMemberId id = new GroupeMemberId(userId, groupId);
+        groupeMemberRepository.deleteById(id);
     }
 
     @Override
     @Transactional
-    public void makeGroupAdmin(Long groupId, Long userId) {
-        GroupeMember member = groupeMemberRepository.findByUserIdAndGroupeId(userId, groupId)
-                .orElseThrow(() -> new RuntimeException("User is not a member of this group"));
+    public void makeGroupAdmin(Integer groupId, Integer userId) {
+        GroupeMemberId id = new GroupeMemberId(userId, groupId);
+        GroupeMember member = groupeMemberRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Group member not found"));
         member.setAdmin(true);
         groupeMemberRepository.save(member);
     }

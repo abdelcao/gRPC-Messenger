@@ -10,10 +10,10 @@ import java.time.LocalDateTime;
 public class GroupeConversation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(name = "conversation_id", nullable = false)
-    private Long conversationId;
+    private Integer conversationId;
 
     @Column(nullable = false)
     private String name;
