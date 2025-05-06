@@ -6,7 +6,6 @@
     <main class="flex-1 flex flex-col bg-white dark:bg-gray-800">
       <slot />
     </main>
-    <ChatInfoPanel />
   </div>
 </template>
 
