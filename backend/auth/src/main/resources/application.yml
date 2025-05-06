@@ -30,7 +30,7 @@ grpc:
     reflection-service-enabled: true
   client:
     user-service:
-      address: static://localhost:9093
+      address: static://localhost:9093 # container-name in docker
       negotiation-type: plaintext
 
 jwt:

@@ -132,6 +132,7 @@ const handleRegister = async () => {
     })
 
     // save token to localStorage
+    
 
     await router.push({ name: 'dashboard' })
   } catch (error: any) {

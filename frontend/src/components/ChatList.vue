@@ -2,6 +2,7 @@
 <template>
   <InputText v-model="search" placeholder="Search..." class="w-full mb-4 h-10" />
   <ul class="flex flex-col gap-2">
+<<<<<<< HEAD
     <RouterLink
       v-for="chat in chats"
       :key="chat.id"
@@ -39,29 +40,40 @@
         </div>
       </li>
     </RouterLink>
+=======
+    <ChatItem v-for="(chat, n) in chats" :key="n" :chat="chat" />
+>>>>>>> 9799454b1651a2a9038d76d767e3aa35c6fb6cd0
   </ul>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
 import InputText from 'primevue/inputtext'
+<<<<<<< HEAD
 import Badge from 'primevue/badge'
 import { RouterLink } from 'vue-router'
+=======
+import ChatItem from './ChatItem.vue'
+>>>>>>> 9799454b1651a2a9038d76d767e3aa35c6fb6cd0
 
 const search = ref('')
 const chats = ref([
   {
     id: 1,
     name: 'TechPulse Company',
-    message: 'Reminder that we have a project meet zefkuhilnl',
+    lastMessage: 'Reminder that we have a project meet zefkuhilnl',
     avatar: '/images/default_avatar.jpg',
     time: '13:02',
+<<<<<<< HEAD
     unread: 5,
+=======
+    unread: 15,
+>>>>>>> 9799454b1651a2a9038d76d767e3aa35c6fb6cd0
   },
   {
     id: 2,
     name: 'Michelle Davis',
-    message: 'Just finished a workout and feeli',
+    lastMessage: 'Just finished a workout and feeli',
     avatar: '/images/default_avatar.jpg',
     time: '13:02',
     unread: 0,
@@ -69,7 +81,11 @@ const chats = ref([
   {
     id: 2,
     name: 'Michelle Davis',
+<<<<<<< HEAD
     message: 'Just finished a workout and feeli',
+=======
+    lastMessage: 'Just finished a workout and feeli',
+>>>>>>> 9799454b1651a2a9038d76d767e3aa35c6fb6cd0
     avatar: '/images/default_avatar.jpg',
     time: '13:02',
     unread: 2,
