@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package notification;
+
+option java_multiple_files = true;
+option java_package = "com.adia.notification";
+option java_outer_classname = "NotificationProto";
+
+// Service de notifications
+service NotificationService {
+  rpc Subscribe (SubscriptionRequest) returns (stream Notification);
+  rpc UpdateNotificationSettings (NotificationSettingsRequest) returns (NotificationSettingsResponse);
+}
+
+// Messages pour les abonnements
+message SubscriptionRequest {
+  uint64 userId = 1;
+}
+
+// Messages pour les notifications
+message Notification {
+  uint64 id  = 1;
+  uint64 userId = 2;
+  string title = 3;
+  string content = 4;
+  string type = 5; // "MESSAGE", "GROUP", "SYSTEM"
+  string timestamp = 6;
+  bool read = 7;
+}
+
+// Messages pour les paramètres de notification
+message NotificationSettingsRequest {
+  uint64 userId = 1;
+  bool enableSound = 2;
+  bool enableDesktopNotifications = 3;
+}
+
+message NotificationSettingsResponse {
+  bool success = 1;
+}

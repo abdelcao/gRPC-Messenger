@@ -3,15 +3,15 @@
     <form @submit.prevent="handleRegister" class="space-y-6">
       <div>
         <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300"
-          >Full Name</label
+          >Username</label
         >
         <InputText
           id="name"
           type="text"
-          v-model="name"
+          v-model="username"
           class="mt-1 block w-full"
           required
-          placeholder="John Doe"
+          placeholder="JohnDoe"
         />
       </div>
       <div>
@@ -86,37 +86,73 @@ import AuthLayout from '@/layouts/AuthLayout.vue' // Adjust path
 import InputText from 'primevue/inputtext'
 import Password from 'primevue/password'
 import Button from 'primevue/button'
+import { useAuthService } from '@/composables/useAuthService'
+import { useToast } from 'primevue/usetoast'
 
 const router = useRouter()
 
-const name = ref('')
-const email = ref('')
-const password = ref('')
-const passwordConfirm = ref('')
+const username = ref('yusef')
+const email = ref('email@mail.com')
+const password = ref('password')
+const passwordConfirm = ref('password')
 const isLoading = ref(false)
+
+const toast = useToast()
 
 const handleRegister = async () => {
   if (password.value !== passwordConfirm.value) {
-    alert("Passwords don't match!") // Simple validation
+    toast.add({
+      severity: 'warn',
+      summary: 'Password Mismatch',
+      detail: 'Passwords do not match',
+      life: 2000,
+    })
     return
   }
   isLoading.value = true
-  console.log('Registering:', name.value, email.value)
+  console.log('Registering:', username.value, email.value)
 
   // --- Your Registration Logic Here ---
   // Call API, handle success/errors
-  // ---
+  const auth = useAuthService()
+  try {
+    const res = await auth.register({
+      email: email.value,
+      password: password.value,
+      username: username.value,
+    })
 
-  await new Promise((resolve) => setTimeout(resolve, 1500))
-  isLoading.value = false
+    console.log('register success:', res)
 
-  // On successful registration:
-  // router.push('/login'); // or '/dashboard' if auto-login
+    toast.add({
+      severity: 'success',
+      summary: 'Register',
+      detail: 'Your account has been created!',
+      life: 2000,
+    })
+
+    // save token to localStorage
+    
+
+    await router.push({ name: 'dashboard' })
+  } catch (error: any) {
+    toast.add({
+      severity: 'error',
+      summary: 'hhh',
+      detail: error?.response?.data?.message,
+      life: 2000,
+    })
+
+    console.log(error)
+  } finally {
+    // ---
+    isLoading.value = false
+  }
 }
 </script>
 <style>
 /* Ensure password inputs fill width */
 .p-password input {
-    width: 100%;
+  width: 100%;
 }
 </style>

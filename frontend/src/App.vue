@@ -1,14 +1,10 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
-
-onMounted(() => {
-  fetch('http://localhost:9090/api/hello')
-    .then(res => res.text())
-    .then(console.log)
-    .catch(console.error);
-});
+import { onMounted } from 'vue'
+import Button from 'primevue/button';
+import Toast from 'primevue/toast';
 </script>
 
 <template>
   <RouterView />
+  <Toast position="bottom-center" />
 </template>

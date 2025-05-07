@@ -6,7 +6,8 @@
 # Display help for available commands
 help:
 	@echo "Makefile commands:"
-	@echo "  make build           - Build and start all containers (docker-compose up --build)"
+	@echo "  make build           - Build all containers (docker-compose build)"
+	@echo "  make build           - Build and start all containers without cache (docker-compose build --no-cache)"
 	@echo "  make up              - Start containers (docker-compose up)"
 	@echo "  make down            - Stop and remove containers (docker-compose down)"
 	@echo "  make logs            - Tail logs of all containers (docker-compose logs -f)"
@@ -17,7 +18,11 @@ help:
 # Build (or rebuild) images and start containers
 build:
 	@echo "Building and starting containers..."
-	docker-compose up --build
+	docker-compose build
+
+no-cache-build:
+	@echo "Building and starting containers..."
+	docker compose build --no-cache
 
 # Start containers without rebuilding
 up:

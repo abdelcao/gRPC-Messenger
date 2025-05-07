@@ -2,6 +2,12 @@
   <div
     class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 dark:from-gray-800 dark:via-gray-900 dark:to-black p-4"
   >
+  <div>
+
+    <h1>
+      <RouterLink to="/">Home</RouterLink>
+    </h1>
+  </div>
     <Card class="w-full max-w-md shadow-xl rounded-xl overflow-hidden bg-white dark:bg-gray-700">
       <template #header>
         <div class="p-6 text-center">
@@ -27,6 +33,7 @@
 
 <script setup lang="ts">
 import Card from 'primevue/card'
+import { RouterLink } from 'vue-router';
 
 // Props to customize the title/subtitle per page (Login/Register)
 defineProps({

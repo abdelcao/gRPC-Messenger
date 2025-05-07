@@ -1,0 +1,4 @@
+split backend to microservices (single projects)
+each one with a Dockerfile and proto files
+
+add status + message to every proto response
