@@ -66,9 +66,16 @@ import AuthLayout from '@/layouts/AuthLayout.vue' // Adjust path if needed
 import InputText from 'primevue/inputtext'
 import Password from 'primevue/password'
 import Button from 'primevue/button'
+import { useAuthService } from '@/composables/useAuthService'
+import { useAuthStore } from '@/stores/auth'
+import TokenService from '@/utils/TokenService'
+import { useToast } from 'primevue/usetoast'
 // import Message from 'primevue/message'; // For error display
 
 const router = useRouter() // If using router
+const authService = useAuthService()
+const authStore = useAuthStore()
+const toast = useToast()
 
 const email = ref('')
 const password = ref('')
@@ -80,25 +87,50 @@ const handleLogin = async () => {
   // emailError.value = ''; // Reset errors
   console.log('Logging in with:', email.value)
 
-  // --- Your Login Logic Here ---
-  // e.g., call an API, validate credentials
-  // Handle success (e.g., router.push('/dashboard'))
-  // Handle error (e.g., set emailError.value = 'Invalid credentials')
-  // ---
+  try {
+    const res = await authService.login({ email: email.value, password: password.value })
 
-  // Simulate API call
-  await new Promise((resolve) => setTimeout(resolve, 1500))
+    if (!res.success) {
+      throw Error(res.message)
+    }
+
+    TokenService.setTokens(res.accessToken, res.refreshToken)
+
+    if (res.user) {
+      authStore.setUser(res.user)
+    }
+
+    toast.add({
+      severity: 'success',
+      summary: 'Register',
+      detail: 'Your account has been created!',
+      life: 2000,
+    })
+
+    if (res.user?.isAdmin) {
+      await router.push({ name: 'dashboard' })
+    } else {
+      await router.push({ name: 'home' })
+    }
+
+  } catch (error) {
+    toast.add({
+      severity: 'error',
+      summary: 'Login failed',
+      detail: error,
+    })
+
+    console.log(error)
+  }
 
   isLoading.value = false
 
-  // On successful login:
-  // router.push('/dashboard');
 }
 </script>
 
 <style>
 /* Ensure password inputs fill width */
 .p-password input {
-    width: 100%;
+  width: 100%;
 }
 </style>
