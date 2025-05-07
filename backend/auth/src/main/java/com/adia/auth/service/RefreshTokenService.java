@@ -1,6 +1,6 @@
 package com.adia.auth.service;
 
-import com.adia.auth.User;
+import com.adia.user.User;
 import com.adia.auth.entity.RefreshToken;
 import com.adia.auth.repository.RefreshTokenRepository;
 import com.adia.auth.util.JwtUtil;

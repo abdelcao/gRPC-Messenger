@@ -1,6 +1,6 @@
 package com.adia.auth.util;
 
-import com.adia.auth.User;
+import com.adia.user.User;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.MacAlgorithm;

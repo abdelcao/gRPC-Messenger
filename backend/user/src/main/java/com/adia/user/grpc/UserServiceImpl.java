@@ -1,5 +1,6 @@
 package com.adia.user.grpc;
 
+import com.adia.auth.AuthResponse;
 import com.adia.user.*;
 import com.adia.user.entity.UserEntity;
 import com.adia.user.repository.UserRepository;
@@ -7,6 +8,7 @@ import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
@@ -126,6 +128,76 @@ public class UserServiceImpl extends UserServiceGrpc.UserServiceImplBase {
 
         } catch (Exception e) {
             responseObserver.onNext(UserResponse.newBuilder()
+                    .setSuccess(false)
+                    .setMessage("Error: " + e.getMessage())
+                    .build());
+            responseObserver.onCompleted();
+        }
+    }
+
+    @Override
+    public void getUserByEmail(GetUserByEmailRequest request, StreamObserver<UserResponse> responseObserver) {
+        try {
+            Optional<UserEntity> userEntity = userRepository.getUserEntityByEmail(request.getEmail());
+
+            if (userEntity.isEmpty()) {
+                responseObserver.onError(Status.NOT_FOUND
+                        .withDescription("User not found")
+                        .asRuntimeException());
+                return;
+            }
+
+            UserResponse response = UserResponse.newBuilder()
+                    .setMessage("User retrived")
+                    .setSuccess(true)
+                    .setUser(toProtoUser(userEntity.get()))
+                    .build();
+
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+
+        } catch (Exception e) {
+            responseObserver.onNext(UserResponse.newBuilder()
+                    .setSuccess(false)
+                    .setMessage("Error: " + e.getMessage())
+                    .build());
+            responseObserver.onCompleted();
+        }
+    }
+
+    @Override
+    public void verifyPassword(VPasswordReq request, StreamObserver<VPasswordRes> responseObserver) {
+        try {
+            String password = request.getPassword();
+            String email = request.getEmail();
+
+            Optional<UserEntity> userEntity = userRepository.getUserEntityByEmail(email);
+
+            if (userEntity.isEmpty()) {
+                responseObserver.onError(Status.NOT_FOUND
+                        .withDescription("User not found")
+                        .asRuntimeException());
+                return;
+            }
+
+            PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            if (!passwordEncoder.matches(password, userEntity.get().getPassword())) {
+                responseObserver.onNext(VPasswordRes.newBuilder()
+                        .setSuccess(false)
+                        .setMessage("Wrong password")
+                        .build());
+                responseObserver.onCompleted();
+                return;
+            }
+
+            responseObserver.onNext(VPasswordRes.newBuilder()
+                    .setSuccess(true)
+                    .setMessage("Correct password")
+                    .build());
+            responseObserver.onCompleted();
+
+        } catch (Exception e) {
+            responseObserver.onNext(VPasswordRes.newBuilder()
                     .setSuccess(false)
                     .setMessage("Error: " + e.getMessage())
                     .build());

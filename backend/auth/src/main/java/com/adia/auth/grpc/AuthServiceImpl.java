@@ -1,20 +1,17 @@
 package com.adia.auth.grpc;
 
 import com.adia.auth.*;
-import com.adia.auth.User;
+import com.adia.user.User;
 import com.adia.auth.entity.RefreshToken;
 import com.adia.auth.service.RefreshTokenService;
 import com.adia.auth.util.JwtUtil;
 import com.adia.user.*;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
-import lombok.RequiredArgsConstructor;
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.Optional;
 
 @GrpcService
@@ -108,35 +105,59 @@ public class AuthServiceImpl extends AuthServiceGrpc.AuthServiceImplBase {
             );
 
             if (!userResponse.getSuccess()) {
-                responseObserver.onNext(AuthResponse.newBuilder()
-                        .setSuccess(false)
-                        .setMessage("User not found")
-                        .build());
-                responseObserver.onCompleted();
+                responseObserver.onError(Status.NOT_FOUND
+                        .withDescription("This account does not exist")
+                        .asRuntimeException());
                 return;
             }
 
-            User user = (User) userResponse.getUser();
+            User user = userResponse.getUser();
 
+            // if not active
             if (!userResponse.getUser().getIsActivated()) {
-                responseObserver.onNext(AuthResponse.newBuilder()
-                        .setSuccess(false)
-                        .setMessage("Your account deactivated, contact support!")
-                        .build());
-                responseObserver.onCompleted();
+                responseObserver.onError(Status.PERMISSION_DENIED
+                        .withDescription("This account is not activated")
+                        .asRuntimeException());
+                return;
             }
 
-            if (!userResponse.getUser().getIsSuspended()) {
-                responseObserver.onNext(AuthResponse.newBuilder()
-                        .setSuccess(false)
-                        .setMessage("This account is permanently suspended, contact support!")
-                        .build());
+            // if is suspended
+            if (userResponse.getUser().getIsSuspended()) {
+                responseObserver.onError(Status.PERMISSION_DENIED
+                        .withDescription("This account is suspended")
+                        .asRuntimeException());
+                return;
             }
 
-            // if yes validate password
-            if (userResponse.get)
+            // if yes, validate password
+            VPasswordRes vpres = userService.verifyPassword(
+                    VPasswordReq.newBuilder()
+                            .setEmail(user.getEmail())
+                            .setPassword(request.getPassword())
+                            .build());
+
+            if (!vpres.getSuccess()) {
+                responseObserver.onError(Status.PERMISSION_DENIED
+                        .withDescription("wrong password")
+                        .asRuntimeException());
+                return;
+            }
 
             // if valide return access + refresh tokens
+            String accessToken = jwtUtil.generateToken(user.getEmail());
+            RefreshToken refreshToken = refreshTokenService.createRefreshToken(userResponse.getUser());
+
+            AuthResponse response = AuthResponse.newBuilder()
+                    .setSuccess(true)
+                    .setMessage("User logged in!")
+                    .setAccessToken(accessToken)
+                    .setRefreshToken(refreshToken.getToken())
+                    .setExpiresIn(refreshToken.getExpiryDate().getSecond())
+                    .setUser(user)
+                    .build();
+
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
 
         } catch (Exception e) {
             logger.error("Error during user login", e);
