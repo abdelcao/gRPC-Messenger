@@ -6,7 +6,7 @@
 
     <!-- Messages -->
     <div class="flex-1 p-4 overflow-y-auto space-y-2">
-      <MessageBubble time="12:38">Hi, I’ve just finished my report.</MessageBubble>
+      <MessageBubble time="12:38">Hi, I've just finished my report.</MessageBubble>
       <MessageBubble :seen="true" :isOwn="true" time="12:42"
         >Great job! How long did it take you?</MessageBubble
       >
