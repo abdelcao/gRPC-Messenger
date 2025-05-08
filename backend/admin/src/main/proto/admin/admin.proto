@@ -1,3 +1,4 @@
+
 syntax = "proto3";
 
 package admin;
@@ -8,35 +9,13 @@ option java_outer_classname = "AdminProto";
 
 // Service d'administration
 service AdminService {
-  rpc getAllUsers (UserListRequest) returns (UserListResponse);
-  rpc banUser (UserActionRequest) returns (UserActionResponse);
-  rpc deleteMessage (MessageActionRequest) returns (MessageActionResponse);
-  rpc DoCheck (CheckRequest) returns (CheckResponse);
-}
-
-message CheckRequest {
-  string data = 1;
-}
-
-message CheckResponse {
-  bool status = 1;
-  string message = 2;
-}
-
-// Messages pour la gestion des utilisateurs
-message UserListRequest {
-  int32 page = 1;
-  int32 limit = 2;
-}
-
-message UserListResponse {
-  repeated User users = 1;
-  int32 total = 2;
+  rpc SuspendUser (UserActionRequest) returns (UserActionResponse);
+  rpc DeleteMessage (MessageActionRequest) returns (MessageActionResponse);
+  rpc DeleteConversation (DltConversationRequest) returns (DltConversationResponse);
 }
 
 message UserActionRequest {
-  string userId = 1;
-  string adminId = 2;
+  uint64 userId = 1;
   string reason = 3;
 }
 
@@ -47,8 +26,7 @@ message UserActionResponse {
 
 // Messages pour la gestion des messages
 message MessageActionRequest {
-  string messageId = 1;
-  string adminId = 2;
+  uint64 messageId = 1;
   string reason = 3;
 }
 
@@ -57,12 +35,11 @@ message MessageActionResponse {
   string message = 2;
 }
 
-// Structure d'utilisateur
-message User {
-  string id = 1;
-  string email = 2;
-  string username = 3;
-  string role = 4;
-  bool isBanned = 5;
-  string createdAt = 6;
+message DltConversationRequest {
+  uint64 conversationId = 1;
+}
+
+message DltConversationResponse {
+  bool success = 1;
+  string message = 2;
 }
