@@ -17,8 +17,21 @@
           </div>
         </div>
 
-        <div>
-          <Button @click="confirmReport" icon="pi pi-flag" label="Report" severity="danger" class="w-full" />
+        <div class="flex flex-col gap-2">
+          <Button
+            @click="confirmReport"
+            icon="pi pi-trash"
+            label="Delete this conversaion"
+            severity="warn"
+            class="w-full"
+          />
+          <Button
+            @click="confirmReport"
+            icon="pi pi-flag"
+            label="Report this user"
+            severity="danger"
+            class="w-full"
+          />
         </div>
       </div>
     </div>
@@ -27,14 +40,14 @@
 </template>
 
 <script setup lang="ts">
-import Button from 'primevue/button';
-import ConfirmDialog from 'primevue/confirmdialog';
-import { useConfirm } from 'primevue/useconfirm';
-import { useAppStore } from '@/stores/app';
+import Button from 'primevue/button'
+import ConfirmDialog from 'primevue/confirmdialog'
+import { useConfirm } from 'primevue/useconfirm'
+import { useAppStore } from '@/stores/app'
 
 const appStore = useAppStore()
 
-const confirm = useConfirm();
+const confirm = useConfirm()
 
 function confirmReport() {
   confirm.require({
@@ -43,16 +56,16 @@ function confirmReport() {
     icon: 'pi pi-exclamation-triangle',
     acceptLabel: 'Yes, report it',
     rejectLabel: "No, don't",
-    acceptClass: 'p-button-danger',    // Red button
+    acceptClass: 'p-button-danger', // Red button
     rejectClass: 'p-button-outlined p-button-secondary', // Outlined grey button
     accept: () => {
       // handle confirm
-      console.log('Reported');
+      console.log('Reported')
     },
     reject: () => {
       // handle reject
-      console.log('Cancelled');
-    }
-  });
+      console.log('Cancelled')
+    },
+  })
 }
 </script>

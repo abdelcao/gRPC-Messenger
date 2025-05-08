@@ -102,8 +102,8 @@ const handleLogin = async () => {
 
     toast.add({
       severity: 'success',
-      summary: 'Register',
-      detail: 'Your account has been created!',
+      summary: 'Login',
+      detail: 'You are logged in!',
       life: 2000,
     })
 

@@ -110,11 +110,11 @@ CREATE INDEX idx_refresh_token_expiry ON refresh_tokens(expiry_date);
 -- Insert sample users // password => password
 INSERT INTO users (username, email, password, is_admin, is_email_verified, is_activated, is_suspended)
 VALUES 
-('admin', 'admin@gmail.com', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', TRUE, TRUE, TRUE, FALSE),
-('yassine', 'yassine@gmail.com', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', FALSE, TRUE, TRUE, FALSE),
-('youssef', 'youssef@gmail.com', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', FALSE, TRUE, TRUE, FALSE),
-('hamid', 'hamid@gmail.com', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', FALSE, TRUE, TRUE, FALSE),
-('yasser', 'yasser@gmail.com', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', FALSE, FALSE, TRUE, FALSE);
+('admin', 'admin@gmail.com', '$2a$10$xDvcMBovSUWCkCVufKFjLOzpFf6bbXTfYCBy1F9gYkOlg5p.UGjpe', TRUE, TRUE, TRUE, FALSE),
+('yassine', 'yassine@gmail.com', '$2a$10$xDvcMBovSUWCkCVufKFjLOzpFf6bbXTfYCBy1F9gYkOlg5p.UGjpe', FALSE, TRUE, TRUE, FALSE),
+('youssef', 'youssef@gmail.com', '$2a$10$xDvcMBovSUWCkCVufKFjLOzpFf6bbXTfYCBy1F9gYkOlg5p.UGjpe', FALSE, TRUE, TRUE, FALSE),
+('hamid', 'hamid@gmail.com', '$2a$10$xDvcMBovSUWCkCVufKFjLOzpFf6bbXTfYCBy1F9gYkOlg5p.UGjpe', FALSE, TRUE, TRUE, FALSE),
+('yasser', 'yasser@gmail.com', '5e884898da28047151d0e56f8$2a$10$xDvcMBovSUWCkCVufKFjLOzpFf6bbXTfYCBy1F9gYkOlg5p.UGjpedc6292773603d0d6aabbdd62a11ef721d1542d8', FALSE, FALSE, TRUE, FALSE);
 
 -- Insert sample conversations
 INSERT INTO conversations (owner_id)

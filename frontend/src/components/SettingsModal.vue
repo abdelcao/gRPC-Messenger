@@ -28,6 +28,7 @@ const logout = async () => {
     console.error(error)
   } finally {
     authStore.purge()
+    appStore.setSettingsModalVisible(false);
     await router.push({ name: 'login' })
   }
 }
@@ -51,21 +52,24 @@ const disableAccount = () => {
 
       <!-- Notifications Switch -->
       <div class="flex items-center justify-between">
-        <label class="text-sm text-gray-700 dark:text-gray-300">Enable Notifications</label>
+        <label class="text-sm text-gray-700 dark:text-gray-300">Enable Browser Notifications</label>
         <InputSwitch v-model="settings.notifications" />
       </div>
 
       <!-- Username -->
       <div>
         <label class="block text-sm text-gray-700 dark:text-gray-300 mb-1">Username</label>
-        <InputText v-model="settings.username" class="w-full" />
+       <div class="flex items-center gap-2">
+        <InputText v-model="settings.username" class="w-full h-10"  />
+        <Button icon="pi pi-refresh" class="h-10" />
+       </div>
       </div>
 
       <!-- Password -->
-      <div>
+      <!-- <div>
         <label class="block text-sm text-gray-700 dark:text-gray-300 mb-1">Change Password</label>
         <Password v-model="settings.password" toggleMask class="w-full" :feedback="false" />
-      </div>
+      </div> -->
 
       <!-- Danger Zone -->
       <div class="border-t border-gray-200 dark:border-gray-700 pt-4 space-y-3">
