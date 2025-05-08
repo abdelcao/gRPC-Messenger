@@ -1,20 +1,31 @@
 package com.adia.auth.grpc;
 
 import com.adia.auth.*;
+<<<<<<< HEAD
 import com.adia.auth.User;
+=======
+import com.adia.auth.Empty;
+import com.adia.user.User;
+>>>>>>> 528b96920ce4c11b65e9b4a90899dee89ecf5e6e
 import com.adia.auth.entity.RefreshToken;
 import com.adia.auth.service.RefreshTokenService;
 import com.adia.auth.util.JwtUtil;
 import com.adia.user.*;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
+<<<<<<< HEAD
 import lombok.RequiredArgsConstructor;
+=======
+>>>>>>> 528b96920ce4c11b65e9b4a90899dee89ecf5e6e
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+<<<<<<< HEAD
 import org.springframework.beans.factory.annotation.Autowired;
 
+=======
+>>>>>>> 528b96920ce4c11b65e9b4a90899dee89ecf5e6e
 import java.util.Optional;
 
 @GrpcService
@@ -108,6 +119,7 @@ public class AuthServiceImpl extends AuthServiceGrpc.AuthServiceImplBase {
             );
 
             if (!userResponse.getSuccess()) {
+<<<<<<< HEAD
                 responseObserver.onNext(AuthResponse.newBuilder()
                         .setSuccess(false)
                         .setMessage("User not found")
@@ -137,6 +149,61 @@ public class AuthServiceImpl extends AuthServiceGrpc.AuthServiceImplBase {
            if (userResponse.get)
 
             // if valide return access + refresh tokens
+=======
+                responseObserver.onError(Status.NOT_FOUND
+                        .withDescription("This account does not exist")
+                        .asRuntimeException());
+                return;
+            }
+
+            User user = userResponse.getUser();
+
+            // if not active
+            if (!userResponse.getUser().getIsActivated()) {
+                responseObserver.onError(Status.PERMISSION_DENIED
+                        .withDescription("This account is not activated")
+                        .asRuntimeException());
+                return;
+            }
+
+            // if is suspended
+            if (userResponse.getUser().getIsSuspended()) {
+                responseObserver.onError(Status.PERMISSION_DENIED
+                        .withDescription("This account is suspended")
+                        .asRuntimeException());
+                return;
+            }
+
+            // if yes, validate password
+            VPasswordRes vpres = userService.verifyPassword(
+                    VPasswordReq.newBuilder()
+                            .setEmail(user.getEmail())
+                            .setPassword(request.getPassword())
+                            .build());
+
+            if (!vpres.getSuccess()) {
+                responseObserver.onError(Status.PERMISSION_DENIED
+                        .withDescription("wrong password")
+                        .asRuntimeException());
+                return;
+            }
+
+            // if valide return access + refresh tokens
+            String accessToken = jwtUtil.generateToken(user.getEmail());
+            RefreshToken refreshToken = refreshTokenService.createRefreshToken(userResponse.getUser());
+
+            AuthResponse response = AuthResponse.newBuilder()
+                    .setSuccess(true)
+                    .setMessage("User logged in!")
+                    .setAccessToken(accessToken)
+                    .setRefreshToken(refreshToken.getToken())
+                    .setExpiresIn(refreshToken.getExpiryDate().getSecond())
+                    .setUser(user)
+                    .build();
+
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+>>>>>>> 528b96920ce4c11b65e9b4a90899dee89ecf5e6e
 
         } catch (Exception e) {
             logger.error("Error during user login", e);
@@ -147,6 +214,25 @@ public class AuthServiceImpl extends AuthServiceGrpc.AuthServiceImplBase {
     }
 
     @Override
+<<<<<<< HEAD
+=======
+    public void logout(LogoutRequest request, StreamObserver<Empty> responseObserver) {
+        try {
+            long id = request.getUserId();
+            refreshTokenService.deleteByUserId(id);
+
+            responseObserver.onNext(Empty.newBuilder().build());
+            responseObserver.onCompleted();
+        } catch (Exception e) {
+            logger.error("Error during user logout", e);
+            responseObserver.onError(Status.INTERNAL
+                    .withDescription("Error: " + e.getMessage())
+                    .asRuntimeException());
+        }
+    }
+
+    @Override
+>>>>>>> 528b96920ce4c11b65e9b4a90899dee89ecf5e6e
     public void refreshToken(RefreshTokenRequest request, StreamObserver<AuthResponse> responseObserver) {
         try {
             String requestToken = request.getRefreshToken();
@@ -163,7 +249,14 @@ public class AuthServiceImpl extends AuthServiceGrpc.AuthServiceImplBase {
             }
 
             RefreshToken refreshToken = refreshTokenOpt.get();
+<<<<<<< HEAD
             UserResponse userResponse = userService.getUser(GetUserRequest.newBuilder().setId(refreshToken.getUserId()).build());
+=======
+            UserResponse userResponse = userService.getUser(
+                    GetUserRequest.newBuilder()
+                            .setId(refreshToken.getUserId())
+                            .build());
+>>>>>>> 528b96920ce4c11b65e9b4a90899dee89ecf5e6e
 
             if (!userResponse.getSuccess()) {
                 responseObserver.onNext(AuthResponse.newBuilder()

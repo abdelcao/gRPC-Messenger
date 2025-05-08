@@ -28,11 +28,6 @@ const router = createRouter({
       component: ChatView,
     },
     {
-      path: '/settings',
-      name: 'settings',
-      component: SettingsView,
-    },
-    {
       path: '/',
       name: 'home',
       component: HomeView,

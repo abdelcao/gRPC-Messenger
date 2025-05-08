@@ -4,9 +4,6 @@
   >
   <div>
 
-    <h1>
-      <RouterLink to="/">Home</RouterLink>
-    </h1>
   </div>
     <Card class="w-full max-w-md shadow-xl rounded-xl overflow-hidden bg-white dark:bg-gray-700">
       <template #header>

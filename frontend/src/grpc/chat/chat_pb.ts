@@ -10,7 +10,7 @@ import type { Message as Message$1 } from "@bufbuild/protobuf";
  * Describes the file chat/chat.proto.
  */
 export const file_chat_chat: GenFile = /*@__PURE__*/
-  fileDesc("Cg9jaGF0L2NoYXQucHJvdG8SBGNoYXQiWAoOTWVzc2FnZVJlcXVlc3QSEAoIc2VuZGVySWQYASABKAkSEgoKcmVjZWl2ZXJJZBgCIAEoCRIPCgdjb250ZW50GAMgASgJEg8KB2lzR3JvdXAYBCABKAgiSAoPTWVzc2FnZVJlc3BvbnNlEg8KB3N1Y2Nlc3MYASABKAgSEQoJbWVzc2FnZUlkGAIgASgJEhEKCXRpbWVzdGFtcBgDIAEoCSJSCg5IaXN0b3J5UmVxdWVzdBIOCgZ1c2VySWQYASABKAkSEAoIdGFyZ2V0SWQYAiABKAkSDwoHaXNHcm91cBgDIAEoCBINCgVsaW1pdBgEIAEoBSIfCg1TdHJlYW1SZXF1ZXN0Eg4KBnVzZXJJZBgBIAEoCSKEAQoHTWVzc2FnZRIKCgJpZBgBIAEoCRIQCghzZW5kZXJJZBgCIAEoCRISCgpzZW5kZXJOYW1lGAMgASgJEhIKCnJlY2VpdmVySWQYBCABKAkSDwoHY29udGVudBgFIAEoCRIRCgl0aW1lc3RhbXAYBiABKAkSDwoHaXNHcm91cBgHIAEoCCJHCgxHcm91cFJlcXVlc3QSEQoJY3JlYXRvcklkGAEgASgJEhEKCWdyb3VwTmFtZRgCIAEoCRIRCgltZW1iZXJJZHMYAyADKAkiRAoNR3JvdXBSZXNwb25zZRIPCgdzdWNjZXNzGAEgASgIEg8KB2dyb3VwSWQYAiABKAkSEQoJZ3JvdXBOYW1lGAMgASgJIiMKEVVzZXJHcm91cHNSZXF1ZXN0Eg4KBnVzZXJJZBgBIAEoCSIxChJVc2VyR3JvdXBzUmVzcG9uc2USGwoGZ3JvdXBzGAEgAygLMgsuY2hhdC5Hcm91cCJHCgVHcm91cBIKCgJpZBgBIAEoCRIMCgRuYW1lGAIgASgJEhEKCWNyZWF0b3JJZBgDIAEoCRIRCgltZW1iZXJJZHMYBCADKAkyuQIKC0NoYXRTZXJ2aWNlEjoKC1NlbmRNZXNzYWdlEhQuY2hhdC5NZXNzYWdlUmVxdWVzdBoVLmNoYXQuTWVzc2FnZVJlc3BvbnNlEjoKEUdldE1lc3NhZ2VIaXN0b3J5EhQuY2hhdC5IaXN0b3J5UmVxdWVzdBoNLmNoYXQuTWVzc2FnZTABEjYKDlN0cmVhbU1lc3NhZ2VzEhMuY2hhdC5TdHJlYW1SZXF1ZXN0Gg0uY2hhdC5NZXNzYWdlMAESNgoLQ3JlYXRlR3JvdXASEi5jaGF0Lkdyb3VwUmVxdWVzdBoTLmNoYXQuR3JvdXBSZXNwb25zZRJCCg1HZXRVc2VyR3JvdXBzEhcuY2hhdC5Vc2VyR3JvdXBzUmVxdWVzdBoYLmNoYXQuVXNlckdyb3Vwc1Jlc3BvbnNlQhwKDWNvbS5hZGlhLmNoYXRCCUNoYXRQcm90b1ABYgZwcm90bzM");
+  fileDesc("Cg9jaGF0L2NoYXQucHJvdG8SBGNoYXQiWAoOTWVzc2FnZVJlcXVlc3QSEAoIc2VuZGVySWQYASABKAkSEgoKcmVjZWl2ZXJJZBgCIAEoCRIPCgdjb250ZW50GAMgASgJEg8KB2lzR3JvdXAYBCABKAgiSAoPTWVzc2FnZVJlc3BvbnNlEg8KB3N1Y2Nlc3MYASABKAgSEQoJbWVzc2FnZUlkGAIgASgEEhEKCXRpbWVzdGFtcBgDIAEoCSJSCg5IaXN0b3J5UmVxdWVzdBIOCgZ1c2VySWQYASABKAQSEAoIdGFyZ2V0SWQYAiABKAkSDwoHaXNHcm91cBgDIAEoCBINCgVsaW1pdBgEIAEoBSIfCg1TdHJlYW1SZXF1ZXN0Eg4KBnVzZXJJZBgBIAEoBCKEAQoHTWVzc2FnZRIKCgJpZBgBIAEoBBIQCghzZW5kZXJJZBgCIAEoCRISCgpzZW5kZXJOYW1lGAMgASgJEhIKCnJlY2VpdmVySWQYBCABKAkSDwoHY29udGVudBgFIAEoCRIRCgl0aW1lc3RhbXAYBiABKAkSDwoHaXNHcm91cBgHIAEoCCJHCgxHcm91cFJlcXVlc3QSEQoJY3JlYXRvcklkGAEgASgJEhEKCWdyb3VwTmFtZRgCIAEoCRIRCgltZW1iZXJJZHMYAyADKAkiRAoNR3JvdXBSZXNwb25zZRIPCgdzdWNjZXNzGAEgASgIEg8KB2dyb3VwSWQYAiABKAkSEQoJZ3JvdXBOYW1lGAMgASgJIiMKEVVzZXJHcm91cHNSZXF1ZXN0Eg4KBnVzZXJJZBgBIAEoBCIxChJVc2VyR3JvdXBzUmVzcG9uc2USGwoGZ3JvdXBzGAEgAygLMgsuY2hhdC5Hcm91cCJHCgVHcm91cBIKCgJpZBgBIAEoBBIMCgRuYW1lGAIgASgJEhEKCWNyZWF0b3JJZBgDIAEoCRIRCgltZW1iZXJJZHMYBCADKAkyuQIKC0NoYXRTZXJ2aWNlEjoKC1NlbmRNZXNzYWdlEhQuY2hhdC5NZXNzYWdlUmVxdWVzdBoVLmNoYXQuTWVzc2FnZVJlc3BvbnNlEjoKEUdldE1lc3NhZ2VIaXN0b3J5EhQuY2hhdC5IaXN0b3J5UmVxdWVzdBoNLmNoYXQuTWVzc2FnZTABEjYKDlN0cmVhbU1lc3NhZ2VzEhMuY2hhdC5TdHJlYW1SZXF1ZXN0Gg0uY2hhdC5NZXNzYWdlMAESNgoLQ3JlYXRlR3JvdXASEi5jaGF0Lkdyb3VwUmVxdWVzdBoTLmNoYXQuR3JvdXBSZXNwb25zZRJCCg1HZXRVc2VyR3JvdXBzEhcuY2hhdC5Vc2VyR3JvdXBzUmVxdWVzdBoYLmNoYXQuVXNlckdyb3Vwc1Jlc3BvbnNlQhwKDWNvbS5hZGlhLmNoYXRCCUNoYXRQcm90b1ABYgZwcm90bzM");
 
 /**
  * Messages pour l'envoi de messages
@@ -58,9 +58,9 @@ export type MessageResponse = Message$1<"chat.MessageResponse"> & {
   success: boolean;
 
   /**
-   * @generated from field: string messageId = 2;
+   * @generated from field: uint64 messageId = 2;
    */
-  messageId: string;
+  messageId: bigint;
 
   /**
    * @generated from field: string timestamp = 3;
@@ -82,9 +82,9 @@ export const MessageResponseSchema: GenMessage<MessageResponse> = /*@__PURE__*/
  */
 export type HistoryRequest = Message$1<"chat.HistoryRequest"> & {
   /**
-   * @generated from field: string userId = 1;
+   * @generated from field: uint64 userId = 1;
    */
-  userId: string;
+  userId: bigint;
 
   /**
    * Peut être un userId ou un groupId
@@ -118,9 +118,9 @@ export const HistoryRequestSchema: GenMessage<HistoryRequest> = /*@__PURE__*/
  */
 export type StreamRequest = Message$1<"chat.StreamRequest"> & {
   /**
-   * @generated from field: string userId = 1;
+   * @generated from field: uint64 userId = 1;
    */
-  userId: string;
+  userId: bigint;
 };
 
 /**
@@ -137,9 +137,9 @@ export const StreamRequestSchema: GenMessage<StreamRequest> = /*@__PURE__*/
  */
 export type Message = Message$1<"chat.Message"> & {
   /**
-   * @generated from field: string id = 1;
+   * @generated from field: uint64 id = 1;
    */
-  id: string;
+  id: bigint;
 
   /**
    * @generated from field: string senderId = 2;
@@ -240,9 +240,9 @@ export const GroupResponseSchema: GenMessage<GroupResponse> = /*@__PURE__*/
  */
 export type UserGroupsRequest = Message$1<"chat.UserGroupsRequest"> & {
   /**
-   * @generated from field: string userId = 1;
+   * @generated from field: uint64 userId = 1;
    */
-  userId: string;
+  userId: bigint;
 };
 
 /**
@@ -274,9 +274,9 @@ export const UserGroupsResponseSchema: GenMessage<UserGroupsResponse> = /*@__PUR
  */
 export type Group = Message$1<"chat.Group"> & {
   /**
-   * @generated from field: string id = 1;
+   * @generated from field: uint64 id = 1;
    */
-  id: string;
+  id: bigint;
 
   /**
    * @generated from field: string name = 2;
