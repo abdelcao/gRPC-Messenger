@@ -28,9 +28,4 @@ export default {
     sessionStorage.removeItem(ACCESS_TOKEN_KEY)
     sessionStorage.removeItem(REFRESH_TOKEN_KEY)
   },
-
-  // Check if user is logged in
-  isAuthenticated(): boolean {
-    return !!this.getAccessToken()
-  }
 }
