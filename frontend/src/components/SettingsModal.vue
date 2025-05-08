@@ -9,6 +9,7 @@ import Button from 'primevue/button'
 import { useAuthStore } from '@/stores/auth'
 import { useAuthService } from '@/composables/useAuthService'
 import { useRouter } from 'vue-router'
+import TokenService from '@/utils/TokenService';
 
 const appStore = useAppStore()
 const authStore = useAuthStore()
@@ -28,6 +29,7 @@ const logout = async () => {
     console.error(error)
   } finally {
     authStore.purge()
+    TokenService.clearTokens();
     appStore.setSettingsModalVisible(false);
     await router.push({ name: 'login' })
   }
