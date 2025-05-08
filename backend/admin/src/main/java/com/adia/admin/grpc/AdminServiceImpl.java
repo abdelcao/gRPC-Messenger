@@ -43,7 +43,7 @@ public class AdminServiceImpl extends AdminServiceGrpc.AdminServiceImplBase {
 
             // Step 1: Get the user
             com.adia.user.UserResponse userResponse = userService.getUser(GetUserRequest.newBuilder().setId(userId).build());
-
+            System.out.println("User response: " + userResponse);
             if (!userResponse.getSuccess()) {
                 responseObserver.onNext(UserActionResponse.newBuilder()
                         .setSuccess(false)

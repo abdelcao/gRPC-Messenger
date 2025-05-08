@@ -1,31 +1,19 @@
+
 package com.adia.auth.grpc;
 
 import com.adia.auth.*;
-<<<<<<< HEAD
-import com.adia.auth.User;
-=======
 import com.adia.auth.Empty;
 import com.adia.user.User;
->>>>>>> 528b96920ce4c11b65e9b4a90899dee89ecf5e6e
 import com.adia.auth.entity.RefreshToken;
 import com.adia.auth.service.RefreshTokenService;
 import com.adia.auth.util.JwtUtil;
 import com.adia.user.*;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
-<<<<<<< HEAD
-import lombok.RequiredArgsConstructor;
-=======
->>>>>>> 528b96920ce4c11b65e9b4a90899dee89ecf5e6e
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-<<<<<<< HEAD
-import org.springframework.beans.factory.annotation.Autowired;
-
-=======
->>>>>>> 528b96920ce4c11b65e9b4a90899dee89ecf5e6e
 import java.util.Optional;
 
 @GrpcService
@@ -119,37 +107,6 @@ public class AuthServiceImpl extends AuthServiceGrpc.AuthServiceImplBase {
             );
 
             if (!userResponse.getSuccess()) {
-<<<<<<< HEAD
-                responseObserver.onNext(AuthResponse.newBuilder()
-                        .setSuccess(false)
-                        .setMessage("User not found")
-                        .build());
-                responseObserver.onCompleted();
-                return;
-            }
-
-            User user = (User) userResponse.getUser();
-
-            if (!userResponse.getUser().getIsActivated()) {
-                responseObserver.onNext(AuthResponse.newBuilder()
-                        .setSuccess(false)
-                        .setMessage("Your account deactivated, contact support!")
-                        .build());
-                responseObserver.onCompleted();
-            }
-
-            if (!userResponse.getUser().getIsSuspended()) {
-                responseObserver.onNext(AuthResponse.newBuilder()
-                        .setSuccess(false)
-                        .setMessage("This account is permanently suspended, contact support!")
-                        .build());
-            }
-
-            // if yes validate password
-           if (userResponse.get)
-
-            // if valide return access + refresh tokens
-=======
                 responseObserver.onError(Status.NOT_FOUND
                         .withDescription("This account does not exist")
                         .asRuntimeException());
@@ -203,7 +160,6 @@ public class AuthServiceImpl extends AuthServiceGrpc.AuthServiceImplBase {
 
             responseObserver.onNext(response);
             responseObserver.onCompleted();
->>>>>>> 528b96920ce4c11b65e9b4a90899dee89ecf5e6e
 
         } catch (Exception e) {
             logger.error("Error during user login", e);
@@ -214,8 +170,6 @@ public class AuthServiceImpl extends AuthServiceGrpc.AuthServiceImplBase {
     }
 
     @Override
-<<<<<<< HEAD
-=======
     public void logout(LogoutRequest request, StreamObserver<Empty> responseObserver) {
         try {
             long id = request.getUserId();
@@ -232,7 +186,6 @@ public class AuthServiceImpl extends AuthServiceGrpc.AuthServiceImplBase {
     }
 
     @Override
->>>>>>> 528b96920ce4c11b65e9b4a90899dee89ecf5e6e
     public void refreshToken(RefreshTokenRequest request, StreamObserver<AuthResponse> responseObserver) {
         try {
             String requestToken = request.getRefreshToken();
@@ -249,14 +202,10 @@ public class AuthServiceImpl extends AuthServiceGrpc.AuthServiceImplBase {
             }
 
             RefreshToken refreshToken = refreshTokenOpt.get();
-<<<<<<< HEAD
-            UserResponse userResponse = userService.getUser(GetUserRequest.newBuilder().setId(refreshToken.getUserId()).build());
-=======
             UserResponse userResponse = userService.getUser(
                     GetUserRequest.newBuilder()
                             .setId(refreshToken.getUserId())
                             .build());
->>>>>>> 528b96920ce4c11b65e9b4a90899dee89ecf5e6e
 
             if (!userResponse.getSuccess()) {
                 responseObserver.onNext(AuthResponse.newBuilder()
