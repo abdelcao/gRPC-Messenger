@@ -1,13 +1,14 @@
 package com.adia.admin.grpc;
 
+import com.adia.admin.*;
+import com.adia.user.GetUserRequest;
+
 import com.adia.admin.AdminServiceGrpc;
 import com.adia.admin.DltConversationRequest;
 import com.adia.admin.MessageActionRequest;
 import com.adia.admin.MessageActionResponse;
 import com.adia.admin.UserActionRequest;
 import com.adia.admin.UserActionResponse;
-
-import com.adia.user.*;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import net.devh.boot.grpc.server.service.GrpcService;
@@ -17,11 +18,11 @@ import java.util.logging.Logger;
 @GrpcService
 public class AdminServiceImpl extends AdminServiceGrpc.AdminServiceImplBase {
     @GrpcClient("user-service")
-    private UserServiceGrpc.UserServiceBlockingStub userService;
+    private com.adia.user.UserServiceGrpc.UserServiceBlockingStub userService;
 
     @Override
     public void deleteConversation(DltConversationRequest request,
-            StreamObserver<DltConversationResponse> responseObserver) {
+                                   StreamObserver<com.adia.admin.DltConversationResponse> responseObserver) {
 
     }
 
@@ -41,7 +42,7 @@ public class AdminServiceImpl extends AdminServiceGrpc.AdminServiceImplBase {
             long userId = request.getUserId();
 
             // Step 1: Get the user
-            UserResponse userResponse = userService.getUser(GetUserRequest.newBuilder().setId(userId).build());
+            com.adia.user.UserResponse userResponse = userService.getUser(GetUserRequest.newBuilder().setId(userId).build());
 
             if (!userResponse.getSuccess()) {
                 responseObserver.onNext(UserActionResponse.newBuilder()
@@ -53,8 +54,8 @@ public class AdminServiceImpl extends AdminServiceGrpc.AdminServiceImplBase {
             }
 
             // Step 2: Update user - set isSuspended = true
-            User user = userResponse.getUser();
-            UserResponse updateResponse = userService.updateUser(UpdateUserRequest.newBuilder()
+            com.adia.user.User user = userResponse.getUser();
+            com.adia.user.UserResponse updateResponse = userService.updateUser(com.adia.user.UpdateUserRequest.newBuilder()
                     .setId(userId)
                     .setUsername(user.getUsername())
                     .setEmail(user.getEmail())

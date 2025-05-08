@@ -1,4 +1,3 @@
-
 syntax = "proto3";
 
 package admin;
@@ -16,7 +15,6 @@ service AdminService {
 
 message UserActionRequest {
   uint64 userId = 1;
-  uint64 userId = 1;
   string reason = 3;
 }
 
@@ -27,7 +25,6 @@ message UserActionResponse {
 
 // Messages pour la gestion des messages
 message MessageActionRequest {
-  uint64 messageId = 1;
   uint64 messageId = 1;
   string reason = 3;
 }
@@ -44,12 +41,4 @@ message DltConversationRequest {
 message DltConversationResponse {
   bool success = 1;
   string message = 2;
-message DltConversationRequest {
-  uint64 conversationId = 1;
 }
-
-message DltConversationResponse {
-  bool success = 1;
-  string message = 2;
-}
-
