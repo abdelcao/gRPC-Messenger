@@ -2,6 +2,13 @@
 // DONE each one with a Dockerfile and proto files
 // DONE add status + message to every proto response
 
+/** auth */
+// DONE LOGIN
+// DONE REISTER
+// DONE REFRESH TOKEN
+// DONE LOGOUT
+// TODO VALIDATE TOKEN
+
 /* ! BRANCH USER */ 
 // TODO SEARCH USERS (BY USERNAME/EMAIL)
 // TODO SELECT USER
