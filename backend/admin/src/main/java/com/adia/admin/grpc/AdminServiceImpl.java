@@ -1,6 +1,7 @@
 package com.adia.admin.grpc;
 
 import com.adia.admin.AdminServiceGrpc;
+import com.adia.admin.DltConversationRequest;
 import com.adia.admin.MessageActionRequest;
 import com.adia.admin.MessageActionResponse;
 import com.adia.admin.UserActionRequest;
