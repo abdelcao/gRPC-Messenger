@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,6 +47,7 @@ public class UserServiceImpl extends UserServiceGrpc.UserServiceImplBase {
             }
 
             // Map request to entity
+            LocalDateTime now = LocalDateTime.now();
             UserEntity userEntity = UserEntity.builder()
                     .username(request.getUsername())
                     .email(request.getEmail())
@@ -54,6 +56,8 @@ public class UserServiceImpl extends UserServiceGrpc.UserServiceImplBase {
                     .isEmailVerified(request.getIsEmailVerified())
                     .isActivated(request.getIsActivated())
                     .isSuspended(request.getIsSuspended())
+                    .createdAt(now)
+                    .updatedAt(now)
                     .build();
 
             // Save to DB

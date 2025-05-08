@@ -20,6 +20,7 @@ onMounted(async () => {
     loading.value = true
     try {
       const res = await authService.refreshToken({ refreshToken: refresh })
+      console.log(res);
 
       if (!res.success) {
         throw Error(res.message)

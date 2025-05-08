@@ -10,7 +10,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file user/user.proto.
  */
 export const file_user_user: GenFile = /*@__PURE__*/
-  fileDesc("Cg91c2VyL3VzZXIucHJvdG8SBHVzZXIirQEKBFVzZXISCgoCaWQYASABKAQSEAoIdXNlcm5hbWUYAiABKAkSDQoFZW1haWwYAyABKAkSDwoHaXNBZG1pbhgEIAEoCBIXCg9pc0VtYWlsVmVyaWZpZWQYBSABKAgSEwoLaXNBY3RpdmF0ZWQYBiABKAgSEwoLaXNTdXNwZW5kZWQYByABKAgSEQoJY3JlYXRlZEF0GAggASgJEhEKCXVwZGF0ZWRBdBgJIAEoCSKaAQoRQ3JlYXRlVXNlclJlcXVlc3QSEAoIdXNlcm5hbWUYASABKAkSDQoFZW1haWwYAiABKAkSEAoIcGFzc3dvcmQYAyABKAkSDwoHaXNBZG1pbhgEIAEoCBIXCg9pc0VtYWlsVmVyaWZpZWQYBSABKAgSEwoLaXNBY3RpdmF0ZWQYBiABKAgSEwoLaXNTdXNwZW5kZWQYByABKAgiHAoOR2V0VXNlclJlcXVlc3QSCgoCaWQYASABKAQiJgoVR2V0VXNlckJ5RW1haWxSZXF1ZXN0Eg0KBWVtYWlsGAEgASgJIpQBChFVcGRhdGVVc2VyUmVxdWVzdBIKCgJpZBgBIAEoBBIQCgh1c2VybmFtZRgCIAEoCRINCgVlbWFpbBgDIAEoCRIPCgdpc0FkbWluGAQgASgIEhcKD2lzRW1haWxWZXJpZmllZBgFIAEoCBITCgtpc0FjdGl2YXRlZBgGIAEoCBITCgtpc1N1c3BlbmRlZBgHIAEoCCIfChFEZWxldGVVc2VyUmVxdWVzdBIKCgJpZBgBIAEoBCIHCgVFbXB0eSJQChFMaXN0VXNlcnNSZXNwb25zZRIZCgV1c2VycxgBIAMoCzIKLnVzZXIuVXNlchIPCgdzdWNjZXNzGAMgASgIEg8KB21lc3NhZ2UYBCABKAkiSgoMVXNlclJlc3BvbnNlEg8KB3N1Y2Nlc3MYASABKAgSDwoHbWVzc2FnZRgCIAEoCRIYCgR1c2VyGAMgASgLMgoudXNlci5Vc2VyMukCCgtVc2VyU2VydmljZRI5CgpDcmVhdGVVc2VyEhcudXNlci5DcmVhdGVVc2VyUmVxdWVzdBoSLnVzZXIuVXNlclJlc3BvbnNlEjMKB0dldFVzZXISFC51c2VyLkdldFVzZXJSZXF1ZXN0GhIudXNlci5Vc2VyUmVzcG9uc2USQQoOR2V0VXNlckJ5RW1haWwSGy51c2VyLkdldFVzZXJCeUVtYWlsUmVxdWVzdBoSLnVzZXIuVXNlclJlc3BvbnNlEjkKClVwZGF0ZVVzZXISFy51c2VyLlVwZGF0ZVVzZXJSZXF1ZXN0GhIudXNlci5Vc2VyUmVzcG9uc2USOQoKRGVsZXRlVXNlchIXLnVzZXIuRGVsZXRlVXNlclJlcXVlc3QaEi51c2VyLlVzZXJSZXNwb25zZRIxCglMaXN0VXNlcnMSCy51c2VyLkVtcHR5GhcudXNlci5MaXN0VXNlcnNSZXNwb25zZUIcCg1jb20uYWRpYS51c2VyQglVc2VyUHJvdG9QAWIGcHJvdG8z");
+  fileDesc("Cg91c2VyL3VzZXIucHJvdG8SBHVzZXIirQEKBFVzZXISCgoCaWQYASABKAQSEAoIdXNlcm5hbWUYAiABKAkSDQoFZW1haWwYAyABKAkSDwoHaXNBZG1pbhgEIAEoCBIXCg9pc0VtYWlsVmVyaWZpZWQYBSABKAgSEwoLaXNBY3RpdmF0ZWQYBiABKAgSEwoLaXNTdXNwZW5kZWQYByABKAgSEQoJY3JlYXRlZEF0GAggASgJEhEKCXVwZGF0ZWRBdBgJIAEoCSKaAQoRQ3JlYXRlVXNlclJlcXVlc3QSEAoIdXNlcm5hbWUYASABKAkSDQoFZW1haWwYAiABKAkSEAoIcGFzc3dvcmQYAyABKAkSDwoHaXNBZG1pbhgEIAEoCBIXCg9pc0VtYWlsVmVyaWZpZWQYBSABKAgSEwoLaXNBY3RpdmF0ZWQYBiABKAgSEwoLaXNTdXNwZW5kZWQYByABKAgiHAoOR2V0VXNlclJlcXVlc3QSCgoCaWQYASABKAQiJgoVR2V0VXNlckJ5RW1haWxSZXF1ZXN0Eg0KBWVtYWlsGAEgASgJIpQBChFVcGRhdGVVc2VyUmVxdWVzdBIKCgJpZBgBIAEoBBIQCgh1c2VybmFtZRgCIAEoCRINCgVlbWFpbBgDIAEoCRIPCgdpc0FkbWluGAQgASgIEhcKD2lzRW1haWxWZXJpZmllZBgFIAEoCBITCgtpc0FjdGl2YXRlZBgGIAEoCBITCgtpc1N1c3BlbmRlZBgHIAEoCCIfChFEZWxldGVVc2VyUmVxdWVzdBIKCgJpZBgBIAEoBCIHCgVFbXB0eSJQChFMaXN0VXNlcnNSZXNwb25zZRIZCgV1c2VycxgBIAMoCzIKLnVzZXIuVXNlchIPCgdzdWNjZXNzGAMgASgIEg8KB21lc3NhZ2UYBCABKAkiSgoMVXNlclJlc3BvbnNlEg8KB3N1Y2Nlc3MYASABKAgSDwoHbWVzc2FnZRgCIAEoCRIYCgR1c2VyGAMgASgLMgoudXNlci5Vc2VyIi8KDFZQYXNzd29yZFJlcRINCgVlbWFpbBgBIAEoCRIQCghwYXNzd29yZBgCIAEoCSIwCgxWUGFzc3dvcmRSZXMSDwoHbWVzc2FnZRgBIAEoCRIPCgdzdWNjZXNzGAIgASgIMqMDCgtVc2VyU2VydmljZRI5CgpDcmVhdGVVc2VyEhcudXNlci5DcmVhdGVVc2VyUmVxdWVzdBoSLnVzZXIuVXNlclJlc3BvbnNlEjMKB0dldFVzZXISFC51c2VyLkdldFVzZXJSZXF1ZXN0GhIudXNlci5Vc2VyUmVzcG9uc2USQQoOR2V0VXNlckJ5RW1haWwSGy51c2VyLkdldFVzZXJCeUVtYWlsUmVxdWVzdBoSLnVzZXIuVXNlclJlc3BvbnNlEjkKClVwZGF0ZVVzZXISFy51c2VyLlVwZGF0ZVVzZXJSZXF1ZXN0GhIudXNlci5Vc2VyUmVzcG9uc2USOQoKRGVsZXRlVXNlchIXLnVzZXIuRGVsZXRlVXNlclJlcXVlc3QaEi51c2VyLlVzZXJSZXNwb25zZRIxCglMaXN0VXNlcnMSCy51c2VyLkVtcHR5GhcudXNlci5MaXN0VXNlcnNSZXNwb25zZRI4Cg5WZXJpZnlQYXNzd29yZBISLnVzZXIuVlBhc3N3b3JkUmVxGhIudXNlci5WUGFzc3dvcmRSZXNCHAoNY29tLmFkaWEudXNlckIJVXNlclByb3RvUAFiBnByb3RvMw");
 
 /**
  * @generated from message user.User
@@ -282,6 +282,50 @@ export const UserResponseSchema: GenMessage<UserResponse> = /*@__PURE__*/
   messageDesc(file_user_user, 8);
 
 /**
+ * @generated from message user.VPasswordReq
+ */
+export type VPasswordReq = Message<"user.VPasswordReq"> & {
+  /**
+   * @generated from field: string email = 1;
+   */
+  email: string;
+
+  /**
+   * @generated from field: string password = 2;
+   */
+  password: string;
+};
+
+/**
+ * Describes the message user.VPasswordReq.
+ * Use `create(VPasswordReqSchema)` to create a new message.
+ */
+export const VPasswordReqSchema: GenMessage<VPasswordReq> = /*@__PURE__*/
+  messageDesc(file_user_user, 9);
+
+/**
+ * @generated from message user.VPasswordRes
+ */
+export type VPasswordRes = Message<"user.VPasswordRes"> & {
+  /**
+   * @generated from field: string message = 1;
+   */
+  message: string;
+
+  /**
+   * @generated from field: bool success = 2;
+   */
+  success: boolean;
+};
+
+/**
+ * Describes the message user.VPasswordRes.
+ * Use `create(VPasswordResSchema)` to create a new message.
+ */
+export const VPasswordResSchema: GenMessage<VPasswordRes> = /*@__PURE__*/
+  messageDesc(file_user_user, 10);
+
+/**
  * @generated from service user.UserService
  */
 export const UserService: GenService<{
@@ -332,6 +376,14 @@ export const UserService: GenService<{
     methodKind: "unary";
     input: typeof EmptySchema;
     output: typeof ListUsersResponseSchema;
+  },
+  /**
+   * @generated from rpc user.UserService.VerifyPassword
+   */
+  verifyPassword: {
+    methodKind: "unary";
+    input: typeof VPasswordReqSchema;
+    output: typeof VPasswordResSchema;
   },
 }> = /*@__PURE__*/
   serviceDesc(file_user_user, 0);

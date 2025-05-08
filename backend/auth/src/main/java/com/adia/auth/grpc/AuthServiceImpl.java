@@ -1,6 +1,7 @@
 package com.adia.auth.grpc;
 
 import com.adia.auth.*;
+import com.adia.auth.Empty;
 import com.adia.user.User;
 import com.adia.auth.entity.RefreshToken;
 import com.adia.auth.service.RefreshTokenService;
@@ -168,6 +169,22 @@ public class AuthServiceImpl extends AuthServiceGrpc.AuthServiceImplBase {
     }
 
     @Override
+    public void logout(LogoutRequest request, StreamObserver<Empty> responseObserver) {
+        try {
+            long id = request.getUserId();
+            refreshTokenService.deleteByUserId(id);
+
+            responseObserver.onNext(Empty.newBuilder().build());
+            responseObserver.onCompleted();
+        } catch (Exception e) {
+            logger.error("Error during user logout", e);
+            responseObserver.onError(Status.INTERNAL
+                    .withDescription("Error: " + e.getMessage())
+                    .asRuntimeException());
+        }
+    }
+
+    @Override
     public void refreshToken(RefreshTokenRequest request, StreamObserver<AuthResponse> responseObserver) {
         try {
             String requestToken = request.getRefreshToken();
@@ -184,7 +201,10 @@ public class AuthServiceImpl extends AuthServiceGrpc.AuthServiceImplBase {
             }
 
             RefreshToken refreshToken = refreshTokenOpt.get();
-            UserResponse userResponse = userService.getUser(GetUserRequest.newBuilder().setId(refreshToken.getUserId()).build());
+            UserResponse userResponse = userService.getUser(
+                    GetUserRequest.newBuilder()
+                            .setId(refreshToken.getUserId())
+                            .build());
 
             if (!userResponse.getSuccess()) {
                 responseObserver.onNext(AuthResponse.newBuilder()

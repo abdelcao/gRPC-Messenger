@@ -6,18 +6,30 @@ import InputText from 'primevue/inputtext'
 import InputSwitch from 'primevue/inputswitch'
 import Password from 'primevue/password'
 import Button from 'primevue/button'
+import { useAuthStore } from '@/stores/auth'
+import { useAuthService } from '@/composables/useAuthService'
+import { useRouter } from 'vue-router'
 
 const appStore = useAppStore()
+const authStore = useAuthStore()
+const authService = useAuthService()
+const router = useRouter()
 
 const settings = ref({
   notifications: true,
   username: 'yusef',
-  password: ''
+  password: '',
 })
 
-const logout = () => {
-  console.log('Logging out...')
-  // add logout logic
+const logout = async () => {
+  try {
+    await authService.logout({ userId: authStore.user?.id })
+  } catch (error) {
+    console.error(error)
+  } finally {
+    authStore.purge()
+    await router.push({ name: 'login' })
+  }
 }
 
 const disableAccount = () => {

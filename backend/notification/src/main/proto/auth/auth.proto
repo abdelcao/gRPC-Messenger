@@ -11,6 +11,7 @@ option java_outer_classname = "AuthProto";
 service AuthService {
   rpc Register(RegisterRequest) returns (AuthResponse);
   rpc Login(LoginRequest) returns (AuthResponse);
+  rpc Logout(LogoutRequest) returns (Empty);
   rpc VerifyToken(TokenRequest) returns (VerifyTokenResponse);
   rpc RefreshToken(RefreshTokenRequest) returns (AuthResponse);
 }
@@ -25,6 +26,12 @@ message LoginRequest {
   string email = 1;
   string password = 2;
 }
+
+message LogoutRequest {
+  uint64 userId = 1;
+}
+
+message Empty {}
 
 message RefreshTokenRequest {
   string refreshToken = 1;

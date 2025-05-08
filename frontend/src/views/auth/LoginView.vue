@@ -77,8 +77,8 @@ const authService = useAuthService()
 const authStore = useAuthStore()
 const toast = useToast()
 
-const email = ref('')
-const password = ref('')
+const email = ref('yoel@gmail.com')
+const password = ref('password')
 const isLoading = ref(false)
 // const emailError = ref(''); // Example validation state
 

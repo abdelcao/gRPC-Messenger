@@ -9,8 +9,13 @@ export const useAuthStore = defineStore('auth', () => {
     user.value = data
   }
 
+  const purge = () => {
+    user.value = null;
+  }
+
   return {
     user,
     setUser,
+    purge
   }
 })

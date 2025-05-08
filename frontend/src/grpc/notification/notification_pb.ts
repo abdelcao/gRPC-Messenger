@@ -10,7 +10,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file notification/notification.proto.
  */
 export const file_notification_notification: GenFile = /*@__PURE__*/
-  fileDesc("Ch9ub3RpZmljYXRpb24vbm90aWZpY2F0aW9uLnByb3RvEgxub3RpZmljYXRpb24iJQoTU3Vic2NyaXB0aW9uUmVxdWVzdBIOCgZ1c2VySWQYASABKAkieQoMTm90aWZpY2F0aW9uEgoKAmlkGAEgASgEEg4KBnVzZXJJZBgCIAEoCRINCgV0aXRsZRgDIAEoCRIPCgdjb250ZW50GAQgASgJEgwKBHR5cGUYBSABKAkSEQoJdGltZXN0YW1wGAYgASgJEgwKBHJlYWQYByABKAgiZgobTm90aWZpY2F0aW9uU2V0dGluZ3NSZXF1ZXN0Eg4KBnVzZXJJZBgBIAEoCRITCgtlbmFibGVTb3VuZBgCIAEoCBIiChplbmFibGVEZXNrdG9wTm90aWZpY2F0aW9ucxgDIAEoCCIvChxOb3RpZmljYXRpb25TZXR0aW5nc1Jlc3BvbnNlEg8KB3N1Y2Nlc3MYASABKAgy2AEKE05vdGlmaWNhdGlvblNlcnZpY2USTAoJU3Vic2NyaWJlEiEubm90aWZpY2F0aW9uLlN1YnNjcmlwdGlvblJlcXVlc3QaGi5ub3RpZmljYXRpb24uTm90aWZpY2F0aW9uMAEScwoaVXBkYXRlTm90aWZpY2F0aW9uU2V0dGluZ3MSKS5ub3RpZmljYXRpb24uTm90aWZpY2F0aW9uU2V0dGluZ3NSZXF1ZXN0Gioubm90aWZpY2F0aW9uLk5vdGlmaWNhdGlvblNldHRpbmdzUmVzcG9uc2VCLAoVY29tLmFkaWEubm90aWZpY2F0aW9uQhFOb3RpZmljYXRpb25Qcm90b1ABYgZwcm90bzM");
+  fileDesc("Ch9ub3RpZmljYXRpb24vbm90aWZpY2F0aW9uLnByb3RvEgxub3RpZmljYXRpb24iJQoTU3Vic2NyaXB0aW9uUmVxdWVzdBIOCgZ1c2VySWQYASABKAQieQoMTm90aWZpY2F0aW9uEgoKAmlkGAEgASgEEg4KBnVzZXJJZBgCIAEoBBINCgV0aXRsZRgDIAEoCRIPCgdjb250ZW50GAQgASgJEgwKBHR5cGUYBSABKAkSEQoJdGltZXN0YW1wGAYgASgJEgwKBHJlYWQYByABKAgiZgobTm90aWZpY2F0aW9uU2V0dGluZ3NSZXF1ZXN0Eg4KBnVzZXJJZBgBIAEoBBITCgtlbmFibGVTb3VuZBgCIAEoCBIiChplbmFibGVEZXNrdG9wTm90aWZpY2F0aW9ucxgDIAEoCCIvChxOb3RpZmljYXRpb25TZXR0aW5nc1Jlc3BvbnNlEg8KB3N1Y2Nlc3MYASABKAgy2AEKE05vdGlmaWNhdGlvblNlcnZpY2USTAoJU3Vic2NyaWJlEiEubm90aWZpY2F0aW9uLlN1YnNjcmlwdGlvblJlcXVlc3QaGi5ub3RpZmljYXRpb24uTm90aWZpY2F0aW9uMAEScwoaVXBkYXRlTm90aWZpY2F0aW9uU2V0dGluZ3MSKS5ub3RpZmljYXRpb24uTm90aWZpY2F0aW9uU2V0dGluZ3NSZXF1ZXN0Gioubm90aWZpY2F0aW9uLk5vdGlmaWNhdGlvblNldHRpbmdzUmVzcG9uc2VCLAoVY29tLmFkaWEubm90aWZpY2F0aW9uQhFOb3RpZmljYXRpb25Qcm90b1ABYgZwcm90bzM");
 
 /**
  * Messages pour les abonnements
@@ -19,9 +19,9 @@ export const file_notification_notification: GenFile = /*@__PURE__*/
  */
 export type SubscriptionRequest = Message<"notification.SubscriptionRequest"> & {
   /**
-   * @generated from field: string userId = 1;
+   * @generated from field: uint64 userId = 1;
    */
-  userId: string;
+  userId: bigint;
 };
 
 /**
@@ -43,9 +43,9 @@ export type Notification = Message<"notification.Notification"> & {
   id: bigint;
 
   /**
-   * @generated from field: string userId = 2;
+   * @generated from field: uint64 userId = 2;
    */
-  userId: string;
+  userId: bigint;
 
   /**
    * @generated from field: string title = 3;
@@ -89,9 +89,9 @@ export const NotificationSchema: GenMessage<Notification> = /*@__PURE__*/
  */
 export type NotificationSettingsRequest = Message<"notification.NotificationSettingsRequest"> & {
   /**
-   * @generated from field: string userId = 1;
+   * @generated from field: uint64 userId = 1;
    */
-  userId: string;
+  userId: bigint;
 
   /**
    * @generated from field: bool enableSound = 2;
