@@ -13,38 +13,7 @@ enum MessageStatus {
   READ = 2;
 }
 
-<<<<<<< HEAD
 // Message
-=======
-// Messages pour l'envoi de messages
-message MessageRequest {
-  string senderId = 1;
-  string receiverId = 2; // Peut être un userId ou un groupId
-  string content = 3;
-  bool isGroup = 4;
-}
-
-message MessageResponse {
-  bool success = 1;
-  uint64 messageId = 2;
-  string timestamp = 3;
-}
-
-// Messages pour l'historique
-message HistoryRequest {
-  uint64 userId = 1;
-  string targetId = 2; // Peut être un userId ou un groupId
-  bool isGroup = 3;
-  int32 limit = 4;
-}
-
-// Messages pour le streaming en temps réel
-message StreamRequest {
-  uint64 userId = 1;
-}
-
-// Structure de message
->>>>>>> origin/frontend
 message Message {
   int64 id = 1;
   int64 userId = 2;
@@ -73,7 +42,6 @@ message PrivateConversation {
   string updatedAt = 5;
 }
 
-<<<<<<< HEAD
 // Group Conversation
 message GroupConversation {
   int64 id = 1;
@@ -81,10 +49,6 @@ message GroupConversation {
   string name = 3;
   string createdAt = 4;
   string updatedAt = 5;
-=======
-message UserGroupsRequest {
-  uint64 userId = 1;
->>>>>>> origin/frontend
 }
 
 // Group Member

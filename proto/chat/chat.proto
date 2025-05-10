@@ -13,9 +13,6 @@ enum MessageStatus {
   READ = 2;
 }
 
-<<<<<<< HEAD
-// Message
-=======
 // Messages pour l'envoi de messages
 message MessageRequest {
   string senderId = 1;
@@ -44,7 +41,6 @@ message StreamRequest {
 }
 
 // Structure de message
->>>>>>> origin/frontend
 message Message {
   int64 id = 1;
   int64 userId = 2;
@@ -73,18 +69,8 @@ message PrivateConversation {
   string updatedAt = 5;
 }
 
-<<<<<<< HEAD
-// Group Conversation
-message GroupConversation {
-  int64 id = 1;
-  int64 conversationId = 2;
-  string name = 3;
-  string createdAt = 4;
-  string updatedAt = 5;
-=======
 message UserGroupsRequest {
   uint64 userId = 1;
->>>>>>> origin/frontend
 }
 
 // Group Member
