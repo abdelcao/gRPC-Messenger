@@ -6,7 +6,7 @@ spring:
     name: user-service
 
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://127.0.0.1:3306/chatdb}
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://mysql:3306/chatdb}
     username: ${SPRING_DATASOURCE_USERNAME:chatuser}
     password: ${SPRING_DATASOURCE_PASSWORD:chatpassword}
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -33,3 +33,4 @@ logging:
   level:
     root: INFO
     org.springframework: INFO
+    org.springframework.boot.env: DEBUG

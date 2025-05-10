@@ -1,6 +1,6 @@
 package com.adia.auth.service;
 
-import com.adia.auth.User;
+import com.adia.user.User;
 import com.adia.auth.entity.RefreshToken;
 import com.adia.auth.repository.RefreshTokenRepository;
 import com.adia.auth.util.JwtUtil;
@@ -27,7 +27,7 @@ public class RefreshTokenService {
     public RefreshToken createRefreshToken(User user) {
 
         String refreshTokenStr = UUID.randomUUID().toString();
-        LocalDateTime expiryDate = LocalDateTime.now().plusNanos(refreshExpiration);
+        LocalDateTime expiryDate = LocalDateTime.now().plusSeconds(refreshExpiration);
 
         RefreshToken token = RefreshToken.builder()
                 .token(refreshTokenStr)

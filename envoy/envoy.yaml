@@ -27,12 +27,16 @@ static_resources:
                       routes:
                         - match: { prefix: "/admin." }
                           route: { cluster: admin-service, timeout: 0s, max_stream_duration: { grpc_timeout_header_max: 0s } }
+                        
                         - match: { prefix: "/auth." }
                           route: { cluster: auth-service, timeout: 0s, max_stream_duration: { grpc_timeout_header_max: 0s } }
+                        
                         - match: { prefix: "/user." }
                           route: { cluster: user-service, timeout: 0s, max_stream_duration: { grpc_timeout_header_max: 0s } }
+                        
                         - match: { prefix: "/chat." }
                           route: { cluster: chat-service, timeout: 0s, max_stream_duration: { grpc_timeout_header_max: 0s } }
+                        
                         - match: { prefix: "/notification." }
                           route: { cluster: notification-service, timeout: 0s, max_stream_duration: { grpc_timeout_header_max: 0s } }
                       
@@ -81,13 +85,6 @@ static_resources:
                     socket_address:
                       address: admin-service
                       port_value: 9091
-      health_checks:
-        - timeout: 1s
-          interval: 10s
-          unhealthy_threshold: 3
-          healthy_threshold: 1
-          grpc_health_check: {}
-
     
     - name: auth-service
       connect_timeout: 0.25s

@@ -25,13 +25,13 @@ message MessageRequest {
 
 message MessageResponse {
   bool success = 1;
-  string messageId = 2;
+  uint64 messageId = 2;
   string timestamp = 3;
 }
 
 // Messages pour l'historique
 message HistoryRequest {
-  string userId = 1;
+  uint64 userId = 1;
   string targetId = 2; // Peut être un userId ou un groupId
   bool isGroup = 3;
   int32 limit = 4;
@@ -39,7 +39,7 @@ message HistoryRequest {
 
 // Messages pour le streaming en temps réel
 message StreamRequest {
-  string userId = 1;
+  uint64 userId = 1;
 }
 
 // Structure de message
@@ -67,7 +67,7 @@ message GroupResponse {
 }
 
 message UserGroupsRequest {
-  string userId = 1;
+  uint64 userId = 1;
 }
 
 message UserGroupsResponse {

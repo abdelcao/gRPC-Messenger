@@ -9,9 +9,11 @@ option java_outer_classname = "UserProto";
 service UserService {
   rpc CreateUser(CreateUserRequest) returns (UserResponse);
   rpc GetUser(GetUserRequest) returns (UserResponse);
+  rpc GetUserByEmail(GetUserByEmailRequest) returns (UserResponse);
   rpc UpdateUser(UpdateUserRequest) returns (UserResponse);
   rpc DeleteUser(DeleteUserRequest) returns (UserResponse);
   rpc ListUsers(Empty) returns (ListUsersResponse);
+  rpc VerifyPassword(VPasswordReq) returns (VPasswordRes); 
 }
 
 message User {
@@ -40,6 +42,10 @@ message GetUserRequest {
   uint64 id = 1;
 }
 
+message GetUserByEmailRequest {
+  string email = 1;
+}
+
 message UpdateUserRequest {
   uint64 id  = 1;
   string username = 2;
@@ -66,4 +72,14 @@ message UserResponse {
   bool success = 1;
   string message = 2;
   User user = 3;
+}
+
+message VPasswordReq {
+  string email = 1;
+  string password = 2; 
+}
+
+message VPasswordRes {
+  string message = 1;
+  bool success = 2; 
 }

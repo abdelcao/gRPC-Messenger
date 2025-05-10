@@ -1,4 +1,35 @@
-split backend to microservices (single projects)
-each one with a Dockerfile and proto files
+// DONE split backend to microservices (single projects)
+// DONE each one with a Dockerfile and proto files
+// DONE add status + message to every proto response
 
-add status + message to every proto response
+/** auth */
+// DONE LOGIN
+// DONE REISTER
+// DONE REFRESH TOKEN
+// DONE LOGOUT
+// TODO VALIDATE TOKEN
+
+/* ! BRANCH USER */ 
+// TODO SEARCH USERS (BY USERNAME/EMAIL)
+// TODO SELECT USER
+// TODO REPORT USER
+// TODO CHECK IF USERNAME ALREADY EXISTS
+
+/* ! BRANCH CHAT */ 
+// TODO SEND TEXTS
+// TODO RECEIVE TEXTS
+// TODO DELETE CHAT
+// TODO SEARCH GROUPS (BY NAME)
+// TODO JOIN GROUP / LEAVE GROUP
+// TODO SEND / RECEIVE GROUP TEXT
+
+
+/* BRANCH NOTIFICATION */
+// TODO RECEIVE NOTIF
+// TODO MARK AS READ
+// TODO MARK ALL AS READ
+
+/** ? BRANCH ADMIN */
+// TODO BAN USER
+// TODO HANDLE REPORTS
+// TODO STATISTICS

@@ -86,10 +86,14 @@ import AuthLayout from '@/layouts/AuthLayout.vue' // Adjust path
 import InputText from 'primevue/inputtext'
 import Password from 'primevue/password'
 import Button from 'primevue/button'
-import { useAuthService } from '@/composables/useAuthService'
 import { useToast } from 'primevue/usetoast'
+import { useAuthService } from '@/composables/useAuthService'
+import TokenService from '@/utils/TokenService'
+import { useAuthStore } from '@/stores/auth'
 
 const router = useRouter()
+const toast = useToast()
+const authStore = useAuthStore()
 
 const username = ref('yusef')
 const email = ref('email@mail.com')
@@ -97,7 +101,7 @@ const password = ref('password')
 const passwordConfirm = ref('password')
 const isLoading = ref(false)
 
-const toast = useToast()
+
 
 const handleRegister = async () => {
   if (password.value !== passwordConfirm.value) {
@@ -115,6 +119,7 @@ const handleRegister = async () => {
   // --- Your Registration Logic Here ---
   // Call API, handle success/errors
   const auth = useAuthService()
+
   try {
     const res = await auth.register({
       email: email.value,
@@ -122,7 +127,16 @@ const handleRegister = async () => {
       username: username.value,
     })
 
-    console.log('register success:', res)
+    if (!res.success) {
+      throw Error(res.message)
+    }
+
+    // save token to localStorage
+    TokenService.setTokens(res.accessToken, res.refreshToken)
+
+    if (res.user) {
+      authStore.setUser(res.user)
+    }
 
     toast.add({
       severity: 'success',
@@ -131,14 +145,16 @@ const handleRegister = async () => {
       life: 2000,
     })
 
-    // save token to localStorage
-
-    await router.push({ name: 'dashboard' })
-  } catch (error: any) {
+    if (res.user?.isAdmin) {
+      await router.push({ name: 'dashboard' })
+    } else {
+      await router.push({ name: 'home' })
+    }
+  } catch (error) {
     toast.add({
       severity: 'error',
-      summary: 'hhh',
-      detail: error?.response?.data?.message,
+      summary: 'Registeration Failed',
+      detail: error,
       life: 2000,
     })
 

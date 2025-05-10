@@ -117,6 +117,26 @@ services:
     networks:
       - chat-net
 
+  mysql:
+    image: mysql:8.0
+    container_name: chat-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "${MYSQL_PORT}:3306"
+    volumes:
+      - ./mysql/init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks:
+      - chat-net
+
   frontend:
     build:
       context: ./frontend
@@ -137,6 +157,12 @@ services:
     ports:
       - "${ENVOY_PORT}:${ENVOY_PORT}"
     command: /usr/local/bin/envoy -c /etc/envoy/envoy.yaml --log-level debug
+    depends_on:
+      - admin-service
+      - auth-service
+      - user-service
+      - chat-service
+      - notification-service
     networks:
       - chat-net
 
@@ -152,6 +178,7 @@ services:
     networks:
       - chat-net
 
+<<<<<<< HEAD
   mysql:
     image: mysql:8.0
     container_name: chat-mysql
@@ -172,6 +199,8 @@ services:
       timeout: 5s
       retries: 20
 
+=======
+>>>>>>> origin/frontend
   redis:
     image: redis:alpine
     container_name: chat-redis
