@@ -46,6 +46,13 @@ export const useChatStore = defineStore("chat", () => {
     error.value = null;
   };
 
+  const updateMessage = (id: string | number | bigint, newData: Partial<Message>) => {
+    const idx = messages.value.findIndex(m => m.id === id)
+    if (idx !== -1) {
+      messages.value[idx] = { ...messages.value[idx], ...newData }
+    }
+  }
+
   return {
     currentChat,
     messages,
@@ -60,6 +67,7 @@ export const useChatStore = defineStore("chat", () => {
     setCurrentConversation,
     setLoading,
     setError,
-    clearChat
+    clearChat,
+    updateMessage
   };
 });
