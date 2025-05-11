@@ -44,7 +44,7 @@
             :isOwn="message.userId === currentUserId"
             :isEdited="message.edited"
             :status="getMessageStatus(message)"
-            :messageId="message.id.toString()"
+            :username="messageUsernames.get(message.id.toString()) || 'Loading...'"
           >
             {{ message.text }}
           </MessageBubble>
@@ -66,10 +66,12 @@
 <script setup lang="ts">
 import { ref, onMounted, watch, computed, onUnmounted } from 'vue'
 import { useChatService } from '@/composables/useChatService'
+import { useUserService } from '@/composables/useUserService'
 import { useChatStore } from '@/stores/chat'
 import { useAuthStore } from '@/stores/auth'
 import type { Message } from '@/grpc/chat/chat_pb'
 import { MessageStatus } from '@/grpc/chat/chat_pb'
+import type { User } from '@/grpc/user/user_pb'
 import MessageBubble from './MessageBubble.vue'
 import ChatSender from './ChatSender.vue'
 import ChatHeader from './ChatHeader.vue'
@@ -78,6 +80,7 @@ import Button from 'primevue/button'
 import { storeToRefs } from 'pinia'
 
 const chatService = useChatService()
+const userService = useUserService()
 const chatStore = useChatStore()
 const authStore = useAuthStore()
 const messagesContainer = ref<HTMLElement | null>(null)
@@ -365,9 +368,72 @@ watch(() => chatStore.currentConversation, (conv) => {
   }
 }, { immediate: true })
 
-onMounted(() => {
+// Add user cache
+const userCache = ref<Map<number, User>>(new Map())
+
+// Function to get user from cache or fetch from database
+const getUser = async (userId: bigint): Promise<User | null> => {
+  const numericId = Number(userId)
+  
+  // Check cache first
+  const cachedUser = userCache.value.get(numericId)
+  if (cachedUser) {
+    return cachedUser
+  }
+
+  try {
+    // Fetch user if not in cache
+    const user = await userService.getUser(userId)
+    userCache.value.set(numericId, user)
+    return user
+  } catch (err) {
+    console.error('Error fetching user:', err)
+    return null
+  }
+}
+
+// Update getMessageUsername to use the database
+const getMessageUsername = async (message: Message): Promise<string> => {
+  if (message.userId === currentUserId.value) {
+    return 'You'
+  }
+
+  // If it's a group conversation, show the group name
+  if (chatStore.currentConversation && 'name' in chatStore.currentConversation) {
+    return chatStore.currentConversation.name
+  }
+
+  // Get user from cache or database
+  const user = await getUser(message.userId)
+  return user?.username || 'User ' + message.userId.toString()
+}
+
+// Add a computed property for message usernames
+const messageUsernames = ref<Map<string, string>>(new Map())
+
+// Function to update message usernames
+const updateMessageUsernames = async () => {
+  const newUsernames = new Map<string, string>()
+  
+  for (const message of messages.value) {
+    if (!messageUsernames.value.has(message.id.toString())) {
+      const username = await getMessageUsername(message)
+      newUsernames.set(message.id.toString(), username)
+    }
+  }
+  
+  messageUsernames.value = new Map([...messageUsernames.value, ...newUsernames])
+}
+
+// Watch for new messages to update usernames
+watch(messages, async () => {
+  await updateMessageUsernames()
+}, { deep: true })
+
+onMounted(async () => {
   if (chatStore.currentConversation) {
     startMessageStream(BigInt(chatStore.currentConversation.id))
+    await updateMessageUsernames()
   }
 })
 
