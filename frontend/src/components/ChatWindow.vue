@@ -169,6 +169,7 @@ const handleSendMessage = async (text: string) => {
     $typeName: "chat.Message",
   } as Message
   
+  // Add temporary message to store
   chatStore.addMessage(tempMessage)
   scrollToBottom()
 
@@ -178,10 +179,17 @@ const handleSendMessage = async (text: string) => {
       BigInt(chatStore.currentConversation.id),
       text
     )
-    chatStore.updateMessage(tempId as unknown as bigint, message)
+    
+    // Remove the temporary message and add the real one
+    chatStore.removeMessage(tempId as unknown as bigint)
+    chatStore.addMessage(message)
     scrollToBottom()
   } catch (err) {
-    chatStore.updateMessage(tempId as unknown as bigint, { status: MessageStatus.DELIVERED })
+    // Update the temporary message status to indicate failure
+    chatStore.updateMessage(tempId as unknown as bigint, { 
+      status: MessageStatus.DELIVERED,
+      text: text + ' (Failed to send)'
+    })
     chatStore.setError(err instanceof Error ? err.message : 'Failed to send message')
     isConnected.value = false
   }
@@ -273,16 +281,33 @@ const startMessageStream = async (conversationId: bigint) => {
 
     isConnected.value = true
     reconnectAttempts = 0
-    chatStore.setError(null) // Clear any existing errors
+    chatStore.setError(null)
 
     for await (const message of stream) {
       console.log('Received message from stream:', message)
       // Check if message is from current conversation
       if (message.conversationId === conversationId) {
-        // Use a more robust message update mechanism
-        if (messages.value.some(m => m.id === message.id)) {
-          chatStore.updateMessage(message.id, message)
-        } else {
+        // Check if this is a temporary message that needs to be replaced
+        const isTemporaryMessage = messages.value.some(m => 
+          m.id.toString().startsWith('temp-') && 
+          m.userId === message.userId && 
+          m.text === message.text
+        )
+        
+        if (isTemporaryMessage) {
+          // Remove the temporary message
+          const tempMessage = messages.value.find(m => 
+            m.id.toString().startsWith('temp-') && 
+            m.userId === message.userId && 
+            m.text === message.text
+          )
+          if (tempMessage) {
+            chatStore.removeMessage(tempMessage.id)
+          }
+        }
+        
+        // Only add the message if it doesn't already exist
+        if (!messages.value.some(m => m.id === message.id)) {
           chatStore.addMessage(message)
           // Only scroll to bottom if the new message is from the current user
           if (message.userId === currentUserId.value) {
@@ -302,7 +327,7 @@ const startMessageStream = async (conversationId: bigint) => {
         if (chatStore.currentConversation) {
           startMessageStream(BigInt(chatStore.currentConversation.id))
         }
-      }, RECONNECT_DELAY * reconnectAttempts) // Exponential backoff
+      }, RECONNECT_DELAY * reconnectAttempts)
     } else {
       chatStore.setError('Connection failed after multiple attempts. Please try again.')
     }
