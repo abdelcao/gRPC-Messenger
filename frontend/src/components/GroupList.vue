@@ -1,7 +1,8 @@
 <template>
-  <div class="flex items-center">
-    <InputText v-model="search" placeholder="Search..." class="w-full mb-4 h-10" />
-    <Button icon="pi pi-plus" class="w-16 shrink-0"></Button>
+  <div class="flex items-center mb-4">
+    <InputText v-model="search" placeholder="Search..." class="w-full h-10" />
+    <Divider layout="vertical"></Divider>
+    <Button icon="pi pi-plus" class="h-9 shrink-0" variant="outlined"></Button>
   </div>
   <ul class="flex flex-col gap-2">
     <ChatItem v-for="(chat, n) in groupChats" :key="n" :chat="chat" />
@@ -13,6 +14,7 @@ import InputText from 'primevue/inputtext'
 import ChatItem from './ChatItem.vue'
 import { ref } from 'vue'
 import Button from 'primevue/button'
+import Divider from 'primevue/divider'
 
 const search = ref('')
 
