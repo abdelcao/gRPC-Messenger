@@ -39,6 +39,9 @@ public class ChatGrpcService extends com.adia.chat.grpc.ChatServiceGrpc.ChatServ
 
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
+    // Add broadcaster instance
+    private static final MessageBroadcaster messageBroadcaster = new MessageBroadcaster();
+
     @Override
     public void createConversation(com.adia.chat.grpc.CreateConversationRequest request, StreamObserver<Conversation> responseObserver) {
         com.adia.chat.entity.Conversation entityConversation = chatService.createConversation(Integer.valueOf((int) request.getOwnerId()));
@@ -65,6 +68,9 @@ public class ChatGrpcService extends com.adia.chat.grpc.ChatServiceGrpc.ChatServ
         Message grpcMessage = mapToGrpcMessage(entityMessage);
         responseObserver.onNext(grpcMessage);
         responseObserver.onCompleted();
+
+        // Broadcast to all active streams for this conversation
+        messageBroadcaster.broadcast(entityMessage.getConversationId(), grpcMessage);
     }
 
     @Override
@@ -89,12 +95,19 @@ public class ChatGrpcService extends com.adia.chat.grpc.ChatServiceGrpc.ChatServ
 
     @Override
     public void getConversationMessages(com.adia.chat.grpc.GetConversationMessagesRequest request, StreamObserver<Message> responseObserver) {
-        chatService.getConversationMessages(Integer.valueOf((int) request.getConversationId()))
+        int conversationId = (int) request.getConversationId();
+
+        // 1. Send existing messages
+        chatService.getConversationMessages(conversationId)
             .forEach(entityMessage -> {
                 Message grpcMessage = mapToGrpcMessage(entityMessage);
                 responseObserver.onNext(grpcMessage);
             });
-        responseObserver.onCompleted();
+
+        // 2. Register for new messages
+        messageBroadcaster.register(conversationId, responseObserver);
+        // 3. Do NOT call responseObserver.onCompleted() here!
+        // Optionally, handle client disconnects (not shown here)
     }
 
     @Override

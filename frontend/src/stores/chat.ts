@@ -53,6 +53,13 @@ export const useChatStore = defineStore("chat", () => {
     }
   }
 
+  const removeMessage = (id: string | number | bigint) => {
+    const idx = messages.value.findIndex(m => m.id === id)
+    if (idx !== -1) {
+      messages.value.splice(idx, 1)
+    }
+  }
+
   return {
     currentChat,
     messages,
@@ -68,6 +75,7 @@ export const useChatStore = defineStore("chat", () => {
     setLoading,
     setError,
     clearChat,
-    updateMessage
+    updateMessage,
+    removeMessage
   };
 });
