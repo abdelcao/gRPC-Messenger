@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package com.adia.chat;
+package chat;
 
 option java_multiple_files = true;
 option java_package = "com.adia.chat.grpc";
@@ -75,10 +75,12 @@ service ChatService {
   // Private conversation operations
   rpc CreatePrivateConversation(CreatePrivateConversationRequest) returns (PrivateConversation) {}
   rpc GetPrivateConversation(GetPrivateConversationRequest) returns (PrivateConversation) {}
+  rpc GetUserPrivateConversations(GetUserConversationsRequest) returns (stream PrivateConversation) {}
   
   // Group conversation operations
   rpc CreateGroupConversation(CreateGroupConversationRequest) returns (GroupConversation) {}
   rpc GetGroupConversation(GetGroupConversationRequest) returns (GroupConversation) {}
+  rpc GetUserGroupConversations(GetUserConversationsRequest) returns (stream GroupConversation) {}
   rpc AddMemberToGroup(AddMemberToGroupRequest) returns (GroupMember) {}
   rpc RemoveMemberFromGroup(RemoveMemberFromGroupRequest) returns (Empty) {}
   rpc MakeGroupAdmin(MakeGroupAdminRequest) returns (GroupMember) {}
@@ -129,6 +131,10 @@ message CreateGroupConversationRequest {
 
 message GetGroupConversationRequest {
   int64 conversationId = 1;
+}
+
+message GetUserConversationsRequest {
+  int64 userId = 1;
 }
 
 message AddMemberToGroupRequest {

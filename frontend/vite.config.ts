@@ -23,5 +23,32 @@ export default defineConfig({
     host: '0.0.0.0', // Allow external connections
     port: 5173,
     strictPort: true,
+    proxy: {
+      '/chat.': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+        ws: false,
+      },
+      '/user.': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+        ws: false,
+      },
+      '/admin.': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+        ws: false,
+      },
+      '/auth.': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+        ws: false,
+      },
+      '/notification.': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+        ws: false,
+      },
+    },
   }
 })

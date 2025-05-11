@@ -1,23 +1,43 @@
 <script setup lang="ts">
-import Button from 'primevue/button'
+import { ref } from 'vue'
 import InputText from 'primevue/inputtext'
-import {ref} from "vue";
+import Button from 'primevue/button'
+
+const emit = defineEmits<{
+  (e: 'send', message: string): void
+}>()
 
 const message = ref('')
+const loading = ref(false)
 
-function sendMessage() {
-  if (message.value.trim()) {
-    // Send logic here...
+const handleSubmit = async () => {
+  if (!message.value.trim()) return
+
+  loading.value = true
+  try {
+    emit('send', message.value.trim())
     message.value = ''
+  } finally {
+    loading.value = false
   }
 }
 </script>
 
 <template>
-  <div class="border-t border-gray-500 flex items-center">
-    <input v-model="message" placeholder="Your message" class="bg-gray-900 ps-4 focus-within:outline-none flex-1 h-16 rounded-none" />
-    <button class="flex items-center justify-center bg-lime-500/25 h-full w-16 cursor-pointer hover:bg-lime-500 hover:text-lime-900" @click="sendMessage">
-      <i class="pi pi-arrow-right" style="font-size: 1.5rem;"></i>
-    </button>
+  <div class="p-4 border-t">
+    <form @submit.prevent="handleSubmit" class="flex gap-2">
+      <InputText
+        v-model="message"
+        placeholder="Type a message..."
+        class="flex-1"
+        :disabled="loading"
+      />
+      <Button
+        type="submit"
+        icon="pi pi-send"
+        :loading="loading"
+        :disabled="!message.trim()"
+      />
+    </form>
   </div>
 </template>

@@ -117,6 +117,16 @@ public class ChatGrpcService extends com.adia.chat.grpc.ChatServiceGrpc.ChatServ
     }
 
     @Override
+    public void getUserPrivateConversations(com.adia.chat.grpc.GetUserConversationsRequest request, StreamObserver<PrivateConversation> responseObserver) {
+        chatService.getUserPrivateConversations(Integer.valueOf((int) request.getUserId()))
+            .forEach(entityConversation -> {
+                PrivateConversation grpcConversation = mapToGrpcPrivateConversation(entityConversation);
+                responseObserver.onNext(grpcConversation);
+            });
+        responseObserver.onCompleted();
+    }
+
+    @Override
     public void createGroupConversation(com.adia.chat.grpc.CreateGroupConversationRequest request, StreamObserver<GroupConversation> responseObserver) {
         com.adia.chat.entity.GroupeConversation entityConversation = chatService.createGroupConversation(
             Integer.valueOf((int) request.getOwnerId()),
@@ -132,6 +142,16 @@ public class ChatGrpcService extends com.adia.chat.grpc.ChatServiceGrpc.ChatServ
         com.adia.chat.entity.GroupeConversation entityConversation = chatService.getGroupConversation(Integer.valueOf((int) request.getConversationId()));
         GroupConversation grpcConversation = mapToGrpcGroupConversation(entityConversation);
         responseObserver.onNext(grpcConversation);
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void getUserGroupConversations(com.adia.chat.grpc.GetUserConversationsRequest request, StreamObserver<GroupConversation> responseObserver) {
+        chatService.getUserGroupConversations(Integer.valueOf((int) request.getUserId()))
+            .forEach(entityConversation -> {
+                GroupConversation grpcConversation = mapToGrpcGroupConversation(entityConversation);
+                responseObserver.onNext(grpcConversation);
+            });
         responseObserver.onCompleted();
     }
 

@@ -105,6 +105,11 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
+    public List<PrivateConversation> getUserPrivateConversations(Integer userId) {
+        return privateConversationRepository.findByReceiverId(userId);
+    }
+
+    @Override
     @Transactional
     public GroupeConversation createGroupConversation(Integer ownerId, String name) {
         Conversation conversation = createConversation(ownerId);
@@ -132,6 +137,15 @@ public class ChatServiceImpl implements ChatService {
     public GroupeConversation getGroupConversation(Integer conversationId) {
         return groupeConversationRepository.findByConversationId(conversationId)
                 .orElseThrow(() -> new RuntimeException("Group conversation not found"));
+    }
+
+    @Override
+    public List<GroupeConversation> getUserGroupConversations(Integer userId) {
+        List<Integer> groupIds = groupeMemberRepository.findByUserId(userId)
+                .stream()
+                .map(member -> member.getGroupeId())
+                .toList();
+        return groupeConversationRepository.findByConversationIdIn(groupIds);
     }
 
     @Override

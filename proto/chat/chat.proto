@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package com.adia.chat;
+package chat;
 
 option java_multiple_files = true;
 option java_package = "com.adia.chat.grpc";
@@ -13,34 +13,7 @@ enum MessageStatus {
   READ = 2;
 }
 
-// Messages pour l'envoi de messages
-message MessageRequest {
-  string senderId = 1;
-  string receiverId = 2; // Peut être un userId ou un groupId
-  string content = 3;
-  bool isGroup = 4;
-}
-
-message MessageResponse {
-  bool success = 1;
-  uint64 messageId = 2;
-  string timestamp = 3;
-}
-
-// Messages pour l'historique
-message HistoryRequest {
-  uint64 userId = 1;
-  string targetId = 2; // Peut être un userId ou un groupId
-  bool isGroup = 3;
-  int32 limit = 4;
-}
-
-// Messages pour le streaming en temps réel
-message StreamRequest {
-  uint64 userId = 1;
-}
-
-// Structure de message
+// Message
 message Message {
   int64 id = 1;
   int64 userId = 2;
@@ -69,8 +42,13 @@ message PrivateConversation {
   string updatedAt = 5;
 }
 
-message UserGroupsRequest {
-  uint64 userId = 1;
+// Group Conversation
+message GroupConversation {
+  int64 id = 1;
+  int64 conversationId = 2;
+  string name = 3;
+  string createdAt = 4;
+  string updatedAt = 5;
 }
 
 // Group Member
@@ -97,10 +75,12 @@ service ChatService {
   // Private conversation operations
   rpc CreatePrivateConversation(CreatePrivateConversationRequest) returns (PrivateConversation) {}
   rpc GetPrivateConversation(GetPrivateConversationRequest) returns (PrivateConversation) {}
+  rpc GetUserPrivateConversations(GetUserConversationsRequest) returns (stream PrivateConversation) {}
   
   // Group conversation operations
   rpc CreateGroupConversation(CreateGroupConversationRequest) returns (GroupConversation) {}
   rpc GetGroupConversation(GetGroupConversationRequest) returns (GroupConversation) {}
+  rpc GetUserGroupConversations(GetUserConversationsRequest) returns (stream GroupConversation) {}
   rpc AddMemberToGroup(AddMemberToGroupRequest) returns (GroupMember) {}
   rpc RemoveMemberFromGroup(RemoveMemberFromGroupRequest) returns (Empty) {}
   rpc MakeGroupAdmin(MakeGroupAdminRequest) returns (GroupMember) {}
@@ -151,6 +131,10 @@ message CreateGroupConversationRequest {
 
 message GetGroupConversationRequest {
   int64 conversationId = 1;
+}
+
+message GetUserConversationsRequest {
+  int64 userId = 1;
 }
 
 message AddMemberToGroupRequest {

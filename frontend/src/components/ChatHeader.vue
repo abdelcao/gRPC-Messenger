@@ -1,25 +1,108 @@
 <script setup lang="ts">
-import { useAppStore } from '@/stores/app'
+import { ref } from 'vue'
+import type { User } from '@/grpc/user/user_pb'
+import Avatar from 'primevue/avatar'
+import Button from 'primevue/button'
+import Menu from 'primevue/menu'
 
-const appStore = useAppStore()
+const props = defineProps<{
+  user?: User
+}>()
+
+const menu = ref()
+const menuItems = [
+  {
+    label: 'View Profile',
+    icon: 'pi pi-user',
+    command: () => handleViewProfile()
+  },
+  {
+    label: 'Block User',
+    icon: 'pi pi-ban',
+    command: () => handleBlockUser()
+  },
+  {
+    label: 'Clear Chat',
+    icon: 'pi pi-trash',
+    command: () => handleClearChat()
+  }
+]
+
+const getInitials = (name?: string) => {
+  if (!name) return ''
+  return name
+    .split(' ')
+    .map(word => word[0])
+    .join('')
+    .toUpperCase()
+}
+
+const handleCall = () => {
+  // Implement call functionality
+  console.log('Call clicked')
+}
+
+const handleVideoCall = () => {
+  // Implement video call functionality
+  console.log('Video call clicked')
+}
+
+const toggleMenu = (event: Event) => {
+  menu.value?.toggle(event)
+}
+
+const handleViewProfile = () => {
+  // Implement view profile functionality
+  console.log('View profile clicked')
+}
+
+const handleBlockUser = () => {
+  // Implement block user functionality
+  console.log('Block user clicked')
+}
+
+const handleClearChat = () => {
+  // Implement clear chat functionality
+  console.log('Clear chat clicked')
+}
 </script>
 
 <template>
-  <div class="flex items-center justify-between px-4 py-3 border-b border-gray-500">
-    <div class="flex items-center gap-2">
-      <img src="/images/default_avatar.jpg" class="w-10 h-10 rounded-full" />
-      <div class="flex-1">
-        <div class="font-semibold text-sm">Selected Chat</div>
-        <div class="text-xs text-lime-400">Online</div>
+  <div class="p-4 border-b flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <Avatar
+        :label="getInitials(user?.username)"
+        class="bg-primary"
+        shape="circle"
+      />
+      <div>
+        <h3 class="text-lg font-semibold">{{ user?.username }}</h3>
+        <p class="text-sm text-gray-500">{{ user?.email }}</p>
       </div>
     </div>
-
-    <div>
-      <i
-        @click="() => (appStore.panelInforOpened = !appStore.panelInforOpened)"
-        style="font-size: 1.25rem"
-        class="pi pi-info-circle cursor-pointer p-2 flex items-center justify-center hover:bg-gray-500 rounded-full"
-      ></i>
+    <div class="flex gap-2">
+      <Button
+        icon="pi pi-phone"
+        text
+        rounded
+        aria-label="Call"
+        @click="handleCall"
+      />
+      <Button
+        icon="pi pi-video"
+        text
+        rounded
+        aria-label="Video Call"
+        @click="handleVideoCall"
+      />
+      <Button
+        icon="pi pi-ellipsis-v"
+        text
+        rounded
+        aria-label="More"
+        @click="toggleMenu"
+      />
+      <Menu ref="menu" :model="menuItems" :popup="true" />
     </div>
   </div>
 </template>
