@@ -26,7 +26,7 @@ public class JwtUtil {
         return Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
     }
 
-    // Generate token with subject (e.g., username)
+    // Generate token with subject (e.g., email)
     public String generateToken(String subject) {
         Instant now = Instant.now();
         return Jwts.builder()
@@ -37,7 +37,6 @@ public class JwtUtil {
                 .compact();
     }
 
-    // Extract subject (e.g., username)
     public String extractSubject(String token) {
         return Jwts.parser()
                 .verifyWith(getSigningKey())

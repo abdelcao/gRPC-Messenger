@@ -23,29 +23,6 @@ services:
     networks:
       - chat-net
 
-  auth-service:
-    build:
-      context: ./backend/auth
-    ports:
-      - "${AUTH_PORT}:${AUTH_PORT}"
-      - "${SERVER_AUTH_PORT}:${SERVER_AUTH_PORT}"
-    container_name: auth-service
-    environment:
-      - GRPC_SERVER_PORT=${AUTH_PORT}
-      - SERVER_PORT=${SERVER_AUTH_PORT}
-      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
-      - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
-      - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
-      - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
-      - SPRING_DATA_REDIS_HOST=${REDIS_HOST}
-      - SPRING_DATA_REDIS_HOST=${SPRING_REDIS_HOST}
-      - SPRING_DATA_REDIS_PORT=${SPRING_REDIS_PORT}
-    depends_on:
-      - mysql
-      - redis
-    networks:
-      - chat-net
-
   user-service:
     build:
       context: ./backend/user
@@ -66,6 +43,30 @@ services:
     depends_on:
       - mysql
       - redis
+    networks:
+      - chat-net
+
+  auth-service:
+    build:
+      context: ./backend/auth
+    ports:
+      - "${AUTH_PORT}:${AUTH_PORT}"
+      - "${SERVER_AUTH_PORT}:${SERVER_AUTH_PORT}"
+    container_name: auth-service
+    environment:
+      - GRPC_SERVER_PORT=${AUTH_PORT}
+      - SERVER_PORT=${SERVER_AUTH_PORT}
+      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
+      - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
+      - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
+      - SPRING_DATA_REDIS_HOST=${REDIS_HOST}
+      - SPRING_DATA_REDIS_HOST=${SPRING_REDIS_HOST}
+      - SPRING_DATA_REDIS_PORT=${SPRING_REDIS_PORT}
+    depends_on:
+      - mysql
+      - redis
+      - user-service
     networks:
       - chat-net
 
@@ -135,17 +136,17 @@ services:
     networks:
       - chat-net
 
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: chat-frontend
-    ports:
-      - "${FRONTEND_PORT}:${FRONTEND_PORT}"
-    depends_on:
-      - envoy
-    networks:
-      - chat-net
+  # frontend:
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: Dockerfile
+  #   container_name: chat-frontend
+  #   ports:
+  #     - "${FRONTEND_PORT}:${FRONTEND_PORT}"
+  #   depends_on:
+  #     - envoy
+  #   networks:
+  #     - chat-net
 
   envoy:
     image: envoyproxy/envoy:v1.28-latest
@@ -164,17 +165,17 @@ services:
     networks:
       - chat-net
 
-  nginx:
-    image: nginx:stable-alpine
-    container_name: nginx
-    ports:
-      - "${NGINX_PORT}:80"
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-    depends_on:
-      - frontend
-    networks:
-      - chat-net
+  # nginx:
+  #   image: nginx:stable-alpine
+  #   container_name: nginx
+  #   ports:
+  #     - "${NGINX_PORT}:80"
+  #   volumes:
+  #     - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+  #   depends_on:
+  #     - frontend
+  #   networks:
+  #     - chat-net
 
   redis:
     image: redis:alpine

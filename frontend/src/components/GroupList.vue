@@ -1,14 +1,18 @@
 <template>
-  <InputText v-model="search" placeholder="Search..." class="w-full mb-4 h-10" />
+  <div class="flex items-center">
+    <InputText v-model="search" placeholder="Search..." class="w-full mb-4 h-10" />
+    <Button icon="pi pi-plus" class="w-16 shrink-0"></Button>
+  </div>
   <ul class="flex flex-col gap-2">
     <ChatItem v-for="(chat, n) in groupChats" :key="n" :chat="chat" />
   </ul>
 </template>
 
 <script setup lang="ts">
-import InputText from 'primevue/inputtext';
+import InputText from 'primevue/inputtext'
 import ChatItem from './ChatItem.vue'
-import { ref } from 'vue';
+import { ref } from 'vue'
+import Button from 'primevue/button'
 
 const search = ref('')
 

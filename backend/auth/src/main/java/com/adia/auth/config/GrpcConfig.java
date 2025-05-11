@@ -11,10 +11,10 @@ import org.springframework.context.annotation.Configuration;
 @AllArgsConstructor
 public class GrpcConfig {
 
-//    private JwtServerInterceptor jwtInterceptor;
-//
-//    @Bean
-//    public GrpcServerConfigurer serverConfigurer() {
-//        return serverBuilder -> serverBuilder.intercept(jwtInterceptor);
-//    }
+   private JwtServerInterceptor jwtInterceptor;
+
+   @Bean
+   public GrpcServerConfigurer serverConfigurer() {
+       return serverBuilder -> serverBuilder.intercept(jwtInterceptor);
+   }
 }
