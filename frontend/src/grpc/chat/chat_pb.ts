@@ -2,174 +2,61 @@
 // @generated from file chat/chat.proto (package chat, syntax proto3)
 /* eslint-disable */
 
-import type { GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv1";
-import { fileDesc, messageDesc, serviceDesc } from "@bufbuild/protobuf/codegenv1";
+import type { GenEnum, GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv1";
+import { enumDesc, fileDesc, messageDesc, serviceDesc } from "@bufbuild/protobuf/codegenv1";
 import type { Message as Message$1 } from "@bufbuild/protobuf";
 
 /**
  * Describes the file chat/chat.proto.
  */
 export const file_chat_chat: GenFile = /*@__PURE__*/
-  fileDesc("Cg9jaGF0L2NoYXQucHJvdG8SBGNoYXQiWAoOTWVzc2FnZVJlcXVlc3QSEAoIc2VuZGVySWQYASABKAkSEgoKcmVjZWl2ZXJJZBgCIAEoCRIPCgdjb250ZW50GAMgASgJEg8KB2lzR3JvdXAYBCABKAgiSAoPTWVzc2FnZVJlc3BvbnNlEg8KB3N1Y2Nlc3MYASABKAgSEQoJbWVzc2FnZUlkGAIgASgEEhEKCXRpbWVzdGFtcBgDIAEoCSJSCg5IaXN0b3J5UmVxdWVzdBIOCgZ1c2VySWQYASABKAQSEAoIdGFyZ2V0SWQYAiABKAkSDwoHaXNHcm91cBgDIAEoCBINCgVsaW1pdBgEIAEoBSIfCg1TdHJlYW1SZXF1ZXN0Eg4KBnVzZXJJZBgBIAEoBCKEAQoHTWVzc2FnZRIKCgJpZBgBIAEoBBIQCghzZW5kZXJJZBgCIAEoCRISCgpzZW5kZXJOYW1lGAMgASgJEhIKCnJlY2VpdmVySWQYBCABKAkSDwoHY29udGVudBgFIAEoCRIRCgl0aW1lc3RhbXAYBiABKAkSDwoHaXNHcm91cBgHIAEoCCJHCgxHcm91cFJlcXVlc3QSEQoJY3JlYXRvcklkGAEgASgJEhEKCWdyb3VwTmFtZRgCIAEoCRIRCgltZW1iZXJJZHMYAyADKAkiRAoNR3JvdXBSZXNwb25zZRIPCgdzdWNjZXNzGAEgASgIEg8KB2dyb3VwSWQYAiABKAkSEQoJZ3JvdXBOYW1lGAMgASgJIiMKEVVzZXJHcm91cHNSZXF1ZXN0Eg4KBnVzZXJJZBgBIAEoBCIxChJVc2VyR3JvdXBzUmVzcG9uc2USGwoGZ3JvdXBzGAEgAygLMgsuY2hhdC5Hcm91cCJHCgVHcm91cBIKCgJpZBgBIAEoBBIMCgRuYW1lGAIgASgJEhEKCWNyZWF0b3JJZBgDIAEoCRIRCgltZW1iZXJJZHMYBCADKAkyuQIKC0NoYXRTZXJ2aWNlEjoKC1NlbmRNZXNzYWdlEhQuY2hhdC5NZXNzYWdlUmVxdWVzdBoVLmNoYXQuTWVzc2FnZVJlc3BvbnNlEjoKEUdldE1lc3NhZ2VIaXN0b3J5EhQuY2hhdC5IaXN0b3J5UmVxdWVzdBoNLmNoYXQuTWVzc2FnZTABEjYKDlN0cmVhbU1lc3NhZ2VzEhMuY2hhdC5TdHJlYW1SZXF1ZXN0Gg0uY2hhdC5NZXNzYWdlMAESNgoLQ3JlYXRlR3JvdXASEi5jaGF0Lkdyb3VwUmVxdWVzdBoTLmNoYXQuR3JvdXBSZXNwb25zZRJCCg1HZXRVc2VyR3JvdXBzEhcuY2hhdC5Vc2VyR3JvdXBzUmVxdWVzdBoYLmNoYXQuVXNlckdyb3Vwc1Jlc3BvbnNlQhwKDWNvbS5hZGlhLmNoYXRCCUNoYXRQcm90b1ABYgZwcm90bzM");
+  fileDesc("Cg9jaGF0L2NoYXQucHJvdG8SBGNoYXQipgEKB01lc3NhZ2USCgoCaWQYASABKAMSDgoGdXNlcklkGAIgASgDEhYKDmNvbnZlcnNhdGlvbklkGAMgASgDEgwKBHRleHQYBCABKAkSDgoGZWRpdGVkGAUgASgIEiMKBnN0YXR1cxgGIAEoDjITLmNoYXQuTWVzc2FnZVN0YXR1cxIRCgljcmVhdGVkQXQYByABKAkSEQoJdXBkYXRlZEF0GAggASgJIlEKDENvbnZlcnNhdGlvbhIKCgJpZBgBIAEoAxIPCgdvd25lcklkGAIgASgDEhEKCWNyZWF0ZWRBdBgDIAEoCRIRCgl1cGRhdGVkQXQYBCABKAkicwoTUHJpdmF0ZUNvbnZlcnNhdGlvbhIKCgJpZBgBIAEoAxIWCg5jb252ZXJzYXRpb25JZBgCIAEoAxISCgpyZWNlaXZlcklkGAMgASgDEhEKCWNyZWF0ZWRBdBgEIAEoCRIRCgl1cGRhdGVkQXQYBSABKAkiawoRR3JvdXBDb252ZXJzYXRpb24SCgoCaWQYASABKAMSFgoOY29udmVyc2F0aW9uSWQYAiABKAMSDAoEbmFtZRgDIAEoCRIRCgljcmVhdGVkQXQYBCABKAkSEQoJdXBkYXRlZEF0GAUgASgJIlwKC0dyb3VwTWVtYmVyEgoKAmlkGAEgASgDEg4KBnVzZXJJZBgCIAEoAxIPCgdncm91cElkGAMgASgDEg0KBWFkbWluGAQgASgIEhEKCWNyZWF0ZWRBdBgFIAEoCSIsChlDcmVhdGVDb252ZXJzYXRpb25SZXF1ZXN0Eg8KB293bmVySWQYASABKAMiJAoWR2V0Q29udmVyc2F0aW9uUmVxdWVzdBIKCgJpZBgBIAEoAyJKChJTZW5kTWVzc2FnZVJlcXVlc3QSDgoGdXNlcklkGAEgASgDEhYKDmNvbnZlcnNhdGlvbklkGAIgASgDEgwKBHRleHQYAyABKAkiOAoSRWRpdE1lc3NhZ2VSZXF1ZXN0EhEKCW1lc3NhZ2VJZBgBIAEoAxIPCgduZXdUZXh0GAIgASgJIlQKGlVwZGF0ZU1lc3NhZ2VTdGF0dXNSZXF1ZXN0EhEKCW1lc3NhZ2VJZBgBIAEoAxIjCgZzdGF0dXMYAiABKA4yEy5jaGF0Lk1lc3NhZ2VTdGF0dXMiOAoeR2V0Q29udmVyc2F0aW9uTWVzc2FnZXNSZXF1ZXN0EhYKDmNvbnZlcnNhdGlvbklkGAEgASgDIkcKIENyZWF0ZVByaXZhdGVDb252ZXJzYXRpb25SZXF1ZXN0Eg8KB293bmVySWQYASABKAMSEgoKcmVjZWl2ZXJJZBgCIAEoAyI3Ch1HZXRQcml2YXRlQ29udmVyc2F0aW9uUmVxdWVzdBIWCg5jb252ZXJzYXRpb25JZBgBIAEoAyI/Ch5DcmVhdGVHcm91cENvbnZlcnNhdGlvblJlcXVlc3QSDwoHb3duZXJJZBgBIAEoAxIMCgRuYW1lGAIgASgJIjUKG0dldEdyb3VwQ29udmVyc2F0aW9uUmVxdWVzdBIWCg5jb252ZXJzYXRpb25JZBgBIAEoAyItChtHZXRVc2VyQ29udmVyc2F0aW9uc1JlcXVlc3QSDgoGdXNlcklkGAEgASgDIjoKF0FkZE1lbWJlclRvR3JvdXBSZXF1ZXN0Eg8KB2dyb3VwSWQYASABKAMSDgoGdXNlcklkGAIgASgDIj8KHFJlbW92ZU1lbWJlckZyb21Hcm91cFJlcXVlc3QSDwoHZ3JvdXBJZBgBIAEoAxIOCgZ1c2VySWQYAiABKAMiOAoVTWFrZUdyb3VwQWRtaW5SZXF1ZXN0Eg8KB2dyb3VwSWQYASABKAMSDgoGdXNlcklkGAIgASgDIgcKBUVtcHR5KjIKDU1lc3NhZ2VTdGF0dXMSCAoEU0VOVBAAEg0KCURFTElWRVJFRBABEggKBFJFQUQQAjK5CQoLQ2hhdFNlcnZpY2USSwoSQ3JlYXRlQ29udmVyc2F0aW9uEh8uY2hhdC5DcmVhdGVDb252ZXJzYXRpb25SZXF1ZXN0GhIuY2hhdC5Db252ZXJzYXRpb24iABJFCg9HZXRDb252ZXJzYXRpb24SHC5jaGF0LkdldENvbnZlcnNhdGlvblJlcXVlc3QaEi5jaGF0LkNvbnZlcnNhdGlvbiIAEjgKC1NlbmRNZXNzYWdlEhguY2hhdC5TZW5kTWVzc2FnZVJlcXVlc3QaDS5jaGF0Lk1lc3NhZ2UiABI4CgtFZGl0TWVzc2FnZRIYLmNoYXQuRWRpdE1lc3NhZ2VSZXF1ZXN0Gg0uY2hhdC5NZXNzYWdlIgASSAoTVXBkYXRlTWVzc2FnZVN0YXR1cxIgLmNoYXQuVXBkYXRlTWVzc2FnZVN0YXR1c1JlcXVlc3QaDS5jaGF0Lk1lc3NhZ2UiABJSChdHZXRDb252ZXJzYXRpb25NZXNzYWdlcxIkLmNoYXQuR2V0Q29udmVyc2F0aW9uTWVzc2FnZXNSZXF1ZXN0Gg0uY2hhdC5NZXNzYWdlIgAwARJgChlDcmVhdGVQcml2YXRlQ29udmVyc2F0aW9uEiYuY2hhdC5DcmVhdGVQcml2YXRlQ29udmVyc2F0aW9uUmVxdWVzdBoZLmNoYXQuUHJpdmF0ZUNvbnZlcnNhdGlvbiIAEloKFkdldFByaXZhdGVDb252ZXJzYXRpb24SIy5jaGF0LkdldFByaXZhdGVDb252ZXJzYXRpb25SZXF1ZXN0GhkuY2hhdC5Qcml2YXRlQ29udmVyc2F0aW9uIgASXwobR2V0VXNlclByaXZhdGVDb252ZXJzYXRpb25zEiEuY2hhdC5HZXRVc2VyQ29udmVyc2F0aW9uc1JlcXVlc3QaGS5jaGF0LlByaXZhdGVDb252ZXJzYXRpb24iADABEloKF0NyZWF0ZUdyb3VwQ29udmVyc2F0aW9uEiQuY2hhdC5DcmVhdGVHcm91cENvbnZlcnNhdGlvblJlcXVlc3QaFy5jaGF0Lkdyb3VwQ29udmVyc2F0aW9uIgASVAoUR2V0R3JvdXBDb252ZXJzYXRpb24SIS5jaGF0LkdldEdyb3VwQ29udmVyc2F0aW9uUmVxdWVzdBoXLmNoYXQuR3JvdXBDb252ZXJzYXRpb24iABJbChlHZXRVc2VyR3JvdXBDb252ZXJzYXRpb25zEiEuY2hhdC5HZXRVc2VyQ29udmVyc2F0aW9uc1JlcXVlc3QaFy5jaGF0Lkdyb3VwQ29udmVyc2F0aW9uIgAwARJGChBBZGRNZW1iZXJUb0dyb3VwEh0uY2hhdC5BZGRNZW1iZXJUb0dyb3VwUmVxdWVzdBoRLmNoYXQuR3JvdXBNZW1iZXIiABJKChVSZW1vdmVNZW1iZXJGcm9tR3JvdXASIi5jaGF0LlJlbW92ZU1lbWJlckZyb21Hcm91cFJlcXVlc3QaCy5jaGF0LkVtcHR5IgASQgoOTWFrZUdyb3VwQWRtaW4SGy5jaGF0Lk1ha2VHcm91cEFkbWluUmVxdWVzdBoRLmNoYXQuR3JvdXBNZW1iZXIiAEIhChJjb20uYWRpYS5jaGF0LmdycGNCCUNoYXRQcm90b1ABYgZwcm90bzM");
 
 /**
- * Messages pour l'envoi de messages
- *
- * @generated from message chat.MessageRequest
- */
-export type MessageRequest = Message$1<"chat.MessageRequest"> & {
-  /**
-   * @generated from field: string senderId = 1;
-   */
-  senderId: string;
-
-  /**
-   * Peut être un userId ou un groupId
-   *
-   * @generated from field: string receiverId = 2;
-   */
-  receiverId: string;
-
-  /**
-   * @generated from field: string content = 3;
-   */
-  content: string;
-
-  /**
-   * @generated from field: bool isGroup = 4;
-   */
-  isGroup: boolean;
-};
-
-/**
- * Describes the message chat.MessageRequest.
- * Use `create(MessageRequestSchema)` to create a new message.
- */
-export const MessageRequestSchema: GenMessage<MessageRequest> = /*@__PURE__*/
-  messageDesc(file_chat_chat, 0);
-
-/**
- * @generated from message chat.MessageResponse
- */
-export type MessageResponse = Message$1<"chat.MessageResponse"> & {
-  /**
-   * @generated from field: bool success = 1;
-   */
-  success: boolean;
-
-  /**
-   * @generated from field: uint64 messageId = 2;
-   */
-  messageId: bigint;
-
-  /**
-   * @generated from field: string timestamp = 3;
-   */
-  timestamp: string;
-};
-
-/**
- * Describes the message chat.MessageResponse.
- * Use `create(MessageResponseSchema)` to create a new message.
- */
-export const MessageResponseSchema: GenMessage<MessageResponse> = /*@__PURE__*/
-  messageDesc(file_chat_chat, 1);
-
-/**
- * Messages pour l'historique
- *
- * @generated from message chat.HistoryRequest
- */
-export type HistoryRequest = Message$1<"chat.HistoryRequest"> & {
-  /**
-   * @generated from field: uint64 userId = 1;
-   */
-  userId: bigint;
-
-  /**
-   * Peut être un userId ou un groupId
-   *
-   * @generated from field: string targetId = 2;
-   */
-  targetId: string;
-
-  /**
-   * @generated from field: bool isGroup = 3;
-   */
-  isGroup: boolean;
-
-  /**
-   * @generated from field: int32 limit = 4;
-   */
-  limit: number;
-};
-
-/**
- * Describes the message chat.HistoryRequest.
- * Use `create(HistoryRequestSchema)` to create a new message.
- */
-export const HistoryRequestSchema: GenMessage<HistoryRequest> = /*@__PURE__*/
-  messageDesc(file_chat_chat, 2);
-
-/**
- * Messages pour le streaming en temps réel
- *
- * @generated from message chat.StreamRequest
- */
-export type StreamRequest = Message$1<"chat.StreamRequest"> & {
-  /**
-   * @generated from field: uint64 userId = 1;
-   */
-  userId: bigint;
-};
-
-/**
- * Describes the message chat.StreamRequest.
- * Use `create(StreamRequestSchema)` to create a new message.
- */
-export const StreamRequestSchema: GenMessage<StreamRequest> = /*@__PURE__*/
-  messageDesc(file_chat_chat, 3);
-
-/**
- * Structure de message
+ * Message
  *
  * @generated from message chat.Message
  */
 export type Message = Message$1<"chat.Message"> & {
   /**
-   * @generated from field: uint64 id = 1;
+   * @generated from field: int64 id = 1;
    */
   id: bigint;
 
   /**
-   * @generated from field: string senderId = 2;
+   * @generated from field: int64 userId = 2;
    */
-  senderId: string;
+  userId: bigint;
 
   /**
-   * @generated from field: string senderName = 3;
+   * @generated from field: int64 conversationId = 3;
    */
-  senderName: string;
+  conversationId: bigint;
 
   /**
-   * @generated from field: string receiverId = 4;
+   * @generated from field: string text = 4;
    */
-  receiverId: string;
+  text: string;
 
   /**
-   * @generated from field: string content = 5;
+   * @generated from field: bool edited = 5;
    */
-  content: string;
+  edited: boolean;
 
   /**
-   * @generated from field: string timestamp = 6;
+   * @generated from field: chat.MessageStatus status = 6;
    */
-  timestamp: string;
+  status: MessageStatus;
 
   /**
-   * @generated from field: bool isGroup = 7;
+   * @generated from field: string createdAt = 7;
    */
-  isGroup: boolean;
+  createdAt: string;
+
+  /**
+   * @generated from field: string updatedAt = 8;
+   */
+  updatedAt: string;
 };
 
 /**
@@ -177,175 +64,618 @@ export type Message = Message$1<"chat.Message"> & {
  * Use `create(MessageSchema)` to create a new message.
  */
 export const MessageSchema: GenMessage<Message> = /*@__PURE__*/
+  messageDesc(file_chat_chat, 0);
+
+/**
+ * Conversation
+ *
+ * @generated from message chat.Conversation
+ */
+export type Conversation = Message$1<"chat.Conversation"> & {
+  /**
+   * @generated from field: int64 id = 1;
+   */
+  id: bigint;
+
+  /**
+   * @generated from field: int64 ownerId = 2;
+   */
+  ownerId: bigint;
+
+  /**
+   * @generated from field: string createdAt = 3;
+   */
+  createdAt: string;
+
+  /**
+   * @generated from field: string updatedAt = 4;
+   */
+  updatedAt: string;
+};
+
+/**
+ * Describes the message chat.Conversation.
+ * Use `create(ConversationSchema)` to create a new message.
+ */
+export const ConversationSchema: GenMessage<Conversation> = /*@__PURE__*/
+  messageDesc(file_chat_chat, 1);
+
+/**
+ * Private Conversation
+ *
+ * @generated from message chat.PrivateConversation
+ */
+export type PrivateConversation = Message$1<"chat.PrivateConversation"> & {
+  /**
+   * @generated from field: int64 id = 1;
+   */
+  id: bigint;
+
+  /**
+   * @generated from field: int64 conversationId = 2;
+   */
+  conversationId: bigint;
+
+  /**
+   * @generated from field: int64 receiverId = 3;
+   */
+  receiverId: bigint;
+
+  /**
+   * @generated from field: string createdAt = 4;
+   */
+  createdAt: string;
+
+  /**
+   * @generated from field: string updatedAt = 5;
+   */
+  updatedAt: string;
+};
+
+/**
+ * Describes the message chat.PrivateConversation.
+ * Use `create(PrivateConversationSchema)` to create a new message.
+ */
+export const PrivateConversationSchema: GenMessage<PrivateConversation> = /*@__PURE__*/
+  messageDesc(file_chat_chat, 2);
+
+/**
+ * Group Conversation
+ *
+ * @generated from message chat.GroupConversation
+ */
+export type GroupConversation = Message$1<"chat.GroupConversation"> & {
+  /**
+   * @generated from field: int64 id = 1;
+   */
+  id: bigint;
+
+  /**
+   * @generated from field: int64 conversationId = 2;
+   */
+  conversationId: bigint;
+
+  /**
+   * @generated from field: string name = 3;
+   */
+  name: string;
+
+  /**
+   * @generated from field: string createdAt = 4;
+   */
+  createdAt: string;
+
+  /**
+   * @generated from field: string updatedAt = 5;
+   */
+  updatedAt: string;
+};
+
+/**
+ * Describes the message chat.GroupConversation.
+ * Use `create(GroupConversationSchema)` to create a new message.
+ */
+export const GroupConversationSchema: GenMessage<GroupConversation> = /*@__PURE__*/
+  messageDesc(file_chat_chat, 3);
+
+/**
+ * Group Member
+ *
+ * @generated from message chat.GroupMember
+ */
+export type GroupMember = Message$1<"chat.GroupMember"> & {
+  /**
+   * @generated from field: int64 id = 1;
+   */
+  id: bigint;
+
+  /**
+   * @generated from field: int64 userId = 2;
+   */
+  userId: bigint;
+
+  /**
+   * @generated from field: int64 groupId = 3;
+   */
+  groupId: bigint;
+
+  /**
+   * @generated from field: bool admin = 4;
+   */
+  admin: boolean;
+
+  /**
+   * @generated from field: string createdAt = 5;
+   */
+  createdAt: string;
+};
+
+/**
+ * Describes the message chat.GroupMember.
+ * Use `create(GroupMemberSchema)` to create a new message.
+ */
+export const GroupMemberSchema: GenMessage<GroupMember> = /*@__PURE__*/
   messageDesc(file_chat_chat, 4);
 
 /**
- * Messages pour la gestion des groupes
+ * Request/Response messages
  *
- * @generated from message chat.GroupRequest
+ * @generated from message chat.CreateConversationRequest
  */
-export type GroupRequest = Message$1<"chat.GroupRequest"> & {
+export type CreateConversationRequest = Message$1<"chat.CreateConversationRequest"> & {
   /**
-   * @generated from field: string creatorId = 1;
+   * @generated from field: int64 ownerId = 1;
    */
-  creatorId: string;
-
-  /**
-   * @generated from field: string groupName = 2;
-   */
-  groupName: string;
-
-  /**
-   * @generated from field: repeated string memberIds = 3;
-   */
-  memberIds: string[];
+  ownerId: bigint;
 };
 
 /**
- * Describes the message chat.GroupRequest.
- * Use `create(GroupRequestSchema)` to create a new message.
+ * Describes the message chat.CreateConversationRequest.
+ * Use `create(CreateConversationRequestSchema)` to create a new message.
  */
-export const GroupRequestSchema: GenMessage<GroupRequest> = /*@__PURE__*/
+export const CreateConversationRequestSchema: GenMessage<CreateConversationRequest> = /*@__PURE__*/
   messageDesc(file_chat_chat, 5);
 
 /**
- * @generated from message chat.GroupResponse
+ * @generated from message chat.GetConversationRequest
  */
-export type GroupResponse = Message$1<"chat.GroupResponse"> & {
+export type GetConversationRequest = Message$1<"chat.GetConversationRequest"> & {
   /**
-   * @generated from field: bool success = 1;
+   * @generated from field: int64 id = 1;
    */
-  success: boolean;
-
-  /**
-   * @generated from field: string groupId = 2;
-   */
-  groupId: string;
-
-  /**
-   * @generated from field: string groupName = 3;
-   */
-  groupName: string;
+  id: bigint;
 };
 
 /**
- * Describes the message chat.GroupResponse.
- * Use `create(GroupResponseSchema)` to create a new message.
+ * Describes the message chat.GetConversationRequest.
+ * Use `create(GetConversationRequestSchema)` to create a new message.
  */
-export const GroupResponseSchema: GenMessage<GroupResponse> = /*@__PURE__*/
+export const GetConversationRequestSchema: GenMessage<GetConversationRequest> = /*@__PURE__*/
   messageDesc(file_chat_chat, 6);
 
 /**
- * @generated from message chat.UserGroupsRequest
+ * @generated from message chat.SendMessageRequest
  */
-export type UserGroupsRequest = Message$1<"chat.UserGroupsRequest"> & {
+export type SendMessageRequest = Message$1<"chat.SendMessageRequest"> & {
   /**
-   * @generated from field: uint64 userId = 1;
+   * @generated from field: int64 userId = 1;
    */
   userId: bigint;
+
+  /**
+   * @generated from field: int64 conversationId = 2;
+   */
+  conversationId: bigint;
+
+  /**
+   * @generated from field: string text = 3;
+   */
+  text: string;
 };
 
 /**
- * Describes the message chat.UserGroupsRequest.
- * Use `create(UserGroupsRequestSchema)` to create a new message.
+ * Describes the message chat.SendMessageRequest.
+ * Use `create(SendMessageRequestSchema)` to create a new message.
  */
-export const UserGroupsRequestSchema: GenMessage<UserGroupsRequest> = /*@__PURE__*/
+export const SendMessageRequestSchema: GenMessage<SendMessageRequest> = /*@__PURE__*/
   messageDesc(file_chat_chat, 7);
 
 /**
- * @generated from message chat.UserGroupsResponse
+ * @generated from message chat.EditMessageRequest
  */
-export type UserGroupsResponse = Message$1<"chat.UserGroupsResponse"> & {
+export type EditMessageRequest = Message$1<"chat.EditMessageRequest"> & {
   /**
-   * @generated from field: repeated chat.Group groups = 1;
+   * @generated from field: int64 messageId = 1;
    */
-  groups: Group[];
+  messageId: bigint;
+
+  /**
+   * @generated from field: string newText = 2;
+   */
+  newText: string;
 };
 
 /**
- * Describes the message chat.UserGroupsResponse.
- * Use `create(UserGroupsResponseSchema)` to create a new message.
+ * Describes the message chat.EditMessageRequest.
+ * Use `create(EditMessageRequestSchema)` to create a new message.
  */
-export const UserGroupsResponseSchema: GenMessage<UserGroupsResponse> = /*@__PURE__*/
+export const EditMessageRequestSchema: GenMessage<EditMessageRequest> = /*@__PURE__*/
   messageDesc(file_chat_chat, 8);
 
 /**
- * @generated from message chat.Group
+ * @generated from message chat.UpdateMessageStatusRequest
  */
-export type Group = Message$1<"chat.Group"> & {
+export type UpdateMessageStatusRequest = Message$1<"chat.UpdateMessageStatusRequest"> & {
   /**
-   * @generated from field: uint64 id = 1;
+   * @generated from field: int64 messageId = 1;
    */
-  id: bigint;
+  messageId: bigint;
+
+  /**
+   * @generated from field: chat.MessageStatus status = 2;
+   */
+  status: MessageStatus;
+};
+
+/**
+ * Describes the message chat.UpdateMessageStatusRequest.
+ * Use `create(UpdateMessageStatusRequestSchema)` to create a new message.
+ */
+export const UpdateMessageStatusRequestSchema: GenMessage<UpdateMessageStatusRequest> = /*@__PURE__*/
+  messageDesc(file_chat_chat, 9);
+
+/**
+ * @generated from message chat.GetConversationMessagesRequest
+ */
+export type GetConversationMessagesRequest = Message$1<"chat.GetConversationMessagesRequest"> & {
+  /**
+   * @generated from field: int64 conversationId = 1;
+   */
+  conversationId: bigint;
+};
+
+/**
+ * Describes the message chat.GetConversationMessagesRequest.
+ * Use `create(GetConversationMessagesRequestSchema)` to create a new message.
+ */
+export const GetConversationMessagesRequestSchema: GenMessage<GetConversationMessagesRequest> = /*@__PURE__*/
+  messageDesc(file_chat_chat, 10);
+
+/**
+ * @generated from message chat.CreatePrivateConversationRequest
+ */
+export type CreatePrivateConversationRequest = Message$1<"chat.CreatePrivateConversationRequest"> & {
+  /**
+   * @generated from field: int64 ownerId = 1;
+   */
+  ownerId: bigint;
+
+  /**
+   * @generated from field: int64 receiverId = 2;
+   */
+  receiverId: bigint;
+};
+
+/**
+ * Describes the message chat.CreatePrivateConversationRequest.
+ * Use `create(CreatePrivateConversationRequestSchema)` to create a new message.
+ */
+export const CreatePrivateConversationRequestSchema: GenMessage<CreatePrivateConversationRequest> = /*@__PURE__*/
+  messageDesc(file_chat_chat, 11);
+
+/**
+ * @generated from message chat.GetPrivateConversationRequest
+ */
+export type GetPrivateConversationRequest = Message$1<"chat.GetPrivateConversationRequest"> & {
+  /**
+   * @generated from field: int64 conversationId = 1;
+   */
+  conversationId: bigint;
+};
+
+/**
+ * Describes the message chat.GetPrivateConversationRequest.
+ * Use `create(GetPrivateConversationRequestSchema)` to create a new message.
+ */
+export const GetPrivateConversationRequestSchema: GenMessage<GetPrivateConversationRequest> = /*@__PURE__*/
+  messageDesc(file_chat_chat, 12);
+
+/**
+ * @generated from message chat.CreateGroupConversationRequest
+ */
+export type CreateGroupConversationRequest = Message$1<"chat.CreateGroupConversationRequest"> & {
+  /**
+   * @generated from field: int64 ownerId = 1;
+   */
+  ownerId: bigint;
 
   /**
    * @generated from field: string name = 2;
    */
   name: string;
-
-  /**
-   * @generated from field: string creatorId = 3;
-   */
-  creatorId: string;
-
-  /**
-   * @generated from field: repeated string memberIds = 4;
-   */
-  memberIds: string[];
 };
 
 /**
- * Describes the message chat.Group.
- * Use `create(GroupSchema)` to create a new message.
+ * Describes the message chat.CreateGroupConversationRequest.
+ * Use `create(CreateGroupConversationRequestSchema)` to create a new message.
  */
-export const GroupSchema: GenMessage<Group> = /*@__PURE__*/
-  messageDesc(file_chat_chat, 9);
+export const CreateGroupConversationRequestSchema: GenMessage<CreateGroupConversationRequest> = /*@__PURE__*/
+  messageDesc(file_chat_chat, 13);
 
 /**
- * Service de messagerie
+ * @generated from message chat.GetGroupConversationRequest
+ */
+export type GetGroupConversationRequest = Message$1<"chat.GetGroupConversationRequest"> & {
+  /**
+   * @generated from field: int64 conversationId = 1;
+   */
+  conversationId: bigint;
+};
+
+/**
+ * Describes the message chat.GetGroupConversationRequest.
+ * Use `create(GetGroupConversationRequestSchema)` to create a new message.
+ */
+export const GetGroupConversationRequestSchema: GenMessage<GetGroupConversationRequest> = /*@__PURE__*/
+  messageDesc(file_chat_chat, 14);
+
+/**
+ * @generated from message chat.GetUserConversationsRequest
+ */
+export type GetUserConversationsRequest = Message$1<"chat.GetUserConversationsRequest"> & {
+  /**
+   * @generated from field: int64 userId = 1;
+   */
+  userId: bigint;
+};
+
+/**
+ * Describes the message chat.GetUserConversationsRequest.
+ * Use `create(GetUserConversationsRequestSchema)` to create a new message.
+ */
+export const GetUserConversationsRequestSchema: GenMessage<GetUserConversationsRequest> = /*@__PURE__*/
+  messageDesc(file_chat_chat, 15);
+
+/**
+ * @generated from message chat.AddMemberToGroupRequest
+ */
+export type AddMemberToGroupRequest = Message$1<"chat.AddMemberToGroupRequest"> & {
+  /**
+   * @generated from field: int64 groupId = 1;
+   */
+  groupId: bigint;
+
+  /**
+   * @generated from field: int64 userId = 2;
+   */
+  userId: bigint;
+};
+
+/**
+ * Describes the message chat.AddMemberToGroupRequest.
+ * Use `create(AddMemberToGroupRequestSchema)` to create a new message.
+ */
+export const AddMemberToGroupRequestSchema: GenMessage<AddMemberToGroupRequest> = /*@__PURE__*/
+  messageDesc(file_chat_chat, 16);
+
+/**
+ * @generated from message chat.RemoveMemberFromGroupRequest
+ */
+export type RemoveMemberFromGroupRequest = Message$1<"chat.RemoveMemberFromGroupRequest"> & {
+  /**
+   * @generated from field: int64 groupId = 1;
+   */
+  groupId: bigint;
+
+  /**
+   * @generated from field: int64 userId = 2;
+   */
+  userId: bigint;
+};
+
+/**
+ * Describes the message chat.RemoveMemberFromGroupRequest.
+ * Use `create(RemoveMemberFromGroupRequestSchema)` to create a new message.
+ */
+export const RemoveMemberFromGroupRequestSchema: GenMessage<RemoveMemberFromGroupRequest> = /*@__PURE__*/
+  messageDesc(file_chat_chat, 17);
+
+/**
+ * @generated from message chat.MakeGroupAdminRequest
+ */
+export type MakeGroupAdminRequest = Message$1<"chat.MakeGroupAdminRequest"> & {
+  /**
+   * @generated from field: int64 groupId = 1;
+   */
+  groupId: bigint;
+
+  /**
+   * @generated from field: int64 userId = 2;
+   */
+  userId: bigint;
+};
+
+/**
+ * Describes the message chat.MakeGroupAdminRequest.
+ * Use `create(MakeGroupAdminRequestSchema)` to create a new message.
+ */
+export const MakeGroupAdminRequestSchema: GenMessage<MakeGroupAdminRequest> = /*@__PURE__*/
+  messageDesc(file_chat_chat, 18);
+
+/**
+ * @generated from message chat.Empty
+ */
+export type Empty = Message$1<"chat.Empty"> & {
+};
+
+/**
+ * Describes the message chat.Empty.
+ * Use `create(EmptySchema)` to create a new message.
+ */
+export const EmptySchema: GenMessage<Empty> = /*@__PURE__*/
+  messageDesc(file_chat_chat, 19);
+
+/**
+ * Message status enum
+ *
+ * @generated from enum chat.MessageStatus
+ */
+export enum MessageStatus {
+  /**
+   * @generated from enum value: SENT = 0;
+   */
+  SENT = 0,
+
+  /**
+   * @generated from enum value: DELIVERED = 1;
+   */
+  DELIVERED = 1,
+
+  /**
+   * @generated from enum value: READ = 2;
+   */
+  READ = 2,
+}
+
+/**
+ * Describes the enum chat.MessageStatus.
+ */
+export const MessageStatusSchema: GenEnum<MessageStatus> = /*@__PURE__*/
+  enumDesc(file_chat_chat, 0);
+
+/**
+ * Service definition
  *
  * @generated from service chat.ChatService
  */
 export const ChatService: GenService<{
   /**
+   * Conversation operations
+   *
+   * @generated from rpc chat.ChatService.CreateConversation
+   */
+  createConversation: {
+    methodKind: "unary";
+    input: typeof CreateConversationRequestSchema;
+    output: typeof ConversationSchema;
+  },
+  /**
+   * @generated from rpc chat.ChatService.GetConversation
+   */
+  getConversation: {
+    methodKind: "unary";
+    input: typeof GetConversationRequestSchema;
+    output: typeof ConversationSchema;
+  },
+  /**
+   * Message operations
+   *
    * @generated from rpc chat.ChatService.SendMessage
    */
   sendMessage: {
     methodKind: "unary";
-    input: typeof MessageRequestSchema;
-    output: typeof MessageResponseSchema;
-  },
-  /**
-   * @generated from rpc chat.ChatService.GetMessageHistory
-   */
-  getMessageHistory: {
-    methodKind: "server_streaming";
-    input: typeof HistoryRequestSchema;
+    input: typeof SendMessageRequestSchema;
     output: typeof MessageSchema;
   },
   /**
-   * @generated from rpc chat.ChatService.StreamMessages
+   * @generated from rpc chat.ChatService.EditMessage
    */
-  streamMessages: {
-    methodKind: "server_streaming";
-    input: typeof StreamRequestSchema;
+  editMessage: {
+    methodKind: "unary";
+    input: typeof EditMessageRequestSchema;
     output: typeof MessageSchema;
   },
   /**
-   * @generated from rpc chat.ChatService.CreateGroup
+   * @generated from rpc chat.ChatService.UpdateMessageStatus
    */
-  createGroup: {
+  updateMessageStatus: {
     methodKind: "unary";
-    input: typeof GroupRequestSchema;
-    output: typeof GroupResponseSchema;
+    input: typeof UpdateMessageStatusRequestSchema;
+    output: typeof MessageSchema;
   },
   /**
-   * @generated from rpc chat.ChatService.GetUserGroups
+   * @generated from rpc chat.ChatService.GetConversationMessages
    */
-  getUserGroups: {
+  getConversationMessages: {
+    methodKind: "server_streaming";
+    input: typeof GetConversationMessagesRequestSchema;
+    output: typeof MessageSchema;
+  },
+  /**
+   * Private conversation operations
+   *
+   * @generated from rpc chat.ChatService.CreatePrivateConversation
+   */
+  createPrivateConversation: {
     methodKind: "unary";
-    input: typeof UserGroupsRequestSchema;
-    output: typeof UserGroupsResponseSchema;
+    input: typeof CreatePrivateConversationRequestSchema;
+    output: typeof PrivateConversationSchema;
+  },
+  /**
+   * @generated from rpc chat.ChatService.GetPrivateConversation
+   */
+  getPrivateConversation: {
+    methodKind: "unary";
+    input: typeof GetPrivateConversationRequestSchema;
+    output: typeof PrivateConversationSchema;
+  },
+  /**
+   * @generated from rpc chat.ChatService.GetUserPrivateConversations
+   */
+  getUserPrivateConversations: {
+    methodKind: "server_streaming";
+    input: typeof GetUserConversationsRequestSchema;
+    output: typeof PrivateConversationSchema;
+  },
+  /**
+   * Group conversation operations
+   *
+   * @generated from rpc chat.ChatService.CreateGroupConversation
+   */
+  createGroupConversation: {
+    methodKind: "unary";
+    input: typeof CreateGroupConversationRequestSchema;
+    output: typeof GroupConversationSchema;
+  },
+  /**
+   * @generated from rpc chat.ChatService.GetGroupConversation
+   */
+  getGroupConversation: {
+    methodKind: "unary";
+    input: typeof GetGroupConversationRequestSchema;
+    output: typeof GroupConversationSchema;
+  },
+  /**
+   * @generated from rpc chat.ChatService.GetUserGroupConversations
+   */
+  getUserGroupConversations: {
+    methodKind: "server_streaming";
+    input: typeof GetUserConversationsRequestSchema;
+    output: typeof GroupConversationSchema;
+  },
+  /**
+   * @generated from rpc chat.ChatService.AddMemberToGroup
+   */
+  addMemberToGroup: {
+    methodKind: "unary";
+    input: typeof AddMemberToGroupRequestSchema;
+    output: typeof GroupMemberSchema;
+  },
+  /**
+   * @generated from rpc chat.ChatService.RemoveMemberFromGroup
+   */
+  removeMemberFromGroup: {
+    methodKind: "unary";
+    input: typeof RemoveMemberFromGroupRequestSchema;
+    output: typeof EmptySchema;
+  },
+  /**
+   * @generated from rpc chat.ChatService.MakeGroupAdmin
+   */
+  makeGroupAdmin: {
+    methodKind: "unary";
+    input: typeof MakeGroupAdminRequestSchema;
+    output: typeof GroupMemberSchema;
   },
 }> = /*@__PURE__*/
   serviceDesc(file_chat_chat, 0);

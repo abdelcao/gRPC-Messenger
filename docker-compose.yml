@@ -156,12 +156,6 @@ services:
     ports:
       - "${ENVOY_PORT}:${ENVOY_PORT}"
     command: /usr/local/bin/envoy -c /etc/envoy/envoy.yaml --log-level debug
-    depends_on:
-      - admin-service
-      - auth-service
-      - user-service
-      - chat-service
-      - notification-service
     networks:
       - chat-net
 
@@ -176,6 +170,21 @@ services:
   #     - frontend
   #   networks:
   #     - chat-net
+
+  mysql:
+    image: mysql:8.0
+    container_name: chat-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "${MYSQL_PORT}:3306"
+    volumes:
+      - ./mysql/init:/docker-entrypoint-initdb.d
+    networks:
+      - chat-net
 
   redis:
     image: redis:alpine
