@@ -13,6 +13,9 @@ service ChatService {
   rpc StreamMessages (StreamRequest) returns (stream Message);
   rpc CreateGroup (GroupRequest) returns (GroupResponse);
   rpc GetUserGroups (UserGroupsRequest) returns (UserGroupsResponse);
+
+  rpc getUserConversations (UserConversationsReq) returns (UserConversationsRes);
+  
 }
 
 // Messages pour l'envoi de messages

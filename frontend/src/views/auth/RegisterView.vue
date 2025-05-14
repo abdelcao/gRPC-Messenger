@@ -96,7 +96,7 @@ const toast = useToast()
 const authStore = useAuthStore()
 
 const username = ref('yusef')
-const email = ref('email@mail.com')
+const email = ref('youssef@gmail.com')
 const password = ref('password')
 const passwordConfirm = ref('password')
 const isLoading = ref(false)

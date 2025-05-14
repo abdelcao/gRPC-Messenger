@@ -7,9 +7,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import InputText from 'primevue/inputtext'
 import ChatItem from './ChatItem.vue'
+import { useChatService } from '@/composables/useChatService'
 
 const search = ref('')
 const chats = ref([
@@ -39,6 +40,18 @@ const chats = ref([
   },
   // Add other chat entries...
 ])
+
+const chatService = useChatService()
+
+onMounted(async () => {
+  // get private conversations
+  const res = await chatService.get
+})
+
+watch(search, async () => {
+
+})
+
 </script>
 
 <style scoped></style>
