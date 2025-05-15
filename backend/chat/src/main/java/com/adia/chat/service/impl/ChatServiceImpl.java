@@ -10,6 +10,8 @@ import com.adia.chat.service.ChatService;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.stream.Stream;
 
 @Service
 public class ChatServiceImpl implements ChatService {
@@ -106,7 +108,20 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     public List<PrivateConversation> getUserPrivateConversations(Integer userId) {
-        return privateConversationRepository.findByReceiverId(userId);
+        // Get conversations where user is receiver
+        List<PrivateConversation> receiverConversations = privateConversationRepository.findByReceiverId(userId);
+        
+        // Get conversations where user is owner and convert to PrivateConversation
+        List<PrivateConversation> ownerConversations = conversationRepository.findByOwnerId(userId).stream()
+            .map(conversation -> privateConversationRepository.findByConversationId(conversation.getId()))
+            .filter(java.util.Optional::isPresent)
+            .map(java.util.Optional::get)
+            .toList();
+            
+        return Stream.concat(
+            receiverConversations.stream(),
+            ownerConversations.stream()
+        ).toList();
     }
 
     @Override
@@ -139,20 +154,18 @@ public class ChatServiceImpl implements ChatService {
                 .orElseThrow(() -> new RuntimeException("Group conversation not found"));
     }
 
-    @Override
-    public List<GroupeConversation> getUserGroupConversations(Integer userId) {
-        List<Integer> groupIds = groupeMemberRepository.findByUserId(userId)
-                .stream()
-                .map(member -> member.getGroupeId())
-                .toList();
-        return groupeConversationRepository.findByConversationIdIn(groupIds);
-    }
 
     @Override
     @Transactional
     public void addMemberToGroup(Integer groupId, Integer userId) {
+        // Check if group exists
+        if (!groupeConversationRepository.existsById(groupId)) {
+            throw new RuntimeException("Group does not exist");
+        }
+        
+        // If user is already a member, just return silently
         if (groupeMemberRepository.existsByUserIdAndGroupeId(userId, groupId)) {
-            throw new RuntimeException("User is already a member of this group");
+            return;
         }
         
         GroupeMember member = new GroupeMember();
@@ -178,5 +191,53 @@ public class ChatServiceImpl implements ChatService {
                 .orElseThrow(() -> new RuntimeException("Group member not found"));
         member.setAdmin(true);
         groupeMemberRepository.save(member);
+    }
+
+    @Override
+    public List<GroupeConversation> getUserGroupConversations(Integer userId) {
+        // Get all group memberships for the user
+        List<GroupeMember> groupMembers = groupeMemberRepository.findByUserId(userId);
+        
+        // Get all group conversations for these memberships
+        List<Integer> groupIds = groupMembers.stream()
+                .map(GroupeMember::getGroupeId)
+                .toList();
+                
+        return groupeConversationRepository.findByConversationIdIn(groupIds);
+    }
+
+    @Override
+    public Stream<Conversation> getUserConversations(Integer userId) {
+        // Get private conversations where user is receiver or owner
+        List<PrivateConversation> privateConversationsAsReceiver = privateConversationRepository.findByReceiverId(userId);
+        List<Conversation> receiverConversations = privateConversationsAsReceiver.stream()
+                .map(PrivateConversation::getConversationId)
+                .map(conversationRepository::findById)
+                .filter(java.util.Optional::isPresent)
+                .map(java.util.Optional::get)
+                .toList();
+
+        List<Conversation> ownerConversations = conversationRepository.findByOwnerId(userId);
+
+        Stream<Conversation> privateConversationStream = Stream.concat(
+        ownerConversations.stream(),
+        receiverConversations.stream()
+            
+        );
+
+        // Get group conversations where user is a member
+        List<GroupeMember> groupMembers = groupeMemberRepository.findByUserId(userId);
+        List<Integer> groupIds = groupMembers.stream()
+                .map(GroupeMember::getGroupeId)
+                .toList();
+        List<GroupeConversation> groupConversations = groupeConversationRepository.findAllById(groupIds);
+        Stream<Conversation> groupConversationStream = groupConversations.stream()
+                .map(GroupeConversation::getConversationId)
+                .map(conversationRepository::findById)
+                .filter(java.util.Optional::isPresent)
+                .map(java.util.Optional::get);
+
+        // Combine both streams
+        return Stream.concat(privateConversationStream, groupConversationStream).distinct();
     }
 } 
