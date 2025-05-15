@@ -1,6 +1,7 @@
 package com.adia.chat.service;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import com.adia.chat.entity.Conversation;
 import com.adia.chat.entity.GroupeConversation;
@@ -30,4 +31,7 @@ public interface ChatService {
     void addMemberToGroup(Integer groupId, Integer userId);
     void removeMemberFromGroup(Integer groupId, Integer userId);
     void makeGroupAdmin(Integer groupId, Integer userId);
+    
+    // Get all user conversations (both private and group)
+    Stream<Conversation> getUserConversations(Integer userId);
 } 

@@ -42,16 +42,162 @@ const chats = ref([
 ])
 
 const chatService = useChatService()
+const userService = useUserService()
+const chatStore = useChatStore()
+const authStore = useAuthStore()
 
-onMounted(async () => {
-  // get private conversations
-  const res = await chatService.get
+// State
+const search = ref('')
+const loading = ref(false)
+const error = ref<string | null>(null)
+const userCache = ref<Map<number, User>>(new Map())
+const conversationNames = ref<Map<string, string>>(new Map())
+const conversationCache = ref<Map<string, Conversation>>(new Map())
+
+// Computed
+const conversations = computed(() => chatStore.conversations)
+const currentConversation = computed(() => chatStore.currentConversation)
+const currentUserId = computed(() => {
+  if (!authStore.user?.id) return undefined
+  return typeof authStore.user.id === 'bigint' ? Number(authStore.user.id) : authStore.user.id
 })
 
-watch(search, async () => {
+// Filter conversations based on search
+const filteredConversations = computed(() => {
+  const convs = conversations.value || []
+  if (!search.value.trim()) return convs
 
+  const searchLower = search.value.toLowerCase()
+  return convs.filter((conv) => {
+    if ('name' in conv) {
+      // Group conversation
+      return conv.name.toLowerCase().includes(searchLower)
+    } else if ('receiverId' in conv) {
+      // Private conversation
+      const username = conversationNames.value.get(conv.id.toString())
+      return username ? username.toLowerCase().includes(searchLower) : false
+    }
+    return false
+  })
 })
 
+// Get the other user's ID in a private conversation
+async function getOtherUserId(conversation: PrivateConversation): Promise<number | undefined> {
+  if (!currentUserId.value) return undefined
+
+  const receiverId = typeof conversation.receiverId === 'bigint' ? Number(conversation.receiverId) : conversation.receiverId
+
+  // If the current user is the receiver, we need to get the owner from the conversation
+  if (receiverId === currentUserId.value) {
+    try {
+      // Get conversation details if not in cache
+      if (!conversationCache.value.has(conversation.conversationId.toString())) {
+        const conv = await chatService.getConversation(conversation.conversationId)
+        conversationCache.value.set(conversation.conversationId.toString(), conv)
+      }
+
+      const conv = conversationCache.value.get(conversation.conversationId.toString())
+      if (!conv) return undefined
+
+      return typeof conv.ownerId === 'bigint' ? Number(conv.ownerId) : conv.ownerId
+    } catch (err) {
+      console.error('Error fetching conversation:', err)
+      return undefined
+    }
+  }
+
+  return receiverId
+}
+
+// Get conversation name (group name or other user's username)
+async function getConversationName(conversation: Conversation): Promise<void> {
+  try {
+    // Try to get private conversation details
+    const privateConv = await chatService.getPrivateConversation(conversation.id)
+    if (privateConv) {
+      const otherUserId = await getOtherUserId(privateConv)
+      if (!otherUserId) {
+        conversationNames.value.set(conversation.id.toString(), 'Loading...')
+        return
+      }
+
+      // Check cache first
+      const cachedUser = userCache.value.get(otherUserId)
+      if (cachedUser) {
+        conversationNames.value.set(conversation.id.toString(), cachedUser.username)
+        return
+      }
+
+      // Fetch user info if not in cache
+      const user = await userService.getUser(BigInt(otherUserId))
+      userCache.value.set(otherUserId, user)
+      conversationNames.value.set(conversation.id.toString(), user.username)
+      return
+    }
+  } catch (err) {
+    // If not a private conversation, try to get group conversation
+    try {
+      const groupConv = await chatService.getGroupConversation(conversation.id)
+      if (groupConv) {
+        conversationNames.value.set(conversation.id.toString(), groupConv.name)
+        return
+      }
+    } catch (groupErr) {
+      console.error('Error fetching group conversation:', groupErr)
+    }
+  }
+
+  // Fallback if neither private nor group conversation is found
+  conversationNames.value.set(conversation.id.toString(), `Conversation ${conversation.id}`)
+}
+
+// Load conversations and usernames
+async function loadData() {
+  if (!currentUserId.value) {
+    error.value = 'User not authenticated'
+    return
+  }
+
+  loading.value = true
+  error.value = null
+
+  try {
+    // Load conversations
+    const userConversations = await chatService.getUserConversations(BigInt(currentUserId.value))
+    chatStore.setConversations(userConversations)
+
+    // Load usernames for private conversations
+    for (const conv of userConversations) {
+      await getConversationName(conv)
+    }
+  } catch (err) {
+    console.error('Error loading data:', err)
+    if (err instanceof Error) {
+      error.value = `Failed to load data: ${err.message}`
+    } else if (typeof err === 'string') {
+      error.value = err
+    } else {
+      error.value = 'Failed to load data. Please try again later.'
+    }
+  } finally {
+    loading.value = false
+  }
+}
+
+// Handle conversation selection
+function handleConversationSelect(conversation: Conversation | PrivateConversation | GroupConversation) {
+  chatStore.setCurrentConversation(conversation)
+}
+
+// Get last message (placeholder for now)
+function getLastMessage(conversation: Conversation | PrivateConversation | GroupConversation): string {
+  return (conversation as any).lastMessage || 'No messages yet'
+}
+
+// Initialize
+onMounted(() => {
+  loadData()
+})
 </script>
 
 <style scoped></style>
