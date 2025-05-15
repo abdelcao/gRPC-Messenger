@@ -28,14 +28,21 @@ import com.adia.chat.grpc.ChatServiceGrpc.ChatServiceImplBase;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.format.DateTimeFormatter;
 
 @GrpcService
 public class ChatGrpcService extends com.adia.chat.grpc.ChatServiceGrpc.ChatServiceImplBase {
 
+    private static final Logger logger = LoggerFactory.getLogger(ChatGrpcService.class);
+
     @Autowired
     private ChatService chatService;
+
+    @Autowired
+    private GroupeMemberRepository groupeMemberRepository;
 
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
@@ -170,8 +177,27 @@ public class ChatGrpcService extends com.adia.chat.grpc.ChatServiceGrpc.ChatServ
 
     @Override
     public void addMemberToGroup(com.adia.chat.grpc.AddMemberToGroupRequest request, StreamObserver<GroupMember> responseObserver) {
-        chatService.addMemberToGroup(Integer.valueOf((int) request.getGroupId()), Integer.valueOf((int) request.getUserId()));
-        responseObserver.onCompleted();
+        try {
+            chatService.addMemberToGroup(Integer.valueOf((int) request.getGroupId()), Integer.valueOf((int) request.getUserId()));
+            
+            // Get the created member and map it to gRPC response
+            com.adia.chat.entity.GroupeMember member = groupeMemberRepository.findByUserIdAndGroupeId(
+                Integer.valueOf((int) request.getUserId()),
+                Integer.valueOf((int) request.getGroupId())
+            ).orElseThrow(() -> new RuntimeException("Failed to find created group member"));
+            
+            GroupMember grpcMember = GroupMember.newBuilder()
+                .setUserId(member.getUserId())
+                .setGroupId(member.getGroupeId())
+                .setAdmin(member.isAdmin())
+                .setCreatedAt(member.getCreatedAt().format(DATE_TIME_FORMATTER))
+                .build();
+                
+            responseObserver.onNext(grpcMember);
+            responseObserver.onCompleted();
+        } catch (Exception e) {
+            responseObserver.onError(e);
+        }
     }
 
     @Override
@@ -185,6 +211,25 @@ public class ChatGrpcService extends com.adia.chat.grpc.ChatServiceGrpc.ChatServ
     public void makeGroupAdmin(com.adia.chat.grpc.MakeGroupAdminRequest request, StreamObserver<GroupMember> responseObserver) {
         chatService.makeGroupAdmin(Integer.valueOf((int) request.getGroupId()), Integer.valueOf((int) request.getUserId()));
         responseObserver.onCompleted();
+    }
+
+    @Override
+    public void getUserConversations(com.adia.chat.grpc.GetUserConversationsRequest request, StreamObserver<Conversation> responseObserver) {
+        try {
+            chatService.getUserConversations(Integer.valueOf((int) request.getUserId()))
+                .forEach(entityConversation -> {
+                    try {
+                        Conversation grpcConversation = mapToGrpcConversation(entityConversation);
+                        responseObserver.onNext(grpcConversation);
+                    } catch (Exception e) {
+                        // Log error but continue processing other conversations
+                        logger.error("Error processing conversation {}: {}", entityConversation.getId(), e.getMessage());
+                    }
+                });
+            responseObserver.onCompleted();
+        } catch (Exception e) {
+            responseObserver.onError(e);
+        }
     }
 
     // Helper methods to map between entity and gRPC objects

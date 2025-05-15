@@ -57,23 +57,14 @@ export function useChatService() {
 
     // User conversations
     getUserConversations: async (userId: bigint) => {
-      const privateConvs: PrivateConversation[] = []
-      const groupConvs: GroupConversation[] = []
+      const conversations: Conversation[] = []
 
       try {
-        // Get private conversations
-        const privateStream = client.getUserPrivateConversations({ userId })
-        for await (const conv of privateStream) {
-          privateConvs.push(conv)
+        const stream = client.getUserConversations({ userId })
+        for await (const conv of stream) {
+          conversations.push(conv)
         }
-
-        // Get group conversations
-        const groupStream = client.getUserGroupConversations({ userId })
-        for await (const conv of groupStream) {
-          groupConvs.push(conv)
-        }
-
-        return [...privateConvs, ...groupConvs]
+        return conversations
       } catch (error) {
         console.error('Error fetching user conversations:', error)
         if (error instanceof Error && error.message.includes('Failed to fetch')) {

@@ -116,35 +116,45 @@ async function getOtherUserId(conversation: PrivateConversation): Promise<number
 }
 
 // Get conversation name (group name or other user's username)
-async function getConversationName(conversation: Conversation | PrivateConversation | GroupConversation): Promise<void> {
-  if ('name' in conversation) {
-    // Group conversation
-    conversationNames.value.set(conversation.id.toString(), conversation.name)
-  } else if ('receiverId' in conversation) {
-    // Private conversation
-    const otherUserId = await getOtherUserId(conversation as PrivateConversation)
-    if (!otherUserId) {
-      conversationNames.value.set(conversation.id.toString(), 'Loading...')
-      return
-    }
+async function getConversationName(conversation: Conversation): Promise<void> {
+  try {
+    // Try to get private conversation details
+    const privateConv = await chatService.getPrivateConversation(conversation.id)
+    if (privateConv) {
+      const otherUserId = await getOtherUserId(privateConv)
+      if (!otherUserId) {
+        conversationNames.value.set(conversation.id.toString(), 'Loading...')
+        return
+      }
 
-    // Check cache first
-    const cachedUser = userCache.value.get(otherUserId)
-    if (cachedUser) {
-      conversationNames.value.set(conversation.id.toString(), cachedUser.username)
-      return
-    }
+      // Check cache first
+      const cachedUser = userCache.value.get(otherUserId)
+      if (cachedUser) {
+        conversationNames.value.set(conversation.id.toString(), cachedUser.username)
+        return
+      }
 
-    try {
       // Fetch user info if not in cache
       const user = await userService.getUser(BigInt(otherUserId))
       userCache.value.set(otherUserId, user)
       conversationNames.value.set(conversation.id.toString(), user.username)
-    } catch (err) {
-      console.error('Error fetching user:', err)
-      conversationNames.value.set(conversation.id.toString(), `User ${otherUserId}`)
+      return
+    }
+  } catch (err) {
+    // If not a private conversation, try to get group conversation
+    try {
+      const groupConv = await chatService.getGroupConversation(conversation.id)
+      if (groupConv) {
+        conversationNames.value.set(conversation.id.toString(), groupConv.name)
+        return
+      }
+    } catch (groupErr) {
+      console.error('Error fetching group conversation:', groupErr)
     }
   }
+  
+  // Fallback if neither private nor group conversation is found
+  conversationNames.value.set(conversation.id.toString(), `Conversation ${conversation.id}`)
 }
 
 // Load conversations and usernames

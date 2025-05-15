@@ -75,15 +75,16 @@ service ChatService {
   // Private conversation operations
   rpc CreatePrivateConversation(CreatePrivateConversationRequest) returns (PrivateConversation) {}
   rpc GetPrivateConversation(GetPrivateConversationRequest) returns (PrivateConversation) {}
-  rpc GetUserPrivateConversations(GetUserConversationsRequest) returns (stream PrivateConversation) {}
   
   // Group conversation operations
   rpc CreateGroupConversation(CreateGroupConversationRequest) returns (GroupConversation) {}
   rpc GetGroupConversation(GetGroupConversationRequest) returns (GroupConversation) {}
-  rpc GetUserGroupConversations(GetUserConversationsRequest) returns (stream GroupConversation) {}
   rpc AddMemberToGroup(AddMemberToGroupRequest) returns (GroupMember) {}
   rpc RemoveMemberFromGroup(RemoveMemberFromGroupRequest) returns (Empty) {}
   rpc MakeGroupAdmin(MakeGroupAdminRequest) returns (GroupMember) {}
+
+  // User conversations
+  rpc GetUserConversations(GetUserConversationsRequest) returns (stream Conversation) {}
 }
 
 // Request/Response messages
