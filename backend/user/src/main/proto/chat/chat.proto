@@ -84,6 +84,7 @@ service ChatService {
   rpc AddMemberToGroup(AddMemberToGroupRequest) returns (GroupMember) {}
   rpc RemoveMemberFromGroup(RemoveMemberFromGroupRequest) returns (Empty) {}
   rpc MakeGroupAdmin(MakeGroupAdminRequest) returns (GroupMember) {}
+  rpc GetUserConversations(GetUserConversationsRequest) returns (stream Conversation) {}
 }
 
 // Request/Response messages

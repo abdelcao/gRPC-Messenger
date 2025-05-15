@@ -7,10 +7,14 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import InputText from 'primevue/inputtext'
 import ChatItem from './ChatItem.vue'
 import { useChatService } from '@/composables/useChatService'
+import { useAuthStore } from '@/stores/auth'
+import { useChatStore } from '@/stores/chat'
+import { useUserService } from '@/composables/useUserService'
+import type { Conversation, GroupConversation, PrivateConversation } from '@/grpc/chat/chat_pb'
 
 const search = ref('')
 const chats = ref([
@@ -47,7 +51,6 @@ const chatStore = useChatStore()
 const authStore = useAuthStore()
 
 // State
-const search = ref('')
 const loading = ref(false)
 const error = ref<string | null>(null)
 const userCache = ref<Map<number, User>>(new Map())
@@ -164,7 +167,7 @@ async function loadData() {
   try {
     // Load conversations
     const userConversations = await chatService.getUserConversations(BigInt(currentUserId.value))
-    chatStore.setConversations(userConversations)
+    chatStore.setConversationList(userConversations)
 
     // Load usernames for private conversations
     for (const conv of userConversations) {
