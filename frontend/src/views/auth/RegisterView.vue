@@ -88,7 +88,7 @@ import Password from 'primevue/password'
 import Button from 'primevue/button'
 import { useToast } from 'primevue/usetoast'
 import { useAuthService } from '@/composables/useAuthService'
-import TokenService from '@/utils/TokenService'
+import TokenService from '@/services/TokenService'
 import { useAuthStore } from '@/stores/auth'
 
 const router = useRouter()

@@ -2,7 +2,7 @@
 import { onMounted, ref } from 'vue'
 import Toast from 'primevue/toast'
 import { useAuthStore } from './stores/auth'
-import TokenService from './utils/TokenService'
+import TokenService from './services/TokenService'
 import { useAuthService } from './composables/useAuthService'
 import { useRouter } from 'vue-router'
 import SplashScreen from './components/SplashScreen.vue'

@@ -1,27 +1,23 @@
 <!-- src/components/ChatList.vue -->
 <template>
   <div class="flex flex-col h-full">
-    <InputText 
-      v-model="search" 
-      placeholder="Search conversations..." 
-      class="w-full mb-4 h-10" 
-    />
-    
+    <InputText v-model="search" placeholder="Search conversations..." class="w-full mb-4 h-10" />
+
     <div v-if="loading" class="flex justify-center p-4">
       <ProgressSpinner />
     </div>
-    
+
     <div v-else-if="error" class="text-red-500 text-center p-4">
-      {{ error }}
+      <i class="pi pi-exclamation-triangle" style="font-size: 1.25rem"></i>
     </div>
-    
+
     <div v-else-if="filteredConversations.length === 0" class="text-center text-gray-500 p-4">
-      No conversations found
+      Search & Chat
     </div>
-    
+
     <ul v-else class="flex flex-col gap-2 overflow-y-auto">
-      <ChatItem 
-        v-for="conversation in filteredConversations" 
+      <ChatItem
+        v-for="conversation in filteredConversations"
         :key="conversation.id.toString()"
         :conversation="conversation"
         :is-active="currentConversation?.id === conversation.id"
@@ -35,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { useChatService } from '@/composables/useChatService'
 import { useUserService } from '@/composables/useUserService'
 import { useChatStore } from '@/stores/chat'
@@ -45,6 +41,7 @@ import type { User } from '@/grpc/user/user_pb'
 import InputText from 'primevue/inputtext'
 import ProgressSpinner from 'primevue/progressspinner'
 import ChatItem from './ChatItem.vue'
+import { throttle } from '@/libs/utils';
 
 // Services and stores
 const chatService = useChatService()
@@ -68,6 +65,15 @@ const currentUserId = computed(() => {
   return typeof authStore.user.id === 'bigint' ? Number(authStore.user.id) : authStore.user.id
 })
 
+onMounted(() => {
+  loadData()
+})
+
+watch(search, throttle(() => {
+  console.log(search.value);
+
+}, 500))
+
 // Filter conversations based on search
 const filteredConversations = computed(() => {
   const convs = conversations.value || []
@@ -90,9 +96,12 @@ const filteredConversations = computed(() => {
 // Get the other user's ID in a private conversation
 async function getOtherUserId(conversation: PrivateConversation): Promise<number | undefined> {
   if (!currentUserId.value) return undefined
-  
-  const receiverId = typeof conversation.receiverId === 'bigint' ? Number(conversation.receiverId) : conversation.receiverId
-  
+
+  const receiverId =
+    typeof conversation.receiverId === 'bigint'
+      ? Number(conversation.receiverId)
+      : conversation.receiverId
+
   // If the current user is the receiver, we need to get the owner from the conversation
   if (receiverId === currentUserId.value) {
     try {
@@ -101,22 +110,24 @@ async function getOtherUserId(conversation: PrivateConversation): Promise<number
         const conv = await chatService.getConversation(conversation.conversationId)
         conversationCache.value.set(conversation.conversationId.toString(), conv)
       }
-      
+
       const conv = conversationCache.value.get(conversation.conversationId.toString())
       if (!conv) return undefined
-      
+
       return typeof conv.ownerId === 'bigint' ? Number(conv.ownerId) : conv.ownerId
     } catch (err) {
       console.error('Error fetching conversation:', err)
       return undefined
     }
   }
-  
+
   return receiverId
 }
 
 // Get conversation name (group name or other user's username)
-async function getConversationName(conversation: Conversation | PrivateConversation | GroupConversation): Promise<void> {
+async function getConversationName(
+  conversation: Conversation | PrivateConversation | GroupConversation,
+): Promise<void> {
   if ('name' in conversation) {
     // Group conversation
     conversationNames.value.set(conversation.id.toString(), conversation.name)
@@ -181,19 +192,18 @@ async function loadData() {
 }
 
 // Handle conversation selection
-function handleConversationSelect(conversation: Conversation | PrivateConversation | GroupConversation) {
+function handleConversationSelect(
+  conversation: Conversation | PrivateConversation | GroupConversation,
+) {
   chatStore.setCurrentConversation(conversation)
 }
 
 // Get last message (placeholder for now)
-function getLastMessage(conversation: Conversation | PrivateConversation | GroupConversation): string {
+function getLastMessage(
+  conversation: Conversation | PrivateConversation | GroupConversation,
+): string {
   return (conversation as any).lastMessage || 'No messages yet'
 }
-
-// Initialize
-onMounted(() => {
-  loadData()
-})
 </script>
 
 <style scoped>

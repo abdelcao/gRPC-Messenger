@@ -9,7 +9,7 @@ import Button from 'primevue/button'
 import { useAuthStore } from '@/stores/auth'
 import { useAuthService } from '@/composables/useAuthService'
 import { useRouter } from 'vue-router'
-import TokenService from '@/utils/TokenService';
+import TokenService from '@/services/TokenService';
 
 const appStore = useAppStore()
 const authStore = useAuthStore()

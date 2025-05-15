@@ -68,7 +68,7 @@ import Password from 'primevue/password'
 import Button from 'primevue/button'
 import { useAuthService } from '@/composables/useAuthService'
 import { useAuthStore } from '@/stores/auth'
-import TokenService from '@/utils/TokenService'
+import TokenService from '@/services/TokenService'
 import { useToast } from 'primevue/usetoast'
 // import Message from 'primevue/message'; // For error display
 
