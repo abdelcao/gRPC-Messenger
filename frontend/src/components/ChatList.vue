@@ -1,50 +1,51 @@
 <!-- src/components/ChatList.vue -->
 <template>
-  <InputText v-model="search" placeholder="Search..." class="w-full mb-4 h-10" />
-  <ul class="flex flex-col gap-2">
-    <ChatItem v-for="(chat, n) in chats" :key="n" :chat="chat" />
-  </ul>
+  <div class="flex flex-col h-full">
+    <InputText v-model="search" placeholder="Search conversations..." class="w-full mb-4 h-10" />
+
+    <div v-if="loading" class="flex justify-center p-4">
+      <ProgressSpinner />
+    </div>
+
+    <div v-else-if="error" class="text-red-500 text-center p-4">
+      <i class="pi pi-exclamation-triangle" style="font-size: 1.25rem"></i>
+    </div>
+
+    <div v-else-if="filteredConversations.length === 0" class="text-center text-gray-500 p-4">
+      Search & Chat
+    </div>
+
+    <ul v-else class="flex flex-col gap-2 overflow-y-auto">
+      <ChatItem
+        v-for="conversation in filteredConversations"
+        :key="conversation.id.toString()"
+        :conversation="conversation"
+        :is-active="currentConversation?.id === conversation.id"
+        :current-user-id="currentUserId"
+        :last-message="getLastMessage(conversation)"
+        :other-user-name="conversationNames.get(conversation.id.toString()) || 'Loading...'"
+        @click="handleConversationSelect(conversation)"
+      />
+    </ul>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from 'vue'
-import InputText from 'primevue/inputtext'
-import ChatItem from './ChatItem.vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { useChatService } from '@/composables/useChatService'
 import { useAuthStore } from '@/stores/auth'
 import { useChatStore } from '@/stores/chat'
 import { useUserService } from '@/composables/useUserService'
-import type { Conversation, GroupConversation, PrivateConversation } from '@/grpc/chat/chat_pb'
+import { useChatStore } from '@/stores/chat'
+import { useAuthStore } from '@/stores/auth'
+import type { Conversation, PrivateConversation, GroupConversation } from '@/grpc/chat/chat_pb'
+import type { User } from '@/grpc/user/user_pb'
+import InputText from 'primevue/inputtext'
+import ProgressSpinner from 'primevue/progressspinner'
+import ChatItem from './ChatItem.vue'
+import { throttle } from '@/libs/utils';
 
-const search = ref('')
-const chats = ref([
-  {
-    id: 1,
-    name: 'TechPulse Company',
-    lastMessage: 'Reminder that we have a project meet zefkuhilnl',
-    avatar: '/images/default_avatar.jpg',
-    time: '13:02',
-    unread: 15,
-  },
-  {
-    id: 2,
-    name: 'Michelle Davis',
-    lastMessage: 'Just finished a workout and feeli',
-    avatar: '/images/default_avatar.jpg',
-    time: '13:02',
-    unread: 0,
-  },
-  {
-    id: 2,
-    name: 'Michelle Davis',
-    lastMessage: 'Just finished a workout and feeli',
-    avatar: '/images/default_avatar.jpg',
-    time: '13:02',
-    unread: 2,
-  },
-  // Add other chat entries...
-])
-
+// Services and stores
 const chatService = useChatService()
 const userService = useUserService()
 const chatStore = useChatStore()
@@ -64,6 +65,15 @@ const currentUserId = computed(() => {
   if (!authStore.user?.id) return undefined
   return typeof authStore.user.id === 'bigint' ? Number(authStore.user.id) : authStore.user.id
 })
+
+onMounted(() => {
+  loadData()
+})
+
+watch(search, throttle(() => {
+  console.log(search.value);
+
+}, 500))
 
 // Filter conversations based on search
 const filteredConversations = computed(() => {
@@ -89,6 +99,12 @@ async function getOtherUserId(conversation: PrivateConversation): Promise<number
   if (!currentUserId.value) return undefined
 
   const receiverId = typeof conversation.receiverId === 'bigint' ? Number(conversation.receiverId) : conversation.receiverId
+
+
+  const receiverId =
+    typeof conversation.receiverId === 'bigint'
+      ? Number(conversation.receiverId)
+      : conversation.receiverId
 
   // If the current user is the receiver, we need to get the owner from the conversation
   if (receiverId === currentUserId.value) {
@@ -188,19 +204,18 @@ async function loadData() {
 }
 
 // Handle conversation selection
-function handleConversationSelect(conversation: Conversation | PrivateConversation | GroupConversation) {
+function handleConversationSelect(
+  conversation: Conversation | PrivateConversation | GroupConversation,
+) {
   chatStore.setCurrentConversation(conversation)
 }
 
 // Get last message (placeholder for now)
-function getLastMessage(conversation: Conversation | PrivateConversation | GroupConversation): string {
+function getLastMessage(
+  conversation: Conversation | PrivateConversation | GroupConversation,
+): string {
   return (conversation as any).lastMessage || 'No messages yet'
 }
-
-// Initialize
-onMounted(() => {
-  loadData()
-})
 </script>
 
 <style scoped></style>
