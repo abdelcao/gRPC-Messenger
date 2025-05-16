@@ -1,4 +1,4 @@
-import TokenService from "@/utils/TokenService";
+import TokenService from "@/services/TokenService";
 import type { Interceptor } from "@connectrpc/connect";
 
 export function useConnectInterceptor(): Interceptor {
@@ -6,6 +6,8 @@ export function useConnectInterceptor(): Interceptor {
     const token = TokenService.getAccessToken()
     if (token) {
       req.header.set("Authorization", `Bearer ${token}`);
+      // console.log(`Bearer ${token}`);
+
     }
     return next(req);
   };

@@ -13,8 +13,6 @@ import TokenService from '@/services/TokenService';
 
 const appStore = useAppStore()
 const authStore = useAuthStore()
-const authService = useAuthService()
-const router = useRouter()
 
 const settings = ref({
   notifications: true,
@@ -22,18 +20,6 @@ const settings = ref({
   password: '',
 })
 
-const logout = async () => {
-  try {
-    await authService.logout({ userId: authStore.user?.id })
-  } catch (error) {
-    console.error(error)
-  } finally {
-    authStore.purge()
-    TokenService.clearTokens();
-    appStore.setSettingsModalVisible(false);
-    await router.push({ name: 'login' })
-  }
-}
 
 const disableAccount = () => {
   console.log('Disabling account...')
@@ -88,7 +74,7 @@ const disableAccount = () => {
           icon="pi pi-sign-out"
           severity="secondary"
           class="w-full"
-          @click="logout"
+          @click="authStore.logout"
         />
       </div>
     </div>

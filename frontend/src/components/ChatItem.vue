@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { Conversation } from '@/grpc/chat/chat_pb'
 import Avatar from 'primevue/avatar'
 import Badge from 'primevue/badge'
 import { RouterLink } from 'vue-router'
@@ -13,7 +14,7 @@ interface Chat {
 }
 
 const props = defineProps<{
-  chat: Chat
+  chat: Conversation
 }>()
 </script>
 
@@ -22,7 +23,7 @@ const props = defineProps<{
     :to="{
       name: 'chat',
       params: {
-        id: chat.id,
+        id: Number(chat.id),
       },
     }"
   >

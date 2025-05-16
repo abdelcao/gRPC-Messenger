@@ -216,7 +216,7 @@ public class ChatGrpcService extends com.adia.chat.grpc.ChatServiceGrpc.ChatServ
     @Override
     public void getUserConversations(com.adia.chat.grpc.GetUserConversationsRequest request, StreamObserver<Conversation> responseObserver) {
         try {
-            chatService.getUserConversations(Integer.valueOf((int) request.getUserId()))
+            chatService.getUserConversations((int) request.getUserId())
                 .forEach(entityConversation -> {
                     try {
                         Conversation grpcConversation = mapToGrpcConversation(entityConversation);

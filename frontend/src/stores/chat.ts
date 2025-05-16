@@ -11,17 +11,14 @@ export const useChatStore = defineStore('chat', () => {
     currentConversation.value = chat
   }
 
-  const conversationList = ref<Conversation[]>([]);
-  function setConversationList (list: Conversation[]) {
-    conversationList.value = list
+  const conversationList = ref<Conversation[]>([])
+  function setConversationList(conv: Conversation) {
+    conversationList.value?.push(conv)
   }
-
 
   return {
     currentConversation,
     setCurrentConversation,
     conversationList,
-    setConversationList
-
   }
 })

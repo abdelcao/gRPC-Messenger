@@ -15,9 +15,9 @@ enum MessageStatus {
 
 // Message
 message Message {
-  int64 id = 1;
-  int64 userId = 2;
-  int64 conversationId = 3;
+  uint32 id = 1;
+  uint32 userId = 2;
+  uint32 conversationId = 3;
   string text = 4;
   bool edited = 5;
   MessageStatus status = 6;
@@ -27,25 +27,25 @@ message Message {
 
 // Conversation
 message Conversation {
-  int64 id = 1;
-  int64 ownerId = 2;
+  uint32 id = 1;
+  uint32 ownerId = 2;
   string createdAt = 3;
   string updatedAt = 4;
 }
 
 // Private Conversation
 message PrivateConversation {
-  int64 id = 1;
-  int64 conversationId = 2;
-  int64 receiverId = 3;
+  uint32 id = 1;
+  uint32 conversationId = 2;
+  uint32 receiverId = 3;
   string createdAt = 4;
   string updatedAt = 5;
 }
 
 // Group Conversation
 message GroupConversation {
-  int64 id = 1;
-  int64 conversationId = 2;
+  uint32 id = 1;
+  uint32 conversationId = 2;
   string name = 3;
   string createdAt = 4;
   string updatedAt = 5;
@@ -53,9 +53,9 @@ message GroupConversation {
 
 // Group Member
 message GroupMember {
-  int64 id = 1;
-  int64 userId = 2;
-  int64 groupId = 3;
+  uint32 id = 1;
+  uint32 userId = 2;
+  uint32 groupId = 3;
   bool admin = 4;
   string createdAt = 5;
 }
@@ -89,68 +89,68 @@ service ChatService {
 
 // Request/Response messages
 message CreateConversationRequest {
-  int64 ownerId = 1;
+  uint32 ownerId = 1;
 }
 
 message GetConversationRequest {
-  int64 id = 1;
+  uint32 id = 1;
 }
 
 message SendMessageRequest {
-  int64 userId = 1;
-  int64 conversationId = 2;
+  uint32 userId = 1;
+  uint32 conversationId = 2;
   string text = 3;
 }
 
 message EditMessageRequest {
-  int64 messageId = 1;
+  uint32 messageId = 1;
   string newText = 2;
 }
 
 message UpdateMessageStatusRequest {
-  int64 messageId = 1;
+  uint32 messageId = 1;
   MessageStatus status = 2;
 }
 
 message GetConversationMessagesRequest {
-  int64 conversationId = 1;
+  uint32 conversationId = 1;
 }
 
 message CreatePrivateConversationRequest {
-  int64 ownerId = 1;
-  int64 receiverId = 2;
+  uint32 ownerId = 1;
+  uint32 receiverId = 2;
 }
 
 message GetPrivateConversationRequest {
-  int64 conversationId = 1;
+  uint32 conversationId = 1;
 }
 
 message CreateGroupConversationRequest {
-  int64 ownerId = 1;
+  uint32 ownerId = 1;
   string name = 2;
 }
 
 message GetGroupConversationRequest {
-  int64 conversationId = 1;
+  uint32 conversationId = 1;
 }
 
 message GetUserConversationsRequest {
-  int64 userId = 1;
+  uint32 userId = 1;
 }
 
 message AddMemberToGroupRequest {
-  int64 groupId = 1;
-  int64 userId = 2;
+  uint32 groupId = 1;
+  uint32 userId = 2;
 }
 
 message RemoveMemberFromGroupRequest {
-  int64 groupId = 1;
-  int64 userId = 2;
+  uint32 groupId = 1;
+  uint32 userId = 2;
 }
 
 message MakeGroupAdminRequest {
-  int64 groupId = 1;
-  int64 userId = 2;
+  uint32 groupId = 1;
+  uint32 userId = 2;
 }
 
 message Empty {} 
