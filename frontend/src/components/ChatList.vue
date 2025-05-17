@@ -166,7 +166,25 @@ async function getConversationName(conversation: Conversation): Promise<void> {
   conversationNames.value.set(conversation.id.toString(), `Conversation ${conversation.id}`)
 }
 
-// Load conversations and usernames
+// Update or add a conversation in the chatStore
+function updateOrAddConversation(newConv: Conversation) {
+  const idx = chatStore.conversations.findIndex(c => c.id === newConv.id);
+  if (idx !== -1) {
+    chatStore.conversations.splice(idx, 1, newConv);
+  } else {
+    chatStore.conversations.push(newConv);
+  }
+   // Sort conversations: most recent lastMessage (or updatedAt) first
+   chatStore.conversations.sort((a, b) => {
+  const aLast = (a as any).lastMessage;
+  const bLast = (b as any).lastMessage;
+  const aTime = (aLast && aLast.createdAt) ? new Date(aLast.createdAt).getTime() : new Date(a.updatedAt).getTime();
+  const bTime = (bLast && bLast.createdAt) ? new Date(bLast.createdAt).getTime() : new Date(b.updatedAt).getTime();
+  return bTime - aTime;
+});
+}
+
+// Load conversations and usernames (streaming version)
 async function loadData() {
   if (!currentUserId.value) {
     error.value = 'User not authenticated'
@@ -177,13 +195,17 @@ async function loadData() {
   error.value = null
 
   try {
-    // Load conversations
-    const userConversations = await chatService.getUserConversations(BigInt(currentUserId.value))
-    chatStore.setConversations(userConversations)
-
-    // Load usernames for private conversations
-    for (const conv of userConversations) {
-      await getConversationName(conv)
+    // Start streaming conversations
+    const stream = chatService.getUserConversations(BigInt(currentUserId.value))
+    // Process each conversation as it arrives
+    for await (const conversation of stream) {
+      updateOrAddConversation(conversation);
+      // Hide loading as soon as we get the first conversation
+      if (loading.value && chatStore.conversations.length > 0) {
+        loading.value = false;
+      }
+      // Optionally update conversation name cache
+      await getConversationName(conversation);
     }
   } catch (err) {
     console.error('Error loading data:', err)
@@ -194,7 +216,6 @@ async function loadData() {
     } else {
       error.value = 'Failed to load data. Please try again later.'
     }
-  } finally {
     loading.value = false
   }
 }
@@ -207,10 +228,12 @@ function handleConversationSelect(
 }
 
 // Get last message (placeholder for now)
-function getLastMessage(
-  conversation: Conversation | PrivateConversation | GroupConversation,
-): string {
-  return (conversation as any).lastMessage || 'No messages yet'
+function getLastMessage(conversation: Conversation | PrivateConversation | GroupConversation): string {
+  const lastMessage = (conversation as any).lastMessage;
+  if (lastMessage && typeof lastMessage === 'object' && lastMessage.text) {
+    return lastMessage.text;
+  }
+  return 'No messages yet';
 }
 </script>
 

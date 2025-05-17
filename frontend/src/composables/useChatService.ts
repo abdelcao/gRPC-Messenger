@@ -56,22 +56,7 @@ export function useChatService() {
       client.makeGroupAdmin({ groupId, userId }),
 
     // User conversations
-    getUserConversations: async (userId: bigint) => {
-      const conversations: Conversation[] = []
-
-      try {
-        const stream = client.getUserConversations({ userId })
-        for await (const conv of stream) {
-          conversations.push(conv)
-        }
-        return conversations
-      } catch (error) {
-        console.error('Error fetching user conversations:', error)
-        if (error instanceof Error && error.message.includes('Failed to fetch')) {
-          throw new Error('Cannot connect to the server. Please check if the server is running at ' + ('http://localhost:8080'))
-        }
-        throw error
-      }
-    }
+    getUserConversations: (userId: bigint) => 
+      client.getUserConversations({ userId }),
   }
 } 

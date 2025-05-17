@@ -49,6 +49,8 @@ public class ChatGrpcService extends com.adia.chat.grpc.ChatServiceGrpc.ChatServ
     // Add broadcaster instance
     private static final MessageBroadcaster messageBroadcaster = new MessageBroadcaster();
 
+    private static final ConversationBroadcaster conversationBroadcaster = new ConversationBroadcaster();
+
     @Override
     public void createConversation(com.adia.chat.grpc.CreateConversationRequest request, StreamObserver<Conversation> responseObserver) {
         com.adia.chat.entity.Conversation entityConversation = chatService.createConversation(Integer.valueOf((int) request.getOwnerId()));
@@ -215,21 +217,22 @@ public class ChatGrpcService extends com.adia.chat.grpc.ChatServiceGrpc.ChatServ
 
     @Override
     public void getUserConversations(com.adia.chat.grpc.GetUserConversationsRequest request, StreamObserver<Conversation> responseObserver) {
-        try {
-            chatService.getUserConversations(Integer.valueOf((int) request.getUserId()))
-                .forEach(entityConversation -> {
-                    try {
-                        Conversation grpcConversation = mapToGrpcConversation(entityConversation);
-                        responseObserver.onNext(grpcConversation);
-                    } catch (Exception e) {
-                        // Log error but continue processing other conversations
-                        logger.error("Error processing conversation {}: {}", entityConversation.getId(), e.getMessage());
-                    }
-                });
-            responseObserver.onCompleted();
-        } catch (Exception e) {
-            responseObserver.onError(e);
-        }
+        int userId = (int) request.getUserId();
+        // 1. Send current conversations
+        chatService.getUserConversations(userId)
+            .forEach(conversationWithLastMessage -> {
+                Conversation.Builder builder = Conversation.newBuilder()
+                    .setId(conversationWithLastMessage.getConversation().getId())
+                    .setOwnerId(conversationWithLastMessage.getConversation().getOwnerId())
+                    .setCreatedAt(conversationWithLastMessage.getConversation().getCreatedAt().format(DATE_TIME_FORMATTER))
+                    .setUpdatedAt(conversationWithLastMessage.getConversation().getUpdatedAt().format(DATE_TIME_FORMATTER));
+                if (conversationWithLastMessage.getLastMessage() != null) {
+                    builder.setLastMessage(mapToGrpcMessage(conversationWithLastMessage.getLastMessage()));
+                }
+                responseObserver.onNext(builder.build());
+            });
+        // 2. Register for future updates (do NOT call onCompleted)
+        conversationBroadcaster.register(userId, responseObserver);
     }
 
     // Helper methods to map between entity and gRPC objects
@@ -273,5 +276,10 @@ public class ChatGrpcService extends com.adia.chat.grpc.ChatServiceGrpc.ChatServ
             .setCreatedAt(entity.getCreatedAt().format(DATE_TIME_FORMATTER))
             .setUpdatedAt(entity.getUpdatedAt().format(DATE_TIME_FORMATTER))
             .build();
+    }
+
+    // Helper method to broadcast conversation updates to a user
+    public static void broadcastConversationUpdate(int userId, Conversation conversation) {
+        conversationBroadcaster.broadcast(userId, conversation);
     }
 } 
