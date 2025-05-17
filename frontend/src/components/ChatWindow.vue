@@ -24,3 +24,9 @@ import MessageBubble from './MessageBubble.vue'
 import ChatSender from './ChatSender.vue'
 import ChatHeader from './ChatHeader.vue'
 </script>
+
+<style scoped>
+.messages-container {
+  scroll-behavior: smooth;
+}
+</style>
