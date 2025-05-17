@@ -157,35 +157,49 @@ async function getConversationName(conversation: Conversation): Promise<void> {
   conversationNames.value.set(conversation.id.toString(), `Conversation ${conversation.id}`)
 }
 
-// Load conversations and usernames
+// Update or add a conversation in the chatStore
+function updateOrAddConversation(newConv: Conversation) {
+  const idx = chatStore.conversations.findIndex(c => c.id === newConv.id);
+  if (idx !== -1) {
+    chatStore.conversations.splice(idx, 1, newConv);
+  } else {
+    chatStore.conversations.push(newConv);
+  }
+   // Sort conversations: most recent lastMessage (or updatedAt) first
+   chatStore.conversations.sort((a, b) => {
+  const aLast = (a as any).lastMessage;
+  const bLast = (b as any).lastMessage;
+  const aTime = (aLast && aLast.createdAt) ? new Date(aLast.createdAt).getTime() : new Date(a.updatedAt).getTime();
+  const bTime = (bLast && bLast.createdAt) ? new Date(bLast.createdAt).getTime() : new Date(b.updatedAt).getTime();
+  return bTime - aTime;
+});
+}
+
+// Load conversations and usernames (streaming version)
 async function loadData() {
   if (!currentUserId.value) {
     error.value = 'User not authenticated'
     return
   }
 
+  loading.value = true
   error.value = null
-  loading.value = false
-  const conversations: Conversation[] = []
 
   try {
     // Start streaming conversations
     const stream = chatService.getUserConversations(BigInt(currentUserId.value))
-    
     // Process each conversation as it arrives
-    for await (const conv of stream) {
-      conversations.push(conv)
-      // Update store with current batch of conversations
-      chatStore.setConversations([...conversations])
-      // Load username for this conversation
-      await getConversationName(conv)
+    for await (const conversation of stream) {
+      updateOrAddConversation(conversation);
+      // Hide loading as soon as we get the first conversation
+      if (loading.value && chatStore.conversations.length > 0) {
+        loading.value = false;
+      }
+      // Optionally update conversation name cache
+      await getConversationName(conversation);
     }
-    
-    // All conversations received
-    loading.value = false
   } catch (err) {
     console.error('Error loading data:', err)
-    loading.value = false
     if (err instanceof Error) {
       error.value = `Failed to load data: ${err.message}`
     } else if (typeof err === 'string') {
@@ -193,7 +207,8 @@ async function loadData() {
     } else {
       error.value = 'Failed to load data. Please try again later.'
     }
-  } 
+    loading.value = false
+  }
 }
 
 // Handle conversation selection
