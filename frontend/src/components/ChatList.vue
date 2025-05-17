@@ -229,14 +229,12 @@ function handleConversationSelect(
 }
 
 // Get last message (placeholder for now)
-function getLastMessage(
-  conversation: Conversation | PrivateConversation | GroupConversation,
-): string {
-  const lastMessage = (conversation as any).lastMessage
+function getLastMessage(conversation: Conversation | PrivateConversation | GroupConversation): string {
+  const lastMessage = (conversation as any).lastMessage;
   if (lastMessage && typeof lastMessage === 'object' && lastMessage.text) {
     return lastMessage.text
   }
-  return 'No messages yet'
+  return 'No messages yet';
 }
 
 // Initialize
