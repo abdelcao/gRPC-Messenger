@@ -31,6 +31,7 @@ message Conversation {
   int64 ownerId = 2;
   string createdAt = 3;
   string updatedAt = 4;
+  Message lastMessage = 5;
 }
 
 // Private Conversation
