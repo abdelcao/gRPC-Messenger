@@ -3,10 +3,13 @@ package com.adia.chat.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.adia.chat.entity.*;
 import com.adia.chat.repository.*;
 import com.adia.chat.service.ChatService;
+import com.adia.chat.grpc.ChatGrpcService;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,6 +18,8 @@ import java.util.stream.Stream;
 
 @Service
 public class ChatServiceImpl implements ChatService {
+    
+    private static final Logger logger = LoggerFactory.getLogger(ChatServiceImpl.class);
     
     @Autowired
     private ConversationRepository conversationRepository;
@@ -57,7 +62,44 @@ public class ChatServiceImpl implements ChatService {
         message.setStatus(Message.MessageStatus.sent);
         message.setCreatedAt(LocalDateTime.now());
         message.setUpdatedAt(LocalDateTime.now());
-        return messageRepository.save(message);
+        Message savedMessage = messageRepository.save(message);
+
+        // Broadcast updated conversation to all relevant users
+        Conversation conversation = conversationRepository.findById(conversationId)
+            .orElseThrow(() -> new RuntimeException("Conversation not found"));
+        ConversationWithLastMessage convWithLastMsg = new ConversationWithLastMessage(conversation, savedMessage);
+        com.adia.chat.grpc.Conversation grpcConv = com.adia.chat.grpc.Conversation.newBuilder()
+            .setId(conversation.getId())
+            .setOwnerId(conversation.getOwnerId())
+            .setCreatedAt(conversation.getCreatedAt().toString())
+            .setUpdatedAt(conversation.getUpdatedAt().toString())
+            .setLastMessage(
+                com.adia.chat.grpc.Message.newBuilder()
+                    .setId(savedMessage.getId())
+                    .setUserId(savedMessage.getUserId())
+                    .setConversationId(savedMessage.getConversationId())
+                    .setText(savedMessage.getText())
+                    .setEdited(savedMessage.isEdited())
+                    .setStatus(com.adia.chat.grpc.MessageStatus.valueOf(savedMessage.getStatus().name().toUpperCase()))
+                    .setCreatedAt(savedMessage.getCreatedAt().toString())
+                    .setUpdatedAt(savedMessage.getUpdatedAt().toString())
+                    .build()
+            )
+            .build();
+        // Owner
+        ChatGrpcService.broadcastConversationUpdate(conversation.getOwnerId(), grpcConv);
+        // For private conversations, also notify the receiver
+        privateConversationRepository.findByConversationId(conversationId).ifPresent(pc -> {
+            ChatGrpcService.broadcastConversationUpdate(pc.getReceiverId(), grpcConv);
+        });
+        // For group conversations, notify all members
+        groupeConversationRepository.findByConversationId(conversationId).ifPresent(gc -> {
+            List<GroupeMember> members = groupeMemberRepository.findByGroupeId(gc.getId());
+            for (GroupeMember member : members) {
+                ChatGrpcService.broadcastConversationUpdate(member.getUserId(), grpcConv);
+            }
+        });
+        return savedMessage;
     }
 
     @Override
@@ -203,41 +245,72 @@ public class ChatServiceImpl implements ChatService {
                 .map(GroupeMember::getGroupeId)
                 .toList();
                 
-        return groupeConversationRepository.findByConversationIdIn(groupIds);
+        return groupeConversationRepository.findAllById(groupIds);
     }
 
     @Override
-    public Stream<Conversation> getUserConversations(Integer userId) {
+    public Stream<ConversationWithLastMessage> getUserConversations(Integer userId) {
+        logger.debug("Getting conversations for user: {}", userId);
+        
         // Get private conversations where user is receiver or owner
         List<PrivateConversation> privateConversationsAsReceiver = privateConversationRepository.findByReceiverId(userId);
-        List<Conversation> receiverConversations = privateConversationsAsReceiver.stream()
+        logger.debug("Found {} private conversations where user is receiver", privateConversationsAsReceiver.size());
+        
+        Stream<ConversationWithLastMessage> receiverConversations = privateConversationsAsReceiver.stream()
                 .map(PrivateConversation::getConversationId)
                 .map(conversationRepository::findById)
                 .filter(java.util.Optional::isPresent)
                 .map(java.util.Optional::get)
-                .toList();
+                .map(conversation -> {
+                    Message lastMessage = messageRepository.findFirstByConversationIdOrderByCreatedAtDesc(conversation.getId())
+                            .orElse(null);
+                    logger.debug("Conversation {} last message: {}", conversation.getId(), 
+                        lastMessage != null ? lastMessage.getId() : "null");
+                    return new ConversationWithLastMessage(conversation, lastMessage);
+                });
 
         List<Conversation> ownerConversations = conversationRepository.findByOwnerId(userId);
+        logger.debug("Found {} conversations where user is owner", ownerConversations.size());
+        
+        Stream<ConversationWithLastMessage> ownerConversationStream = ownerConversations.stream()
+                .map(conversation -> {
+                    Message lastMessage = messageRepository.findFirstByConversationIdOrderByCreatedAtDesc(conversation.getId())
+                            .orElse(null);
+                    logger.debug("Conversation {} last message: {}", conversation.getId(), 
+                        lastMessage != null ? lastMessage.getId() : "null");
+                    return new ConversationWithLastMessage(conversation, lastMessage);
+                });
 
-        Stream<Conversation> privateConversationStream = Stream.concat(
-        ownerConversations.stream(),
-        receiverConversations.stream()
-            
+        Stream<ConversationWithLastMessage> privateConversationStream = Stream.concat(
+            ownerConversationStream,
+            receiverConversations
         );
 
         // Get group conversations where user is a member
         List<GroupeMember> groupMembers = groupeMemberRepository.findByUserId(userId);
+        logger.debug("Found {} group memberships for user", groupMembers.size());
+        
         List<Integer> groupIds = groupMembers.stream()
                 .map(GroupeMember::getGroupeId)
                 .toList();
         List<GroupeConversation> groupConversations = groupeConversationRepository.findAllById(groupIds);
-        Stream<Conversation> groupConversationStream = groupConversations.stream()
+        logger.debug("Found {} group conversations", groupConversations.size());
+        
+        Stream<ConversationWithLastMessage> groupConversationStream = groupConversations.stream()
                 .map(GroupeConversation::getConversationId)
                 .map(conversationRepository::findById)
                 .filter(java.util.Optional::isPresent)
-                .map(java.util.Optional::get);
+                .map(java.util.Optional::get)
+                .map(conversation -> {
+                    Message lastMessage = messageRepository.findFirstByConversationIdOrderByCreatedAtDesc(conversation.getId())
+                            .orElse(null);
+                    logger.debug("Group conversation {} last message: {}", conversation.getId(), 
+                        lastMessage != null ? lastMessage.getId() : "null");
+                    return new ConversationWithLastMessage(conversation, lastMessage);
+                });
 
-        // Combine both streams
-        return Stream.concat(privateConversationStream, groupConversationStream).distinct();
+        // Combine both streams and ensure uniqueness
+        return Stream.concat(privateConversationStream, groupConversationStream)
+                .distinct();
     }
 } 

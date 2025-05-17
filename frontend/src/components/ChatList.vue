@@ -164,20 +164,28 @@ async function loadData() {
     return
   }
 
-  loading.value = true
   error.value = null
+  loading.value = false
+  const conversations: Conversation[] = []
 
   try {
-    // Load conversations
-    const userConversations = await chatService.getUserConversations(BigInt(currentUserId.value))
-    chatStore.setConversations(userConversations)
-
-    // Load usernames for private conversations
-    for (const conv of userConversations) {
+    // Start streaming conversations
+    const stream = chatService.getUserConversations(BigInt(currentUserId.value))
+    
+    // Process each conversation as it arrives
+    for await (const conv of stream) {
+      conversations.push(conv)
+      // Update store with current batch of conversations
+      chatStore.setConversations([...conversations])
+      // Load username for this conversation
       await getConversationName(conv)
     }
+    
+    // All conversations received
+    loading.value = false
   } catch (err) {
     console.error('Error loading data:', err)
+    loading.value = false
     if (err instanceof Error) {
       error.value = `Failed to load data: ${err.message}`
     } else if (typeof err === 'string') {
@@ -185,9 +193,7 @@ async function loadData() {
     } else {
       error.value = 'Failed to load data. Please try again later.'
     }
-  } finally {
-    loading.value = false
-  }
+  } 
 }
 
 // Handle conversation selection
@@ -197,7 +203,11 @@ function handleConversationSelect(conversation: Conversation | PrivateConversati
 
 // Get last message (placeholder for now)
 function getLastMessage(conversation: Conversation | PrivateConversation | GroupConversation): string {
-  return (conversation as any).lastMessage || 'No messages yet'
+  const lastMessage = (conversation as any).lastMessage;
+  if (lastMessage && typeof lastMessage === 'object' && lastMessage.text) {
+    return lastMessage.text;
+  }
+  return 'No messages yet';
 }
 
 // Initialize

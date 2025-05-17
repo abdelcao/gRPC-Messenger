@@ -31,6 +31,7 @@ message Conversation {
   int64 ownerId = 2;
   string createdAt = 3;
   string updatedAt = 4;
+  Message lastMessage = 5;
 }
 
 // Private Conversation
@@ -84,6 +85,7 @@ service ChatService {
   rpc AddMemberToGroup(AddMemberToGroupRequest) returns (GroupMember) {}
   rpc RemoveMemberFromGroup(RemoveMemberFromGroupRequest) returns (Empty) {}
   rpc MakeGroupAdmin(MakeGroupAdminRequest) returns (GroupMember) {}
+  rpc GetUserConversations(GetUserConversationsRequest) returns (stream Conversation) {}
 }
 
 // Request/Response messages

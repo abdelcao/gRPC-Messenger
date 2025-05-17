@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import com.adia.chat.entity.Conversation;
+import com.adia.chat.entity.ConversationWithLastMessage;
 import com.adia.chat.entity.GroupeConversation;
 import com.adia.chat.entity.Message;
 import com.adia.chat.entity.PrivateConversation;
@@ -33,5 +34,5 @@ public interface ChatService {
     void makeGroupAdmin(Integer groupId, Integer userId);
     
     // Get all user conversations (both private and group)
-    Stream<Conversation> getUserConversations(Integer userId);
+    Stream<ConversationWithLastMessage> getUserConversations(Integer userId);
 } 
