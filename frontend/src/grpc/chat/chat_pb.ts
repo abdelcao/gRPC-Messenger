@@ -10,7 +10,7 @@ import type { Message as Message$1 } from "@bufbuild/protobuf";
  * Describes the file chat/chat.proto.
  */
 export const file_chat_chat: GenFile = /*@__PURE__*/
-  fileDesc("Cg9jaGF0L2NoYXQucHJvdG8SBGNoYXQipgEKB01lc3NhZ2USCgoCaWQYASABKA0SDgoGdXNlcklkGAIgASgNEhYKDmNvbnZlcnNhdGlvbklkGAMgASgNEgwKBHRleHQYBCABKAkSDgoGZWRpdGVkGAUgASgIEiMKBnN0YXR1cxgGIAEoDjITLmNoYXQuTWVzc2FnZVN0YXR1cxIRCgljcmVhdGVkQXQYByABKAkSEQoJdXBkYXRlZEF0GAggASgJInUKDENvbnZlcnNhdGlvbhIKCgJpZBgBIAEoDRIPCgdvd25lcklkGAIgASgNEhEKCWNyZWF0ZWRBdBgDIAEoCRIRCgl1cGRhdGVkQXQYBCABKAkSIgoLbGFzdE1lc3NhZ2UYBSABKAsyDS5jaGF0Lk1lc3NhZ2UicwoTUHJpdmF0ZUNvbnZlcnNhdGlvbhIKCgJpZBgBIAEoDRIWCg5jb252ZXJzYXRpb25JZBgCIAEoDRISCgpyZWNlaXZlcklkGAMgASgNEhEKCWNyZWF0ZWRBdBgEIAEoCRIRCgl1cGRhdGVkQXQYBSABKAkiawoRR3JvdXBDb252ZXJzYXRpb24SCgoCaWQYASABKA0SFgoOY29udmVyc2F0aW9uSWQYAiABKA0SDAoEbmFtZRgDIAEoCRIRCgljcmVhdGVkQXQYBCABKAkSEQoJdXBkYXRlZEF0GAUgASgJIlwKC0dyb3VwTWVtYmVyEgoKAmlkGAEgASgNEg4KBnVzZXJJZBgCIAEoDRIPCgdncm91cElkGAMgASgNEg0KBWFkbWluGAQgASgIEhEKCWNyZWF0ZWRBdBgFIAEoCSIsChlDcmVhdGVDb252ZXJzYXRpb25SZXF1ZXN0Eg8KB293bmVySWQYASABKA0iJAoWR2V0Q29udmVyc2F0aW9uUmVxdWVzdBIKCgJpZBgBIAEoDSJKChJTZW5kTWVzc2FnZVJlcXVlc3QSDgoGdXNlcklkGAEgASgNEhYKDmNvbnZlcnNhdGlvbklkGAIgASgNEgwKBHRleHQYAyABKAkiOAoSRWRpdE1lc3NhZ2VSZXF1ZXN0EhEKCW1lc3NhZ2VJZBgBIAEoDRIPCgduZXdUZXh0GAIgASgJIlQKGlVwZGF0ZU1lc3NhZ2VTdGF0dXNSZXF1ZXN0EhEKCW1lc3NhZ2VJZBgBIAEoDRIjCgZzdGF0dXMYAiABKA4yEy5jaGF0Lk1lc3NhZ2VTdGF0dXMiOAoeR2V0Q29udmVyc2F0aW9uTWVzc2FnZXNSZXF1ZXN0EhYKDmNvbnZlcnNhdGlvbklkGAEgASgNIkcKIENyZWF0ZVByaXZhdGVDb252ZXJzYXRpb25SZXF1ZXN0Eg8KB293bmVySWQYASABKA0SEgoKcmVjZWl2ZXJJZBgCIAEoDSI3Ch1HZXRQcml2YXRlQ29udmVyc2F0aW9uUmVxdWVzdBIWCg5jb252ZXJzYXRpb25JZBgBIAEoDSI/Ch5DcmVhdGVHcm91cENvbnZlcnNhdGlvblJlcXVlc3QSDwoHb3duZXJJZBgBIAEoDRIMCgRuYW1lGAIgASgJIjUKG0dldEdyb3VwQ29udmVyc2F0aW9uUmVxdWVzdBIWCg5jb252ZXJzYXRpb25JZBgBIAEoDSItChtHZXRVc2VyQ29udmVyc2F0aW9uc1JlcXVlc3QSDgoGdXNlcklkGAEgASgNIjoKF0FkZE1lbWJlclRvR3JvdXBSZXF1ZXN0Eg8KB2dyb3VwSWQYASABKA0SDgoGdXNlcklkGAIgASgNIj8KHFJlbW92ZU1lbWJlckZyb21Hcm91cFJlcXVlc3QSDwoHZ3JvdXBJZBgBIAEoDRIOCgZ1c2VySWQYAiABKA0iOAoVTWFrZUdyb3VwQWRtaW5SZXF1ZXN0Eg8KB2dyb3VwSWQYASABKA0SDgoGdXNlcklkGAIgASgNIgcKBUVtcHR5KjIKDU1lc3NhZ2VTdGF0dXMSCAoEU0VOVBAAEg0KCURFTElWRVJFRBABEggKBFJFQUQQAjKMCgoLQ2hhdFNlcnZpY2USSwoSQ3JlYXRlQ29udmVyc2F0aW9uEh8uY2hhdC5DcmVhdGVDb252ZXJzYXRpb25SZXF1ZXN0GhIuY2hhdC5Db252ZXJzYXRpb24iABJFCg9HZXRDb252ZXJzYXRpb24SHC5jaGF0LkdldENvbnZlcnNhdGlvblJlcXVlc3QaEi5jaGF0LkNvbnZlcnNhdGlvbiIAEjgKC1NlbmRNZXNzYWdlEhguY2hhdC5TZW5kTWVzc2FnZVJlcXVlc3QaDS5jaGF0Lk1lc3NhZ2UiABI4CgtFZGl0TWVzc2FnZRIYLmNoYXQuRWRpdE1lc3NhZ2VSZXF1ZXN0Gg0uY2hhdC5NZXNzYWdlIgASSAoTVXBkYXRlTWVzc2FnZVN0YXR1cxIgLmNoYXQuVXBkYXRlTWVzc2FnZVN0YXR1c1JlcXVlc3QaDS5jaGF0Lk1lc3NhZ2UiABJSChdHZXRDb252ZXJzYXRpb25NZXNzYWdlcxIkLmNoYXQuR2V0Q29udmVyc2F0aW9uTWVzc2FnZXNSZXF1ZXN0Gg0uY2hhdC5NZXNzYWdlIgAwARJgChlDcmVhdGVQcml2YXRlQ29udmVyc2F0aW9uEiYuY2hhdC5DcmVhdGVQcml2YXRlQ29udmVyc2F0aW9uUmVxdWVzdBoZLmNoYXQuUHJpdmF0ZUNvbnZlcnNhdGlvbiIAEloKFkdldFByaXZhdGVDb252ZXJzYXRpb24SIy5jaGF0LkdldFByaXZhdGVDb252ZXJzYXRpb25SZXF1ZXN0GhkuY2hhdC5Qcml2YXRlQ29udmVyc2F0aW9uIgASXwobR2V0VXNlclByaXZhdGVDb252ZXJzYXRpb25zEiEuY2hhdC5HZXRVc2VyQ29udmVyc2F0aW9uc1JlcXVlc3QaGS5jaGF0LlByaXZhdGVDb252ZXJzYXRpb24iADABEloKF0NyZWF0ZUdyb3VwQ29udmVyc2F0aW9uEiQuY2hhdC5DcmVhdGVHcm91cENvbnZlcnNhdGlvblJlcXVlc3QaFy5jaGF0Lkdyb3VwQ29udmVyc2F0aW9uIgASVAoUR2V0R3JvdXBDb252ZXJzYXRpb24SIS5jaGF0LkdldEdyb3VwQ29udmVyc2F0aW9uUmVxdWVzdBoXLmNoYXQuR3JvdXBDb252ZXJzYXRpb24iABJbChlHZXRVc2VyR3JvdXBDb252ZXJzYXRpb25zEiEuY2hhdC5HZXRVc2VyQ29udmVyc2F0aW9uc1JlcXVlc3QaFy5jaGF0Lkdyb3VwQ29udmVyc2F0aW9uIgAwARJGChBBZGRNZW1iZXJUb0dyb3VwEh0uY2hhdC5BZGRNZW1iZXJUb0dyb3VwUmVxdWVzdBoRLmNoYXQuR3JvdXBNZW1iZXIiABJKChVSZW1vdmVNZW1iZXJGcm9tR3JvdXASIi5jaGF0LlJlbW92ZU1lbWJlckZyb21Hcm91cFJlcXVlc3QaCy5jaGF0LkVtcHR5IgASQgoOTWFrZUdyb3VwQWRtaW4SGy5jaGF0Lk1ha2VHcm91cEFkbWluUmVxdWVzdBoRLmNoYXQuR3JvdXBNZW1iZXIiABJRChRHZXRVc2VyQ29udmVyc2F0aW9ucxIhLmNoYXQuR2V0VXNlckNvbnZlcnNhdGlvbnNSZXF1ZXN0GhIuY2hhdC5Db252ZXJzYXRpb24iADABQiEKEmNvbS5hZGlhLmNoYXQuZ3JwY0IJQ2hhdFByb3RvUAFiBnByb3RvMw");
+  fileDesc("Cg9jaGF0L2NoYXQucHJvdG8SBGNoYXQipgEKB01lc3NhZ2USCgoCaWQYASABKAMSDgoGdXNlcklkGAIgASgDEhYKDmNvbnZlcnNhdGlvbklkGAMgASgDEgwKBHRleHQYBCABKAkSDgoGZWRpdGVkGAUgASgIEiMKBnN0YXR1cxgGIAEoDjITLmNoYXQuTWVzc2FnZVN0YXR1cxIRCgljcmVhdGVkQXQYByABKAkSEQoJdXBkYXRlZEF0GAggASgJInUKDENvbnZlcnNhdGlvbhIKCgJpZBgBIAEoAxIPCgdvd25lcklkGAIgASgDEhEKCWNyZWF0ZWRBdBgDIAEoCRIRCgl1cGRhdGVkQXQYBCABKAkSIgoLbGFzdE1lc3NhZ2UYBSABKAsyDS5jaGF0Lk1lc3NhZ2UicwoTUHJpdmF0ZUNvbnZlcnNhdGlvbhIKCgJpZBgBIAEoAxIWCg5jb252ZXJzYXRpb25JZBgCIAEoAxISCgpyZWNlaXZlcklkGAMgASgDEhEKCWNyZWF0ZWRBdBgEIAEoCRIRCgl1cGRhdGVkQXQYBSABKAkiawoRR3JvdXBDb252ZXJzYXRpb24SCgoCaWQYASABKAMSFgoOY29udmVyc2F0aW9uSWQYAiABKAMSDAoEbmFtZRgDIAEoCRIRCgljcmVhdGVkQXQYBCABKAkSEQoJdXBkYXRlZEF0GAUgASgJIlwKC0dyb3VwTWVtYmVyEgoKAmlkGAEgASgDEg4KBnVzZXJJZBgCIAEoAxIPCgdncm91cElkGAMgASgDEg0KBWFkbWluGAQgASgIEhEKCWNyZWF0ZWRBdBgFIAEoCSIsChlDcmVhdGVDb252ZXJzYXRpb25SZXF1ZXN0Eg8KB293bmVySWQYASABKAMiJAoWR2V0Q29udmVyc2F0aW9uUmVxdWVzdBIKCgJpZBgBIAEoAyJKChJTZW5kTWVzc2FnZVJlcXVlc3QSDgoGdXNlcklkGAEgASgDEhYKDmNvbnZlcnNhdGlvbklkGAIgASgDEgwKBHRleHQYAyABKAkiOAoSRWRpdE1lc3NhZ2VSZXF1ZXN0EhEKCW1lc3NhZ2VJZBgBIAEoAxIPCgduZXdUZXh0GAIgASgJIlQKGlVwZGF0ZU1lc3NhZ2VTdGF0dXNSZXF1ZXN0EhEKCW1lc3NhZ2VJZBgBIAEoAxIjCgZzdGF0dXMYAiABKA4yEy5jaGF0Lk1lc3NhZ2VTdGF0dXMiOAoeR2V0Q29udmVyc2F0aW9uTWVzc2FnZXNSZXF1ZXN0EhYKDmNvbnZlcnNhdGlvbklkGAEgASgDIkcKIENyZWF0ZVByaXZhdGVDb252ZXJzYXRpb25SZXF1ZXN0Eg8KB293bmVySWQYASABKAMSEgoKcmVjZWl2ZXJJZBgCIAEoAyI3Ch1HZXRQcml2YXRlQ29udmVyc2F0aW9uUmVxdWVzdBIWCg5jb252ZXJzYXRpb25JZBgBIAEoAyI/Ch5DcmVhdGVHcm91cENvbnZlcnNhdGlvblJlcXVlc3QSDwoHb3duZXJJZBgBIAEoAxIMCgRuYW1lGAIgASgJIjUKG0dldEdyb3VwQ29udmVyc2F0aW9uUmVxdWVzdBIWCg5jb252ZXJzYXRpb25JZBgBIAEoAyItChtHZXRVc2VyQ29udmVyc2F0aW9uc1JlcXVlc3QSDgoGdXNlcklkGAEgASgDIjoKF0FkZE1lbWJlclRvR3JvdXBSZXF1ZXN0Eg8KB2dyb3VwSWQYASABKAMSDgoGdXNlcklkGAIgASgDIj8KHFJlbW92ZU1lbWJlckZyb21Hcm91cFJlcXVlc3QSDwoHZ3JvdXBJZBgBIAEoAxIOCgZ1c2VySWQYAiABKAMiOAoVTWFrZUdyb3VwQWRtaW5SZXF1ZXN0Eg8KB2dyb3VwSWQYASABKAMSDgoGdXNlcklkGAIgASgDIgcKBUVtcHR5KjIKDU1lc3NhZ2VTdGF0dXMSCAoEU0VOVBAAEg0KCURFTElWRVJFRBABEggKBFJFQUQQAjKMCgoLQ2hhdFNlcnZpY2USSwoSQ3JlYXRlQ29udmVyc2F0aW9uEh8uY2hhdC5DcmVhdGVDb252ZXJzYXRpb25SZXF1ZXN0GhIuY2hhdC5Db252ZXJzYXRpb24iABJFCg9HZXRDb252ZXJzYXRpb24SHC5jaGF0LkdldENvbnZlcnNhdGlvblJlcXVlc3QaEi5jaGF0LkNvbnZlcnNhdGlvbiIAEjgKC1NlbmRNZXNzYWdlEhguY2hhdC5TZW5kTWVzc2FnZVJlcXVlc3QaDS5jaGF0Lk1lc3NhZ2UiABI4CgtFZGl0TWVzc2FnZRIYLmNoYXQuRWRpdE1lc3NhZ2VSZXF1ZXN0Gg0uY2hhdC5NZXNzYWdlIgASSAoTVXBkYXRlTWVzc2FnZVN0YXR1cxIgLmNoYXQuVXBkYXRlTWVzc2FnZVN0YXR1c1JlcXVlc3QaDS5jaGF0Lk1lc3NhZ2UiABJSChdHZXRDb252ZXJzYXRpb25NZXNzYWdlcxIkLmNoYXQuR2V0Q29udmVyc2F0aW9uTWVzc2FnZXNSZXF1ZXN0Gg0uY2hhdC5NZXNzYWdlIgAwARJgChlDcmVhdGVQcml2YXRlQ29udmVyc2F0aW9uEiYuY2hhdC5DcmVhdGVQcml2YXRlQ29udmVyc2F0aW9uUmVxdWVzdBoZLmNoYXQuUHJpdmF0ZUNvbnZlcnNhdGlvbiIAEloKFkdldFByaXZhdGVDb252ZXJzYXRpb24SIy5jaGF0LkdldFByaXZhdGVDb252ZXJzYXRpb25SZXF1ZXN0GhkuY2hhdC5Qcml2YXRlQ29udmVyc2F0aW9uIgASXwobR2V0VXNlclByaXZhdGVDb252ZXJzYXRpb25zEiEuY2hhdC5HZXRVc2VyQ29udmVyc2F0aW9uc1JlcXVlc3QaGS5jaGF0LlByaXZhdGVDb252ZXJzYXRpb24iADABEloKF0NyZWF0ZUdyb3VwQ29udmVyc2F0aW9uEiQuY2hhdC5DcmVhdGVHcm91cENvbnZlcnNhdGlvblJlcXVlc3QaFy5jaGF0Lkdyb3VwQ29udmVyc2F0aW9uIgASVAoUR2V0R3JvdXBDb252ZXJzYXRpb24SIS5jaGF0LkdldEdyb3VwQ29udmVyc2F0aW9uUmVxdWVzdBoXLmNoYXQuR3JvdXBDb252ZXJzYXRpb24iABJbChlHZXRVc2VyR3JvdXBDb252ZXJzYXRpb25zEiEuY2hhdC5HZXRVc2VyQ29udmVyc2F0aW9uc1JlcXVlc3QaFy5jaGF0Lkdyb3VwQ29udmVyc2F0aW9uIgAwARJGChBBZGRNZW1iZXJUb0dyb3VwEh0uY2hhdC5BZGRNZW1iZXJUb0dyb3VwUmVxdWVzdBoRLmNoYXQuR3JvdXBNZW1iZXIiABJKChVSZW1vdmVNZW1iZXJGcm9tR3JvdXASIi5jaGF0LlJlbW92ZU1lbWJlckZyb21Hcm91cFJlcXVlc3QaCy5jaGF0LkVtcHR5IgASQgoOTWFrZUdyb3VwQWRtaW4SGy5jaGF0Lk1ha2VHcm91cEFkbWluUmVxdWVzdBoRLmNoYXQuR3JvdXBNZW1iZXIiABJRChRHZXRVc2VyQ29udmVyc2F0aW9ucxIhLmNoYXQuR2V0VXNlckNvbnZlcnNhdGlvbnNSZXF1ZXN0GhIuY2hhdC5Db252ZXJzYXRpb24iADABQiEKEmNvbS5hZGlhLmNoYXQuZ3JwY0IJQ2hhdFByb3RvUAFiBnByb3RvMw");
 
 /**
  * Message
@@ -19,19 +19,19 @@ export const file_chat_chat: GenFile = /*@__PURE__*/
  */
 export type Message = Message$1<"chat.Message"> & {
   /**
-   * @generated from field: uint32 id = 1;
+   * @generated from field: int64 id = 1;
    */
-  id: number;
+  id: bigint;
 
   /**
-   * @generated from field: uint32 userId = 2;
+   * @generated from field: int64 userId = 2;
    */
-  userId: number;
+  userId: bigint;
 
   /**
-   * @generated from field: uint32 conversationId = 3;
+   * @generated from field: int64 conversationId = 3;
    */
-  conversationId: number;
+  conversationId: bigint;
 
   /**
    * @generated from field: string text = 4;
@@ -73,14 +73,14 @@ export const MessageSchema: GenMessage<Message> = /*@__PURE__*/
  */
 export type Conversation = Message$1<"chat.Conversation"> & {
   /**
-   * @generated from field: uint32 id = 1;
+   * @generated from field: int64 id = 1;
    */
-  id: number;
+  id: bigint;
 
   /**
-   * @generated from field: uint32 ownerId = 2;
+   * @generated from field: int64 ownerId = 2;
    */
-  ownerId: number;
+  ownerId: bigint;
 
   /**
    * @generated from field: string createdAt = 3;
@@ -112,19 +112,19 @@ export const ConversationSchema: GenMessage<Conversation> = /*@__PURE__*/
  */
 export type PrivateConversation = Message$1<"chat.PrivateConversation"> & {
   /**
-   * @generated from field: uint32 id = 1;
+   * @generated from field: int64 id = 1;
    */
-  id: number;
+  id: bigint;
 
   /**
-   * @generated from field: uint32 conversationId = 2;
+   * @generated from field: int64 conversationId = 2;
    */
-  conversationId: number;
+  conversationId: bigint;
 
   /**
-   * @generated from field: uint32 receiverId = 3;
+   * @generated from field: int64 receiverId = 3;
    */
-  receiverId: number;
+  receiverId: bigint;
 
   /**
    * @generated from field: string createdAt = 4;
@@ -151,14 +151,14 @@ export const PrivateConversationSchema: GenMessage<PrivateConversation> = /*@__P
  */
 export type GroupConversation = Message$1<"chat.GroupConversation"> & {
   /**
-   * @generated from field: uint32 id = 1;
+   * @generated from field: int64 id = 1;
    */
-  id: number;
+  id: bigint;
 
   /**
-   * @generated from field: uint32 conversationId = 2;
+   * @generated from field: int64 conversationId = 2;
    */
-  conversationId: number;
+  conversationId: bigint;
 
   /**
    * @generated from field: string name = 3;
@@ -190,19 +190,19 @@ export const GroupConversationSchema: GenMessage<GroupConversation> = /*@__PURE_
  */
 export type GroupMember = Message$1<"chat.GroupMember"> & {
   /**
-   * @generated from field: uint32 id = 1;
+   * @generated from field: int64 id = 1;
    */
-  id: number;
+  id: bigint;
 
   /**
-   * @generated from field: uint32 userId = 2;
+   * @generated from field: int64 userId = 2;
    */
-  userId: number;
+  userId: bigint;
 
   /**
-   * @generated from field: uint32 groupId = 3;
+   * @generated from field: int64 groupId = 3;
    */
-  groupId: number;
+  groupId: bigint;
 
   /**
    * @generated from field: bool admin = 4;
@@ -229,9 +229,9 @@ export const GroupMemberSchema: GenMessage<GroupMember> = /*@__PURE__*/
  */
 export type CreateConversationRequest = Message$1<"chat.CreateConversationRequest"> & {
   /**
-   * @generated from field: uint32 ownerId = 1;
+   * @generated from field: int64 ownerId = 1;
    */
-  ownerId: number;
+  ownerId: bigint;
 };
 
 /**
@@ -246,9 +246,9 @@ export const CreateConversationRequestSchema: GenMessage<CreateConversationReque
  */
 export type GetConversationRequest = Message$1<"chat.GetConversationRequest"> & {
   /**
-   * @generated from field: uint32 id = 1;
+   * @generated from field: int64 id = 1;
    */
-  id: number;
+  id: bigint;
 };
 
 /**
@@ -263,14 +263,14 @@ export const GetConversationRequestSchema: GenMessage<GetConversationRequest> = 
  */
 export type SendMessageRequest = Message$1<"chat.SendMessageRequest"> & {
   /**
-   * @generated from field: uint32 userId = 1;
+   * @generated from field: int64 userId = 1;
    */
-  userId: number;
+  userId: bigint;
 
   /**
-   * @generated from field: uint32 conversationId = 2;
+   * @generated from field: int64 conversationId = 2;
    */
-  conversationId: number;
+  conversationId: bigint;
 
   /**
    * @generated from field: string text = 3;
@@ -290,9 +290,9 @@ export const SendMessageRequestSchema: GenMessage<SendMessageRequest> = /*@__PUR
  */
 export type EditMessageRequest = Message$1<"chat.EditMessageRequest"> & {
   /**
-   * @generated from field: uint32 messageId = 1;
+   * @generated from field: int64 messageId = 1;
    */
-  messageId: number;
+  messageId: bigint;
 
   /**
    * @generated from field: string newText = 2;
@@ -312,9 +312,9 @@ export const EditMessageRequestSchema: GenMessage<EditMessageRequest> = /*@__PUR
  */
 export type UpdateMessageStatusRequest = Message$1<"chat.UpdateMessageStatusRequest"> & {
   /**
-   * @generated from field: uint32 messageId = 1;
+   * @generated from field: int64 messageId = 1;
    */
-  messageId: number;
+  messageId: bigint;
 
   /**
    * @generated from field: chat.MessageStatus status = 2;
@@ -334,9 +334,9 @@ export const UpdateMessageStatusRequestSchema: GenMessage<UpdateMessageStatusReq
  */
 export type GetConversationMessagesRequest = Message$1<"chat.GetConversationMessagesRequest"> & {
   /**
-   * @generated from field: uint32 conversationId = 1;
+   * @generated from field: int64 conversationId = 1;
    */
-  conversationId: number;
+  conversationId: bigint;
 };
 
 /**
@@ -351,14 +351,14 @@ export const GetConversationMessagesRequestSchema: GenMessage<GetConversationMes
  */
 export type CreatePrivateConversationRequest = Message$1<"chat.CreatePrivateConversationRequest"> & {
   /**
-   * @generated from field: uint32 ownerId = 1;
+   * @generated from field: int64 ownerId = 1;
    */
-  ownerId: number;
+  ownerId: bigint;
 
   /**
-   * @generated from field: uint32 receiverId = 2;
+   * @generated from field: int64 receiverId = 2;
    */
-  receiverId: number;
+  receiverId: bigint;
 };
 
 /**
@@ -373,9 +373,9 @@ export const CreatePrivateConversationRequestSchema: GenMessage<CreatePrivateCon
  */
 export type GetPrivateConversationRequest = Message$1<"chat.GetPrivateConversationRequest"> & {
   /**
-   * @generated from field: uint32 conversationId = 1;
+   * @generated from field: int64 conversationId = 1;
    */
-  conversationId: number;
+  conversationId: bigint;
 };
 
 /**
@@ -390,9 +390,9 @@ export const GetPrivateConversationRequestSchema: GenMessage<GetPrivateConversat
  */
 export type CreateGroupConversationRequest = Message$1<"chat.CreateGroupConversationRequest"> & {
   /**
-   * @generated from field: uint32 ownerId = 1;
+   * @generated from field: int64 ownerId = 1;
    */
-  ownerId: number;
+  ownerId: bigint;
 
   /**
    * @generated from field: string name = 2;
@@ -412,9 +412,9 @@ export const CreateGroupConversationRequestSchema: GenMessage<CreateGroupConvers
  */
 export type GetGroupConversationRequest = Message$1<"chat.GetGroupConversationRequest"> & {
   /**
-   * @generated from field: uint32 conversationId = 1;
+   * @generated from field: int64 conversationId = 1;
    */
-  conversationId: number;
+  conversationId: bigint;
 };
 
 /**
@@ -429,9 +429,9 @@ export const GetGroupConversationRequestSchema: GenMessage<GetGroupConversationR
  */
 export type GetUserConversationsRequest = Message$1<"chat.GetUserConversationsRequest"> & {
   /**
-   * @generated from field: uint32 userId = 1;
+   * @generated from field: int64 userId = 1;
    */
-  userId: number;
+  userId: bigint;
 };
 
 /**
@@ -446,14 +446,14 @@ export const GetUserConversationsRequestSchema: GenMessage<GetUserConversationsR
  */
 export type AddMemberToGroupRequest = Message$1<"chat.AddMemberToGroupRequest"> & {
   /**
-   * @generated from field: uint32 groupId = 1;
+   * @generated from field: int64 groupId = 1;
    */
-  groupId: number;
+  groupId: bigint;
 
   /**
-   * @generated from field: uint32 userId = 2;
+   * @generated from field: int64 userId = 2;
    */
-  userId: number;
+  userId: bigint;
 };
 
 /**
@@ -468,14 +468,14 @@ export const AddMemberToGroupRequestSchema: GenMessage<AddMemberToGroupRequest> 
  */
 export type RemoveMemberFromGroupRequest = Message$1<"chat.RemoveMemberFromGroupRequest"> & {
   /**
-   * @generated from field: uint32 groupId = 1;
+   * @generated from field: int64 groupId = 1;
    */
-  groupId: number;
+  groupId: bigint;
 
   /**
-   * @generated from field: uint32 userId = 2;
+   * @generated from field: int64 userId = 2;
    */
-  userId: number;
+  userId: bigint;
 };
 
 /**
@@ -490,14 +490,14 @@ export const RemoveMemberFromGroupRequestSchema: GenMessage<RemoveMemberFromGrou
  */
 export type MakeGroupAdminRequest = Message$1<"chat.MakeGroupAdminRequest"> & {
   /**
-   * @generated from field: uint32 groupId = 1;
+   * @generated from field: int64 groupId = 1;
    */
-  groupId: number;
+  groupId: bigint;
 
   /**
-   * @generated from field: uint32 userId = 2;
+   * @generated from field: int64 userId = 2;
    */
-  userId: number;
+  userId: bigint;
 };
 
 /**

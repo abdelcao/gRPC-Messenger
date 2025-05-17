@@ -8,19 +8,16 @@
     </div>
 
     <div v-else-if="error" class="text-red-500 text-center p-4">
-      <i class="pi pi-exclamation-triangle" style="font-size: 1.25rem"></i>
+      {{ error }}
     </div>
 
-    <!-- <div
-      v-else-if="(countAsyncIterable(chatStore.conversationList)) === 0"
-      class="text-center text-gray-500 p-4"
-    >
-      Search & Chat
-    </div> -->
+    <div v-else-if="filteredConversations.length === 0" class="text-center text-gray-500 p-4">
+      No conversations found
+    </div>
 
     <ul v-else class="flex flex-col gap-2 overflow-y-auto">
-      <!-- <ChatItem
-        v-for="conversation in chatStore.conversationList"
+      <ChatItem
+        v-for="conversation in filteredConversations"
         :key="conversation.id.toString()"
         :conversation="conversation"
         :is-active="currentConversation?.id === conversation.id"
@@ -28,38 +25,39 @@
         :last-message="getLastMessage(conversation)"
         :other-user-name="conversationNames.get(conversation.id.toString()) || 'Loading...'"
         @click="handleConversationSelect(conversation)"
-      /> -->
+      />
     </ul>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useChatService } from '@/composables/useChatService'
-import { useAuthStore } from '@/stores/auth'
-import { useChatStore } from '@/stores/chat'
 import { useUserService } from '@/composables/useUserService'
+import { useChatStore } from '@/stores/chat'
+import { useAuthStore } from '@/stores/auth'
 import type { Conversation, PrivateConversation, GroupConversation } from '@/grpc/chat/chat_pb'
 import type { User } from '@/grpc/user/user_pb'
 import InputText from 'primevue/inputtext'
 import ProgressSpinner from 'primevue/progressspinner'
 import ChatItem from './ChatItem.vue'
-import { countAsyncIterable, throttle } from '@/libs/utils'
-import { useToast } from 'primevue/usetoast'
 
 // Services and stores
 const chatService = useChatService()
 const userService = useUserService()
-const toast = useToast()
 const chatStore = useChatStore()
 const authStore = useAuthStore()
 
 // State
 const search = ref('')
 const loading = ref(false)
-const error = ref()
+const error = ref<string | null>(null)
+const userCache = ref<Map<number, User>>(new Map())
+const conversationNames = ref<Map<string, string>>(new Map())
+const conversationCache = ref<Map<string, Conversation>>(new Map())
 
 // Computed
+const conversations = computed(() => chatStore.conversations)
 const currentConversation = computed(() => chatStore.currentConversation)
 const currentUserId = computed(() => {
   if (!authStore.user?.id) return undefined
@@ -89,14 +87,17 @@ const filteredConversations = computed(() => {
 async function getOtherUserId(conversation: PrivateConversation): Promise<number | undefined> {
   if (!currentUserId.value) return undefined
 
-  const receiverId = typeof conversation.receiverId === 'bigint' ? Number(conversation.receiverId) : conversation.receiverId
+  const receiverId =
+    typeof conversation.receiverId === 'bigint'
+      ? Number(conversation.receiverId)
+      : conversation.receiverId
 
   // If the current user is the receiver, we need to get the owner from the conversation
   if (receiverId === currentUserId.value) {
     try {
       // Get conversation details if not in cache
       if (!conversationCache.value.has(conversation.conversationId.toString())) {
-        const conv = await chatService.getConversation(conversation.conversationId)
+        const conv = await chatService.getConversation(BigInt(conversation.conversationId))
         conversationCache.value.set(conversation.conversationId.toString(), conv)
       }
 
@@ -117,7 +118,7 @@ async function getOtherUserId(conversation: PrivateConversation): Promise<number
 async function getConversationName(conversation: Conversation): Promise<void> {
   try {
     // Try to get private conversation details
-    const privateConv = await chatService.getPrivateConversation(conversation.id)
+    const privateConv = await chatService.getPrivateConversation(BigInt(conversation.id))
     if (privateConv) {
       const otherUserId = await getOtherUserId(privateConv)
       if (!otherUserId) {
@@ -133,15 +134,20 @@ async function getConversationName(conversation: Conversation): Promise<void> {
       }
 
       // Fetch user info if not in cache
-      const user = await userService.getUser(BigInt(otherUserId))
-      userCache.value.set(otherUserId, user)
-      conversationNames.value.set(conversation.id.toString(), user.username)
+      const user = await userService.getUser({ id: BigInt(otherUserId) })
+
+      if (!user || !user.success) {
+        throw Error('User does not exists')
+      }
+
+      userCache.value.set(otherUserId, user.user)
+      conversationNames.value.set(conversation.id.toString(), user.user.username)
       return
     }
   } catch (err) {
     // If not a private conversation, try to get group conversation
     try {
-      const groupConv = await chatService.getGroupConversation(conversation.id)
+      const groupConv = await chatService.getGroupConversation(BigInt(conversation.id))
       if (groupConv) {
         conversationNames.value.set(conversation.id.toString(), groupConv.name)
         return
@@ -157,20 +163,26 @@ async function getConversationName(conversation: Conversation): Promise<void> {
 
 // Update or add a conversation in the chatStore
 function updateOrAddConversation(newConv: Conversation) {
-  const idx = chatStore.conversations.findIndex(c => c.id === newConv.id);
+  const idx = chatStore.conversations.findIndex((c) => c.id === newConv.id)
   if (idx !== -1) {
-    chatStore.conversations.splice(idx, 1, newConv);
+    chatStore.conversations.splice(idx, 1, newConv)
   } else {
-    chatStore.conversations.push(newConv);
+    chatStore.conversations.push(newConv)
   }
-   // Sort conversations: most recent lastMessage (or updatedAt) first
-   chatStore.conversations.sort((a, b) => {
-  const aLast = (a as any).lastMessage;
-  const bLast = (b as any).lastMessage;
-  const aTime = (aLast && aLast.createdAt) ? new Date(aLast.createdAt).getTime() : new Date(a.updatedAt).getTime();
-  const bTime = (bLast && bLast.createdAt) ? new Date(bLast.createdAt).getTime() : new Date(b.updatedAt).getTime();
-  return bTime - aTime;
-});
+  // Sort conversations: most recent lastMessage (or updatedAt) first
+  chatStore.conversations.sort((a, b) => {
+    const aLast = (a as any).lastMessage
+    const bLast = (b as any).lastMessage
+    const aTime =
+      aLast && aLast.createdAt
+        ? new Date(aLast.createdAt).getTime()
+        : new Date(a.updatedAt).getTime()
+    const bTime =
+      bLast && bLast.createdAt
+        ? new Date(bLast.createdAt).getTime()
+        : new Date(b.updatedAt).getTime()
+    return bTime - aTime
+  })
 }
 
 // Load conversations and usernames (streaming version)
@@ -188,13 +200,13 @@ async function loadData() {
     const stream = chatService.getUserConversations(BigInt(currentUserId.value))
     // Process each conversation as it arrives
     for await (const conversation of stream) {
-      updateOrAddConversation(conversation);
+      updateOrAddConversation(conversation)
       // Hide loading as soon as we get the first conversation
       if (loading.value && chatStore.conversations.length > 0) {
-        loading.value = false;
+        loading.value = false
       }
       // Optionally update conversation name cache
-      await getConversationName(conversation);
+      await getConversationName(conversation)
     }
   } catch (err) {
     console.error('Error loading data:', err)
@@ -210,13 +222,21 @@ async function loadData() {
 }
 
 // Handle conversation selection
-function handleConversationSelect(conversation: Conversation | PrivateConversation | GroupConversation) {
+function handleConversationSelect(
+  conversation: Conversation | PrivateConversation | GroupConversation,
+) {
   chatStore.setCurrentConversation(conversation)
 }
 
 // Get last message (placeholder for now)
-function getLastMessage(conversation: Conversation | PrivateConversation | GroupConversation): string {
-  return (conversation as any).lastMessage || 'No messages yet'
+function getLastMessage(
+  conversation: Conversation | PrivateConversation | GroupConversation,
+): string {
+  const lastMessage = (conversation as any).lastMessage
+  if (lastMessage && typeof lastMessage === 'object' && lastMessage.text) {
+    return lastMessage.text
+  }
+  return 'No messages yet'
 }
 
 // Initialize
@@ -225,4 +245,8 @@ onMounted(() => {
 })
 </script>
 
-<style scoped></style>
+<style scoped>
+.overflow-y-auto {
+  max-height: calc(100vh - 200px); /* Adjust based on your layout */
+}
+</style>
