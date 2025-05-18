@@ -2,15 +2,28 @@
 import { useAppStore } from '@/stores/app'
 
 const appStore = useAppStore()
+
+const getInitials = (name?: string) => {
+  if (!name) return ''
+  return name
+    .split(' ')
+    .map(word => word[0])
+    .join('')
+    .toUpperCase()
+}
 </script>
 
 <template>
   <div class="flex items-center justify-between px-4 py-3 border-b border-gray-500">
-    <div class="flex items-center gap-2">
-      <img src="/images/default_avatar.jpg" class="w-10 h-10 rounded-full" />
-      <div class="flex-1">
-        <div class="font-semibold text-sm">Selected Chat</div>
-        <div class="text-xs text-lime-400">Online</div>
+    <div class="flex items-center gap-3">
+      <Avatar
+        :label="getInitials(user?.username)"
+        class="bg-primary"
+        shape="circle"
+      />
+      <div>
+        <h3 class="text-lg font-semibold">{{ user?.username }}</h3>
+        <p class="text-sm text-gray-500">{{ user?.email }}</p>
       </div>
     </div>
 

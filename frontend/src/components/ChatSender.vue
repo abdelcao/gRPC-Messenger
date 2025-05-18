@@ -24,20 +24,20 @@ const handleSubmit = async () => {
 </script>
 
 <template>
-  <div class="p-4 border-t">
-    <form @submit.prevent="handleSubmit" class="flex gap-2">
-      <InputText
+  <div class="h-full w-full">
+    <form @submit.prevent="handleSubmit" class="flex">
+      <input
         v-model="message"
         placeholder="Type a message..."
-        class="flex-1"
+        class="w-full ps-8 bg-gray-900 rounded-none h-16"
         :disabled="loading"
       />
-      <Button
+      <button
         type="submit"
-        icon="pi pi-send"
+        class="w-16 shrink-0 bg-lime-700 flex items-center justify-center"
         :loading="loading"
         :disabled="!message.trim()"
-      />
+      ><i class="pi pi-send" style="font-size: 1.25rem;"></i></button>
     </form>
   </div>
 </template>

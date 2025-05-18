@@ -6,15 +6,15 @@
       <div
         v-for="(elm, n) in elms.top"
         :key="n"
-        class="cursor-pointer p-4  rounded-full flex items-center justify-center"
+        class="cursor-pointer p-4 rounded-full flex items-center justify-center"
         :class="
-          active === elm.name
+          appStore.activePanel === elm.name
             ? 'bg-lime-500/25 text-lime-200 '
             : 'bg-gray-200 dark:bg-gray-700 hover:bg-lime-500/25 hover:text-lime-200'
         "
         @click="elm.action"
       >
-        <i :class="elm.icon" style="font-size: 1.125rem;" />
+        <i :class="elm.icon" style="font-size: 1.125rem" />
       </div>
     </div>
     <div class="mt-auto">
@@ -23,13 +23,13 @@
         :key="n"
         class="cursor-pointer p-4 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center"
         :class="
-          active === elm.name
+          appStore.activePanel === elm.name
             ? 'bg-lime-500/25 text-lime-200'
             : 'bg-gray-200 dark:bg-gray-700 hover:bg-lime-500/25 hover:text-lime-200'
         "
         @click="elm.action"
       >
-        <i :class="elm.icon"  style="font-size: 1.125rem;" />
+        <i :class="elm.icon" style="font-size: 1.125rem" />
       </div>
     </div>
   </div>
@@ -39,45 +39,34 @@
 <script setup lang="ts">
 import { useAppStore } from '@/stores/app'
 import SettingsModal from './SettingsModal.vue'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
 const appStore = useAppStore()
-const active = ref('chat');
+const active = computed(() => appStore.activePanel)
 
 const elms = {
   top: [
     {
       icon: 'pi pi-bell',
-      action: () => {
-        active.value = 'notification'
-        appStore.activePanel = 'notification'
-      },
-      name: 'notification'
+      action: () => appStore.setActivePanel('notification'),
+      name: 'notification',
     },
     {
       icon: 'pi pi-comments',
-      action: () => {
-        active.value = 'chat'
-        appStore.activePanel = 'chat'
-      },
-      name: 'chat'
+      action: () => appStore.setActivePanel('chat'),
+      name: 'chat',
     },
     {
       icon: 'pi pi-users',
-      action: () => {
-        active.value = 'group'
-        appStore.activePanel = 'group'
-      },
-      name: 'group'
+      action: () => appStore.setActivePanel('group'),
+      name: 'group',
     },
   ],
   bottom: [
     {
       icon: 'pi pi-cog',
-      action: () => {
-        appStore.settingsModalVisible = true
-      },
-      name: 'settings'
+      action: () => (appStore.settingsModalVisible = true),
+      name: 'settings',
     },
   ],
 }

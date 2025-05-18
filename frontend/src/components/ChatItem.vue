@@ -5,14 +5,6 @@ import Avatar from 'primevue/avatar'
 import Badge from 'primevue/badge'
 import { RouterLink } from 'vue-router'
 
-interface Chat {
-  id: number
-  unread: number
-  avatar: string
-  name: string
-  time: string
-  lastMessage: string
-}
 
 const props = defineProps<{
   conversation: Conversation | PrivateConversation | GroupConversation
