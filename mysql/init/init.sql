@@ -82,6 +82,7 @@ CREATE TABLE IF NOT EXISTS group_members (
 CREATE TABLE IF NOT EXISTS notifications (
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
     content TEXT NOT NULL,
+    link TEXT NOT NULL,
     user_id INTEGER NOT NULL,
     status ENUM('read', 'unread', 'dismissed') DEFAULT 'unread',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

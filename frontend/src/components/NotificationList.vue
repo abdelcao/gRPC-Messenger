@@ -5,48 +5,45 @@
       <span class="text-lime-500/50 hover:text-lime-500 cursor-pointer">Mark all as read</span>
     </div>
 
-    <ul class="space-y-3">
-      <li
-        v-for="notif in notifications"
-        :key="notif.id"
-        class="flex items-start p-4 bg-white dark:bg-gray-800 rounded-xl shadow space-x-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition"
-      >
-        <img :src="notif.avatar" class="w-10 h-10 rounded-full object-cover" alt="avatar" />
+    <ul class="space-y-2">
+      <RouterLink v-for="notif in notifications" :key="notif.id" class="block" :to="notif.link">
+        <li
+          class="flex items-start p-4 rounded-xl shadow space-x-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition"
+          :class="notif.unread ? 'bg-lime-500/50 dark:bg-lime-500/25':'bg-white dark:bg-gray-700'"
+        >
+          <div class="flex-1">
+            <span class="font-medium text-gray-900 dark:text-white">@{{ notif.from }}</span>
+            <p class="text-sm text-gray-700 dark:text-gray-300">
+              {{ notif.preview }}
+            </p>
+            <div class="text-xs text-gray-400 mt-1">{{ timeAgo(notif.createdAt) }}</div>
+          </div>
 
-        <div class="flex-1">
-          <p class="text-sm text-gray-700 dark:text-gray-300">
-            <span class="font-medium text-gray-900 dark:text-white">@{{ notif.mention }}</span>
-            &nbsp;mentioned you in
-            <span class="font-semibold text-blue-500">#{{ notif.group }}</span
-            >: "{{ notif.preview }}"
-          </p>
-          <div class="text-xs text-gray-400 mt-1">{{ notif.timeAgo }}</div>
-        </div>
-
-        <span v-if="notif.unread" class="w-2 h-2 rounded-full bg-blue-500 mt-1" />
-      </li>
+        </li>
+      </RouterLink>
     </ul>
   </div>
 </template>
 
 <script setup lang="ts">
+import { timeAgo } from '@/libs/utils'
+import { RouterLink } from 'vue-router'
+
 const notifications = [
   {
     id: 1,
-    avatar: '/images/default_avatar.jpg',
-    mention: 'alice',
-    group: 'dev-team',
-    preview: 'Can you check this logic @you?',
-    timeAgo: '2 minutes ago',
+    username: 'Admin',
+    preview: "You're account has been suspended for violating our policies",
+    link: '#',
+    createdAt: '2025-02-15T15:35:14.145Z',
     unread: true,
   },
   {
     id: 2,
-    avatar: '/images/default_avatar.jpg',
-    mention: 'john',
-    group: 'marketing',
-    preview: 'Hey @you, what do you think?',
-    timeAgo: '1 hour ago',
+    username: 'Invitation',
+    preview: '@john Invited you to @tradin group chat',
+    link: '#',
+    createdAt: '2025-05-15T15:35:14.145Z',
     unread: false,
   },
 ]

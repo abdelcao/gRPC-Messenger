@@ -1,3 +1,7 @@
+import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
+import relativeTime from 'dayjs/plugin/relativeTime'
+
 export function throttle<T extends (...args: any[]) => any>(
   fn: T,
   delay: number,
@@ -21,4 +25,22 @@ export async function countAsyncIterable<T>(
     count++
   }
   return count
+}
+
+/**
+ * Count time from a date
+ */
+
+dayjs.extend(relativeTime)
+dayjs.extend(utc)
+
+/**
+ *
+ * @param date : 'yyyy-mm-ddThh:mm:ss'
+ * @returns
+ */
+export function timeAgo(mydate: string | Date): string {
+  const target = dayjs.utc(mydate)
+  const now = dayjs.utc()
+  return target.fromNow()
 }

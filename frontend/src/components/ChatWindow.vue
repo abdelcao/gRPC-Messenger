@@ -13,7 +13,7 @@
       <div v-if="loading" class="flex justify-center items-center h-full">
         <ProgressSpinner />
       </div>
-      <div v-else-if="error" class="text-red-500 text-center p-4">
+      <div v-else-if="error" class="text-rose-500 text-center p-4">
         {{ error }}
         <Button v-if="error" @click="retryConnection" class="mt-2" severity="secondary" size="small">
           Retry Connection
@@ -53,7 +53,7 @@
     </div>
 
     <!-- Input -->
-    <div class="border-t border-gray-200 h-16">
+    <div class=" h-16">
       <ChatSender
         @send="handleSendMessage"
         :disabled="!currentConversation || !isConnected"

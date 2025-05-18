@@ -1,4 +1,8 @@
 package com.adia.notification.entity;
 
-public class NotificationStatus {
+public enum NotificationStatus {
+    READ,
+    UNREAD,
+    DISMISSED
 }
+

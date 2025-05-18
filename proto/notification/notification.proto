@@ -8,33 +8,31 @@ option java_outer_classname = "NotificationProto";
 
 // Service de notifications
 service NotificationService {
-  rpc Subscribe (SubscriptionRequest) returns (stream Notification);
-  rpc UpdateNotificationSettings (NotificationSettingsRequest) returns (NotificationSettingsResponse);
+  rpc StreamNotifications(UserRequest) returns (stream Notification);
+  rpc CreateNotification(NewNotificationRequest) returns (Notification);
+  rpc NotifyGroupInvite(GroupInviteRequest) returns (Notification);
 }
 
-// Messages pour les abonnements
-message SubscriptionRequest {
-  uint64 userId = 1;
+message UserRequest {
+  string userId = 1;
 }
 
-// Messages pour les notifications
 message Notification {
-  uint64 id  = 1;
-  uint64 userId = 2;
-  string title = 3;
-  string content = 4;
-  string type = 5; // "MESSAGE", "GROUP", "SYSTEM"
-  string timestamp = 6;
-  bool read = 7;
+  string id = 1;
+  string username = 2;
+  string content = 3;
+  string link = 4;
+  string createdAt = 5;
+  bool unread = 6;
 }
 
-// Messages pour les paramètres de notification
-message NotificationSettingsRequest {
-  uint64 userId = 1;
-  bool enableSound = 2;
-  bool enableDesktopNotifications = 3;
+message NewNotificationRequest {
+  string userId = 1;
+  string message = 2;
 }
 
-message NotificationSettingsResponse {
-  bool success = 1;
+message GroupInviteRequest {
+  string inviterId = 1;
+  string inviteeId = 2;
+  string groupId = 3;
 }
