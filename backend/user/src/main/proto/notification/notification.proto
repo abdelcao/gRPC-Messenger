@@ -14,13 +14,13 @@ service NotificationService {
 
 // Messages pour les abonnements
 message SubscriptionRequest {
-  string userId = 1;
+  uint64 userId = 1;
 }
 
 // Messages pour les notifications
 message Notification {
-  string id = 1;
-  string userId = 2;
+  uint64 id  = 1;
+  uint64 userId = 2;
   string title = 3;
   string content = 4;
   string type = 5; // "MESSAGE", "GROUP", "SYSTEM"
@@ -30,7 +30,7 @@ message Notification {
 
 // Messages pour les paramètres de notification
 message NotificationSettingsRequest {
-  string userId = 1;
+  uint64 userId = 1;
   bool enableSound = 2;
   bool enableDesktopNotifications = 3;
 }

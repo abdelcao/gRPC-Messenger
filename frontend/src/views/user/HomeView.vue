@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import Check from "@/components/Check.vue";
-import MainLayout from "@/layouts/MainLayout.vue"
+import MainLayout from '@/layouts/MainLayout.vue'
+import WelcomeScreen from '@/components/WelcomeScreen.vue';
 </script>
 
 <template>
   <MainLayout>
-    <div>main</div>
-    <!-- <Check /> -->
+    <WelcomeScreen />
   </MainLayout>
 </template>

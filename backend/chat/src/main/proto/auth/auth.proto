@@ -2,65 +2,57 @@ syntax = "proto3";
 
 package auth;
 
+import "user/user.proto";
+
 option java_multiple_files = true;
 option java_package = "com.adia.auth";
 option java_outer_classname = "AuthProto";
 
-// Service d'authentification
 service AuthService {
-  rpc Register (RegisterRequest) returns (RegisterResponse);
-  rpc Login (LoginRequest) returns (LoginResponse);
-  rpc ValidateToken (TokenValidationRequest) returns (TokenValidationResponse);
-  rpc RefreshToken (RefreshTokenRequest) returns (RefreshTokenResponse);
+  rpc Register(RegisterRequest) returns (AuthResponse);
+  rpc Login(LoginRequest) returns (AuthResponse);
+  rpc Logout(LogoutRequest) returns (Empty);
+  rpc VerifyToken(TokenRequest) returns (VerifyTokenResponse);
+  rpc RefreshToken(RefreshTokenRequest) returns (AuthResponse);
 }
 
-// Messages pour l'inscription
 message RegisterRequest {
-  string email = 1;
-  string password = 2;
-  string username = 3;
+  string username = 1;
+  string email = 2;
+  string password = 3;
 }
 
-message RegisterResponse {
-  bool success = 1;
-  string message = 2;
-  string userId = 3;
-}
-
-// Messages pour la connexion
 message LoginRequest {
   string email = 1;
   string password = 2;
 }
 
-message LoginResponse {
-  bool success = 1;
-  string message = 2;
-  string token = 3;
-  string refreshToken = 4;
-  string userId = 5;
-  string username = 6;
-  string role = 7;
+message LogoutRequest {
+  uint64 userId = 1;
 }
 
-// Messages pour la validation de token
-message TokenValidationRequest {
-  string token = 1;
-}
+message Empty {}
 
-message TokenValidationResponse {
-  bool isValid = 1;
-  string userId = 2;
-  string role = 3;
-}
-
-// Messages pour le rafraîchissement de token
 message RefreshTokenRequest {
   string refreshToken = 1;
 }
 
-message RefreshTokenResponse {
+message TokenRequest {
+  string token = 1;
+}
+
+message AuthResponse {
   bool success = 1;
-  string token = 2;
-  string refreshToken = 3;
+  string message = 2;
+  string accessToken = 3;
+  string refreshToken = 4;
+  int64 expiresIn=5;
+  user.User user = 6;
+}
+
+message VerifyTokenResponse {
+  bool valid = 1;
+  string message = 2;
+  user.User user = 3;
+  bool success = 4;
 }

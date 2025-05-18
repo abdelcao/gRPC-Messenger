@@ -10,106 +10,16 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file admin/admin.proto.
  */
 export const file_admin_admin: GenFile = /*@__PURE__*/
-  fileDesc("ChFhZG1pbi9hZG1pbi5wcm90bxIFYWRtaW4iHAoMQ2hlY2tSZXF1ZXN0EgwKBGRhdGEYASABKAkiMAoNQ2hlY2tSZXNwb25zZRIOCgZzdGF0dXMYASABKAgSDwoHbWVzc2FnZRgCIAEoCSIuCg9Vc2VyTGlzdFJlcXVlc3QSDAoEcGFnZRgBIAEoBRINCgVsaW1pdBgCIAEoBSI9ChBVc2VyTGlzdFJlc3BvbnNlEhoKBXVzZXJzGAEgAygLMgsuYWRtaW4uVXNlchINCgV0b3RhbBgCIAEoBSJEChFVc2VyQWN0aW9uUmVxdWVzdBIOCgZ1c2VySWQYASABKAkSDwoHYWRtaW5JZBgCIAEoCRIOCgZyZWFzb24YAyABKAkiNgoSVXNlckFjdGlvblJlc3BvbnNlEg8KB3N1Y2Nlc3MYASABKAgSDwoHbWVzc2FnZRgCIAEoCSJKChRNZXNzYWdlQWN0aW9uUmVxdWVzdBIRCgltZXNzYWdlSWQYASABKAkSDwoHYWRtaW5JZBgCIAEoCRIOCgZyZWFzb24YAyABKAkiOQoVTWVzc2FnZUFjdGlvblJlc3BvbnNlEg8KB3N1Y2Nlc3MYASABKAgSDwoHbWVzc2FnZRgCIAEoCSJmCgRVc2VyEgoKAmlkGAEgASgJEg0KBWVtYWlsGAIgASgJEhAKCHVzZXJuYW1lGAMgASgJEgwKBHJvbGUYBCABKAkSEAoIaXNCYW5uZWQYBSABKAgSEQoJY3JlYXRlZEF0GAYgASgJMpACCgxBZG1pblNlcnZpY2USPgoLZ2V0QWxsVXNlcnMSFi5hZG1pbi5Vc2VyTGlzdFJlcXVlc3QaFy5hZG1pbi5Vc2VyTGlzdFJlc3BvbnNlEj4KB2JhblVzZXISGC5hZG1pbi5Vc2VyQWN0aW9uUmVxdWVzdBoZLmFkbWluLlVzZXJBY3Rpb25SZXNwb25zZRJKCg1kZWxldGVNZXNzYWdlEhsuYWRtaW4uTWVzc2FnZUFjdGlvblJlcXVlc3QaHC5hZG1pbi5NZXNzYWdlQWN0aW9uUmVzcG9uc2USNAoHRG9DaGVjaxITLmFkbWluLkNoZWNrUmVxdWVzdBoULmFkbWluLkNoZWNrUmVzcG9uc2VCHgoOY29tLmFkaWEuYWRtaW5CCkFkbWluUHJvdG9QAWIGcHJvdG8z");
-
-/**
- * @generated from message admin.CheckRequest
- */
-export type CheckRequest = Message<"admin.CheckRequest"> & {
-  /**
-   * @generated from field: string data = 1;
-   */
-  data: string;
-};
-
-/**
- * Describes the message admin.CheckRequest.
- * Use `create(CheckRequestSchema)` to create a new message.
- */
-export const CheckRequestSchema: GenMessage<CheckRequest> = /*@__PURE__*/
-  messageDesc(file_admin_admin, 0);
-
-/**
- * @generated from message admin.CheckResponse
- */
-export type CheckResponse = Message<"admin.CheckResponse"> & {
-  /**
-   * @generated from field: bool status = 1;
-   */
-  status: boolean;
-
-  /**
-   * @generated from field: string message = 2;
-   */
-  message: string;
-};
-
-/**
- * Describes the message admin.CheckResponse.
- * Use `create(CheckResponseSchema)` to create a new message.
- */
-export const CheckResponseSchema: GenMessage<CheckResponse> = /*@__PURE__*/
-  messageDesc(file_admin_admin, 1);
-
-/**
- * Messages pour la gestion des utilisateurs
- *
- * @generated from message admin.UserListRequest
- */
-export type UserListRequest = Message<"admin.UserListRequest"> & {
-  /**
-   * @generated from field: int32 page = 1;
-   */
-  page: number;
-
-  /**
-   * @generated from field: int32 limit = 2;
-   */
-  limit: number;
-};
-
-/**
- * Describes the message admin.UserListRequest.
- * Use `create(UserListRequestSchema)` to create a new message.
- */
-export const UserListRequestSchema: GenMessage<UserListRequest> = /*@__PURE__*/
-  messageDesc(file_admin_admin, 2);
-
-/**
- * @generated from message admin.UserListResponse
- */
-export type UserListResponse = Message<"admin.UserListResponse"> & {
-  /**
-   * @generated from field: repeated admin.User users = 1;
-   */
-  users: User[];
-
-  /**
-   * @generated from field: int32 total = 2;
-   */
-  total: number;
-};
-
-/**
- * Describes the message admin.UserListResponse.
- * Use `create(UserListResponseSchema)` to create a new message.
- */
-export const UserListResponseSchema: GenMessage<UserListResponse> = /*@__PURE__*/
-  messageDesc(file_admin_admin, 3);
+  fileDesc("ChFhZG1pbi9hZG1pbi5wcm90bxIFYWRtaW4iMwoRVXNlckFjdGlvblJlcXVlc3QSDgoGdXNlcklkGAEgASgEEg4KBnJlYXNvbhgDIAEoCSI2ChJVc2VyQWN0aW9uUmVzcG9uc2USDwoHc3VjY2VzcxgBIAEoCBIPCgdtZXNzYWdlGAIgASgJIjkKFE1lc3NhZ2VBY3Rpb25SZXF1ZXN0EhEKCW1lc3NhZ2VJZBgBIAEoBBIOCgZyZWFzb24YAyABKAkiOQoVTWVzc2FnZUFjdGlvblJlc3BvbnNlEg8KB3N1Y2Nlc3MYASABKAgSDwoHbWVzc2FnZRgCIAEoCSIwChZEbHRDb252ZXJzYXRpb25SZXF1ZXN0EhYKDmNvbnZlcnNhdGlvbklkGAEgASgEIjsKF0RsdENvbnZlcnNhdGlvblJlc3BvbnNlEg8KB3N1Y2Nlc3MYASABKAgSDwoHbWVzc2FnZRgCIAEoCTLzAQoMQWRtaW5TZXJ2aWNlEkIKC1N1c3BlbmRVc2VyEhguYWRtaW4uVXNlckFjdGlvblJlcXVlc3QaGS5hZG1pbi5Vc2VyQWN0aW9uUmVzcG9uc2USSgoNRGVsZXRlTWVzc2FnZRIbLmFkbWluLk1lc3NhZ2VBY3Rpb25SZXF1ZXN0GhwuYWRtaW4uTWVzc2FnZUFjdGlvblJlc3BvbnNlElMKEkRlbGV0ZUNvbnZlcnNhdGlvbhIdLmFkbWluLkRsdENvbnZlcnNhdGlvblJlcXVlc3QaHi5hZG1pbi5EbHRDb252ZXJzYXRpb25SZXNwb25zZUIeCg5jb20uYWRpYS5hZG1pbkIKQWRtaW5Qcm90b1ABYgZwcm90bzM");
 
 /**
  * @generated from message admin.UserActionRequest
  */
 export type UserActionRequest = Message<"admin.UserActionRequest"> & {
   /**
-   * @generated from field: string userId = 1;
+   * @generated from field: uint64 userId = 1;
    */
-  userId: string;
-
-  /**
-   * @generated from field: string adminId = 2;
-   */
-  adminId: string;
+  userId: bigint;
 
   /**
    * @generated from field: string reason = 3;
@@ -122,7 +32,7 @@ export type UserActionRequest = Message<"admin.UserActionRequest"> & {
  * Use `create(UserActionRequestSchema)` to create a new message.
  */
 export const UserActionRequestSchema: GenMessage<UserActionRequest> = /*@__PURE__*/
-  messageDesc(file_admin_admin, 4);
+  messageDesc(file_admin_admin, 0);
 
 /**
  * @generated from message admin.UserActionResponse
@@ -144,7 +54,7 @@ export type UserActionResponse = Message<"admin.UserActionResponse"> & {
  * Use `create(UserActionResponseSchema)` to create a new message.
  */
 export const UserActionResponseSchema: GenMessage<UserActionResponse> = /*@__PURE__*/
-  messageDesc(file_admin_admin, 5);
+  messageDesc(file_admin_admin, 1);
 
 /**
  * Messages pour la gestion des messages
@@ -153,14 +63,9 @@ export const UserActionResponseSchema: GenMessage<UserActionResponse> = /*@__PUR
  */
 export type MessageActionRequest = Message<"admin.MessageActionRequest"> & {
   /**
-   * @generated from field: string messageId = 1;
+   * @generated from field: uint64 messageId = 1;
    */
-  messageId: string;
-
-  /**
-   * @generated from field: string adminId = 2;
-   */
-  adminId: string;
+  messageId: bigint;
 
   /**
    * @generated from field: string reason = 3;
@@ -173,7 +78,7 @@ export type MessageActionRequest = Message<"admin.MessageActionRequest"> & {
  * Use `create(MessageActionRequestSchema)` to create a new message.
  */
 export const MessageActionRequestSchema: GenMessage<MessageActionRequest> = /*@__PURE__*/
-  messageDesc(file_admin_admin, 6);
+  messageDesc(file_admin_admin, 2);
 
 /**
  * @generated from message admin.MessageActionResponse
@@ -195,51 +100,46 @@ export type MessageActionResponse = Message<"admin.MessageActionResponse"> & {
  * Use `create(MessageActionResponseSchema)` to create a new message.
  */
 export const MessageActionResponseSchema: GenMessage<MessageActionResponse> = /*@__PURE__*/
-  messageDesc(file_admin_admin, 7);
+  messageDesc(file_admin_admin, 3);
 
 /**
- * Structure d'utilisateur
- *
- * @generated from message admin.User
+ * @generated from message admin.DltConversationRequest
  */
-export type User = Message<"admin.User"> & {
+export type DltConversationRequest = Message<"admin.DltConversationRequest"> & {
   /**
-   * @generated from field: string id = 1;
+   * @generated from field: uint64 conversationId = 1;
    */
-  id: string;
-
-  /**
-   * @generated from field: string email = 2;
-   */
-  email: string;
-
-  /**
-   * @generated from field: string username = 3;
-   */
-  username: string;
-
-  /**
-   * @generated from field: string role = 4;
-   */
-  role: string;
-
-  /**
-   * @generated from field: bool isBanned = 5;
-   */
-  isBanned: boolean;
-
-  /**
-   * @generated from field: string createdAt = 6;
-   */
-  createdAt: string;
+  conversationId: bigint;
 };
 
 /**
- * Describes the message admin.User.
- * Use `create(UserSchema)` to create a new message.
+ * Describes the message admin.DltConversationRequest.
+ * Use `create(DltConversationRequestSchema)` to create a new message.
  */
-export const UserSchema: GenMessage<User> = /*@__PURE__*/
-  messageDesc(file_admin_admin, 8);
+export const DltConversationRequestSchema: GenMessage<DltConversationRequest> = /*@__PURE__*/
+  messageDesc(file_admin_admin, 4);
+
+/**
+ * @generated from message admin.DltConversationResponse
+ */
+export type DltConversationResponse = Message<"admin.DltConversationResponse"> & {
+  /**
+   * @generated from field: bool success = 1;
+   */
+  success: boolean;
+
+  /**
+   * @generated from field: string message = 2;
+   */
+  message: string;
+};
+
+/**
+ * Describes the message admin.DltConversationResponse.
+ * Use `create(DltConversationResponseSchema)` to create a new message.
+ */
+export const DltConversationResponseSchema: GenMessage<DltConversationResponse> = /*@__PURE__*/
+  messageDesc(file_admin_admin, 5);
 
 /**
  * Service d'administration
@@ -248,23 +148,15 @@ export const UserSchema: GenMessage<User> = /*@__PURE__*/
  */
 export const AdminService: GenService<{
   /**
-   * @generated from rpc admin.AdminService.getAllUsers
+   * @generated from rpc admin.AdminService.SuspendUser
    */
-  getAllUsers: {
-    methodKind: "unary";
-    input: typeof UserListRequestSchema;
-    output: typeof UserListResponseSchema;
-  },
-  /**
-   * @generated from rpc admin.AdminService.banUser
-   */
-  banUser: {
+  suspendUser: {
     methodKind: "unary";
     input: typeof UserActionRequestSchema;
     output: typeof UserActionResponseSchema;
   },
   /**
-   * @generated from rpc admin.AdminService.deleteMessage
+   * @generated from rpc admin.AdminService.DeleteMessage
    */
   deleteMessage: {
     methodKind: "unary";
@@ -272,12 +164,14 @@ export const AdminService: GenService<{
     output: typeof MessageActionResponseSchema;
   },
   /**
-   * @generated from rpc admin.AdminService.DoCheck
+   * rpc DoCheck (CheckRequest) returns (CheckResponse);
+   *
+   * @generated from rpc admin.AdminService.DeleteConversation
    */
-  doCheck: {
+  deleteConversation: {
     methodKind: "unary";
-    input: typeof CheckRequestSchema;
-    output: typeof CheckResponseSchema;
+    input: typeof DltConversationRequestSchema;
+    output: typeof DltConversationResponseSchema;
   },
 }> = /*@__PURE__*/
   serviceDesc(file_admin_admin, 0);
