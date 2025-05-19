@@ -47,7 +47,7 @@
           <Button
             icon="pi pi-sign-out"
             label="Logout"
-            @click="logout"
+            @click="auth.logout"
             class="p-button-sm p-button-text text-red-500"
           />
         </div>
@@ -65,11 +65,12 @@
 import { RouterLink, RouterView } from 'vue-router'
 import Button from 'primevue/button'
 import { ref } from 'vue'
-// import { useAuthStore } from '@/stores/auth'
+import { useAuthStore } from '@/stores/auth'
 
-// const auth = useAuthStore()
+const auth = useAuthStore()
 
 const sidebarOpen = ref(false)
+
 
 const toggleSidebar = () => {
   console.log('toggling')
@@ -88,7 +89,4 @@ const menu = [
   { label: 'Settings', to: '/admin/dashboard/settings', icon: 'pi pi-cog' },
 ]
 
-function logout() {
-  // auth.logout()
-}
 </script>

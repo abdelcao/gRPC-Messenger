@@ -103,5 +103,5 @@ public class NotificationServiceImpl extends NotificationServiceGrpc.Notificatio
                     .asRuntimeException());
         }
     }
-
+    
 }
