@@ -2,18 +2,9 @@ package com.adia.notification.entity;
 
 import java.time.Instant;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
-import jakarta.persistence.Index;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 /**
  * Entity class for notifications
@@ -26,13 +17,16 @@ import lombok.NoArgsConstructor;
                 @Index(name = "idx_notifications_created_at", columnList = "created_at DESC")
         })
 @Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class NotificationEntity {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "receiver_id", nullable = false)
     private String receiverId;
@@ -65,7 +59,8 @@ public class NotificationEntity {
     public enum NotificationType {
         GROUP_INVITE,
         ADMIN_WARNING,
-        GLOBAL_ANNOUNCEMENT
+        GLOBAL_ANNOUNCEMENT,
+        UNRECOGNIZED
     }
 }
 

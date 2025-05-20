@@ -16,6 +16,7 @@ service NotificationService {
   rpc NotifyGroupInvite(GroupInviteRequest) returns (Notification);
   rpc getAllNotifications(UserRequest) returns (NotificationList); // when user login get Notifi history whith count of unread
   rpc SendNotification (Notification) returns (google.protobuf.Empty);
+  rpc MarkAsRead (ReadReq) returns (google.protobuf.Empty);
 }
 
 enum NotificationType {
@@ -54,4 +55,8 @@ message GroupInviteRequest {
   string inviterId = 1;
   string inviteeId = 2;
   string groupId = 3;
+}
+
+message ReadReq {
+  repeated Notification notifications = 1;
 }
