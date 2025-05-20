@@ -2,6 +2,9 @@ syntax = "proto3";
 
 package notification;
 
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
 option java_multiple_files = true;
 option java_package = "com.adia.notification";
 option java_outer_classname = "NotificationProto";
@@ -11,6 +14,14 @@ service NotificationService {
   rpc StreamNotifications(UserRequest) returns (stream Notification);
   rpc CreateNotification(NewNotificationRequest) returns (Notification);
   rpc NotifyGroupInvite(GroupInviteRequest) returns (Notification);
+  rpc getAllNotifications(UserRequest) returns (NotificationList); // when user login get Notifi history whith count of unread
+  rpc SendNotification (Notification) returns (google.protobuf.Empty);
+}
+
+enum NotificationType {
+  GROUP_INVITE = 0;
+  ADMIN_WARNING = 1;
+  GLOBAL_ANNOUNCEMENT = 2;
 }
 
 message UserRequest {
@@ -19,11 +30,19 @@ message UserRequest {
 
 message Notification {
   string id = 1;
-  string username = 2;
-  string content = 3;
-  string link = 4;
-  string createdAt = 5;
-  bool unread = 6;
+  string receiverId = 2;
+  string senderId = 3;
+  string content = 4;
+  NotificationType type = 5;
+  string title = 6;
+  string link = 7; // Optional URL or frontend route (e.g. "/group/123")
+  google.protobuf.Timestamp createdAt = 8;
+  bool unread = 9;
+}
+
+message NotificationList {
+  repeated Notification notifications = 1;
+  int32 unreadCount = 2;
 }
 
 message NewNotificationRequest {

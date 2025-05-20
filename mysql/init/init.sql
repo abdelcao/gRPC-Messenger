@@ -79,16 +79,23 @@ CREATE TABLE IF NOT EXISTS group_members (
 );
 
 -- Create notifications table
-CREATE TABLE IF NOT EXISTS notifications (
-    id INTEGER PRIMARY KEY AUTO_INCREMENT,
-    content TEXT NOT NULL,
-    link TEXT NOT NULL,
-    user_id INTEGER NOT NULL,
-    status ENUM('read', 'unread', 'dismissed') DEFAULT 'unread',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id)
+CREATE TABLE notifications (
+  id VARCHAR(255) PRIMARY KEY,
+  receiver_id VARCHAR(255) NOT NULL,
+  sender_id VARCHAR(255) NOT NULL,
+  content TEXT NOT NULL,
+  type VARCHAR(50) NOT NULL, -- Assuming NotificationType is an enum, will be stored as string
+  title VARCHAR(255) NOT NULL,
+  link VARCHAR(2048), -- Optional URL or frontend route
+  created_at TIMESTAMP NOT NULL,
+  unread BOOLEAN NOT NULL DEFAULT TRUE
 );
+
+-- Creating indexes for common query patterns
+CREATE INDEX idx_notifications_receiver_id ON notifications(receiver_id);
+CREATE INDEX idx_notifications_unread ON notifications(receiver_id, unread);
+CREATE INDEX idx_notifications_created_at ON notifications(created_at DESC);
+
 
 -- Create reports table
 CREATE TABLE IF NOT EXISTS reports (

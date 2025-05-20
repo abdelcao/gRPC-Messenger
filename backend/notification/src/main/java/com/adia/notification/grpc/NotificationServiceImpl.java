@@ -3,10 +3,7 @@ package com.adia.notification.grpc;
 import com.adia.chat.grpc.ChatServiceGrpc;
 import com.adia.chat.grpc.GetGroupConversationRequest;
 import com.adia.chat.grpc.GroupConversation;
-import com.adia.notification.GroupInviteRequest;
-import com.adia.notification.Notification;
-import com.adia.notification.NotificationServiceGrpc;
-import com.adia.notification.UserRequest;
+import com.adia.notification.*;
 import com.adia.notification.entity.NotificationEntity;
 import com.adia.notification.entity.NotificationMapper;
 import com.adia.notification.repository.NotificationRepository;
@@ -103,5 +100,16 @@ public class NotificationServiceImpl extends NotificationServiceGrpc.Notificatio
                     .asRuntimeException());
         }
     }
-    
+
+    @Override
+    public void createNotification(NewNotificationRequest request, StreamObserver<Notification> responseObserver) {
+        try {
+            
+
+        } catch (Exception e) {
+            responseObserver.onError(Status.INTERNAL
+                    .withDescription("Something went wrong!")
+                    .asRuntimeException());
+        }
+    }
 }
