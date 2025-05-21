@@ -2,38 +2,22 @@
 // @generated from file notification/notification.proto (package notification, syntax proto3)
 /* eslint-disable */
 
-<<<<<<< HEAD
-import type { GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv1";
-import { fileDesc, messageDesc, serviceDesc } from "@bufbuild/protobuf/codegenv1";
-=======
 import type { GenEnum, GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv1";
 import { enumDesc, fileDesc, messageDesc, serviceDesc } from "@bufbuild/protobuf/codegenv1";
 import type { EmptySchema, Timestamp } from "@bufbuild/protobuf/wkt";
 import { file_google_protobuf_empty, file_google_protobuf_timestamp } from "@bufbuild/protobuf/wkt";
->>>>>>> 7c1cf1bea576d8dd6c3c6adfdc0d7f456a731b38
 import type { Message } from "@bufbuild/protobuf";
 
 /**
  * Describes the file notification/notification.proto.
  */
 export const file_notification_notification: GenFile = /*@__PURE__*/
-<<<<<<< HEAD
-  fileDesc("Ch9ub3RpZmljYXRpb24vbm90aWZpY2F0aW9uLnByb3RvEgxub3RpZmljYXRpb24iJQoTU3Vic2NyaXB0aW9uUmVxdWVzdBIOCgZ1c2VySWQYASABKAkieQoMTm90aWZpY2F0aW9uEgoKAmlkGAEgASgEEg4KBnVzZXJJZBgCIAEoCRINCgV0aXRsZRgDIAEoCRIPCgdjb250ZW50GAQgASgJEgwKBHR5cGUYBSABKAkSEQoJdGltZXN0YW1wGAYgASgJEgwKBHJlYWQYByABKAgiZgobTm90aWZpY2F0aW9uU2V0dGluZ3NSZXF1ZXN0Eg4KBnVzZXJJZBgBIAEoCRITCgtlbmFibGVTb3VuZBgCIAEoCBIiChplbmFibGVEZXNrdG9wTm90aWZpY2F0aW9ucxgDIAEoCCIvChxOb3RpZmljYXRpb25TZXR0aW5nc1Jlc3BvbnNlEg8KB3N1Y2Nlc3MYASABKAgy2AEKE05vdGlmaWNhdGlvblNlcnZpY2USTAoJU3Vic2NyaWJlEiEubm90aWZpY2F0aW9uLlN1YnNjcmlwdGlvblJlcXVlc3QaGi5ub3RpZmljYXRpb24uTm90aWZpY2F0aW9uMAEScwoaVXBkYXRlTm90aWZpY2F0aW9uU2V0dGluZ3MSKS5ub3RpZmljYXRpb24uTm90aWZpY2F0aW9uU2V0dGluZ3NSZXF1ZXN0Gioubm90aWZpY2F0aW9uLk5vdGlmaWNhdGlvblNldHRpbmdzUmVzcG9uc2VCLAoVY29tLmFkaWEubm90aWZpY2F0aW9uQhFOb3RpZmljYXRpb25Qcm90b1ABYgZwcm90bzM");
-
-/**
- * Messages pour les abonnements
- *
- * @generated from message notification.SubscriptionRequest
- */
-export type SubscriptionRequest = Message<"notification.SubscriptionRequest"> & {
-=======
   fileDesc("Ch9ub3RpZmljYXRpb24vbm90aWZpY2F0aW9uLnByb3RvEgxub3RpZmljYXRpb24iHQoLVXNlclJlcXVlc3QSDgoGdXNlcklkGAEgASgJItsBCgxOb3RpZmljYXRpb24SCgoCaWQYASABKAkSEgoKcmVjZWl2ZXJJZBgCIAEoCRIQCghzZW5kZXJJZBgDIAEoCRIPCgdjb250ZW50GAQgASgJEiwKBHR5cGUYBSABKA4yHi5ub3RpZmljYXRpb24uTm90aWZpY2F0aW9uVHlwZRINCgV0aXRsZRgGIAEoCRIMCgRsaW5rGAcgASgJEi0KCWNyZWF0ZWRBdBgIIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXASDgoGdW5yZWFkGAkgASgIIoIBCgxTZW5kTm90aWZSZXESEgoKcmVjZWl2ZXJJZBgCIAEoCRIQCghzZW5kZXJJZBgDIAEoCRIPCgdjb250ZW50GAQgASgJEiwKBHR5cGUYBSABKA4yHi5ub3RpZmljYXRpb24uTm90aWZpY2F0aW9uVHlwZRINCgV0aXRsZRgGIAEoCSJaChBOb3RpZmljYXRpb25MaXN0EjEKDW5vdGlmaWNhdGlvbnMYASADKAsyGi5ub3RpZmljYXRpb24uTm90aWZpY2F0aW9uEhMKC3VucmVhZENvdW50GAIgASgFIjkKFk5ld05vdGlmaWNhdGlvblJlcXVlc3QSDgoGdXNlcklkGAEgASgJEg8KB21lc3NhZ2UYAiABKAkiSwoSR3JvdXBJbnZpdGVSZXF1ZXN0EhEKCWludml0ZXJJZBgBIAEoCRIRCglpbnZpdGVlSWQYAiABKAkSDwoHZ3JvdXBJZBgDIAEoCSI8CgdSZWFkUmVxEjEKDW5vdGlmaWNhdGlvbnMYASADKAsyGi5ub3RpZmljYXRpb24uTm90aWZpY2F0aW9uKlAKEE5vdGlmaWNhdGlvblR5cGUSEAoMR1JPVVBfSU5WSVRFEAASEQoNQURNSU5fV0FSTklORxABEhcKE0dMT0JBTF9BTk5PVU5DRU1FTlQQAjLnAwoTTm90aWZpY2F0aW9uU2VydmljZRJOChNTdHJlYW1Ob3RpZmljYXRpb25zEhkubm90aWZpY2F0aW9uLlVzZXJSZXF1ZXN0Ghoubm90aWZpY2F0aW9uLk5vdGlmaWNhdGlvbjABElYKEkNyZWF0ZU5vdGlmaWNhdGlvbhIkLm5vdGlmaWNhdGlvbi5OZXdOb3RpZmljYXRpb25SZXF1ZXN0Ghoubm90aWZpY2F0aW9uLk5vdGlmaWNhdGlvbhJRChFOb3RpZnlHcm91cEludml0ZRIgLm5vdGlmaWNhdGlvbi5Hcm91cEludml0ZVJlcXVlc3QaGi5ub3RpZmljYXRpb24uTm90aWZpY2F0aW9uElAKE2dldEFsbE5vdGlmaWNhdGlvbnMSGS5ub3RpZmljYXRpb24uVXNlclJlcXVlc3QaHi5ub3RpZmljYXRpb24uTm90aWZpY2F0aW9uTGlzdBJGChBTZW5kTm90aWZpY2F0aW9uEhoubm90aWZpY2F0aW9uLlNlbmROb3RpZlJlcRoWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eRI7CgpNYXJrQXNSZWFkEhUubm90aWZpY2F0aW9uLlJlYWRSZXEaFi5nb29nbGUucHJvdG9idWYuRW1wdHlCLAoVY29tLmFkaWEubm90aWZpY2F0aW9uQhFOb3RpZmljYXRpb25Qcm90b1ABYgZwcm90bzM", [file_google_protobuf_empty, file_google_protobuf_timestamp]);
 
 /**
  * @generated from message notification.UserRequest
  */
 export type UserRequest = Message<"notification.UserRequest"> & {
->>>>>>> 7c1cf1bea576d8dd6c3c6adfdc0d7f456a731b38
   /**
    * @generated from field: string userId = 1;
    */
@@ -41,17 +25,6 @@ export type UserRequest = Message<"notification.UserRequest"> & {
 };
 
 /**
-<<<<<<< HEAD
- * Describes the message notification.SubscriptionRequest.
- * Use `create(SubscriptionRequestSchema)` to create a new message.
- */
-export const SubscriptionRequestSchema: GenMessage<SubscriptionRequest> = /*@__PURE__*/
-  messageDesc(file_notification_notification, 0);
-
-/**
- * Messages pour les notifications
- *
-=======
  * Describes the message notification.UserRequest.
  * Use `create(UserRequestSchema)` to create a new message.
  */
@@ -59,26 +32,10 @@ export const UserRequestSchema: GenMessage<UserRequest> = /*@__PURE__*/
   messageDesc(file_notification_notification, 0);
 
 /**
->>>>>>> 7c1cf1bea576d8dd6c3c6adfdc0d7f456a731b38
  * @generated from message notification.Notification
  */
 export type Notification = Message<"notification.Notification"> & {
   /**
-<<<<<<< HEAD
-   * @generated from field: uint64 id = 1;
-   */
-  id: bigint;
-
-  /**
-   * @generated from field: string userId = 2;
-   */
-  userId: string;
-
-  /**
-   * @generated from field: string title = 3;
-   */
-  title: string;
-=======
    * @generated from field: string id = 1;
    */
   id: string;
@@ -92,7 +49,6 @@ export type Notification = Message<"notification.Notification"> & {
    * @generated from field: string senderId = 3;
    */
   senderId: string;
->>>>>>> 7c1cf1bea576d8dd6c3c6adfdc0d7f456a731b38
 
   /**
    * @generated from field: string content = 4;
@@ -100,23 +56,6 @@ export type Notification = Message<"notification.Notification"> & {
   content: string;
 
   /**
-<<<<<<< HEAD
-   * "MESSAGE", "GROUP", "SYSTEM"
-   *
-   * @generated from field: string type = 5;
-   */
-  type: string;
-
-  /**
-   * @generated from field: string timestamp = 6;
-   */
-  timestamp: string;
-
-  /**
-   * @generated from field: bool read = 7;
-   */
-  read: boolean;
-=======
    * @generated from field: notification.NotificationType type = 5;
    */
   type: NotificationType;
@@ -142,7 +81,6 @@ export type Notification = Message<"notification.Notification"> & {
    * @generated from field: bool unread = 9;
    */
   unread: boolean;
->>>>>>> 7c1cf1bea576d8dd6c3c6adfdc0d7f456a731b38
 };
 
 /**
@@ -153,13 +91,6 @@ export const NotificationSchema: GenMessage<Notification> = /*@__PURE__*/
   messageDesc(file_notification_notification, 1);
 
 /**
-<<<<<<< HEAD
- * Messages pour les paramètres de notification
- *
- * @generated from message notification.NotificationSettingsRequest
- */
-export type NotificationSettingsRequest = Message<"notification.NotificationSettingsRequest"> & {
-=======
  * @generated from message notification.SendNotifReq
  */
 export type SendNotifReq = Message<"notification.SendNotifReq"> & {
@@ -222,48 +153,12 @@ export const NotificationListSchema: GenMessage<NotificationList> = /*@__PURE__*
  * @generated from message notification.NewNotificationRequest
  */
 export type NewNotificationRequest = Message<"notification.NewNotificationRequest"> & {
->>>>>>> 7c1cf1bea576d8dd6c3c6adfdc0d7f456a731b38
   /**
    * @generated from field: string userId = 1;
    */
   userId: string;
 
   /**
-<<<<<<< HEAD
-   * @generated from field: bool enableSound = 2;
-   */
-  enableSound: boolean;
-
-  /**
-   * @generated from field: bool enableDesktopNotifications = 3;
-   */
-  enableDesktopNotifications: boolean;
-};
-
-/**
- * Describes the message notification.NotificationSettingsRequest.
- * Use `create(NotificationSettingsRequestSchema)` to create a new message.
- */
-export const NotificationSettingsRequestSchema: GenMessage<NotificationSettingsRequest> = /*@__PURE__*/
-  messageDesc(file_notification_notification, 2);
-
-/**
- * @generated from message notification.NotificationSettingsResponse
- */
-export type NotificationSettingsResponse = Message<"notification.NotificationSettingsResponse"> & {
-  /**
-   * @generated from field: bool success = 1;
-   */
-  success: boolean;
-};
-
-/**
- * Describes the message notification.NotificationSettingsResponse.
- * Use `create(NotificationSettingsResponseSchema)` to create a new message.
- */
-export const NotificationSettingsResponseSchema: GenMessage<NotificationSettingsResponse> = /*@__PURE__*/
-  messageDesc(file_notification_notification, 3);
-=======
    * @generated from field: string message = 2;
    */
   message: string;
@@ -345,7 +240,6 @@ export enum NotificationType {
  */
 export const NotificationTypeSchema: GenEnum<NotificationType> = /*@__PURE__*/
   enumDesc(file_notification_notification, 0);
->>>>>>> 7c1cf1bea576d8dd6c3c6adfdc0d7f456a731b38
 
 /**
  * Service de notifications
@@ -354,22 +248,6 @@ export const NotificationTypeSchema: GenEnum<NotificationType> = /*@__PURE__*/
  */
 export const NotificationService: GenService<{
   /**
-<<<<<<< HEAD
-   * @generated from rpc notification.NotificationService.Subscribe
-   */
-  subscribe: {
-    methodKind: "server_streaming";
-    input: typeof SubscriptionRequestSchema;
-    output: typeof NotificationSchema;
-  },
-  /**
-   * @generated from rpc notification.NotificationService.UpdateNotificationSettings
-   */
-  updateNotificationSettings: {
-    methodKind: "unary";
-    input: typeof NotificationSettingsRequestSchema;
-    output: typeof NotificationSettingsResponseSchema;
-=======
    * @generated from rpc notification.NotificationService.StreamNotifications
    */
   streamNotifications: {
@@ -418,7 +296,6 @@ export const NotificationService: GenService<{
     methodKind: "unary";
     input: typeof ReadReqSchema;
     output: typeof EmptySchema;
->>>>>>> 7c1cf1bea576d8dd6c3c6adfdc0d7f456a731b38
   },
 }> = /*@__PURE__*/
   serviceDesc(file_notification_notification, 0);

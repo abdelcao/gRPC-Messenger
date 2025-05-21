@@ -2,192 +2,28 @@
 // @generated from file chat/chat.proto (package chat, syntax proto3)
 /* eslint-disable */
 
-<<<<<<< HEAD
-import type { GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv1";
-import { fileDesc, messageDesc, serviceDesc } from "@bufbuild/protobuf/codegenv1";
-=======
 import type { GenEnum, GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv1";
 import { enumDesc, fileDesc, messageDesc, serviceDesc } from "@bufbuild/protobuf/codegenv1";
->>>>>>> 7c1cf1bea576d8dd6c3c6adfdc0d7f456a731b38
 import type { Message as Message$1 } from "@bufbuild/protobuf";
 
 /**
  * Describes the file chat/chat.proto.
  */
 export const file_chat_chat: GenFile = /*@__PURE__*/
-<<<<<<< HEAD
-  fileDesc("Cg9jaGF0L2NoYXQucHJvdG8SBGNoYXQiWAoOTWVzc2FnZVJlcXVlc3QSEAoIc2VuZGVySWQYASABKAkSEgoKcmVjZWl2ZXJJZBgCIAEoCRIPCgdjb250ZW50GAMgASgJEg8KB2lzR3JvdXAYBCABKAgiSAoPTWVzc2FnZVJlc3BvbnNlEg8KB3N1Y2Nlc3MYASABKAgSEQoJbWVzc2FnZUlkGAIgASgJEhEKCXRpbWVzdGFtcBgDIAEoCSJSCg5IaXN0b3J5UmVxdWVzdBIOCgZ1c2VySWQYASABKAkSEAoIdGFyZ2V0SWQYAiABKAkSDwoHaXNHcm91cBgDIAEoCBINCgVsaW1pdBgEIAEoBSIfCg1TdHJlYW1SZXF1ZXN0Eg4KBnVzZXJJZBgBIAEoCSKEAQoHTWVzc2FnZRIKCgJpZBgBIAEoBBIQCghzZW5kZXJJZBgCIAEoCRISCgpzZW5kZXJOYW1lGAMgASgJEhIKCnJlY2VpdmVySWQYBCABKAkSDwoHY29udGVudBgFIAEoCRIRCgl0aW1lc3RhbXAYBiABKAkSDwoHaXNHcm91cBgHIAEoCCJHCgxHcm91cFJlcXVlc3QSEQoJY3JlYXRvcklkGAEgASgJEhEKCWdyb3VwTmFtZRgCIAEoCRIRCgltZW1iZXJJZHMYAyADKAkiRAoNR3JvdXBSZXNwb25zZRIPCgdzdWNjZXNzGAEgASgIEg8KB2dyb3VwSWQYAiABKAkSEQoJZ3JvdXBOYW1lGAMgASgJIiMKEVVzZXJHcm91cHNSZXF1ZXN0Eg4KBnVzZXJJZBgBIAEoCSIxChJVc2VyR3JvdXBzUmVzcG9uc2USGwoGZ3JvdXBzGAEgAygLMgsuY2hhdC5Hcm91cCJHCgVHcm91cBIKCgJpZBgBIAEoBBIMCgRuYW1lGAIgASgJEhEKCWNyZWF0b3JJZBgDIAEoCRIRCgltZW1iZXJJZHMYBCADKAkyuQIKC0NoYXRTZXJ2aWNlEjoKC1NlbmRNZXNzYWdlEhQuY2hhdC5NZXNzYWdlUmVxdWVzdBoVLmNoYXQuTWVzc2FnZVJlc3BvbnNlEjoKEUdldE1lc3NhZ2VIaXN0b3J5EhQuY2hhdC5IaXN0b3J5UmVxdWVzdBoNLmNoYXQuTWVzc2FnZTABEjYKDlN0cmVhbU1lc3NhZ2VzEhMuY2hhdC5TdHJlYW1SZXF1ZXN0Gg0uY2hhdC5NZXNzYWdlMAESNgoLQ3JlYXRlR3JvdXASEi5jaGF0Lkdyb3VwUmVxdWVzdBoTLmNoYXQuR3JvdXBSZXNwb25zZRJCCg1HZXRVc2VyR3JvdXBzEhcuY2hhdC5Vc2VyR3JvdXBzUmVxdWVzdBoYLmNoYXQuVXNlckdyb3Vwc1Jlc3BvbnNlQhwKDWNvbS5hZGlhLmNoYXRCCUNoYXRQcm90b1ABYgZwcm90bzM");
-
-/**
- * Messages pour l'envoi de messages
- *
- * @generated from message chat.MessageRequest
- */
-export type MessageRequest = Message$1<"chat.MessageRequest"> & {
-  /**
-   * @generated from field: string senderId = 1;
-   */
-  senderId: string;
-
-  /**
-   * Peut être un userId ou un groupId
-   *
-   * @generated from field: string receiverId = 2;
-   */
-  receiverId: string;
-
-  /**
-   * @generated from field: string content = 3;
-   */
-  content: string;
-
-  /**
-   * @generated from field: bool isGroup = 4;
-   */
-  isGroup: boolean;
-};
-
-/**
- * Describes the message chat.MessageRequest.
- * Use `create(MessageRequestSchema)` to create a new message.
- */
-export const MessageRequestSchema: GenMessage<MessageRequest> = /*@__PURE__*/
-  messageDesc(file_chat_chat, 0);
-
-/**
- * @generated from message chat.MessageResponse
- */
-export type MessageResponse = Message$1<"chat.MessageResponse"> & {
-  /**
-   * @generated from field: bool success = 1;
-   */
-  success: boolean;
-
-  /**
-   * @generated from field: string messageId = 2;
-   */
-  messageId: string;
-
-  /**
-   * @generated from field: string timestamp = 3;
-   */
-  timestamp: string;
-};
-
-/**
- * Describes the message chat.MessageResponse.
- * Use `create(MessageResponseSchema)` to create a new message.
- */
-export const MessageResponseSchema: GenMessage<MessageResponse> = /*@__PURE__*/
-  messageDesc(file_chat_chat, 1);
-
-/**
- * Messages pour l'historique
- *
- * @generated from message chat.HistoryRequest
- */
-export type HistoryRequest = Message$1<"chat.HistoryRequest"> & {
-  /**
-   * @generated from field: string userId = 1;
-   */
-  userId: string;
-
-  /**
-   * Peut être un userId ou un groupId
-   *
-   * @generated from field: string targetId = 2;
-   */
-  targetId: string;
-
-  /**
-   * @generated from field: bool isGroup = 3;
-   */
-  isGroup: boolean;
-
-  /**
-   * @generated from field: int32 limit = 4;
-   */
-  limit: number;
-};
-
-/**
- * Describes the message chat.HistoryRequest.
- * Use `create(HistoryRequestSchema)` to create a new message.
- */
-export const HistoryRequestSchema: GenMessage<HistoryRequest> = /*@__PURE__*/
-  messageDesc(file_chat_chat, 2);
-
-/**
- * Messages pour le streaming en temps réel
- *
- * @generated from message chat.StreamRequest
- */
-export type StreamRequest = Message$1<"chat.StreamRequest"> & {
-  /**
-   * @generated from field: string userId = 1;
-   */
-  userId: string;
-};
-
-/**
- * Describes the message chat.StreamRequest.
- * Use `create(StreamRequestSchema)` to create a new message.
- */
-export const StreamRequestSchema: GenMessage<StreamRequest> = /*@__PURE__*/
-  messageDesc(file_chat_chat, 3);
-
-/**
- * Structure de message
-=======
   fileDesc("Cg9jaGF0L2NoYXQucHJvdG8SBGNoYXQipgEKB01lc3NhZ2USCgoCaWQYASABKAMSDgoGdXNlcklkGAIgASgDEhYKDmNvbnZlcnNhdGlvbklkGAMgASgDEgwKBHRleHQYBCABKAkSDgoGZWRpdGVkGAUgASgIEiMKBnN0YXR1cxgGIAEoDjITLmNoYXQuTWVzc2FnZVN0YXR1cxIRCgljcmVhdGVkQXQYByABKAkSEQoJdXBkYXRlZEF0GAggASgJInUKDENvbnZlcnNhdGlvbhIKCgJpZBgBIAEoAxIPCgdvd25lcklkGAIgASgDEhEKCWNyZWF0ZWRBdBgDIAEoCRIRCgl1cGRhdGVkQXQYBCABKAkSIgoLbGFzdE1lc3NhZ2UYBSABKAsyDS5jaGF0Lk1lc3NhZ2UicwoTUHJpdmF0ZUNvbnZlcnNhdGlvbhIKCgJpZBgBIAEoAxIWCg5jb252ZXJzYXRpb25JZBgCIAEoAxISCgpyZWNlaXZlcklkGAMgASgDEhEKCWNyZWF0ZWRBdBgEIAEoCRIRCgl1cGRhdGVkQXQYBSABKAkiawoRR3JvdXBDb252ZXJzYXRpb24SCgoCaWQYASABKAMSFgoOY29udmVyc2F0aW9uSWQYAiABKAMSDAoEbmFtZRgDIAEoCRIRCgljcmVhdGVkQXQYBCABKAkSEQoJdXBkYXRlZEF0GAUgASgJIlwKC0dyb3VwTWVtYmVyEgoKAmlkGAEgASgDEg4KBnVzZXJJZBgCIAEoAxIPCgdncm91cElkGAMgASgDEg0KBWFkbWluGAQgASgIEhEKCWNyZWF0ZWRBdBgFIAEoCSIsChlDcmVhdGVDb252ZXJzYXRpb25SZXF1ZXN0Eg8KB293bmVySWQYASABKAMiJAoWR2V0Q29udmVyc2F0aW9uUmVxdWVzdBIKCgJpZBgBIAEoAyJKChJTZW5kTWVzc2FnZVJlcXVlc3QSDgoGdXNlcklkGAEgASgDEhYKDmNvbnZlcnNhdGlvbklkGAIgASgDEgwKBHRleHQYAyABKAkiOAoSRWRpdE1lc3NhZ2VSZXF1ZXN0EhEKCW1lc3NhZ2VJZBgBIAEoAxIPCgduZXdUZXh0GAIgASgJIlQKGlVwZGF0ZU1lc3NhZ2VTdGF0dXNSZXF1ZXN0EhEKCW1lc3NhZ2VJZBgBIAEoAxIjCgZzdGF0dXMYAiABKA4yEy5jaGF0Lk1lc3NhZ2VTdGF0dXMiOAoeR2V0Q29udmVyc2F0aW9uTWVzc2FnZXNSZXF1ZXN0EhYKDmNvbnZlcnNhdGlvbklkGAEgASgDIkcKIENyZWF0ZVByaXZhdGVDb252ZXJzYXRpb25SZXF1ZXN0Eg8KB293bmVySWQYASABKAMSEgoKcmVjZWl2ZXJJZBgCIAEoAyI3Ch1HZXRQcml2YXRlQ29udmVyc2F0aW9uUmVxdWVzdBIWCg5jb252ZXJzYXRpb25JZBgBIAEoAyI/Ch5DcmVhdGVHcm91cENvbnZlcnNhdGlvblJlcXVlc3QSDwoHb3duZXJJZBgBIAEoAxIMCgRuYW1lGAIgASgJIjUKG0dldEdyb3VwQ29udmVyc2F0aW9uUmVxdWVzdBIWCg5jb252ZXJzYXRpb25JZBgBIAEoAyItChtHZXRVc2VyQ29udmVyc2F0aW9uc1JlcXVlc3QSDgoGdXNlcklkGAEgASgDIjoKF0FkZE1lbWJlclRvR3JvdXBSZXF1ZXN0Eg8KB2dyb3VwSWQYASABKAMSDgoGdXNlcklkGAIgASgDIj8KHFJlbW92ZU1lbWJlckZyb21Hcm91cFJlcXVlc3QSDwoHZ3JvdXBJZBgBIAEoAxIOCgZ1c2VySWQYAiABKAMiOAoVTWFrZUdyb3VwQWRtaW5SZXF1ZXN0Eg8KB2dyb3VwSWQYASABKAMSDgoGdXNlcklkGAIgASgDIgcKBUVtcHR5KjIKDU1lc3NhZ2VTdGF0dXMSCAoEU0VOVBAAEg0KCURFTElWRVJFRBABEggKBFJFQUQQAjKMCgoLQ2hhdFNlcnZpY2USSwoSQ3JlYXRlQ29udmVyc2F0aW9uEh8uY2hhdC5DcmVhdGVDb252ZXJzYXRpb25SZXF1ZXN0GhIuY2hhdC5Db252ZXJzYXRpb24iABJFCg9HZXRDb252ZXJzYXRpb24SHC5jaGF0LkdldENvbnZlcnNhdGlvblJlcXVlc3QaEi5jaGF0LkNvbnZlcnNhdGlvbiIAEjgKC1NlbmRNZXNzYWdlEhguY2hhdC5TZW5kTWVzc2FnZVJlcXVlc3QaDS5jaGF0Lk1lc3NhZ2UiABI4CgtFZGl0TWVzc2FnZRIYLmNoYXQuRWRpdE1lc3NhZ2VSZXF1ZXN0Gg0uY2hhdC5NZXNzYWdlIgASSAoTVXBkYXRlTWVzc2FnZVN0YXR1cxIgLmNoYXQuVXBkYXRlTWVzc2FnZVN0YXR1c1JlcXVlc3QaDS5jaGF0Lk1lc3NhZ2UiABJSChdHZXRDb252ZXJzYXRpb25NZXNzYWdlcxIkLmNoYXQuR2V0Q29udmVyc2F0aW9uTWVzc2FnZXNSZXF1ZXN0Gg0uY2hhdC5NZXNzYWdlIgAwARJgChlDcmVhdGVQcml2YXRlQ29udmVyc2F0aW9uEiYuY2hhdC5DcmVhdGVQcml2YXRlQ29udmVyc2F0aW9uUmVxdWVzdBoZLmNoYXQuUHJpdmF0ZUNvbnZlcnNhdGlvbiIAEloKFkdldFByaXZhdGVDb252ZXJzYXRpb24SIy5jaGF0LkdldFByaXZhdGVDb252ZXJzYXRpb25SZXF1ZXN0GhkuY2hhdC5Qcml2YXRlQ29udmVyc2F0aW9uIgASXwobR2V0VXNlclByaXZhdGVDb252ZXJzYXRpb25zEiEuY2hhdC5HZXRVc2VyQ29udmVyc2F0aW9uc1JlcXVlc3QaGS5jaGF0LlByaXZhdGVDb252ZXJzYXRpb24iADABEloKF0NyZWF0ZUdyb3VwQ29udmVyc2F0aW9uEiQuY2hhdC5DcmVhdGVHcm91cENvbnZlcnNhdGlvblJlcXVlc3QaFy5jaGF0Lkdyb3VwQ29udmVyc2F0aW9uIgASVAoUR2V0R3JvdXBDb252ZXJzYXRpb24SIS5jaGF0LkdldEdyb3VwQ29udmVyc2F0aW9uUmVxdWVzdBoXLmNoYXQuR3JvdXBDb252ZXJzYXRpb24iABJbChlHZXRVc2VyR3JvdXBDb252ZXJzYXRpb25zEiEuY2hhdC5HZXRVc2VyQ29udmVyc2F0aW9uc1JlcXVlc3QaFy5jaGF0Lkdyb3VwQ29udmVyc2F0aW9uIgAwARJGChBBZGRNZW1iZXJUb0dyb3VwEh0uY2hhdC5BZGRNZW1iZXJUb0dyb3VwUmVxdWVzdBoRLmNoYXQuR3JvdXBNZW1iZXIiABJKChVSZW1vdmVNZW1iZXJGcm9tR3JvdXASIi5jaGF0LlJlbW92ZU1lbWJlckZyb21Hcm91cFJlcXVlc3QaCy5jaGF0LkVtcHR5IgASQgoOTWFrZUdyb3VwQWRtaW4SGy5jaGF0Lk1ha2VHcm91cEFkbWluUmVxdWVzdBoRLmNoYXQuR3JvdXBNZW1iZXIiABJRChRHZXRVc2VyQ29udmVyc2F0aW9ucxIhLmNoYXQuR2V0VXNlckNvbnZlcnNhdGlvbnNSZXF1ZXN0GhIuY2hhdC5Db252ZXJzYXRpb24iADABQiEKEmNvbS5hZGlhLmNoYXQuZ3JwY0IJQ2hhdFByb3RvUAFiBnByb3RvMw");
 
 /**
  * Message
->>>>>>> 7c1cf1bea576d8dd6c3c6adfdc0d7f456a731b38
  *
  * @generated from message chat.Message
  */
 export type Message = Message$1<"chat.Message"> & {
   /**
-<<<<<<< HEAD
-   * @generated from field: uint64 id = 1;
-=======
    * @generated from field: int64 id = 1;
->>>>>>> 7c1cf1bea576d8dd6c3c6adfdc0d7f456a731b38
    */
   id: bigint;
 
   /**
-<<<<<<< HEAD
-   * @generated from field: string senderId = 2;
-   */
-  senderId: string;
-
-  /**
-   * @generated from field: string senderName = 3;
-   */
-  senderName: string;
-
-  /**
-   * @generated from field: string receiverId = 4;
-   */
-  receiverId: string;
-
-  /**
-   * @generated from field: string content = 5;
-   */
-  content: string;
-
-  /**
-   * @generated from field: string timestamp = 6;
-   */
-  timestamp: string;
-
-  /**
-   * @generated from field: bool isGroup = 7;
-   */
-  isGroup: boolean;
-=======
    * @generated from field: int64 userId = 2;
    */
   userId: bigint;
@@ -221,7 +57,6 @@ export type Message = Message$1<"chat.Message"> & {
    * @generated from field: string updatedAt = 8;
    */
   updatedAt: string;
->>>>>>> 7c1cf1bea576d8dd6c3c6adfdc0d7f456a731b38
 };
 
 /**
@@ -229,108 +64,6 @@ export type Message = Message$1<"chat.Message"> & {
  * Use `create(MessageSchema)` to create a new message.
  */
 export const MessageSchema: GenMessage<Message> = /*@__PURE__*/
-<<<<<<< HEAD
-  messageDesc(file_chat_chat, 4);
-
-/**
- * Messages pour la gestion des groupes
- *
- * @generated from message chat.GroupRequest
- */
-export type GroupRequest = Message$1<"chat.GroupRequest"> & {
-  /**
-   * @generated from field: string creatorId = 1;
-   */
-  creatorId: string;
-
-  /**
-   * @generated from field: string groupName = 2;
-   */
-  groupName: string;
-
-  /**
-   * @generated from field: repeated string memberIds = 3;
-   */
-  memberIds: string[];
-};
-
-/**
- * Describes the message chat.GroupRequest.
- * Use `create(GroupRequestSchema)` to create a new message.
- */
-export const GroupRequestSchema: GenMessage<GroupRequest> = /*@__PURE__*/
-  messageDesc(file_chat_chat, 5);
-
-/**
- * @generated from message chat.GroupResponse
- */
-export type GroupResponse = Message$1<"chat.GroupResponse"> & {
-  /**
-   * @generated from field: bool success = 1;
-   */
-  success: boolean;
-
-  /**
-   * @generated from field: string groupId = 2;
-   */
-  groupId: string;
-
-  /**
-   * @generated from field: string groupName = 3;
-   */
-  groupName: string;
-};
-
-/**
- * Describes the message chat.GroupResponse.
- * Use `create(GroupResponseSchema)` to create a new message.
- */
-export const GroupResponseSchema: GenMessage<GroupResponse> = /*@__PURE__*/
-  messageDesc(file_chat_chat, 6);
-
-/**
- * @generated from message chat.UserGroupsRequest
- */
-export type UserGroupsRequest = Message$1<"chat.UserGroupsRequest"> & {
-  /**
-   * @generated from field: string userId = 1;
-   */
-  userId: string;
-};
-
-/**
- * Describes the message chat.UserGroupsRequest.
- * Use `create(UserGroupsRequestSchema)` to create a new message.
- */
-export const UserGroupsRequestSchema: GenMessage<UserGroupsRequest> = /*@__PURE__*/
-  messageDesc(file_chat_chat, 7);
-
-/**
- * @generated from message chat.UserGroupsResponse
- */
-export type UserGroupsResponse = Message$1<"chat.UserGroupsResponse"> & {
-  /**
-   * @generated from field: repeated chat.Group groups = 1;
-   */
-  groups: Group[];
-};
-
-/**
- * Describes the message chat.UserGroupsResponse.
- * Use `create(UserGroupsResponseSchema)` to create a new message.
- */
-export const UserGroupsResponseSchema: GenMessage<UserGroupsResponse> = /*@__PURE__*/
-  messageDesc(file_chat_chat, 8);
-
-/**
- * @generated from message chat.Group
- */
-export type Group = Message$1<"chat.Group"> & {
-  /**
-   * @generated from field: uint64 id = 1;
-   */
-  id: bigint;
-=======
   messageDesc(file_chat_chat, 0);
 
 /**
@@ -660,35 +393,11 @@ export type CreateGroupConversationRequest = Message$1<"chat.CreateGroupConversa
    * @generated from field: int64 ownerId = 1;
    */
   ownerId: bigint;
->>>>>>> 7c1cf1bea576d8dd6c3c6adfdc0d7f456a731b38
 
   /**
    * @generated from field: string name = 2;
    */
   name: string;
-<<<<<<< HEAD
-
-  /**
-   * @generated from field: string creatorId = 3;
-   */
-  creatorId: string;
-
-  /**
-   * @generated from field: repeated string memberIds = 4;
-   */
-  memberIds: string[];
-};
-
-/**
- * Describes the message chat.Group.
- * Use `create(GroupSchema)` to create a new message.
- */
-export const GroupSchema: GenMessage<Group> = /*@__PURE__*/
-  messageDesc(file_chat_chat, 9);
-
-/**
- * Service de messagerie
-=======
 };
 
 /**
@@ -841,14 +550,11 @@ export const MessageStatusSchema: GenEnum<MessageStatus> = /*@__PURE__*/
 
 /**
  * Service definition
->>>>>>> 7c1cf1bea576d8dd6c3c6adfdc0d7f456a731b38
  *
  * @generated from service chat.ChatService
  */
 export const ChatService: GenService<{
   /**
-<<<<<<< HEAD
-=======
    * Conversation operations
    *
    * @generated from rpc chat.ChatService.CreateConversation
@@ -869,47 +575,10 @@ export const ChatService: GenService<{
   /**
    * Message operations
    *
->>>>>>> 7c1cf1bea576d8dd6c3c6adfdc0d7f456a731b38
    * @generated from rpc chat.ChatService.SendMessage
    */
   sendMessage: {
     methodKind: "unary";
-<<<<<<< HEAD
-    input: typeof MessageRequestSchema;
-    output: typeof MessageResponseSchema;
-  },
-  /**
-   * @generated from rpc chat.ChatService.GetMessageHistory
-   */
-  getMessageHistory: {
-    methodKind: "server_streaming";
-    input: typeof HistoryRequestSchema;
-    output: typeof MessageSchema;
-  },
-  /**
-   * @generated from rpc chat.ChatService.StreamMessages
-   */
-  streamMessages: {
-    methodKind: "server_streaming";
-    input: typeof StreamRequestSchema;
-    output: typeof MessageSchema;
-  },
-  /**
-   * @generated from rpc chat.ChatService.CreateGroup
-   */
-  createGroup: {
-    methodKind: "unary";
-    input: typeof GroupRequestSchema;
-    output: typeof GroupResponseSchema;
-  },
-  /**
-   * @generated from rpc chat.ChatService.GetUserGroups
-   */
-  getUserGroups: {
-    methodKind: "unary";
-    input: typeof UserGroupsRequestSchema;
-    output: typeof UserGroupsResponseSchema;
-=======
     input: typeof SendMessageRequestSchema;
     output: typeof MessageSchema;
   },
@@ -1020,7 +689,6 @@ export const ChatService: GenService<{
     methodKind: "server_streaming";
     input: typeof GetUserConversationsRequestSchema;
     output: typeof ConversationSchema;
->>>>>>> 7c1cf1bea576d8dd6c3c6adfdc0d7f456a731b38
   },
 }> = /*@__PURE__*/
   serviceDesc(file_chat_chat, 0);
