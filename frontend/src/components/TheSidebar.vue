@@ -14,7 +14,11 @@
         "
         @click="elm.action"
       >
-        <i :class="elm.icon" style="font-size: 1.125rem" />
+          <i :class="elm.icon" style="font-size: 1.125rem; position: relative;">
+            <span v-if="elm.counter > 0" class="absolute -top-4 -right-4 text-xs font-bold flex items-center justify-center w-4 h-4 rounded-full bg-lime-500 text-lime-900">
+              {{ elm.counter }}
+            </span>
+          </i>
       </div>
     </div>
     <div class="mt-auto">
@@ -40,8 +44,10 @@
 import { useAppStore } from '@/stores/app'
 import SettingsModal from './SettingsModal.vue'
 import { computed, ref } from 'vue'
+import { useNotifStore } from '@/stores/notification'
 
 const appStore = useAppStore()
+const notifStore = useNotifStore()
 const active = computed(() => appStore.activePanel)
 
 const elms = {
@@ -50,16 +56,19 @@ const elms = {
       icon: 'pi pi-bell',
       action: () => appStore.setActivePanel('notification'),
       name: 'notification',
+      counter: computed(() => notifStore.unreadCount)
     },
     {
       icon: 'pi pi-comments',
       action: () => appStore.setActivePanel('chat'),
       name: 'chat',
+      counter: 0
     },
     {
       icon: 'pi pi-users',
       action: () => appStore.setActivePanel('group'),
       name: 'group',
+      counter: 0
     },
   ],
   bottom: [

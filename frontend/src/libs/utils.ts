@@ -1,6 +1,7 @@
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import type { Timestamp } from '@bufbuild/protobuf/wkt'
 
 export function throttle<T extends (...args: any[]) => any>(
   fn: T,
@@ -39,8 +40,13 @@ dayjs.extend(utc)
  * @param date : 'yyyy-mm-ddThh:mm:ss'
  * @returns
  */
-export function timeAgo(mydate: string | Date): string {
+export function timeAgo(mydate: string | Date | BigInt): string {
   const target = dayjs.utc(mydate)
-  const now = dayjs.utc()
   return target.fromNow()
+}
+
+export function timestampToDateSafe(ts?: { seconds?: bigint; nanos?: number }): Date {
+  const seconds = ts?.seconds ?? 0n
+  const nanos = ts?.nanos ?? 0
+  return new Date(Number(seconds) * 1000 + nanos / 1e6)
 }
