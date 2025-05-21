@@ -2,55 +2,53 @@
 // @generated from file notification/notification.proto (package notification, syntax proto3)
 /* eslint-disable */
 
-import type { GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv1";
-import { fileDesc, messageDesc, serviceDesc } from "@bufbuild/protobuf/codegenv1";
+import type { GenEnum, GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv1";
+import { enumDesc, fileDesc, messageDesc, serviceDesc } from "@bufbuild/protobuf/codegenv1";
+import type { EmptySchema, Timestamp } from "@bufbuild/protobuf/wkt";
+import { file_google_protobuf_empty, file_google_protobuf_timestamp } from "@bufbuild/protobuf/wkt";
 import type { Message } from "@bufbuild/protobuf";
 
 /**
  * Describes the file notification/notification.proto.
  */
 export const file_notification_notification: GenFile = /*@__PURE__*/
-  fileDesc("Ch9ub3RpZmljYXRpb24vbm90aWZpY2F0aW9uLnByb3RvEgxub3RpZmljYXRpb24iJQoTU3Vic2NyaXB0aW9uUmVxdWVzdBIOCgZ1c2VySWQYASABKAQieQoMTm90aWZpY2F0aW9uEgoKAmlkGAEgASgEEg4KBnVzZXJJZBgCIAEoBBINCgV0aXRsZRgDIAEoCRIPCgdjb250ZW50GAQgASgJEgwKBHR5cGUYBSABKAkSEQoJdGltZXN0YW1wGAYgASgJEgwKBHJlYWQYByABKAgiZgobTm90aWZpY2F0aW9uU2V0dGluZ3NSZXF1ZXN0Eg4KBnVzZXJJZBgBIAEoBBITCgtlbmFibGVTb3VuZBgCIAEoCBIiChplbmFibGVEZXNrdG9wTm90aWZpY2F0aW9ucxgDIAEoCCIvChxOb3RpZmljYXRpb25TZXR0aW5nc1Jlc3BvbnNlEg8KB3N1Y2Nlc3MYASABKAgy2AEKE05vdGlmaWNhdGlvblNlcnZpY2USTAoJU3Vic2NyaWJlEiEubm90aWZpY2F0aW9uLlN1YnNjcmlwdGlvblJlcXVlc3QaGi5ub3RpZmljYXRpb24uTm90aWZpY2F0aW9uMAEScwoaVXBkYXRlTm90aWZpY2F0aW9uU2V0dGluZ3MSKS5ub3RpZmljYXRpb24uTm90aWZpY2F0aW9uU2V0dGluZ3NSZXF1ZXN0Gioubm90aWZpY2F0aW9uLk5vdGlmaWNhdGlvblNldHRpbmdzUmVzcG9uc2VCLAoVY29tLmFkaWEubm90aWZpY2F0aW9uQhFOb3RpZmljYXRpb25Qcm90b1ABYgZwcm90bzM");
+  fileDesc("Ch9ub3RpZmljYXRpb24vbm90aWZpY2F0aW9uLnByb3RvEgxub3RpZmljYXRpb24iHQoLVXNlclJlcXVlc3QSDgoGdXNlcklkGAEgASgJItsBCgxOb3RpZmljYXRpb24SCgoCaWQYASABKAkSEgoKcmVjZWl2ZXJJZBgCIAEoCRIQCghzZW5kZXJJZBgDIAEoCRIPCgdjb250ZW50GAQgASgJEiwKBHR5cGUYBSABKA4yHi5ub3RpZmljYXRpb24uTm90aWZpY2F0aW9uVHlwZRINCgV0aXRsZRgGIAEoCRIMCgRsaW5rGAcgASgJEi0KCWNyZWF0ZWRBdBgIIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXASDgoGdW5yZWFkGAkgASgIIoIBCgxTZW5kTm90aWZSZXESEgoKcmVjZWl2ZXJJZBgCIAEoCRIQCghzZW5kZXJJZBgDIAEoCRIPCgdjb250ZW50GAQgASgJEiwKBHR5cGUYBSABKA4yHi5ub3RpZmljYXRpb24uTm90aWZpY2F0aW9uVHlwZRINCgV0aXRsZRgGIAEoCSJaChBOb3RpZmljYXRpb25MaXN0EjEKDW5vdGlmaWNhdGlvbnMYASADKAsyGi5ub3RpZmljYXRpb24uTm90aWZpY2F0aW9uEhMKC3VucmVhZENvdW50GAIgASgFIjkKFk5ld05vdGlmaWNhdGlvblJlcXVlc3QSDgoGdXNlcklkGAEgASgJEg8KB21lc3NhZ2UYAiABKAkiSwoSR3JvdXBJbnZpdGVSZXF1ZXN0EhEKCWludml0ZXJJZBgBIAEoCRIRCglpbnZpdGVlSWQYAiABKAkSDwoHZ3JvdXBJZBgDIAEoCSI8CgdSZWFkUmVxEjEKDW5vdGlmaWNhdGlvbnMYASADKAsyGi5ub3RpZmljYXRpb24uTm90aWZpY2F0aW9uKlAKEE5vdGlmaWNhdGlvblR5cGUSEAoMR1JPVVBfSU5WSVRFEAASEQoNQURNSU5fV0FSTklORxABEhcKE0dMT0JBTF9BTk5PVU5DRU1FTlQQAjLnAwoTTm90aWZpY2F0aW9uU2VydmljZRJOChNTdHJlYW1Ob3RpZmljYXRpb25zEhkubm90aWZpY2F0aW9uLlVzZXJSZXF1ZXN0Ghoubm90aWZpY2F0aW9uLk5vdGlmaWNhdGlvbjABElYKEkNyZWF0ZU5vdGlmaWNhdGlvbhIkLm5vdGlmaWNhdGlvbi5OZXdOb3RpZmljYXRpb25SZXF1ZXN0Ghoubm90aWZpY2F0aW9uLk5vdGlmaWNhdGlvbhJRChFOb3RpZnlHcm91cEludml0ZRIgLm5vdGlmaWNhdGlvbi5Hcm91cEludml0ZVJlcXVlc3QaGi5ub3RpZmljYXRpb24uTm90aWZpY2F0aW9uElAKE2dldEFsbE5vdGlmaWNhdGlvbnMSGS5ub3RpZmljYXRpb24uVXNlclJlcXVlc3QaHi5ub3RpZmljYXRpb24uTm90aWZpY2F0aW9uTGlzdBJGChBTZW5kTm90aWZpY2F0aW9uEhoubm90aWZpY2F0aW9uLlNlbmROb3RpZlJlcRoWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eRI7CgpNYXJrQXNSZWFkEhUubm90aWZpY2F0aW9uLlJlYWRSZXEaFi5nb29nbGUucHJvdG9idWYuRW1wdHlCLAoVY29tLmFkaWEubm90aWZpY2F0aW9uQhFOb3RpZmljYXRpb25Qcm90b1ABYgZwcm90bzM", [file_google_protobuf_empty, file_google_protobuf_timestamp]);
 
 /**
- * Messages pour les abonnements
- *
- * @generated from message notification.SubscriptionRequest
+ * @generated from message notification.UserRequest
  */
-export type SubscriptionRequest = Message<"notification.SubscriptionRequest"> & {
+export type UserRequest = Message<"notification.UserRequest"> & {
   /**
-   * @generated from field: uint64 userId = 1;
+   * @generated from field: string userId = 1;
    */
-  userId: bigint;
+  userId: string;
 };
 
 /**
- * Describes the message notification.SubscriptionRequest.
- * Use `create(SubscriptionRequestSchema)` to create a new message.
+ * Describes the message notification.UserRequest.
+ * Use `create(UserRequestSchema)` to create a new message.
  */
-export const SubscriptionRequestSchema: GenMessage<SubscriptionRequest> = /*@__PURE__*/
+export const UserRequestSchema: GenMessage<UserRequest> = /*@__PURE__*/
   messageDesc(file_notification_notification, 0);
 
 /**
- * Messages pour les notifications
- *
  * @generated from message notification.Notification
  */
 export type Notification = Message<"notification.Notification"> & {
   /**
-   * @generated from field: uint64 id = 1;
+   * @generated from field: string id = 1;
    */
-  id: bigint;
+  id: string;
 
   /**
-   * @generated from field: uint64 userId = 2;
+   * @generated from field: string receiverId = 2;
    */
-  userId: bigint;
+  receiverId: string;
 
   /**
-   * @generated from field: string title = 3;
+   * @generated from field: string senderId = 3;
    */
-  title: string;
+  senderId: string;
 
   /**
    * @generated from field: string content = 4;
@@ -58,21 +56,31 @@ export type Notification = Message<"notification.Notification"> & {
   content: string;
 
   /**
-   * "MESSAGE", "GROUP", "SYSTEM"
+   * @generated from field: notification.NotificationType type = 5;
+   */
+  type: NotificationType;
+
+  /**
+   * @generated from field: string title = 6;
+   */
+  title: string;
+
+  /**
+   * Optional URL or frontend route (e.g. "/group/123")
    *
-   * @generated from field: string type = 5;
+   * @generated from field: string link = 7;
    */
-  type: string;
+  link: string;
 
   /**
-   * @generated from field: string timestamp = 6;
+   * @generated from field: google.protobuf.Timestamp createdAt = 8;
    */
-  timestamp: string;
+  createdAt?: Timestamp;
 
   /**
-   * @generated from field: bool read = 7;
+   * @generated from field: bool unread = 9;
    */
-  read: boolean;
+  unread: boolean;
 };
 
 /**
@@ -83,50 +91,155 @@ export const NotificationSchema: GenMessage<Notification> = /*@__PURE__*/
   messageDesc(file_notification_notification, 1);
 
 /**
- * Messages pour les paramètres de notification
- *
- * @generated from message notification.NotificationSettingsRequest
+ * @generated from message notification.SendNotifReq
  */
-export type NotificationSettingsRequest = Message<"notification.NotificationSettingsRequest"> & {
+export type SendNotifReq = Message<"notification.SendNotifReq"> & {
   /**
-   * @generated from field: uint64 userId = 1;
+   * @generated from field: string receiverId = 2;
    */
-  userId: bigint;
+  receiverId: string;
 
   /**
-   * @generated from field: bool enableSound = 2;
+   * @generated from field: string senderId = 3;
    */
-  enableSound: boolean;
+  senderId: string;
 
   /**
-   * @generated from field: bool enableDesktopNotifications = 3;
+   * @generated from field: string content = 4;
    */
-  enableDesktopNotifications: boolean;
+  content: string;
+
+  /**
+   * @generated from field: notification.NotificationType type = 5;
+   */
+  type: NotificationType;
+
+  /**
+   * @generated from field: string title = 6;
+   */
+  title: string;
 };
 
 /**
- * Describes the message notification.NotificationSettingsRequest.
- * Use `create(NotificationSettingsRequestSchema)` to create a new message.
+ * Describes the message notification.SendNotifReq.
+ * Use `create(SendNotifReqSchema)` to create a new message.
  */
-export const NotificationSettingsRequestSchema: GenMessage<NotificationSettingsRequest> = /*@__PURE__*/
+export const SendNotifReqSchema: GenMessage<SendNotifReq> = /*@__PURE__*/
   messageDesc(file_notification_notification, 2);
 
 /**
- * @generated from message notification.NotificationSettingsResponse
+ * @generated from message notification.NotificationList
  */
-export type NotificationSettingsResponse = Message<"notification.NotificationSettingsResponse"> & {
+export type NotificationList = Message<"notification.NotificationList"> & {
   /**
-   * @generated from field: bool success = 1;
+   * @generated from field: repeated notification.Notification notifications = 1;
    */
-  success: boolean;
+  notifications: Notification[];
+
+  /**
+   * @generated from field: int32 unreadCount = 2;
+   */
+  unreadCount: number;
 };
 
 /**
- * Describes the message notification.NotificationSettingsResponse.
- * Use `create(NotificationSettingsResponseSchema)` to create a new message.
+ * Describes the message notification.NotificationList.
+ * Use `create(NotificationListSchema)` to create a new message.
  */
-export const NotificationSettingsResponseSchema: GenMessage<NotificationSettingsResponse> = /*@__PURE__*/
+export const NotificationListSchema: GenMessage<NotificationList> = /*@__PURE__*/
   messageDesc(file_notification_notification, 3);
+
+/**
+ * @generated from message notification.NewNotificationRequest
+ */
+export type NewNotificationRequest = Message<"notification.NewNotificationRequest"> & {
+  /**
+   * @generated from field: string userId = 1;
+   */
+  userId: string;
+
+  /**
+   * @generated from field: string message = 2;
+   */
+  message: string;
+};
+
+/**
+ * Describes the message notification.NewNotificationRequest.
+ * Use `create(NewNotificationRequestSchema)` to create a new message.
+ */
+export const NewNotificationRequestSchema: GenMessage<NewNotificationRequest> = /*@__PURE__*/
+  messageDesc(file_notification_notification, 4);
+
+/**
+ * @generated from message notification.GroupInviteRequest
+ */
+export type GroupInviteRequest = Message<"notification.GroupInviteRequest"> & {
+  /**
+   * @generated from field: string inviterId = 1;
+   */
+  inviterId: string;
+
+  /**
+   * @generated from field: string inviteeId = 2;
+   */
+  inviteeId: string;
+
+  /**
+   * @generated from field: string groupId = 3;
+   */
+  groupId: string;
+};
+
+/**
+ * Describes the message notification.GroupInviteRequest.
+ * Use `create(GroupInviteRequestSchema)` to create a new message.
+ */
+export const GroupInviteRequestSchema: GenMessage<GroupInviteRequest> = /*@__PURE__*/
+  messageDesc(file_notification_notification, 5);
+
+/**
+ * @generated from message notification.ReadReq
+ */
+export type ReadReq = Message<"notification.ReadReq"> & {
+  /**
+   * @generated from field: repeated notification.Notification notifications = 1;
+   */
+  notifications: Notification[];
+};
+
+/**
+ * Describes the message notification.ReadReq.
+ * Use `create(ReadReqSchema)` to create a new message.
+ */
+export const ReadReqSchema: GenMessage<ReadReq> = /*@__PURE__*/
+  messageDesc(file_notification_notification, 6);
+
+/**
+ * @generated from enum notification.NotificationType
+ */
+export enum NotificationType {
+  /**
+   * @generated from enum value: GROUP_INVITE = 0;
+   */
+  GROUP_INVITE = 0,
+
+  /**
+   * @generated from enum value: ADMIN_WARNING = 1;
+   */
+  ADMIN_WARNING = 1,
+
+  /**
+   * @generated from enum value: GLOBAL_ANNOUNCEMENT = 2;
+   */
+  GLOBAL_ANNOUNCEMENT = 2,
+}
+
+/**
+ * Describes the enum notification.NotificationType.
+ */
+export const NotificationTypeSchema: GenEnum<NotificationType> = /*@__PURE__*/
+  enumDesc(file_notification_notification, 0);
 
 /**
  * Service de notifications
@@ -135,20 +248,54 @@ export const NotificationSettingsResponseSchema: GenMessage<NotificationSettings
  */
 export const NotificationService: GenService<{
   /**
-   * @generated from rpc notification.NotificationService.Subscribe
+   * @generated from rpc notification.NotificationService.StreamNotifications
    */
-  subscribe: {
+  streamNotifications: {
     methodKind: "server_streaming";
-    input: typeof SubscriptionRequestSchema;
+    input: typeof UserRequestSchema;
     output: typeof NotificationSchema;
   },
   /**
-   * @generated from rpc notification.NotificationService.UpdateNotificationSettings
+   * @generated from rpc notification.NotificationService.CreateNotification
    */
-  updateNotificationSettings: {
+  createNotification: {
     methodKind: "unary";
-    input: typeof NotificationSettingsRequestSchema;
-    output: typeof NotificationSettingsResponseSchema;
+    input: typeof NewNotificationRequestSchema;
+    output: typeof NotificationSchema;
+  },
+  /**
+   * @generated from rpc notification.NotificationService.NotifyGroupInvite
+   */
+  notifyGroupInvite: {
+    methodKind: "unary";
+    input: typeof GroupInviteRequestSchema;
+    output: typeof NotificationSchema;
+  },
+  /**
+   * when user login get Notifi history whith count of unread
+   *
+   * @generated from rpc notification.NotificationService.getAllNotifications
+   */
+  getAllNotifications: {
+    methodKind: "unary";
+    input: typeof UserRequestSchema;
+    output: typeof NotificationListSchema;
+  },
+  /**
+   * @generated from rpc notification.NotificationService.SendNotification
+   */
+  sendNotification: {
+    methodKind: "unary";
+    input: typeof SendNotifReqSchema;
+    output: typeof EmptySchema;
+  },
+  /**
+   * @generated from rpc notification.NotificationService.MarkAsRead
+   */
+  markAsRead: {
+    methodKind: "unary";
+    input: typeof ReadReqSchema;
+    output: typeof EmptySchema;
   },
 }> = /*@__PURE__*/
   serviceDesc(file_notification_notification, 0);

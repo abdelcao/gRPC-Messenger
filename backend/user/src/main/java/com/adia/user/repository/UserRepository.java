@@ -11,4 +11,10 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     boolean existsByUsername(String username);
     Optional<UserEntity> getUserEntityById(long l);
     Optional<UserEntity> getUserEntityByEmail(String email);
+
+    long countByIsSuspendedTrue();
+
+    long countByIsEmailVerifiedFalse();
+
+    long countByIsActivatedTrue();
 }

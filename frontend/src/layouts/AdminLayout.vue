@@ -54,7 +54,7 @@
       </header>
 
       <!-- Page content -->
-      <main class="flex-1 p-6 bg-gray-50 dark:bg-gray-900 overflow-y-auto">
+      <main class="flex-1 p-6 bg-gray-50 dark:bg-gray-900 overflow-auto">
         <RouterView />
       </main>
     </div>

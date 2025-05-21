@@ -10,7 +10,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file user/user.proto.
  */
 export const file_user_user: GenFile = /*@__PURE__*/
-  fileDesc("Cg91c2VyL3VzZXIucHJvdG8SBHVzZXIirQEKBFVzZXISCgoCaWQYASABKAQSEAoIdXNlcm5hbWUYAiABKAkSDQoFZW1haWwYAyABKAkSDwoHaXNBZG1pbhgEIAEoCBIXCg9pc0VtYWlsVmVyaWZpZWQYBSABKAgSEwoLaXNBY3RpdmF0ZWQYBiABKAgSEwoLaXNTdXNwZW5kZWQYByABKAgSEQoJY3JlYXRlZEF0GAggASgJEhEKCXVwZGF0ZWRBdBgJIAEoCSKaAQoRQ3JlYXRlVXNlclJlcXVlc3QSEAoIdXNlcm5hbWUYASABKAkSDQoFZW1haWwYAiABKAkSEAoIcGFzc3dvcmQYAyABKAkSDwoHaXNBZG1pbhgEIAEoCBIXCg9pc0VtYWlsVmVyaWZpZWQYBSABKAgSEwoLaXNBY3RpdmF0ZWQYBiABKAgSEwoLaXNTdXNwZW5kZWQYByABKAgiHAoOR2V0VXNlclJlcXVlc3QSCgoCaWQYASABKAQiJgoVR2V0VXNlckJ5RW1haWxSZXF1ZXN0Eg0KBWVtYWlsGAEgASgJIpQBChFVcGRhdGVVc2VyUmVxdWVzdBIKCgJpZBgBIAEoBBIQCgh1c2VybmFtZRgCIAEoCRINCgVlbWFpbBgDIAEoCRIPCgdpc0FkbWluGAQgASgIEhcKD2lzRW1haWxWZXJpZmllZBgFIAEoCBITCgtpc0FjdGl2YXRlZBgGIAEoCBITCgtpc1N1c3BlbmRlZBgHIAEoCCIfChFEZWxldGVVc2VyUmVxdWVzdBIKCgJpZBgBIAEoBCIHCgVFbXB0eSJQChFMaXN0VXNlcnNSZXNwb25zZRIZCgV1c2VycxgBIAMoCzIKLnVzZXIuVXNlchIPCgdzdWNjZXNzGAMgASgIEg8KB21lc3NhZ2UYBCABKAkiSgoMVXNlclJlc3BvbnNlEg8KB3N1Y2Nlc3MYASABKAgSDwoHbWVzc2FnZRgCIAEoCRIYCgR1c2VyGAMgASgLMgoudXNlci5Vc2VyIi8KDFZQYXNzd29yZFJlcRINCgVlbWFpbBgBIAEoCRIQCghwYXNzd29yZBgCIAEoCSIwCgxWUGFzc3dvcmRSZXMSDwoHbWVzc2FnZRgBIAEoCRIPCgdzdWNjZXNzGAIgASgIMqMDCgtVc2VyU2VydmljZRI5CgpDcmVhdGVVc2VyEhcudXNlci5DcmVhdGVVc2VyUmVxdWVzdBoSLnVzZXIuVXNlclJlc3BvbnNlEjMKB0dldFVzZXISFC51c2VyLkdldFVzZXJSZXF1ZXN0GhIudXNlci5Vc2VyUmVzcG9uc2USQQoOR2V0VXNlckJ5RW1haWwSGy51c2VyLkdldFVzZXJCeUVtYWlsUmVxdWVzdBoSLnVzZXIuVXNlclJlc3BvbnNlEjkKClVwZGF0ZVVzZXISFy51c2VyLlVwZGF0ZVVzZXJSZXF1ZXN0GhIudXNlci5Vc2VyUmVzcG9uc2USOQoKRGVsZXRlVXNlchIXLnVzZXIuRGVsZXRlVXNlclJlcXVlc3QaEi51c2VyLlVzZXJSZXNwb25zZRIxCglMaXN0VXNlcnMSCy51c2VyLkVtcHR5GhcudXNlci5MaXN0VXNlcnNSZXNwb25zZRI4Cg5WZXJpZnlQYXNzd29yZBISLnVzZXIuVlBhc3N3b3JkUmVxGhIudXNlci5WUGFzc3dvcmRSZXNCHAoNY29tLmFkaWEudXNlckIJVXNlclByb3RvUAFiBnByb3RvMw");
+  fileDesc("Cg91c2VyL3VzZXIucHJvdG8SBHVzZXIirQEKBFVzZXISCgoCaWQYASABKAQSEAoIdXNlcm5hbWUYAiABKAkSDQoFZW1haWwYAyABKAkSDwoHaXNBZG1pbhgEIAEoCBIXCg9pc0VtYWlsVmVyaWZpZWQYBSABKAgSEwoLaXNBY3RpdmF0ZWQYBiABKAgSEwoLaXNTdXNwZW5kZWQYByABKAgSEQoJY3JlYXRlZEF0GAggASgJEhEKCXVwZGF0ZWRBdBgJIAEoCSKaAQoRQ3JlYXRlVXNlclJlcXVlc3QSEAoIdXNlcm5hbWUYASABKAkSDQoFZW1haWwYAiABKAkSEAoIcGFzc3dvcmQYAyABKAkSDwoHaXNBZG1pbhgEIAEoCBIXCg9pc0VtYWlsVmVyaWZpZWQYBSABKAgSEwoLaXNBY3RpdmF0ZWQYBiABKAgSEwoLaXNTdXNwZW5kZWQYByABKAgiHAoOR2V0VXNlclJlcXVlc3QSCgoCaWQYASABKAQiJgoVR2V0VXNlckJ5RW1haWxSZXF1ZXN0Eg0KBWVtYWlsGAEgASgJIpQBChFVcGRhdGVVc2VyUmVxdWVzdBIKCgJpZBgBIAEoBBIQCgh1c2VybmFtZRgCIAEoCRINCgVlbWFpbBgDIAEoCRIPCgdpc0FkbWluGAQgASgIEhcKD2lzRW1haWxWZXJpZmllZBgFIAEoCBITCgtpc0FjdGl2YXRlZBgGIAEoCBITCgtpc1N1c3BlbmRlZBgHIAEoCCIHCgVFbXB0eSIvChBMaXN0VXNlcnNSZXF1ZXN0EgwKBHBhZ2UYASABKAUSDQoFbGltaXQYAiABKAUiXwoRTGlzdFVzZXJzUmVzcG9uc2USGQoFdXNlcnMYASADKAsyCi51c2VyLlVzZXISDQoFdG90YWwYAiABKAUSDwoHc3VjY2VzcxgDIAEoCBIPCgdtZXNzYWdlGAQgASgJIkoKDFVzZXJSZXNwb25zZRIPCgdzdWNjZXNzGAEgASgIEg8KB21lc3NhZ2UYAiABKAkSGAoEdXNlchgDIAEoCzIKLnVzZXIuVXNlciIvCgxWUGFzc3dvcmRSZXESDQoFZW1haWwYASABKAkSEAoIcGFzc3dvcmQYAiABKAkiMAoMVlBhc3N3b3JkUmVzEg8KB21lc3NhZ2UYASABKAkSDwoHc3VjY2VzcxgCIAEoCCJ7ChFVc2VyU3RhdHNSZXNwb25zZRINCgV0b3RhbBgBIAEoBRIOCgZhY3RpdmUYAiABKAUSEQoJc3VzcGVuZGVkGAMgASgFEhIKCnVudmVyaWZpZWQYBCABKAUSDwoHc3VjY2VzcxgFIAEoCBIPCgdtZXNzYWdlGAYgASgJIiUKElN1c3BlbmRVc2VyUmVxdWVzdBIPCgd1c2VyX2lkGAEgASgJIkQKEVVzZXJBY3Rpb25SZXF1ZXN0Eg4KBnVzZXJJZBgBIAEoCRIPCgdhZG1pbklkGAIgASgJEg4KBnJlYXNvbhgDIAEoCSI2ChJVc2VyQWN0aW9uUmVzcG9uc2USDwoHc3VjY2VzcxgBIAEoCBIPCgdtZXNzYWdlGAIgASgJIjcKE1N1c3BlbmRVc2VyUmVzcG9uc2USDwoHc3VjY2VzcxgBIAEoCBIPCgdtZXNzYWdlGAIgASgJIiQKEURlbGV0ZVVzZXJSZXF1ZXN0Eg8KB3VzZXJfaWQYASABKAkiNgoSRGVsZXRlVXNlclJlc3BvbnNlEg8KB3N1Y2Nlc3MYASABKAgSDwoHbWVzc2FnZRgCIAEoCTKuBAoLVXNlclNlcnZpY2USOQoKQ3JlYXRlVXNlchIXLnVzZXIuQ3JlYXRlVXNlclJlcXVlc3QaEi51c2VyLlVzZXJSZXNwb25zZRIzCgdHZXRVc2VyEhQudXNlci5HZXRVc2VyUmVxdWVzdBoSLnVzZXIuVXNlclJlc3BvbnNlEkEKDkdldFVzZXJCeUVtYWlsEhsudXNlci5HZXRVc2VyQnlFbWFpbFJlcXVlc3QaEi51c2VyLlVzZXJSZXNwb25zZRI5CgpVcGRhdGVVc2VyEhcudXNlci5VcGRhdGVVc2VyUmVxdWVzdBoSLnVzZXIuVXNlclJlc3BvbnNlEjQKDEdldFVzZXJTdGF0cxILLnVzZXIuRW1wdHkaFy51c2VyLlVzZXJTdGF0c1Jlc3BvbnNlEkIKC1N1c3BlbmRVc2VyEhgudXNlci5TdXNwZW5kVXNlclJlcXVlc3QaGS51c2VyLlN1c3BlbmRVc2VyUmVzcG9uc2USPwoKRGVsZXRlVXNlchIXLnVzZXIuRGVsZXRlVXNlclJlcXVlc3QaGC51c2VyLkRlbGV0ZVVzZXJSZXNwb25zZRI8CglMaXN0VXNlcnMSFi51c2VyLkxpc3RVc2Vyc1JlcXVlc3QaFy51c2VyLkxpc3RVc2Vyc1Jlc3BvbnNlEjgKDlZlcmlmeVBhc3N3b3JkEhIudXNlci5WUGFzc3dvcmRSZXEaEi51c2VyLlZQYXNzd29yZFJlc0IcCg1jb20uYWRpYS51c2VyQglVc2VyUHJvdG9QAWIGcHJvdG8z");
 
 /**
  * @generated from message user.User
@@ -198,23 +198,6 @@ export const UpdateUserRequestSchema: GenMessage<UpdateUserRequest> = /*@__PURE_
   messageDesc(file_user_user, 4);
 
 /**
- * @generated from message user.DeleteUserRequest
- */
-export type DeleteUserRequest = Message<"user.DeleteUserRequest"> & {
-  /**
-   * @generated from field: uint64 id = 1;
-   */
-  id: bigint;
-};
-
-/**
- * Describes the message user.DeleteUserRequest.
- * Use `create(DeleteUserRequestSchema)` to create a new message.
- */
-export const DeleteUserRequestSchema: GenMessage<DeleteUserRequest> = /*@__PURE__*/
-  messageDesc(file_user_user, 5);
-
-/**
  * @generated from message user.Empty
  */
 export type Empty = Message<"user.Empty"> & {
@@ -225,6 +208,28 @@ export type Empty = Message<"user.Empty"> & {
  * Use `create(EmptySchema)` to create a new message.
  */
 export const EmptySchema: GenMessage<Empty> = /*@__PURE__*/
+  messageDesc(file_user_user, 5);
+
+/**
+ * @generated from message user.ListUsersRequest
+ */
+export type ListUsersRequest = Message<"user.ListUsersRequest"> & {
+  /**
+   * @generated from field: int32 page = 1;
+   */
+  page: number;
+
+  /**
+   * @generated from field: int32 limit = 2;
+   */
+  limit: number;
+};
+
+/**
+ * Describes the message user.ListUsersRequest.
+ * Use `create(ListUsersRequestSchema)` to create a new message.
+ */
+export const ListUsersRequestSchema: GenMessage<ListUsersRequest> = /*@__PURE__*/
   messageDesc(file_user_user, 6);
 
 /**
@@ -235,6 +240,11 @@ export type ListUsersResponse = Message<"user.ListUsersResponse"> & {
    * @generated from field: repeated user.User users = 1;
    */
   users: User[];
+
+  /**
+   * @generated from field: int32 total = 2;
+   */
+  total: number;
 
   /**
    * @generated from field: bool success = 3;
@@ -326,6 +336,179 @@ export const VPasswordResSchema: GenMessage<VPasswordRes> = /*@__PURE__*/
   messageDesc(file_user_user, 10);
 
 /**
+ * @generated from message user.UserStatsResponse
+ */
+export type UserStatsResponse = Message<"user.UserStatsResponse"> & {
+  /**
+   * @generated from field: int32 total = 1;
+   */
+  total: number;
+
+  /**
+   * @generated from field: int32 active = 2;
+   */
+  active: number;
+
+  /**
+   * @generated from field: int32 suspended = 3;
+   */
+  suspended: number;
+
+  /**
+   * @generated from field: int32 unverified = 4;
+   */
+  unverified: number;
+
+  /**
+   * @generated from field: bool success = 5;
+   */
+  success: boolean;
+
+  /**
+   * @generated from field: string message = 6;
+   */
+  message: string;
+};
+
+/**
+ * Describes the message user.UserStatsResponse.
+ * Use `create(UserStatsResponseSchema)` to create a new message.
+ */
+export const UserStatsResponseSchema: GenMessage<UserStatsResponse> = /*@__PURE__*/
+  messageDesc(file_user_user, 11);
+
+/**
+ * Request and Response for suspending a user
+ *
+ * @generated from message user.SuspendUserRequest
+ */
+export type SuspendUserRequest = Message<"user.SuspendUserRequest"> & {
+  /**
+   * @generated from field: string user_id = 1;
+   */
+  userId: string;
+};
+
+/**
+ * Describes the message user.SuspendUserRequest.
+ * Use `create(SuspendUserRequestSchema)` to create a new message.
+ */
+export const SuspendUserRequestSchema: GenMessage<SuspendUserRequest> = /*@__PURE__*/
+  messageDesc(file_user_user, 12);
+
+/**
+ * @generated from message user.UserActionRequest
+ */
+export type UserActionRequest = Message<"user.UserActionRequest"> & {
+  /**
+   * @generated from field: string userId = 1;
+   */
+  userId: string;
+
+  /**
+   * @generated from field: string adminId = 2;
+   */
+  adminId: string;
+
+  /**
+   * @generated from field: string reason = 3;
+   */
+  reason: string;
+};
+
+/**
+ * Describes the message user.UserActionRequest.
+ * Use `create(UserActionRequestSchema)` to create a new message.
+ */
+export const UserActionRequestSchema: GenMessage<UserActionRequest> = /*@__PURE__*/
+  messageDesc(file_user_user, 13);
+
+/**
+ * @generated from message user.UserActionResponse
+ */
+export type UserActionResponse = Message<"user.UserActionResponse"> & {
+  /**
+   * @generated from field: bool success = 1;
+   */
+  success: boolean;
+
+  /**
+   * @generated from field: string message = 2;
+   */
+  message: string;
+};
+
+/**
+ * Describes the message user.UserActionResponse.
+ * Use `create(UserActionResponseSchema)` to create a new message.
+ */
+export const UserActionResponseSchema: GenMessage<UserActionResponse> = /*@__PURE__*/
+  messageDesc(file_user_user, 14);
+
+/**
+ * @generated from message user.SuspendUserResponse
+ */
+export type SuspendUserResponse = Message<"user.SuspendUserResponse"> & {
+  /**
+   * @generated from field: bool success = 1;
+   */
+  success: boolean;
+
+  /**
+   * @generated from field: string message = 2;
+   */
+  message: string;
+};
+
+/**
+ * Describes the message user.SuspendUserResponse.
+ * Use `create(SuspendUserResponseSchema)` to create a new message.
+ */
+export const SuspendUserResponseSchema: GenMessage<SuspendUserResponse> = /*@__PURE__*/
+  messageDesc(file_user_user, 15);
+
+/**
+ * Request and Response for deleting a user
+ *
+ * @generated from message user.DeleteUserRequest
+ */
+export type DeleteUserRequest = Message<"user.DeleteUserRequest"> & {
+  /**
+   * @generated from field: string user_id = 1;
+   */
+  userId: string;
+};
+
+/**
+ * Describes the message user.DeleteUserRequest.
+ * Use `create(DeleteUserRequestSchema)` to create a new message.
+ */
+export const DeleteUserRequestSchema: GenMessage<DeleteUserRequest> = /*@__PURE__*/
+  messageDesc(file_user_user, 16);
+
+/**
+ * @generated from message user.DeleteUserResponse
+ */
+export type DeleteUserResponse = Message<"user.DeleteUserResponse"> & {
+  /**
+   * @generated from field: bool success = 1;
+   */
+  success: boolean;
+
+  /**
+   * @generated from field: string message = 2;
+   */
+  message: string;
+};
+
+/**
+ * Describes the message user.DeleteUserResponse.
+ * Use `create(DeleteUserResponseSchema)` to create a new message.
+ */
+export const DeleteUserResponseSchema: GenMessage<DeleteUserResponse> = /*@__PURE__*/
+  messageDesc(file_user_user, 17);
+
+/**
  * @generated from service user.UserService
  */
 export const UserService: GenService<{
@@ -362,19 +545,35 @@ export const UserService: GenService<{
     output: typeof UserResponseSchema;
   },
   /**
+   * @generated from rpc user.UserService.GetUserStats
+   */
+  getUserStats: {
+    methodKind: "unary";
+    input: typeof EmptySchema;
+    output: typeof UserStatsResponseSchema;
+  },
+  /**
+   * @generated from rpc user.UserService.SuspendUser
+   */
+  suspendUser: {
+    methodKind: "unary";
+    input: typeof SuspendUserRequestSchema;
+    output: typeof SuspendUserResponseSchema;
+  },
+  /**
    * @generated from rpc user.UserService.DeleteUser
    */
   deleteUser: {
     methodKind: "unary";
     input: typeof DeleteUserRequestSchema;
-    output: typeof UserResponseSchema;
+    output: typeof DeleteUserResponseSchema;
   },
   /**
    * @generated from rpc user.UserService.ListUsers
    */
   listUsers: {
     methodKind: "unary";
-    input: typeof EmptySchema;
+    input: typeof ListUsersRequestSchema;
     output: typeof ListUsersResponseSchema;
   },
   /**

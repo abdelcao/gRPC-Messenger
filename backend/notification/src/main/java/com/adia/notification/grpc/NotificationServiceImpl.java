@@ -49,6 +49,11 @@ public class NotificationServiceImpl extends NotificationServiceGrpc.Notificatio
         }
     }
 
+    /**
+     * Broadcasr a notif to all users
+     * @param request
+     * @param responseObserver
+     */
     @Override
     public void createNotification(NewNotificationRequest request, StreamObserver<Notification> responseObserver) {
         try {
@@ -62,7 +67,7 @@ public class NotificationServiceImpl extends NotificationServiceGrpc.Notificatio
                     .build();
 
             NotificationEntity saved = repository.save(entity);
-            broadcaster.broadcastToUser(request.getUserId(), mapper.toGrpc(saved));
+            broadcaster.broadcastToAll(mapper.toGrpc(saved));
             responseObserver.onNext(mapper.toGrpc(saved));
             responseObserver.onCompleted();
         } catch (Exception e) {
@@ -93,10 +98,22 @@ public class NotificationServiceImpl extends NotificationServiceGrpc.Notificatio
         }
     }
 
+    /**
+     * Send a warning to a user
+     * */
     @Override
-    public void sendNotification(Notification request, StreamObserver<Empty> responseObserver) {
+    public void sendNotification(SendNotifReq request, StreamObserver<Empty> responseObserver) {
         try {
-            NotificationEntity entity = mapper.toEntity(request);
+            NotificationEntity entity = new NotificationEntity();
+            entity.setReceiverId(request.getReceiverId());
+            entity.setContent(request.getContent());
+            entity.setTitle(request.getTitle());
+            entity.setType(NotificationEntity.NotificationType.ADMIN_WARNING);
+            entity.setUnread(true);
+            entity.setCreatedAt(Instant.now());
+            entity.setSenderId(request.getSenderId());
+            entity.setLink("#");
+
             NotificationEntity saved = repository.save(entity);
             broadcaster.broadcastToUser(request.getReceiverId(), mapper.toGrpc(saved));
             responseObserver.onNext(Empty.newBuilder().build());

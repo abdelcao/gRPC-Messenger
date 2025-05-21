@@ -17,12 +17,24 @@
 
     <!-- Users filter -->
     <div class="flex justify-start gap-2">
-        <InputText placeholder="Search users..." class="w-72 pe-4" />
-        <Button icon="pi pi-search" ></Button>
+      <InputText placeholder="Search users..." class="w-72 pe-4" />
+      <Button icon="pi pi-search"></Button>
     </div>
 
     <!-- Users Table -->
-    <DataTable class="rounded-lg" :value="users" :paginator="true" :rows="10" responsiveLayout="scroll">
+    <!-- :paginator="true" -->
+    <DataTable
+      class="rounded-lg"
+      :value="users"
+      responsiveLayout="scroll"
+      :paginator="true"
+      :rows="rows"
+      :first="first"
+      :totalRecords="total"
+      :lazy="true"
+      :loading="loading"
+      @page="onPageChange"
+    >
       <Column field="id" header="ID" />
       <Column field="username" header="Username" />
       <Column field="email" header="Email" />
@@ -63,7 +75,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
 import Tag from 'primevue/tag'
@@ -71,65 +83,99 @@ import Menu from 'primevue/menu'
 import Button from 'primevue/button'
 import StatCard from '@/components/StatCard.vue'
 import InputText from 'primevue/inputtext'
+import { useUserService } from '@/composables/useUserService'
+import { useToast } from 'primevue/usetoast'
+import type { User, UserStatsResponse } from '@/grpc/user/user_pb'
+import { useAuthStore } from '@/stores/auth'
+import { useNotificationService } from '@/composables/useNotifService'
+import { NotificationType } from '@/grpc/notification/notification_pb'
 
-interface User {
-  id: number
-  username: string
-  email: string
-  isEmailVerified: boolean
-  isSuspended: boolean
-  isActivated: boolean
+const toast = useToast()
+const userService = useUserService()
+const notifService = useNotificationService();
+const authStore = useAuthStore()
+
+const users = ref<User[]>([])
+const stats = ref()
+const total = ref(0)
+const loading = ref(false)
+const first = ref(0) // index of first row
+const rows = ref(3) // rows per page
+const selectedUser = ref<User | null>(null)
+const menu = ref()
+
+onMounted(async () => {
+  loading.value = true
+
+  try {
+    // Fetch users
+    const page = first.value / rows.value + 1
+    const res = await userService.listUsers({ page: 1, limit: 10 })
+    if (!res.success) throw new Error(res.message)
+    users.value = res.users
+    total.value = res.total
+
+    // Fetch stats
+    const statsRes = await userService.getUserStats({})
+    if (!statsRes.success) throw new Error(statsRes.message)
+
+    stats.value = [
+      {
+        label: 'Total Users',
+        value: statsRes.total,
+        icon: 'pi-users',
+        iconColor: 'text-blue-500',
+      },
+      {
+        label: 'Active',
+        value: statsRes.active,
+        icon: 'pi-check-circle',
+        iconColor: 'text-lime-500',
+      },
+      {
+        label: 'Suspended',
+        value: statsRes.suspended,
+        icon: 'pi-ban',
+        iconColor: 'text-red-500',
+      },
+      {
+        label: 'Unverified email',
+        value: statsRes.unverified,
+        icon: 'pi-envelope',
+        iconColor: 'text-amber-500',
+      },
+    ]
+  } catch (error: any) {
+    toast.add({
+      severity: 'error',
+      detail: error.message || error,
+    })
+  } finally {
+    loading.value = false
+  }
+})
+
+const loadUsers = async () => {
+  loading.value = true
+  try {
+    const page = first.value / rows.value + 1
+    const res = await userService.listUsers({ page, limit: rows.value })
+
+    if (!res.success) throw new Error(res.message)
+
+    users.value = res.users
+    total.value = res.total
+  } catch (error) {
+    toast.add({ severity: 'error', detail: error.message || error })
+  } finally {
+    loading.value = false
+  }
 }
 
-const stats = [
-  {
-    label: 'Total Users',
-    value: 10000,
-    icon: 'pi-users',
-    iconColor: 'text-blue-500',
-  },
-  {
-    label: 'Active',
-    value: 9945,
-    icon: 'pi-check-circle',
-    iconColor: 'text-lime-500',
-  },
-  {
-    label: 'Suspended',
-    value: 40,
-    icon: 'pi-ban',
-    iconColor: 'text-red-500',
-  },
-  {
-    label: 'Unverified email',
-    value: 5,
-    icon: 'pi-envelope',
-    iconColor: 'text-amber-500',
-  },
-]
-
-const users = ref<User[]>([
-  {
-    id: 1,
-    username: 'yusef',
-    email: 'yusef@example.com',
-    isEmailVerified: true,
-    isSuspended: false,
-    isActivated: true,
-  },
-  {
-    id: 2,
-    username: 'john',
-    email: 'john@example.com',
-    isEmailVerified: false,
-    isSuspended: true,
-    isActivated: false,
-  },
-  // ...more
-])
-
-const menu = ref()
-const selectedUser = ref<User | null>(null)
+const onPageChange = (event: any) => {
+  first.value = event.first
+  loadUsers()
+}
 
 const showMenu = (event: Event, user: User) => {
   selectedUser.value = user
@@ -137,29 +183,78 @@ const showMenu = (event: Event, user: User) => {
 }
 
 const menuItems = ref([
+  // {
+  //   label: 'Delete',
+  //   icon: 'pi pi-trash',
+  //   command: () => {
+  //     if (selectedUser.value) {
+  //       deleteUser(selectedUser.value)
+  //     }
+  //   },
+  // },
   {
-    label: 'Edit',
-    icon: 'pi pi-pencil',
-    command: () => console.log('Edit', selectedUser.value),
-  },
-  {
-    label: 'Delete',
-    icon: 'pi pi-trash',
-    command: () => console.log('Delete', selectedUser.value),
-  },
-  {
-    label: 'Toggle Suspend',
+    label: 'Toggle suspend',
     icon: 'pi pi-ban',
-    command: () => console.log('Toggle Suspend', selectedUser.value),
+    command: () => {
+      if (selectedUser.value) {
+        suspendUser(selectedUser.value)
+      }
+    },
   },
   {
-    label: 'Toggle Activate',
-    icon: 'pi pi-power-off',
-    command: () => console.log('Toggle Activate', selectedUser.value),
+    label: 'Send warning',
+    icon: 'pi pi-info-circle',
+    command: () => {
+      if (selectedUser.value) {
+        warnUser(selectedUser.value)
+      }
+    },
   },
 ])
-</script>
 
-<style scoped>
-/* Optional custom styling */
-</style>
+const suspendUser = async (user: User) => {
+  try {
+    const res = await userService.suspendUser({
+      userId: user.id.toString(),
+    })
+
+    toast.add({ severity: res.success ? 'success' : 'error', detail: res.message })
+
+    // Optionally reload users
+    await loadUsers()
+  } catch (err) {
+    toast.add({ severity: 'error', detail: err.message || err })
+  }
+}
+
+const deleteUser = async (user: User) => {
+  try {
+    const res = await userService.deleteUser({
+      userId: user.id.toString(),
+    })
+
+    toast.add({ severity: res.success ? 'success' : 'error', detail: res.message })
+
+    // Optionally reload users
+    await loadUsers()
+  } catch (err) {
+    toast.add({ severity: 'error', detail: err.message || err })
+  }
+}
+
+const warnUser = async (user: User) => {
+  try {
+    if (!authStore.user) return
+
+    const res = await notifService.sendNotification({
+      receiverId: user.id.toString(),
+      senderId: authStore.user.id.toString(),
+      content: 'You have violated our policy. Please adhere to the rules.',
+      title: "Warning",
+      type: NotificationType.ADMIN_WARNING
+    })
+  } catch (err) {
+    toast.add({ severity: 'error', detail: err.message || err })
+  }
+}
+</script>

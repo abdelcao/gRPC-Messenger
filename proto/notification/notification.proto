@@ -15,7 +15,7 @@ service NotificationService {
   rpc CreateNotification(NewNotificationRequest) returns (Notification);
   rpc NotifyGroupInvite(GroupInviteRequest) returns (Notification);
   rpc getAllNotifications(UserRequest) returns (NotificationList); // when user login get Notifi history whith count of unread
-  rpc SendNotification (Notification) returns (google.protobuf.Empty);
+  rpc SendNotification (SendNotifReq) returns (google.protobuf.Empty);
   rpc MarkAsRead (ReadReq) returns (google.protobuf.Empty);
 }
 
@@ -39,6 +39,14 @@ message Notification {
   string link = 7; // Optional URL or frontend route (e.g. "/group/123")
   google.protobuf.Timestamp createdAt = 8;
   bool unread = 9;
+}
+
+message SendNotifReq {
+  string receiverId = 2;
+  string senderId = 3;
+  string content = 4;
+  NotificationType type = 5;
+  string title = 6;
 }
 
 message NotificationList {
