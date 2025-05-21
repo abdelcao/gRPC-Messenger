@@ -1,0 +1,157 @@
+syntax = "proto3";
+
+package chat;
+
+option java_multiple_files = true;
+option java_package = "com.adia.chat.grpc";
+option java_outer_classname = "ChatProto";
+
+// Message status enum
+enum MessageStatus {
+  SENT = 0;
+  DELIVERED = 1;
+  READ = 2;
+}
+
+// Message
+message Message {
+  int64 id = 1;
+  int64 userId = 2;
+  int64 conversationId = 3;
+  string text = 4;
+  bool edited = 5;
+  MessageStatus status = 6;
+  string createdAt = 7;
+  string updatedAt = 8;
+}
+
+// Conversation
+message Conversation {
+  int64 id = 1;
+  int64 ownerId = 2;
+  string createdAt = 3;
+  string updatedAt = 4;
+  Message lastMessage = 5;
+}
+
+// Private Conversation
+message PrivateConversation {
+  int64 id = 1;
+  int64 conversationId = 2;
+  int64 receiverId = 3;
+  string createdAt = 4;
+  string updatedAt = 5;
+}
+
+// Group Conversation
+message GroupConversation {
+  int64 id = 1;
+  int64 conversationId = 2;
+  string name = 3;
+  string createdAt = 4;
+  string updatedAt = 5;
+}
+
+// Group Member
+message GroupMember {
+  int64 id = 1;
+  int64 userId = 2;
+  int64 groupId = 3;
+  bool admin = 4;
+  string createdAt = 5;
+}
+
+// Service definition
+service ChatService {
+  // Conversation operations
+  rpc CreateConversation(CreateConversationRequest) returns (Conversation) {}
+  rpc GetConversation(GetConversationRequest) returns (Conversation) {}
+  
+  // Message operations
+  rpc SendMessage(SendMessageRequest) returns (Message) {}
+  rpc EditMessage(EditMessageRequest) returns (Message) {}
+  rpc UpdateMessageStatus(UpdateMessageStatusRequest) returns (Message) {}
+  rpc GetConversationMessages(GetConversationMessagesRequest) returns (stream Message) {}
+  
+  // Private conversation operations
+  rpc CreatePrivateConversation(CreatePrivateConversationRequest) returns (PrivateConversation) {}
+  rpc GetPrivateConversation(GetPrivateConversationRequest) returns (PrivateConversation) {}
+  rpc GetUserPrivateConversations(GetUserConversationsRequest) returns (stream PrivateConversation) {}
+  
+  // Group conversation operations
+  rpc CreateGroupConversation(CreateGroupConversationRequest) returns (GroupConversation) {}
+  rpc GetGroupConversation(GetGroupConversationRequest) returns (GroupConversation) {}
+  rpc GetUserGroupConversations(GetUserConversationsRequest) returns (stream GroupConversation) {}
+  rpc AddMemberToGroup(AddMemberToGroupRequest) returns (GroupMember) {}
+  rpc RemoveMemberFromGroup(RemoveMemberFromGroupRequest) returns (Empty) {}
+  rpc MakeGroupAdmin(MakeGroupAdminRequest) returns (GroupMember) {}
+  rpc GetUserConversations(GetUserConversationsRequest) returns (stream Conversation) {}
+}
+
+// Request/Response messages
+message CreateConversationRequest {
+  int64 ownerId = 1;
+}
+
+message GetConversationRequest {
+  int64 id = 1;
+}
+
+message SendMessageRequest {
+  int64 userId = 1;
+  int64 conversationId = 2;
+  string text = 3;
+}
+
+message EditMessageRequest {
+  int64 messageId = 1;
+  string newText = 2;
+}
+
+message UpdateMessageStatusRequest {
+  int64 messageId = 1;
+  MessageStatus status = 2;
+}
+
+message GetConversationMessagesRequest {
+  int64 conversationId = 1;
+}
+
+message CreatePrivateConversationRequest {
+  int64 ownerId = 1;
+  int64 receiverId = 2;
+}
+
+message GetPrivateConversationRequest {
+  int64 conversationId = 1;
+}
+
+message CreateGroupConversationRequest {
+  int64 ownerId = 1;
+  string name = 2;
+}
+
+message GetGroupConversationRequest {
+  int64 conversationId = 1;
+}
+
+message GetUserConversationsRequest {
+  int64 userId = 1;
+}
+
+message AddMemberToGroupRequest {
+  int64 groupId = 1;
+  int64 userId = 2;
+}
+
+message RemoveMemberFromGroupRequest {
+  int64 groupId = 1;
+  int64 userId = 2;
+}
+
+message MakeGroupAdminRequest {
+  int64 groupId = 1;
+  int64 userId = 2;
+}
+
+message Empty {} 

@@ -28,11 +28,6 @@ const router = createRouter({
       component: ChatView,
     },
     {
-      path: '/settings',
-      name: 'settings',
-      component: SettingsView,
-    },
-    {
       path: '/',
       name: 'home',
       component: HomeView,
@@ -42,10 +37,9 @@ const router = createRouter({
       name: "dashboard",
       component: AdminLayout,
       children: [
-        { path: '', component: OverviewView },
-        { path: 'users', component: UsersView },
-        { path: 'reports', component: ReportsView },
-        { path: 'settings', component: SettingsView },
+        { name: 'users', path: '', component: UsersView },
+        { name: 'reports', path: 'reports', component: ReportsView },
+        { name: 'settings', path: 'settings', component: SettingsView },
       ],
     },
   ],

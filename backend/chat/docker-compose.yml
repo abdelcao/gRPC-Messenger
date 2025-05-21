@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  chat-mysql:
+    image: mysql:8.0
+    container_name: chat-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: chat_db
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - chat-network
+
+  chat-service:
+    build: .
+    container_name: chat-service
+    depends_on:
+      - chat-mysql
+    ports:
+      - "8094:8094"
+      - "9094:9094"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://chat-mysql:3306/chat_application
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+    networks:
+      - chat-network
+
+volumes:
+  mysql_data:
+
+networks:
+  chat-network:
+    driver: bridge 

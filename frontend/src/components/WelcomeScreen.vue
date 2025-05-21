@@ -3,9 +3,10 @@
 <template>
   <div class="flex items-center justify-center h-full">
     <h1
-      class="text-6xl font-bold bg-gradient-to-r from-white to-lime-500 bg-clip-text text-transparent"
+      class="text-6xl text-center flex flex-wrap items-center justify-center gap-2 font-bold bg-gradient-to-r from-lime-100 to-lime-600 bg-clip-text text-transparent"
     >
-    Welcome to <span class="text-lime-500">GigaCHat</span>
+      <span>Welcome to</span>
+      <span class="">GigaCHat</span>
     </h1>
   </div>
 </template>

@@ -37,3 +37,18 @@ pnpm build
 ```sh
 pnpm lint
 ```
+
+## gRPC-Web Integration
+
+This project uses [Envoy](https://www.envoyproxy.io/) as a proxy to enable gRPC-Web support for browser clients. All gRPC-Web requests from the frontend should be sent to Envoy, which forwards them to the appropriate backend service.
+
+- **gRPC-Web endpoint:** `http://localhost:8080`
+- The Vite dev server is configured to proxy `/chat.`, `/user.`, `/admin.`, `/auth.`, and `/notification.` requests to Envoy for local development.
+- Make sure Envoy is running (via Docker Compose or manually) when developing locally.
+
+Example gRPC-Web client configuration:
+```js
+const client = new ChatServiceClient('http://localhost:8080');
+```
+
+See the `vite.config.ts` for proxy details.
