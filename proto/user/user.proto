@@ -61,12 +61,12 @@ message UpdateUserRequest {
   bool isSuspended = 7;
 }
 
-
 message Empty {}
 
 message ListUsersRequest {
   int32 page = 1;
   int32 limit = 2;
+  string search = 3;
 }
 
 message ListUsersResponse {
