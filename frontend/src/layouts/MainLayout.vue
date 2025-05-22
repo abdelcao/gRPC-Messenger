@@ -29,29 +29,29 @@ onMounted(async () => {
 
     notifStore.notifications = []
     notifStore.unreadCount = 0
-    const res = await notifService.getAllNotifications({ userId: authStore.user.id.toString() })
-    res.notifications.forEach((n) => {
-      notifStore.pushNotif(n)
-      if (n.unread) {
-        notifStore.unreadCount++
-      }
-    })
+    // const res = await notifService.getAllNotifications({ userId: authStore.user.id.toString() })
+    // res.notifications.forEach((n) => {
+    //   notifStore.pushNotif(n)
+    //   if (n.unread) {
+    //     notifStore.unreadCount++
+    //   }
+    // })
 
-    const stream = notifService.streamNotifications({
-      userId: authStore.user.id.toString(),
-    }) as AsyncIterable<Notification>
+    // const stream = notifService.streamNotifications({
+    //   userId: authStore.user.id.toString(),
+    // }) as AsyncIterable<Notification>
 
-    for await (const notification of stream) {
-      notifStore.pushNotif(notification)
-      toast.add({
-        severity: 'info',
-        detail: notification.content,
-        summary: notification.title,
-      })
-      if (notification.unread) {
-        notifStore.unreadCount++
-      }
-    }
+    // for await (const notification of stream) {
+    //   notifStore.pushNotif(notification)
+    //   toast.add({
+    //     severity: 'info',
+    //     detail: notification.content,
+    //     summary: notification.title,
+    //   })
+    //   if (notification.unread) {
+    //     notifStore.unreadCount++
+    //   }
+    // }
   }
 })
 </script>

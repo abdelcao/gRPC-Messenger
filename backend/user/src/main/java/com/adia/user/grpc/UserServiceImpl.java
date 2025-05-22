@@ -20,6 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @GrpcService
 public class UserServiceImpl extends UserServiceGrpc.UserServiceImplBase {
@@ -265,6 +266,33 @@ public class UserServiceImpl extends UserServiceGrpc.UserServiceImplBase {
                     .setMessage("Error: " + e.getMessage())
                     .build());
             responseObserver.onCompleted();
+        }
+    }
+
+    @Override
+    public void searchUsers(SearchReq request, StreamObserver<SearchRes> responseObserver) {
+        try {
+            List<UserEntity> userEntities = userRepository.findDistinctByUsernameContainingIgnoreCaseOrEmailContainingIgnoreCase(request.getSearchTerm(), request.getSearchTerm());
+
+            // Convert UserEntity objects to protobuf User objects
+            List<User> users = userEntities.stream()
+                    .map(this::toProtoUser)
+                    .map(User.Builder::build)
+                    .collect(Collectors.toList());
+
+            // Build the response with the list of users
+            SearchRes response = SearchRes.newBuilder()
+                    .addAllUsers(users)
+                    .build();
+
+            // Send the response
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+
+        } catch (Exception e) {
+            responseObserver.onError(Status.INTERNAL
+                    .withDescription("Error searching users: " + e.getMessage())
+                    .asRuntimeException());
         }
     }
 

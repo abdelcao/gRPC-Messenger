@@ -12,6 +12,7 @@ service UserService {
   rpc GetUserByEmail(GetUserByEmailRequest) returns (UserResponse);
   rpc UpdateUser(UpdateUserRequest) returns (UserResponse);
   rpc GetUserStats(Empty) returns (UserStatsResponse);
+  rpc SearchUsers(SearchReq) returns (SearchRes);
 
   rpc SuspendUser(SuspendUserRequest) returns (SuspendUserResponse);
   rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse);
@@ -20,6 +21,13 @@ service UserService {
   rpc VerifyPassword(VPasswordReq) returns (VPasswordRes); 
 }
 
+message SearchReq {
+  string searchTerm = 1;
+}
+
+message SearchRes {
+  repeated User users = 1;
+}
 
 message User {
   uint64 id = 1;
@@ -61,12 +69,12 @@ message UpdateUserRequest {
   bool isSuspended = 7;
 }
 
-
 message Empty {}
 
 message ListUsersRequest {
   int32 page = 1;
   int32 limit = 2;
+  string search = 3;
 }
 
 message ListUsersResponse {

@@ -15,6 +15,16 @@
       No conversations found
     </div> -->
 
+    <div v-else-if="searchRes.length > 0">
+      <ul>
+        <li v-for="res in searchRes" :key="res.id.toString()">
+          <span>
+            {{ res.username }}
+          </span>
+        </li>
+      </ul>
+    </div>
+
     <ul v-else class="flex flex-col gap-2 overflow-y-auto">
       <!-- <ChatItem
         v-for="conversation in filteredConversations"
@@ -41,6 +51,7 @@ import type { User } from '@/grpc/user/user_pb'
 import InputText from 'primevue/inputtext'
 import ProgressSpinner from 'primevue/progressspinner'
 import ChatItem from './ChatItem.vue'
+import { throttle } from '@/libs/utils'
 
 // Services and stores
 const chatService = useChatService()
@@ -50,21 +61,30 @@ const authStore = useAuthStore()
 
 // State
 const search = ref('')
+const searchRes = ref<User[]>([])
 const loading = ref(false)
 const error = ref<string | null>(null)
 
-watch(search, async () => {
-  loading.value = true
-  try {
-    // get users list by username or email
-    const res = await userService
-  } catch (error) {
-
-  } finally {
-    loading.value = false
-  }
-})
-
+watch(
+  search,
+  throttle(async () => {
+    loading.value = true
+    try {
+      // get users list by username or email
+      if (!search.value) {
+        searchRes.value = []
+        return
+      }
+      const res = await userService.searchUsers({ searchTerm: search.value })
+      console.log(res)
+      searchRes.value = res.users
+    } catch (error) {
+      console.error(error)
+    } finally {
+      loading.value = false
+    }
+  }, 500),
+)
 </script>
 
 <style scoped>

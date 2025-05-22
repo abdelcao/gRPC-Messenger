@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS messages (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (conversation_id) REFERENCES conversations(id)
+    FOREIGN KEY (conversation_id) REFERENCES conversations(id) ON DELETE CASCADE
 );
 
 -- Create private_conversations table
@@ -53,8 +53,8 @@ CREATE TABLE IF NOT EXISTS private_conversations (
     receiver_id INTEGER NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (conversation_id) REFERENCES conversations(id),
-    FOREIGN KEY (receiver_id) REFERENCES users(id)
+    FOREIGN KEY (conversation_id) REFERENCES conversations(id) ON DELETE CASCADE,
+    FOREIGN KEY (receiver_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 -- Create group_conversations table
@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS group_conversations (
     name VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (conversation_id) REFERENCES conversations(id)
+    FOREIGN KEY (conversation_id) REFERENCES conversations(id) ON DELETE CASCADE
 );
 
 -- Create group_members table
@@ -79,16 +79,18 @@ CREATE TABLE IF NOT EXISTS group_members (
 );
 
 -- Create notifications table
-CREATE TABLE notifications (
-  id VARCHAR(255) PRIMARY KEY,
-  receiver_id VARCHAR(255) NOT NULL,
-  sender_id VARCHAR(255) NOT NULL,
+CREATE TABLE IF NOT EXISTS notifications (
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
+  receiver_id INTEGER NOT NULL,
+  sender_id INTEGER NOT NULL,
   content TEXT NOT NULL,
-  type VARCHAR(50) NOT NULL, -- Assuming NotificationType is an enum, will be stored as string
+  type VARCHAR(50) NOT NULL,
   title VARCHAR(255) NOT NULL,
-  link VARCHAR(2048), -- Optional URL or frontend route
-  created_at TIMESTAMP NOT NULL,
-  unread BOOLEAN NOT NULL DEFAULT TRUE
+  link VARCHAR(2048),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  unread BOOLEAN NOT NULL DEFAULT TRUE,
+  FOREIGN KEY (receiver_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (sender_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 -- Creating indexes for common query patterns
@@ -114,6 +116,9 @@ CREATE TABLE IF NOT EXISTS reports (
 -- Create indexes for refresh_tokens
 CREATE INDEX idx_refresh_token_user ON refresh_tokens(user_id);
 CREATE INDEX idx_refresh_token_expiry ON refresh_tokens(expiry_date);
+CREATE INDEX idx_messages_conversation ON messages(conversation_id);
+CREATE INDEX idx_messages_user ON messages(user_id);
+CREATE INDEX idx_conversations_owner ON conversations(owner_id);
 
 -- Insert sample users // password => password
 INSERT INTO users (username, email, password, is_admin, is_email_verified, is_activated, is_suspended)
@@ -122,7 +127,7 @@ VALUES
 ('yassine', 'yassine@gmail.com', '$2a$10$xDvcMBovSUWCkCVufKFjLOzpFf6bbXTfYCBy1F9gYkOlg5p.UGjpe', FALSE, TRUE, TRUE, FALSE),
 ('youssef', 'youssef@gmail.com', '$2a$10$xDvcMBovSUWCkCVufKFjLOzpFf6bbXTfYCBy1F9gYkOlg5p.UGjpe', FALSE, TRUE, TRUE, FALSE),
 ('hamid', 'hamid@gmail.com', '$2a$10$xDvcMBovSUWCkCVufKFjLOzpFf6bbXTfYCBy1F9gYkOlg5p.UGjpe', FALSE, TRUE, TRUE, FALSE),
-('yasser', 'yasser@gmail.com', '5e884898da28047151d0e56f8$2a$10$xDvcMBovSUWCkCVufKFjLOzpFf6bbXTfYCBy1F9gYkOlg5p.UGjpedc6292773603d0d6aabbdd62a11ef721d1542d8', FALSE, FALSE, TRUE, FALSE);
+('yasser', 'yasser@gmail.com', '5e884898da28047151d0e56f8$3d0d6aabbdd62a11ef721d1542d8', FALSE, FALSE, TRUE, FALSE);
 
 -- Insert sample conversations
 INSERT INTO conversations (owner_id)
@@ -165,14 +170,14 @@ VALUES
 ('Looking forward to working with everyone.', 3, 3, 'read', FALSE),
 ('Let me know the meeting schedule.', 4, 3, 'delivered', FALSE);
 
--- Insert sample notifications
-INSERT INTO notifications (content, user_id, status)
+-- Fixed notifications insert
+INSERT INTO notifications (content, receiver_id, sender_id, type, title)
 VALUES 
-('You have a new message from Jane', 1, 'unread'),
-('John sent you a message', 2, 'read'),
-('You were added to Project Team group', 3, 'unread'),
-('Bob replied to your message', 1, 'unread'),
-('Your account email has been verified', 5, 'unread');
+('You have a new message', 1, 2, 'message', 'New Message'),
+('You have a new message', 2, 1, 'message', 'New Message'),
+('You were added to Project Team group', 3, 1, 'group', 'Added to Group'),
+('You have a new message', 1, 4, 'message', 'New Message'),
+('Your account email has been verified', 5, 1, 'system', 'Email Verified');
 
 -- Insert sample reports
 INSERT INTO reports (text, reporter_id, reported_id, cause, status)

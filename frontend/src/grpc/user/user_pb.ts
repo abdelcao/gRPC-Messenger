@@ -10,7 +10,41 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file user/user.proto.
  */
 export const file_user_user: GenFile = /*@__PURE__*/
-  fileDesc("Cg91c2VyL3VzZXIucHJvdG8SBHVzZXIirQEKBFVzZXISCgoCaWQYASABKAQSEAoIdXNlcm5hbWUYAiABKAkSDQoFZW1haWwYAyABKAkSDwoHaXNBZG1pbhgEIAEoCBIXCg9pc0VtYWlsVmVyaWZpZWQYBSABKAgSEwoLaXNBY3RpdmF0ZWQYBiABKAgSEwoLaXNTdXNwZW5kZWQYByABKAgSEQoJY3JlYXRlZEF0GAggASgJEhEKCXVwZGF0ZWRBdBgJIAEoCSKaAQoRQ3JlYXRlVXNlclJlcXVlc3QSEAoIdXNlcm5hbWUYASABKAkSDQoFZW1haWwYAiABKAkSEAoIcGFzc3dvcmQYAyABKAkSDwoHaXNBZG1pbhgEIAEoCBIXCg9pc0VtYWlsVmVyaWZpZWQYBSABKAgSEwoLaXNBY3RpdmF0ZWQYBiABKAgSEwoLaXNTdXNwZW5kZWQYByABKAgiHAoOR2V0VXNlclJlcXVlc3QSCgoCaWQYASABKAQiJgoVR2V0VXNlckJ5RW1haWxSZXF1ZXN0Eg0KBWVtYWlsGAEgASgJIpQBChFVcGRhdGVVc2VyUmVxdWVzdBIKCgJpZBgBIAEoBBIQCgh1c2VybmFtZRgCIAEoCRINCgVlbWFpbBgDIAEoCRIPCgdpc0FkbWluGAQgASgIEhcKD2lzRW1haWxWZXJpZmllZBgFIAEoCBITCgtpc0FjdGl2YXRlZBgGIAEoCBITCgtpc1N1c3BlbmRlZBgHIAEoCCIHCgVFbXB0eSIvChBMaXN0VXNlcnNSZXF1ZXN0EgwKBHBhZ2UYASABKAUSDQoFbGltaXQYAiABKAUiXwoRTGlzdFVzZXJzUmVzcG9uc2USGQoFdXNlcnMYASADKAsyCi51c2VyLlVzZXISDQoFdG90YWwYAiABKAUSDwoHc3VjY2VzcxgDIAEoCBIPCgdtZXNzYWdlGAQgASgJIkoKDFVzZXJSZXNwb25zZRIPCgdzdWNjZXNzGAEgASgIEg8KB21lc3NhZ2UYAiABKAkSGAoEdXNlchgDIAEoCzIKLnVzZXIuVXNlciIvCgxWUGFzc3dvcmRSZXESDQoFZW1haWwYASABKAkSEAoIcGFzc3dvcmQYAiABKAkiMAoMVlBhc3N3b3JkUmVzEg8KB21lc3NhZ2UYASABKAkSDwoHc3VjY2VzcxgCIAEoCCJ7ChFVc2VyU3RhdHNSZXNwb25zZRINCgV0b3RhbBgBIAEoBRIOCgZhY3RpdmUYAiABKAUSEQoJc3VzcGVuZGVkGAMgASgFEhIKCnVudmVyaWZpZWQYBCABKAUSDwoHc3VjY2VzcxgFIAEoCBIPCgdtZXNzYWdlGAYgASgJIiUKElN1c3BlbmRVc2VyUmVxdWVzdBIPCgd1c2VyX2lkGAEgASgJIkQKEVVzZXJBY3Rpb25SZXF1ZXN0Eg4KBnVzZXJJZBgBIAEoCRIPCgdhZG1pbklkGAIgASgJEg4KBnJlYXNvbhgDIAEoCSI2ChJVc2VyQWN0aW9uUmVzcG9uc2USDwoHc3VjY2VzcxgBIAEoCBIPCgdtZXNzYWdlGAIgASgJIjcKE1N1c3BlbmRVc2VyUmVzcG9uc2USDwoHc3VjY2VzcxgBIAEoCBIPCgdtZXNzYWdlGAIgASgJIiQKEURlbGV0ZVVzZXJSZXF1ZXN0Eg8KB3VzZXJfaWQYASABKAkiNgoSRGVsZXRlVXNlclJlc3BvbnNlEg8KB3N1Y2Nlc3MYASABKAgSDwoHbWVzc2FnZRgCIAEoCTKuBAoLVXNlclNlcnZpY2USOQoKQ3JlYXRlVXNlchIXLnVzZXIuQ3JlYXRlVXNlclJlcXVlc3QaEi51c2VyLlVzZXJSZXNwb25zZRIzCgdHZXRVc2VyEhQudXNlci5HZXRVc2VyUmVxdWVzdBoSLnVzZXIuVXNlclJlc3BvbnNlEkEKDkdldFVzZXJCeUVtYWlsEhsudXNlci5HZXRVc2VyQnlFbWFpbFJlcXVlc3QaEi51c2VyLlVzZXJSZXNwb25zZRI5CgpVcGRhdGVVc2VyEhcudXNlci5VcGRhdGVVc2VyUmVxdWVzdBoSLnVzZXIuVXNlclJlc3BvbnNlEjQKDEdldFVzZXJTdGF0cxILLnVzZXIuRW1wdHkaFy51c2VyLlVzZXJTdGF0c1Jlc3BvbnNlEkIKC1N1c3BlbmRVc2VyEhgudXNlci5TdXNwZW5kVXNlclJlcXVlc3QaGS51c2VyLlN1c3BlbmRVc2VyUmVzcG9uc2USPwoKRGVsZXRlVXNlchIXLnVzZXIuRGVsZXRlVXNlclJlcXVlc3QaGC51c2VyLkRlbGV0ZVVzZXJSZXNwb25zZRI8CglMaXN0VXNlcnMSFi51c2VyLkxpc3RVc2Vyc1JlcXVlc3QaFy51c2VyLkxpc3RVc2Vyc1Jlc3BvbnNlEjgKDlZlcmlmeVBhc3N3b3JkEhIudXNlci5WUGFzc3dvcmRSZXEaEi51c2VyLlZQYXNzd29yZFJlc0IcCg1jb20uYWRpYS51c2VyQglVc2VyUHJvdG9QAWIGcHJvdG8z");
+  fileDesc("Cg91c2VyL3VzZXIucHJvdG8SBHVzZXIiHwoJU2VhcmNoUmVxEhIKCnNlYXJjaFRlcm0YASABKAkiJgoJU2VhcmNoUmVzEhkKBXVzZXJzGAEgAygLMgoudXNlci5Vc2VyIq0BCgRVc2VyEgoKAmlkGAEgASgEEhAKCHVzZXJuYW1lGAIgASgJEg0KBWVtYWlsGAMgASgJEg8KB2lzQWRtaW4YBCABKAgSFwoPaXNFbWFpbFZlcmlmaWVkGAUgASgIEhMKC2lzQWN0aXZhdGVkGAYgASgIEhMKC2lzU3VzcGVuZGVkGAcgASgIEhEKCWNyZWF0ZWRBdBgIIAEoCRIRCgl1cGRhdGVkQXQYCSABKAkimgEKEUNyZWF0ZVVzZXJSZXF1ZXN0EhAKCHVzZXJuYW1lGAEgASgJEg0KBWVtYWlsGAIgASgJEhAKCHBhc3N3b3JkGAMgASgJEg8KB2lzQWRtaW4YBCABKAgSFwoPaXNFbWFpbFZlcmlmaWVkGAUgASgIEhMKC2lzQWN0aXZhdGVkGAYgASgIEhMKC2lzU3VzcGVuZGVkGAcgASgIIhwKDkdldFVzZXJSZXF1ZXN0EgoKAmlkGAEgASgEIiYKFUdldFVzZXJCeUVtYWlsUmVxdWVzdBINCgVlbWFpbBgBIAEoCSKUAQoRVXBkYXRlVXNlclJlcXVlc3QSCgoCaWQYASABKAQSEAoIdXNlcm5hbWUYAiABKAkSDQoFZW1haWwYAyABKAkSDwoHaXNBZG1pbhgEIAEoCBIXCg9pc0VtYWlsVmVyaWZpZWQYBSABKAgSEwoLaXNBY3RpdmF0ZWQYBiABKAgSEwoLaXNTdXNwZW5kZWQYByABKAgiBwoFRW1wdHkiPwoQTGlzdFVzZXJzUmVxdWVzdBIMCgRwYWdlGAEgASgFEg0KBWxpbWl0GAIgASgFEg4KBnNlYXJjaBgDIAEoCSJfChFMaXN0VXNlcnNSZXNwb25zZRIZCgV1c2VycxgBIAMoCzIKLnVzZXIuVXNlchINCgV0b3RhbBgCIAEoBRIPCgdzdWNjZXNzGAMgASgIEg8KB21lc3NhZ2UYBCABKAkiSgoMVXNlclJlc3BvbnNlEg8KB3N1Y2Nlc3MYASABKAgSDwoHbWVzc2FnZRgCIAEoCRIYCgR1c2VyGAMgASgLMgoudXNlci5Vc2VyIi8KDFZQYXNzd29yZFJlcRINCgVlbWFpbBgBIAEoCRIQCghwYXNzd29yZBgCIAEoCSIwCgxWUGFzc3dvcmRSZXMSDwoHbWVzc2FnZRgBIAEoCRIPCgdzdWNjZXNzGAIgASgIInsKEVVzZXJTdGF0c1Jlc3BvbnNlEg0KBXRvdGFsGAEgASgFEg4KBmFjdGl2ZRgCIAEoBRIRCglzdXNwZW5kZWQYAyABKAUSEgoKdW52ZXJpZmllZBgEIAEoBRIPCgdzdWNjZXNzGAUgASgIEg8KB21lc3NhZ2UYBiABKAkiJQoSU3VzcGVuZFVzZXJSZXF1ZXN0Eg8KB3VzZXJfaWQYASABKAkiRAoRVXNlckFjdGlvblJlcXVlc3QSDgoGdXNlcklkGAEgASgJEg8KB2FkbWluSWQYAiABKAkSDgoGcmVhc29uGAMgASgJIjYKElVzZXJBY3Rpb25SZXNwb25zZRIPCgdzdWNjZXNzGAEgASgIEg8KB21lc3NhZ2UYAiABKAkiNwoTU3VzcGVuZFVzZXJSZXNwb25zZRIPCgdzdWNjZXNzGAEgASgIEg8KB21lc3NhZ2UYAiABKAkiJAoRRGVsZXRlVXNlclJlcXVlc3QSDwoHdXNlcl9pZBgBIAEoCSI2ChJEZWxldGVVc2VyUmVzcG9uc2USDwoHc3VjY2VzcxgBIAEoCBIPCgdtZXNzYWdlGAIgASgJMt8ECgtVc2VyU2VydmljZRI5CgpDcmVhdGVVc2VyEhcudXNlci5DcmVhdGVVc2VyUmVxdWVzdBoSLnVzZXIuVXNlclJlc3BvbnNlEjMKB0dldFVzZXISFC51c2VyLkdldFVzZXJSZXF1ZXN0GhIudXNlci5Vc2VyUmVzcG9uc2USQQoOR2V0VXNlckJ5RW1haWwSGy51c2VyLkdldFVzZXJCeUVtYWlsUmVxdWVzdBoSLnVzZXIuVXNlclJlc3BvbnNlEjkKClVwZGF0ZVVzZXISFy51c2VyLlVwZGF0ZVVzZXJSZXF1ZXN0GhIudXNlci5Vc2VyUmVzcG9uc2USNAoMR2V0VXNlclN0YXRzEgsudXNlci5FbXB0eRoXLnVzZXIuVXNlclN0YXRzUmVzcG9uc2USLwoLU2VhcmNoVXNlcnMSDy51c2VyLlNlYXJjaFJlcRoPLnVzZXIuU2VhcmNoUmVzEkIKC1N1c3BlbmRVc2VyEhgudXNlci5TdXNwZW5kVXNlclJlcXVlc3QaGS51c2VyLlN1c3BlbmRVc2VyUmVzcG9uc2USPwoKRGVsZXRlVXNlchIXLnVzZXIuRGVsZXRlVXNlclJlcXVlc3QaGC51c2VyLkRlbGV0ZVVzZXJSZXNwb25zZRI8CglMaXN0VXNlcnMSFi51c2VyLkxpc3RVc2Vyc1JlcXVlc3QaFy51c2VyLkxpc3RVc2Vyc1Jlc3BvbnNlEjgKDlZlcmlmeVBhc3N3b3JkEhIudXNlci5WUGFzc3dvcmRSZXEaEi51c2VyLlZQYXNzd29yZFJlc0IcCg1jb20uYWRpYS51c2VyQglVc2VyUHJvdG9QAWIGcHJvdG8z");
+
+/**
+ * @generated from message user.SearchReq
+ */
+export type SearchReq = Message<"user.SearchReq"> & {
+  /**
+   * @generated from field: string searchTerm = 1;
+   */
+  searchTerm: string;
+};
+
+/**
+ * Describes the message user.SearchReq.
+ * Use `create(SearchReqSchema)` to create a new message.
+ */
+export const SearchReqSchema: GenMessage<SearchReq> = /*@__PURE__*/
+  messageDesc(file_user_user, 0);
+
+/**
+ * @generated from message user.SearchRes
+ */
+export type SearchRes = Message<"user.SearchRes"> & {
+  /**
+   * @generated from field: repeated user.User users = 1;
+   */
+  users: User[];
+};
+
+/**
+ * Describes the message user.SearchRes.
+ * Use `create(SearchResSchema)` to create a new message.
+ */
+export const SearchResSchema: GenMessage<SearchRes> = /*@__PURE__*/
+  messageDesc(file_user_user, 1);
 
 /**
  * @generated from message user.User
@@ -67,7 +101,7 @@ export type User = Message<"user.User"> & {
  * Use `create(UserSchema)` to create a new message.
  */
 export const UserSchema: GenMessage<User> = /*@__PURE__*/
-  messageDesc(file_user_user, 0);
+  messageDesc(file_user_user, 2);
 
 /**
  * @generated from message user.CreateUserRequest
@@ -114,7 +148,7 @@ export type CreateUserRequest = Message<"user.CreateUserRequest"> & {
  * Use `create(CreateUserRequestSchema)` to create a new message.
  */
 export const CreateUserRequestSchema: GenMessage<CreateUserRequest> = /*@__PURE__*/
-  messageDesc(file_user_user, 1);
+  messageDesc(file_user_user, 3);
 
 /**
  * @generated from message user.GetUserRequest
@@ -131,7 +165,7 @@ export type GetUserRequest = Message<"user.GetUserRequest"> & {
  * Use `create(GetUserRequestSchema)` to create a new message.
  */
 export const GetUserRequestSchema: GenMessage<GetUserRequest> = /*@__PURE__*/
-  messageDesc(file_user_user, 2);
+  messageDesc(file_user_user, 4);
 
 /**
  * @generated from message user.GetUserByEmailRequest
@@ -148,7 +182,7 @@ export type GetUserByEmailRequest = Message<"user.GetUserByEmailRequest"> & {
  * Use `create(GetUserByEmailRequestSchema)` to create a new message.
  */
 export const GetUserByEmailRequestSchema: GenMessage<GetUserByEmailRequest> = /*@__PURE__*/
-  messageDesc(file_user_user, 3);
+  messageDesc(file_user_user, 5);
 
 /**
  * @generated from message user.UpdateUserRequest
@@ -195,7 +229,7 @@ export type UpdateUserRequest = Message<"user.UpdateUserRequest"> & {
  * Use `create(UpdateUserRequestSchema)` to create a new message.
  */
 export const UpdateUserRequestSchema: GenMessage<UpdateUserRequest> = /*@__PURE__*/
-  messageDesc(file_user_user, 4);
+  messageDesc(file_user_user, 6);
 
 /**
  * @generated from message user.Empty
@@ -208,7 +242,7 @@ export type Empty = Message<"user.Empty"> & {
  * Use `create(EmptySchema)` to create a new message.
  */
 export const EmptySchema: GenMessage<Empty> = /*@__PURE__*/
-  messageDesc(file_user_user, 5);
+  messageDesc(file_user_user, 7);
 
 /**
  * @generated from message user.ListUsersRequest
@@ -223,6 +257,11 @@ export type ListUsersRequest = Message<"user.ListUsersRequest"> & {
    * @generated from field: int32 limit = 2;
    */
   limit: number;
+
+  /**
+   * @generated from field: string search = 3;
+   */
+  search: string;
 };
 
 /**
@@ -230,7 +269,7 @@ export type ListUsersRequest = Message<"user.ListUsersRequest"> & {
  * Use `create(ListUsersRequestSchema)` to create a new message.
  */
 export const ListUsersRequestSchema: GenMessage<ListUsersRequest> = /*@__PURE__*/
-  messageDesc(file_user_user, 6);
+  messageDesc(file_user_user, 8);
 
 /**
  * @generated from message user.ListUsersResponse
@@ -262,7 +301,7 @@ export type ListUsersResponse = Message<"user.ListUsersResponse"> & {
  * Use `create(ListUsersResponseSchema)` to create a new message.
  */
 export const ListUsersResponseSchema: GenMessage<ListUsersResponse> = /*@__PURE__*/
-  messageDesc(file_user_user, 7);
+  messageDesc(file_user_user, 9);
 
 /**
  * @generated from message user.UserResponse
@@ -289,7 +328,7 @@ export type UserResponse = Message<"user.UserResponse"> & {
  * Use `create(UserResponseSchema)` to create a new message.
  */
 export const UserResponseSchema: GenMessage<UserResponse> = /*@__PURE__*/
-  messageDesc(file_user_user, 8);
+  messageDesc(file_user_user, 10);
 
 /**
  * @generated from message user.VPasswordReq
@@ -311,7 +350,7 @@ export type VPasswordReq = Message<"user.VPasswordReq"> & {
  * Use `create(VPasswordReqSchema)` to create a new message.
  */
 export const VPasswordReqSchema: GenMessage<VPasswordReq> = /*@__PURE__*/
-  messageDesc(file_user_user, 9);
+  messageDesc(file_user_user, 11);
 
 /**
  * @generated from message user.VPasswordRes
@@ -333,7 +372,7 @@ export type VPasswordRes = Message<"user.VPasswordRes"> & {
  * Use `create(VPasswordResSchema)` to create a new message.
  */
 export const VPasswordResSchema: GenMessage<VPasswordRes> = /*@__PURE__*/
-  messageDesc(file_user_user, 10);
+  messageDesc(file_user_user, 12);
 
 /**
  * @generated from message user.UserStatsResponse
@@ -375,7 +414,7 @@ export type UserStatsResponse = Message<"user.UserStatsResponse"> & {
  * Use `create(UserStatsResponseSchema)` to create a new message.
  */
 export const UserStatsResponseSchema: GenMessage<UserStatsResponse> = /*@__PURE__*/
-  messageDesc(file_user_user, 11);
+  messageDesc(file_user_user, 13);
 
 /**
  * Request and Response for suspending a user
@@ -394,7 +433,7 @@ export type SuspendUserRequest = Message<"user.SuspendUserRequest"> & {
  * Use `create(SuspendUserRequestSchema)` to create a new message.
  */
 export const SuspendUserRequestSchema: GenMessage<SuspendUserRequest> = /*@__PURE__*/
-  messageDesc(file_user_user, 12);
+  messageDesc(file_user_user, 14);
 
 /**
  * @generated from message user.UserActionRequest
@@ -421,7 +460,7 @@ export type UserActionRequest = Message<"user.UserActionRequest"> & {
  * Use `create(UserActionRequestSchema)` to create a new message.
  */
 export const UserActionRequestSchema: GenMessage<UserActionRequest> = /*@__PURE__*/
-  messageDesc(file_user_user, 13);
+  messageDesc(file_user_user, 15);
 
 /**
  * @generated from message user.UserActionResponse
@@ -443,7 +482,7 @@ export type UserActionResponse = Message<"user.UserActionResponse"> & {
  * Use `create(UserActionResponseSchema)` to create a new message.
  */
 export const UserActionResponseSchema: GenMessage<UserActionResponse> = /*@__PURE__*/
-  messageDesc(file_user_user, 14);
+  messageDesc(file_user_user, 16);
 
 /**
  * @generated from message user.SuspendUserResponse
@@ -465,7 +504,7 @@ export type SuspendUserResponse = Message<"user.SuspendUserResponse"> & {
  * Use `create(SuspendUserResponseSchema)` to create a new message.
  */
 export const SuspendUserResponseSchema: GenMessage<SuspendUserResponse> = /*@__PURE__*/
-  messageDesc(file_user_user, 15);
+  messageDesc(file_user_user, 17);
 
 /**
  * Request and Response for deleting a user
@@ -484,7 +523,7 @@ export type DeleteUserRequest = Message<"user.DeleteUserRequest"> & {
  * Use `create(DeleteUserRequestSchema)` to create a new message.
  */
 export const DeleteUserRequestSchema: GenMessage<DeleteUserRequest> = /*@__PURE__*/
-  messageDesc(file_user_user, 16);
+  messageDesc(file_user_user, 18);
 
 /**
  * @generated from message user.DeleteUserResponse
@@ -506,7 +545,7 @@ export type DeleteUserResponse = Message<"user.DeleteUserResponse"> & {
  * Use `create(DeleteUserResponseSchema)` to create a new message.
  */
 export const DeleteUserResponseSchema: GenMessage<DeleteUserResponse> = /*@__PURE__*/
-  messageDesc(file_user_user, 17);
+  messageDesc(file_user_user, 19);
 
 /**
  * @generated from service user.UserService
@@ -551,6 +590,14 @@ export const UserService: GenService<{
     methodKind: "unary";
     input: typeof EmptySchema;
     output: typeof UserStatsResponseSchema;
+  },
+  /**
+   * @generated from rpc user.UserService.SearchUsers
+   */
+  searchUsers: {
+    methodKind: "unary";
+    input: typeof SearchReqSchema;
+    output: typeof SearchResSchema;
   },
   /**
    * @generated from rpc user.UserService.SuspendUser
