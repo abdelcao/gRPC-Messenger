@@ -14,7 +14,7 @@ import type { Message as Message$1 } from "@bufbuild/protobuf";
  * Describes the file chat/chat.proto.
  */
 export const file_chat_chat: GenFile = /*@__PURE__*/
-  fileDesc("Cg9jaGF0L2NoYXQucHJvdG8SBGNoYXQiIAoOUHJpdmF0ZUNvbnZSZXESDgoGdXNlcklkGAEgASgDIl4KDkdldFByaXZDb252UmVzEg8KB21lc3NhZ2UYASABKAkSDwoHc3VjY2VzcxgCIAEoCBIqCg9wcml2YXRlQ29udkxpc3QYAyADKAsyES5jaGF0LlByaXZhdGVDb252IpIBCgtQcml2YXRlQ29udhIKCgJpZBgBIAEoAxIdCglvdGhlclVzZXIYAiABKAsyCi51c2VyLlVzZXISEwoLbGFzdE1lc3NhZ2UYAyABKAkSEwoLdW5yZWFkQ291bnQYBCABKAUSLgoKbGFzdFVwZGF0ZRgIIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAifwoJR3JvdXBDb252EgoKAmlkGAEgASgDEgwKBG5hbWUYAiABKAkSEwoLbGFzdE1lc3NhZ2UYAyABKAkSEwoLdW5yZWFkQ291bnQYBCABKAUSLgoKbGFzdFVwZGF0ZRgIIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAipgEKB01lc3NhZ2USCgoCaWQYASABKAMSDgoGdXNlcklkGAIgASgDEhYKDmNvbnZlcnNhdGlvbklkGAMgASgDEgwKBHRleHQYBCABKAkSDgoGZWRpdGVkGAUgASgIEiMKBnN0YXR1cxgGIAEoDjITLmNoYXQuTWVzc2FnZVN0YXR1cxIRCgljcmVhdGVkQXQYByABKAkSEQoJdXBkYXRlZEF0GAggASgJIgcKBUVtcHR5KjIKDU1lc3NhZ2VTdGF0dXMSCAoEU0VOVBAAEg0KCURFTElWRVJFRBABEggKBFJFQUQQAioiCghDb252VHlwZRILCgdQUklWQVRFEAASCQoFR1JPVVAQATJUCgtDaGF0U2VydmljZRJFChdHZXRQcml2YXRlQ29udmVyc2F0aW9ucxIULmNoYXQuUHJpdmF0ZUNvbnZSZXEaFC5jaGF0LkdldFByaXZDb252UmVzQiEKEmNvbS5hZGlhLmNoYXQuZ3JwY0IJQ2hhdFByb3RvUAFiBnByb3RvMw", [file_user_user, file_google_protobuf_timestamp]);
+  fileDesc("Cg9jaGF0L2NoYXQucHJvdG8SBGNoYXQiIAoOUHJpdmF0ZUNvbnZSZXESDgoGdXNlcklkGAEgASgDIl4KDkdldFByaXZDb252UmVzEg8KB21lc3NhZ2UYASABKAkSDwoHc3VjY2VzcxgCIAEoCBIqCg9wcml2YXRlQ29udkxpc3QYAyADKAsyES5jaGF0LlByaXZhdGVDb252IiYKEUNyZWF0ZVByaXZDb252UmVxEhEKCW90aGVyVXNlchgBIAEoAyKSAQoLUHJpdmF0ZUNvbnYSCgoCaWQYASABKAMSHQoJb3RoZXJVc2VyGAIgASgLMgoudXNlci5Vc2VyEhMKC2xhc3RNZXNzYWdlGAMgASgJEhMKC3VucmVhZENvdW50GAQgASgFEi4KCmxhc3RVcGRhdGUYCCABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIn8KCUdyb3VwQ29udhIKCgJpZBgBIAEoAxIMCgRuYW1lGAIgASgJEhMKC2xhc3RNZXNzYWdlGAMgASgJEhMKC3VucmVhZENvdW50GAQgASgFEi4KCmxhc3RVcGRhdGUYCCABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIqYBCgdNZXNzYWdlEgoKAmlkGAEgASgDEg4KBnVzZXJJZBgCIAEoAxIWCg5jb252ZXJzYXRpb25JZBgDIAEoAxIMCgR0ZXh0GAQgASgJEg4KBmVkaXRlZBgFIAEoCBIjCgZzdGF0dXMYBiABKA4yEy5jaGF0Lk1lc3NhZ2VTdGF0dXMSEQoJY3JlYXRlZEF0GAcgASgJEhEKCXVwZGF0ZWRBdBgIIAEoCSIHCgVFbXB0eSoyCg1NZXNzYWdlU3RhdHVzEggKBFNFTlQQABINCglERUxJVkVSRUQQARIICgRSRUFEEAIqIgoIQ29udlR5cGUSCwoHUFJJVkFURRAAEgkKBUdST1VQEAEynQEKC0NoYXRTZXJ2aWNlEkUKF0dldFByaXZhdGVDb252ZXJzYXRpb25zEhQuY2hhdC5Qcml2YXRlQ29udlJlcRoULmNoYXQuR2V0UHJpdkNvbnZSZXMSRwoZQ3JlYXRlUHJpdmF0ZUNvbnZlcnNhdGlvbhIXLmNoYXQuQ3JlYXRlUHJpdkNvbnZSZXEaES5jaGF0LlByaXZhdGVDb252QiEKEmNvbS5hZGlhLmNoYXQuZ3JwY0IJQ2hhdFByb3RvUAFiBnByb3RvMw", [file_user_user, file_google_protobuf_timestamp]);
 
 /**
  * @generated from message chat.PrivateConvReq
@@ -61,6 +61,23 @@ export const GetPrivConvResSchema: GenMessage<GetPrivConvRes> = /*@__PURE__*/
   messageDesc(file_chat_chat, 1);
 
 /**
+ * @generated from message chat.CreatePrivConvReq
+ */
+export type CreatePrivConvReq = Message$1<"chat.CreatePrivConvReq"> & {
+  /**
+   * @generated from field: int64 otherUser = 1;
+   */
+  otherUser: bigint;
+};
+
+/**
+ * Describes the message chat.CreatePrivConvReq.
+ * Use `create(CreatePrivConvReqSchema)` to create a new message.
+ */
+export const CreatePrivConvReqSchema: GenMessage<CreatePrivConvReq> = /*@__PURE__*/
+  messageDesc(file_chat_chat, 2);
+
+/**
  * @generated from message chat.PrivateConv
  */
 export type PrivateConv = Message$1<"chat.PrivateConv"> & {
@@ -95,7 +112,7 @@ export type PrivateConv = Message$1<"chat.PrivateConv"> & {
  * Use `create(PrivateConvSchema)` to create a new message.
  */
 export const PrivateConvSchema: GenMessage<PrivateConv> = /*@__PURE__*/
-  messageDesc(file_chat_chat, 2);
+  messageDesc(file_chat_chat, 3);
 
 /**
  * @generated from message chat.GroupConv
@@ -132,7 +149,7 @@ export type GroupConv = Message$1<"chat.GroupConv"> & {
  * Use `create(GroupConvSchema)` to create a new message.
  */
 export const GroupConvSchema: GenMessage<GroupConv> = /*@__PURE__*/
-  messageDesc(file_chat_chat, 3);
+  messageDesc(file_chat_chat, 4);
 
 /**
  * Message
@@ -186,7 +203,7 @@ export type Message = Message$1<"chat.Message"> & {
  * Use `create(MessageSchema)` to create a new message.
  */
 export const MessageSchema: GenMessage<Message> = /*@__PURE__*/
-  messageDesc(file_chat_chat, 4);
+  messageDesc(file_chat_chat, 5);
 
 /**
  * @generated from message chat.Empty
@@ -199,7 +216,7 @@ export type Empty = Message$1<"chat.Empty"> & {
  * Use `create(EmptySchema)` to create a new message.
  */
 export const EmptySchema: GenMessage<Empty> = /*@__PURE__*/
-  messageDesc(file_chat_chat, 5);
+  messageDesc(file_chat_chat, 6);
 
 /**
  * Message status enum
@@ -263,6 +280,14 @@ export const ChatService: GenService<{
     methodKind: "unary";
     input: typeof PrivateConvReqSchema;
     output: typeof GetPrivConvResSchema;
+  },
+  /**
+   * @generated from rpc chat.ChatService.CreatePrivateConversation
+   */
+  createPrivateConversation: {
+    methodKind: "unary";
+    input: typeof CreatePrivConvReqSchema;
+    output: typeof PrivateConvSchema;
   },
 }> = /*@__PURE__*/
   serviceDesc(file_chat_chat, 0);

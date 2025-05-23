@@ -113,11 +113,11 @@ async function handleSearchClick(user: User) {
     // set current chat user
     chatStore.currentChat = user
     // create new conversation
-    const res = await chatService.createConversation(authStore.user?.id)
+    const res = await chatService.createPrivateConversation({otherUser: authStore.user?.id})
     console.log(res)
 
     // add conversation to store with otherUser.id as key
-    chatStore.conversations[user.id.toString()] = res
+    chatStore.privateConv[user.id.toString()] = res
 
     // route to chat/:id (id is conversation id)
     router.push({ name: 'chat', params: { id: res.id.toString() } })

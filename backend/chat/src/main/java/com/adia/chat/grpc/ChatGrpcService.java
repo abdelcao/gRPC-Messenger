@@ -111,5 +111,41 @@ public class ChatGrpcService extends ChatServiceGrpc.ChatServiceImplBase {
         }
     }
 
+    @Override
+    public void createPrivateConversation(CreatePrivConvReq request, StreamObserver<PrivateConv> responseObserver) {
+        try {
+            Long ownerId = request.getCurrUserId();
+            Long receiverId = request.getOtherUserId();
+
+            // Step 1: Check if a conversation already exists
+            Optional<PrivateConversationEntity> existing = privateConvRepo
+                    .findByOwnerIdAndReceiverIdOrReceiverIdAndOwnerId(ownerId, receiverId, ownerId, receiverId);
+
+            if (existing.isPresent()) {
+                responseObserver.onNext(mapToGrpcPrivateConv(existing.get()));
+                responseObserver.onCompleted();
+                return;
+            }
+
+            // Step 2: Create conversation
+            ConversationEntity conversation = new ConversationEntity();
+            conversation.setOwnerId(ownerId);
+            conversation.setType(ConversationType.PRIVATE);
+            conversation = conversationRepo.save(conversation);
+
+            // Step 3: Create private conversation
+            PrivateConversationEntity privConv = new PrivateConversationEntity();
+            privConv.setConversation(conversation);
+            privConv.setReceiverId(receiverId);
+            privConv = privateConvRepo.save(privConv);
+
+            // Step 4: Respond with gRPC object
+            responseObserver.onNext(mapToGrpcPrivateConv(privConv));
+            responseObserver.onCompleted();
+
+        } catch (Exception e) {
+            responseObserver.onError(Status.INTERNAL.withDescription("Failed to create conversation").withCause(e).asRuntimeException());
+        }
+    }
 
 }
