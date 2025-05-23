@@ -1,26 +1,37 @@
 package com.adia.chat.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import java.time.LocalDateTime;
 
-@Data
 @Entity
 @Table(name = "private_conversations")
-public class PrivateConversation {
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString(exclude = {"conversation"}) // receiverId is a Long
+@EqualsAndHashCode(of = "id")
+public class PrivateConversationEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
-    @Column(name = "conversation_id", nullable = false)
-    private Integer conversationId;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "conversation_id", nullable = false, unique = true)
+    private ConversationEntity conversation;
 
     @Column(name = "receiver_id", nullable = false)
-    private Integer receiverId;
+    private Long receiverId; // Changed from UserEntity receiver
 
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "created_at", nullable = false, updatable = false)
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at", nullable = false)
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
-} 
+}

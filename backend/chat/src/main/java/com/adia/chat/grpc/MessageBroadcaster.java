@@ -14,9 +14,9 @@ public class MessageBroadcaster {
     private static final Logger logger = LoggerFactory.getLogger(MessageBroadcaster.class);
     
     // Map: conversationId -> list of observers
-    private final Map<Integer, List<StreamObserver<Message>>> observers = new ConcurrentHashMap<>();
+    private final Map<Long, List<StreamObserver<Message>>> observers = new ConcurrentHashMap<>();
 
-    public void register(int conversationId, StreamObserver<Message> observer) {
+    public void register(long conversationId, StreamObserver<Message> observer) {
         if (observer instanceof ServerCallStreamObserver) {
             ServerCallStreamObserver<Message> serverObserver = (ServerCallStreamObserver<Message>) observer;
             serverObserver.setOnCancelHandler(() -> {
@@ -27,7 +27,7 @@ public class MessageBroadcaster {
         observers.computeIfAbsent(conversationId, k -> new CopyOnWriteArrayList<>()).add(observer);
     }
 
-    public void unregister(int conversationId, StreamObserver<Message> observer) {
+    public void unregister(long conversationId, StreamObserver<Message> observer) {
         List<StreamObserver<Message>> list = observers.get(conversationId);
         if (list != null) {
             list.remove(observer);
@@ -37,7 +37,7 @@ public class MessageBroadcaster {
         }
     }
 
-    public void broadcast(int conversationId, Message message) {
+    public void broadcast(long conversationId, Message message) {
         List<StreamObserver<Message>> list = observers.get(conversationId);
         if (list != null) {
             for (StreamObserver<Message> observer : list) {
