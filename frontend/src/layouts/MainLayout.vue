@@ -18,40 +18,59 @@ import { useNotificationService } from '@/composables/useNotifService'
 import { useAuthStore } from '@/stores/auth'
 import { useToast } from 'primevue/usetoast'
 import { useNotifStore } from '@/stores/notification'
+import { useChatService } from '@/composables/useChatService'
+import { useChatStore } from '@/stores/chat'
 
 const notifService = useNotificationService()
+const chatService = useChatService()
+
 const authStore = useAuthStore()
 const notifStore = useNotifStore()
+const chatStore = useChatStore()
 const toast = useToast()
 
 onMounted(async () => {
-  if (authStore.user) {
+  try {
+    if (authStore.user) {
+      notifStore.notifications = []
+      notifStore.unreadCount = 0
 
-    notifStore.notifications = []
-    notifStore.unreadCount = 0
-    // const res = await notifService.getAllNotifications({ userId: authStore.user.id.toString() })
-    // res.notifications.forEach((n) => {
-    //   notifStore.pushNotif(n)
-    //   if (n.unread) {
-    //     notifStore.unreadCount++
-    //   }
-    // })
+      //=============  get conversations   ===============
 
-    // const stream = notifService.streamNotifications({
-    //   userId: authStore.user.id.toString(),
-    // }) as AsyncIterable<Notification>
+      const chatRes = await chatService.getPrivateConversations({ userId: authStore.user.id })
+      if (!chatRes.success) {
+        throw Error(chatRes.message)
+      }
+      chatStore.setPrivConc(chatRes.privateConvList)
 
-    // for await (const notification of stream) {
-    //   notifStore.pushNotif(notification)
-    //   toast.add({
-    //     severity: 'info',
-    //     detail: notification.content,
-    //     summary: notification.title,
-    //   })
-    //   if (notification.unread) {
-    //     notifStore.unreadCount++
-    //   }
-    // }
+      /*****    get notifications   ****** */
+
+      const res = await notifService.getAllNotifications({ userId: authStore.user.id.toString() })
+      res.notifications.forEach((n) => {
+        notifStore.pushNotif(n)
+        if (n.unread) {
+          notifStore.unreadCount++
+        }
+      })
+
+      const stream = notifService.streamNotifications({
+        userId: authStore.user.id.toString(),
+      }) as AsyncIterable<Notification>
+
+      for await (const notification of stream) {
+        notifStore.pushNotif(notification)
+        toast.add({
+          severity: 'info',
+          detail: notification.content,
+          summary: notification.title,
+        })
+        if (notification.unread) {
+          notifStore.unreadCount++
+        }
+      }
+    }
+  } catch (error) {
+    console.log(error);
   }
 })
 </script>
