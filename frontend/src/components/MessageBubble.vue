@@ -1,6 +1,6 @@
 <!-- src/components/MessageBubble.vue -->
 <template>
-  <div :class="['mb-2 flex', isOwn ? 'justify-end' : 'justify-start']">
+  <div class="w-full" :class="['mb-2 flex', isOwn ? 'justify-end' : 'justify-start']">
     <div
       :class="[
         'rounded-lg px-2.5 py-2 text-sm max-w-[70%]',

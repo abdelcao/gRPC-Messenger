@@ -15,6 +15,7 @@ const router = useRouter()
 
 function handleClick(conv: PrivateConv) {
   chatStore.setCurrentConv(conv)
+  //getPrivateConversation
   router.push({ name: 'chat', params: { id: Number(conv.id) } })
 }
 </script>
@@ -33,7 +34,7 @@ function handleClick(conv: PrivateConv) {
       <div class="flex justify-between items-start">
         <h4 class="font-medium truncate">{{ conversation.otherUser?.username }}</h4>
         <span v-if="conversation.lastUpdate?.seconds" class="text-xs text-gray-500">{{
-          timeAgo(conversation.lastUpdate?.seconds)
+          timeAgo(conversation.lastUpdate)
         }}</span>
       </div>
       <p class="text-sm text-gray-500 truncate">

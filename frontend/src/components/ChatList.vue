@@ -11,10 +11,6 @@
       {{ error }}
     </div>
 
-    <!-- <div v-else-if="filteredConversations.length === 0" class="text-center text-gray-500 p-4">
-      No conversations found
-    </div> -->
-
     <div v-else-if="searchRes.length > 0">
       <ul class="flex flex-col gap-3">
         <li
@@ -43,7 +39,7 @@
 
     <ul v-else class="flex flex-col gap-2 overflow-y-auto">
       <ChatItem
-        v-for="([key, value]) in Object.entries(chatStore.privateConv)"
+        v-for="[key, value] in Object.entries(chatStore.privateConv)"
         :key="key"
         :conversation="value"
       />
@@ -112,7 +108,7 @@ async function handleSearchClick(user: User) {
     })
 
     // add conversation to store with otherUser.id as key
-    chatStore.addPrivateConv(res);
+    chatStore.addPrivateConv(res)
 
     // route to chat/:id (id is conversation id)
     router.push({ name: 'chat', params: { id: res.id.toString() } })

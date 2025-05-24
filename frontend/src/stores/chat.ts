@@ -1,14 +1,39 @@
-import type { GroupConv, PrivateConv } from '@/grpc/chat/chat_pb'
+import type { GroupConv, Message, PrivateConv } from '@/grpc/chat/chat_pb'
 import type { User } from '@/grpc/user/user_pb'
-import type { Message } from '@bufbuild/protobuf'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
 export const useChatStore = defineStore('chat', () => {
   const currentChat = ref<User | null>(null)
   const currentConv = ref<PrivateConv | null>(null)
+
+  // this is for sidebar list
   const privateConv = ref<Record<string, PrivateConv>>({})
   const groupConv = ref<Record<number, GroupConv[]>>({})
+
+
+  // conversations data
+  const messages = ref<Record<number, Message[]>>({})
+
+  // Stream management
+  const activeStreams = ref({
+    conversationStream: null as any,
+    messageStreams: new Map<number, any>(), // convId -> stream reference
+    streamControllers: new Map<number, AbortController>(), // convId -> AbortController
+  })
+
+  function setMessages (msgList: Message[], convId: bigint) {
+    const id = Number(convId);
+    const newObj: Record<number, Message[]> = {}
+    newObj[id] = msgList
+    messages.value = newObj
+  }
+
+  function pushMessage (msg: Message, convId: bigint) {
+    const id = Number(convId);
+    messages.value[id].push(msg)
+  }
+
 
   function setPrivConc(list: PrivateConv[]) {
     const newObj: Record<string, PrivateConv> = {}
@@ -20,8 +45,8 @@ export const useChatStore = defineStore('chat', () => {
 
   function addPrivateConv(newConv: PrivateConv) {
     privateConv.value = {
-      ...privateConv.value,
       [newConv.id.toString()]: newConv,
+      ...privateConv.value,
     }
   }
 
@@ -36,15 +61,85 @@ export const useChatStore = defineStore('chat', () => {
     }
   }
 
+  // Stream management methods
+  function setConversationStream(stream: any) {
+    activeStreams.value.conversationStream = stream
+  }
+
+  function addMessageStream(convId: bigint, stream: any, controller: AbortController) {
+    const id = Number(convId)
+    activeStreams.value.messageStreams.set(id, stream)
+    activeStreams.value.streamControllers.set(id, controller)
+  }
+
+  function removeMessageStream(convId: bigint) {
+    const id = Number(convId)
+    const controller = activeStreams.value.streamControllers.get(id)
+    if (controller) {
+      controller.abort()
+    }
+    activeStreams.value.messageStreams.delete(id)
+    activeStreams.value.streamControllers.delete(id)
+  }
+
+  // Cleanup all streams
+  function cleanupAllStreams() {
+    console.log('Cleaning up all chat streams...')
+
+    // Close conversation stream
+    if (activeStreams.value.conversationStream) {
+      try {
+        activeStreams.value.conversationStream.cancel?.()
+      } catch (error) {
+        console.warn('Error closing conversation stream:', error)
+      }
+      activeStreams.value.conversationStream = null
+    }
+
+    // Close all message streams
+    for (const [convId, controller] of activeStreams.value.streamControllers) {
+      try {
+        controller.abort()
+      } catch (error) {
+        console.warn(`Error closing message stream for conversation ${convId}:`, error)
+      }
+    }
+
+    activeStreams.value.messageStreams.clear()
+    activeStreams.value.streamControllers.clear()
+  }
+
+  // Reset store state (for logout)
+  function resetChatState() {
+    cleanupAllStreams()
+    currentChat.value = null
+    currentConv.value = null
+    privateConv.value = {}
+    groupConv.value = {}
+    messages.value = {}
+  }
+
+
   return {
     currentChat,
     currentConv,
     privateConv,
     groupConv,
+    messages,
+    activeStreams,
 
     setPrivConc,
     updatePrivConv,
     setCurrentConv,
-    addPrivateConv
+    addPrivateConv,
+    setMessages,
+    pushMessage,
+
+    // Stream management
+    setConversationStream,
+    addMessageStream,
+    removeMessageStream,
+    cleanupAllStreams,
+    resetChatState,
   }
 })

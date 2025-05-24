@@ -12,6 +12,7 @@ import com.adia.user.UserResponse;
 import com.adia.user.UserServiceGrpc;
 import com.google.protobuf.Timestamp;
 import io.grpc.Status;
+import io.grpc.stub.ServerCallStreamObserver;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import net.devh.boot.grpc.server.service.GrpcService;
@@ -30,6 +31,7 @@ public class    ChatGrpcService extends ChatServiceGrpc.ChatServiceImplBase {
     private static final Logger logger = LoggerFactory.getLogger(ChatGrpcService.class);
     private static final MessageBroadcaster messageBroadcaster = new MessageBroadcaster();
     private static final PrivateConversationBroadcaster privateConvBroadcaster = new PrivateConversationBroadcaster();
+
 
     @GrpcClient("user-service")
     private UserServiceGrpc.UserServiceBlockingStub userService;
@@ -157,65 +159,6 @@ public class    ChatGrpcService extends ChatServiceGrpc.ChatServiceImplBase {
         }
     }
 
-    private PrivateConv mapToGrpcPrivateConv(PrivateConversationEntity entity, Long currentUserId) {
-        ConversationEntity conversation = entity.getConversation();
-
-        // Determine who is the 'other user' in this private conversation
-        Long otherUserId;
-        if (conversation.getOwnerId().equals(currentUserId)) {
-            otherUserId = entity.getReceiverId();
-        } else {
-            otherUserId = conversation.getOwnerId();
-        }
-
-        // Fetch other user details from user service
-        User otherUser = null;
-        try {
-            UserResponse userRes = userService.getUser(GetUserRequest.newBuilder().setId(otherUserId).build());
-            if (userRes.getSuccess() && userRes.hasUser()) {
-                otherUser = userRes.getUser();
-            } else {
-                logger.warn("Other user with ID {} not found for conversation {}", otherUserId, entity.getId());
-            }
-        } catch (Exception e) {
-            logger.error("Error fetching user details for ID {}: {}", otherUserId, e.getMessage());
-        }
-
-        // Get the last message
-        String lastMessageText = "";
-        Set<MessageEntity> messages = conversation.getMessages();
-        if (messages != null && !messages.isEmpty()) {
-            Optional<MessageEntity> lastMsgOpt = messages.stream()
-                    .max(Comparator.comparing(MessageEntity::getCreatedAt));
-            lastMessageText = lastMsgOpt.map(MessageEntity::getText).orElse("");
-        }
-
-        // Calculate unread count
-        long unreadCount = 0;
-        if (messages != null) {
-            unreadCount = messages.stream()
-                    .filter(msg -> !msg.getUserId().equals(currentUserId) && msg.getStatus() != MessageStatus.read)
-                    .count();
-        }
-
-        // Convert LocalDateTime to Protobuf Timestamp
-        Timestamp lastUpdateTimestamp = toProtoTimestamp(conversation.getUpdatedAt());
-
-        // Build the PrivateConv message
-        PrivateConv.Builder builder = PrivateConv.newBuilder()
-                .setId(entity.getId())
-                .setLastMessage(lastMessageText)
-                .setUnreadCount((int) unreadCount)
-                .setLastUpdate(lastUpdateTimestamp);
-        
-        // Set other user if available
-        if (otherUser != null) {
-            builder.setOtherUser(otherUser);
-        }
-
-        return builder.build();
-    }
- 
     @Override
     public void getPrivateConversation(GetPrivConvReq request, StreamObserver<GetPrivConvRes> responseObserver) {
         try {
@@ -278,6 +221,147 @@ public class    ChatGrpcService extends ChatServiceGrpc.ChatServiceImplBase {
                     .augmentDescription(e.getMessage())
                     .asRuntimeException());
         }
+    }
+
+    @Override
+    public void sendMessage(MessageReq request, StreamObserver<Empty> responseObserver) {
+        try {
+            long userId = request.getUserId();
+            long convId = request.getConvId();
+            String text = request.getText();
+
+            logger.info("Looking for conversation with convId: {}, user {}", convId, userId);
+
+            // Check if the user is allowed to send a message in this conversation
+            Optional<PrivateConversationEntity> conversationOpt = privateConvRepo.findById(convId);
+            logger.info("Found conversation: {}", conversationOpt.isPresent());
+
+            if (conversationOpt.isEmpty()) {
+                responseObserver.onError(Status.NOT_FOUND
+                        .withDescription("Conversation not found")
+                        .asRuntimeException());
+                return;
+            }
+            PrivateConversationEntity privateConv = conversationOpt.get();
+
+            // create new MessageEntity
+            MessageEntity message = new MessageEntity();
+            message.setUserId(userId);
+            message.setConversation(privateConv.getConversation());
+            message.setText(text);
+            message.setEdited(false);
+            message.setStatus(MessageStatus.sent);
+            message = messageRepo.save(message);
+
+            // broadcast new message to all user registered to this conversation
+            messageBroadcaster.broadcast(convId, toGrpcMessage(message));
+            responseObserver.onNext(Empty.getDefaultInstance());
+            responseObserver.onCompleted();
+        } catch (Exception e) {
+            logger.error("Failed to send message", e.getMessage()); // ← Add this
+            responseObserver.onError(Status.INTERNAL
+                    .withDescription("Internal error")
+                    .augmentDescription(e.getMessage())
+                    .asRuntimeException());
+        }
+    }
+
+    @Override
+    public void streamPrivateConversations(UserId request, StreamObserver<PrivateConv> responseObserver) {
+        try {
+            long userId = request.getUserId();
+            logger.info("Streaming private conversations for user ID: {}", userId);
+
+            privateConvBroadcaster.register(userId, responseObserver);
+            ((ServerCallStreamObserver<PrivateConv>) responseObserver).setOnCancelHandler(() -> {
+                privateConvBroadcaster.unregister(userId, responseObserver);
+            });
+        } catch (Exception e) {
+            logger.error("Error in streamPrivateConversations: {}", e.getMessage(), e);
+            responseObserver.onError(Status.INTERNAL
+                    .withDescription("Internal error")
+                    .augmentDescription(e.getMessage())
+                    .asRuntimeException());
+        }
+    }
+
+    @Override
+    public void streamMessages(ConversationId request, StreamObserver<Message> responseObserver) {
+        try {
+            long convId = request.getConvId();
+
+            logger.info("Streaming messages conversation ID: {}", convId);
+
+            messageBroadcaster.register(convId, responseObserver);
+            ((ServerCallStreamObserver<Message>) responseObserver).setOnCancelHandler(() -> {
+                messageBroadcaster.unregister(convId, responseObserver);
+            });
+        } catch (Exception e) {
+            logger.error("Error in streamPrivateConversations: {}", e.getMessage(), e);
+            responseObserver.onError(Status.INTERNAL
+                    .withDescription("Internal error")
+                    .augmentDescription(e.getMessage())
+                    .asRuntimeException());
+        }
+    }
+
+    private PrivateConv mapToGrpcPrivateConv(PrivateConversationEntity entity, Long currentUserId) {
+        ConversationEntity conversation = entity.getConversation();
+
+        // Determine who is the 'other user' in this private conversation
+        Long otherUserId;
+        if (conversation.getOwnerId().equals(currentUserId)) {
+            otherUserId = entity.getReceiverId();
+        } else {
+            otherUserId = conversation.getOwnerId();
+        }
+
+        // Fetch other user details from user service
+        User otherUser = null;
+        try {
+            UserResponse userRes = userService.getUser(GetUserRequest.newBuilder().setId(otherUserId).build());
+            if (userRes.getSuccess() && userRes.hasUser()) {
+                otherUser = userRes.getUser();
+            } else {
+                logger.warn("Other user with ID {} not found for conversation {}", otherUserId, entity.getId());
+            }
+        } catch (Exception e) {
+            logger.error("Error fetching user details for ID {}: {}", otherUserId, e.getMessage());
+        }
+
+        // Get the last message
+        String lastMessageText = "";
+        Set<MessageEntity> messages = conversation.getMessages();
+        if (messages != null && !messages.isEmpty()) {
+            Optional<MessageEntity> lastMsgOpt = messages.stream()
+                    .max(Comparator.comparing(MessageEntity::getCreatedAt));
+            lastMessageText = lastMsgOpt.map(MessageEntity::getText).orElse("");
+        }
+
+        // Calculate unread count
+        long unreadCount = 0;
+        if (messages != null) {
+            unreadCount = messages.stream()
+                    .filter(msg -> !msg.getUserId().equals(currentUserId) && msg.getStatus() != MessageStatus.read)
+                    .count();
+        }
+
+        // Convert LocalDateTime to Protobuf Timestamp
+        Timestamp lastUpdateTimestamp = toProtoTimestamp(conversation.getUpdatedAt());
+
+        // Build the PrivateConv message
+        PrivateConv.Builder builder = PrivateConv.newBuilder()
+                .setId(entity.getId())
+                .setLastMessage(lastMessageText)
+                .setUnreadCount((int) unreadCount)
+                .setLastUpdate(lastUpdateTimestamp);
+
+        // Set other user if available
+        if (otherUser != null) {
+            builder.setOtherUser(otherUser);
+        }
+
+        return builder.build();
     }
 
     private Message toGrpcMessage(MessageEntity msg) {

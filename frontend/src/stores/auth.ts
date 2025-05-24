@@ -5,6 +5,7 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAppStore } from './app'
+import { useChatStore } from './chat'
 
 export const useAuthStore = defineStore('auth', () => {
   const router = useRouter()
@@ -21,7 +22,7 @@ export const useAuthStore = defineStore('auth', () => {
   function getUserId() {
     if (!user.value?.id) {
       logout()
-      return;
+      return
     }
 
     return Number(user.value.id)
@@ -34,6 +35,8 @@ export const useAuthStore = defineStore('auth', () => {
   const logout = async () => {
     try {
       await authService.logout({ userId: authStore.user?.id })
+      const chatStore = useChatStore()
+      chatStore.resetChatState()
     } catch (error) {
       console.error(error)
     } finally {
@@ -49,6 +52,6 @@ export const useAuthStore = defineStore('auth', () => {
     getUserId,
     setUser,
     purge,
-    logout
+    logout,
   }
 })

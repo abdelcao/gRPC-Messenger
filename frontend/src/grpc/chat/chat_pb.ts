@@ -14,7 +14,68 @@ import type { Message as Message$1 } from "@bufbuild/protobuf";
  * Describes the file chat/chat.proto.
  */
 export const file_chat_chat: GenFile = /*@__PURE__*/
-  fileDesc("Cg9jaGF0L2NoYXQucHJvdG8SBGNoYXQiHAoKQ29udk1zZ1JlcRIOCgZjb252SWQYASABKAMiUgoKQ29udk1zZ1JlcxIPCgdzdWNjZXNzGAEgASgIEg8KB21lc3NhZ2UYAiABKAkSIgoLbWVzc2FnZUxpc3QYAyADKAsyDS5jaGF0Lk1lc3NhZ2UiOQoOR2V0UHJpdkNvbnZSZXESEgoKY3VyclVzZXJJZBgBIAEoAxITCgtvdGhlclVzZXJJZBgCIAEoAyI9Cg5HZXRQcml2Q29udlJlcxIKCgJpZBgBIAEoAxIfCghtZXNzYWdlcxgCIAMoCzINLmNoYXQuTWVzc2FnZSI8ChFDcmVhdGVQcml2Q29udlJlcRISCgpjdXJyVXNlcklkGAEgASgDEhMKC290aGVyVXNlcklkGAIgASgDImgKEUNyZWF0ZVByaXZDb252UmVzEhYKDmNvbnZlcnNhdGlvbklkGAEgASgDEhIKCmN1cnJVc2VySWQYAiABKAMSEwoLcmVjZWl2ZXJfaWQYAyABKAMSEgoKY3JlYXRlZF9hdBgEIAEoCSIhCg9Qcml2YXRlQ29udnNSZXESDgoGdXNlcklkGAEgASgDIl8KD0dldFByaXZDb252c1JlcxIPCgdtZXNzYWdlGAEgASgJEg8KB3N1Y2Nlc3MYAiABKAgSKgoPcHJpdmF0ZUNvbnZMaXN0GAMgAygLMhEuY2hhdC5Qcml2YXRlQ29udiKSAQoLUHJpdmF0ZUNvbnYSCgoCaWQYASABKAMSHQoJb3RoZXJVc2VyGAIgASgLMgoudXNlci5Vc2VyEhMKC2xhc3RNZXNzYWdlGAMgASgJEhMKC3VucmVhZENvdW50GAQgASgFEi4KCmxhc3RVcGRhdGUYCCABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIn8KCUdyb3VwQ29udhIKCgJpZBgBIAEoAxIMCgRuYW1lGAIgASgJEhMKC2xhc3RNZXNzYWdlGAMgASgJEhMKC3VucmVhZENvdW50GAQgASgFEi4KCmxhc3RVcGRhdGUYCCABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIqYBCgdNZXNzYWdlEgoKAmlkGAEgASgDEg4KBnVzZXJJZBgCIAEoAxIWCg5jb252ZXJzYXRpb25JZBgDIAEoAxIMCgR0ZXh0GAQgASgJEg4KBmVkaXRlZBgFIAEoCBIjCgZzdGF0dXMYBiABKA4yEy5jaGF0Lk1lc3NhZ2VTdGF0dXMSEQoJY3JlYXRlZEF0GAcgASgJEhEKCXVwZGF0ZWRBdBgIIAEoCSIHCgVFbXB0eSoyCg1NZXNzYWdlU3RhdHVzEggKBFNFTlQQABINCglERUxJVkVSRUQQARIICgRSRUFEEAIqIgoIQ29udlR5cGUSCwoHUFJJVkFURRAAEgkKBUdST1VQEAEymwIKC0NoYXRTZXJ2aWNlEkcKF0dldFByaXZhdGVDb252ZXJzYXRpb25zEhUuY2hhdC5Qcml2YXRlQ29udnNSZXEaFS5jaGF0LkdldFByaXZDb252c1JlcxJEChZHZXRQcml2YXRlQ29udmVyc2F0aW9uEhQuY2hhdC5HZXRQcml2Q29udlJlcRoULmNoYXQuR2V0UHJpdkNvbnZSZXMSRwoZQ3JlYXRlUHJpdmF0ZUNvbnZlcnNhdGlvbhIXLmNoYXQuQ3JlYXRlUHJpdkNvbnZSZXEaES5jaGF0LlByaXZhdGVDb252EjQKDkdldENvbnZNZXNzYWdlEhAuY2hhdC5Db252TXNnUmVxGhAuY2hhdC5Db252TXNnUmVzQiEKEmNvbS5hZGlhLmNoYXQuZ3JwY0IJQ2hhdFByb3RvUAFiBnByb3RvMw", [file_user_user, file_google_protobuf_timestamp]);
+  fileDesc("Cg9jaGF0L2NoYXQucHJvdG8SBGNoYXQiGAoGVXNlcklkEg4KBnVzZXJJZBgBIAEoAyIgCg5Db252ZXJzYXRpb25JZBIOCgZjb252SWQYASABKAMiOgoKTWVzc2FnZVJlcRIMCgR0ZXh0GAEgASgJEg4KBmNvbnZJZBgCIAEoAxIOCgZ1c2VySWQYAyABKAMiHAoKQ29udk1zZ1JlcRIOCgZjb252SWQYASABKAMiUgoKQ29udk1zZ1JlcxIPCgdzdWNjZXNzGAEgASgIEg8KB21lc3NhZ2UYAiABKAkSIgoLbWVzc2FnZUxpc3QYAyADKAsyDS5jaGF0Lk1lc3NhZ2UiOQoOR2V0UHJpdkNvbnZSZXESEgoKY3VyclVzZXJJZBgBIAEoAxITCgtvdGhlclVzZXJJZBgCIAEoAyI9Cg5HZXRQcml2Q29udlJlcxIKCgJpZBgBIAEoAxIfCghtZXNzYWdlcxgCIAMoCzINLmNoYXQuTWVzc2FnZSI8ChFDcmVhdGVQcml2Q29udlJlcRISCgpjdXJyVXNlcklkGAEgASgDEhMKC290aGVyVXNlcklkGAIgASgDImgKEUNyZWF0ZVByaXZDb252UmVzEhYKDmNvbnZlcnNhdGlvbklkGAEgASgDEhIKCmN1cnJVc2VySWQYAiABKAMSEwoLcmVjZWl2ZXJfaWQYAyABKAMSEgoKY3JlYXRlZF9hdBgEIAEoCSIhCg9Qcml2YXRlQ29udnNSZXESDgoGdXNlcklkGAEgASgDIl8KD0dldFByaXZDb252c1JlcxIPCgdtZXNzYWdlGAEgASgJEg8KB3N1Y2Nlc3MYAiABKAgSKgoPcHJpdmF0ZUNvbnZMaXN0GAMgAygLMhEuY2hhdC5Qcml2YXRlQ29udiKSAQoLUHJpdmF0ZUNvbnYSCgoCaWQYASABKAMSHQoJb3RoZXJVc2VyGAIgASgLMgoudXNlci5Vc2VyEhMKC2xhc3RNZXNzYWdlGAMgASgJEhMKC3VucmVhZENvdW50GAQgASgFEi4KCmxhc3RVcGRhdGUYCCABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIn8KCUdyb3VwQ29udhIKCgJpZBgBIAEoAxIMCgRuYW1lGAIgASgJEhMKC2xhc3RNZXNzYWdlGAMgASgJEhMKC3VucmVhZENvdW50GAQgASgFEi4KCmxhc3RVcGRhdGUYCCABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIqYBCgdNZXNzYWdlEgoKAmlkGAEgASgDEg4KBnVzZXJJZBgCIAEoAxIWCg5jb252ZXJzYXRpb25JZBgDIAEoAxIMCgR0ZXh0GAQgASgJEg4KBmVkaXRlZBgFIAEoCBIjCgZzdGF0dXMYBiABKA4yEy5jaGF0Lk1lc3NhZ2VTdGF0dXMSEQoJY3JlYXRlZEF0GAcgASgJEhEKCXVwZGF0ZWRBdBgIIAEoCSIHCgVFbXB0eSoyCg1NZXNzYWdlU3RhdHVzEggKBFNFTlQQABINCglERUxJVkVSRUQQARIICgRSRUFEEAIqIgoIQ29udlR5cGUSCwoHUFJJVkFURRAAEgkKBUdST1VQEAEywwMKC0NoYXRTZXJ2aWNlEkcKF0dldFByaXZhdGVDb252ZXJzYXRpb25zEhUuY2hhdC5Qcml2YXRlQ29udnNSZXEaFS5jaGF0LkdldFByaXZDb252c1JlcxJEChZHZXRQcml2YXRlQ29udmVyc2F0aW9uEhQuY2hhdC5HZXRQcml2Q29udlJlcRoULmNoYXQuR2V0UHJpdkNvbnZSZXMSRwoZQ3JlYXRlUHJpdmF0ZUNvbnZlcnNhdGlvbhIXLmNoYXQuQ3JlYXRlUHJpdkNvbnZSZXEaES5jaGF0LlByaXZhdGVDb252EjQKDkdldENvbnZNZXNzYWdlEhAuY2hhdC5Db252TXNnUmVxGhAuY2hhdC5Db252TXNnUmVzEj8KGlN0cmVhbVByaXZhdGVDb252ZXJzYXRpb25zEgwuY2hhdC5Vc2VySWQaES5jaGF0LlByaXZhdGVDb252MAESLAoLU2VuZE1lc3NhZ2USEC5jaGF0Lk1lc3NhZ2VSZXEaCy5jaGF0LkVtcHR5EjcKDlN0cmVhbU1lc3NhZ2VzEhQuY2hhdC5Db252ZXJzYXRpb25JZBoNLmNoYXQuTWVzc2FnZTABQiEKEmNvbS5hZGlhLmNoYXQuZ3JwY0IJQ2hhdFByb3RvUAFiBnByb3RvMw", [file_user_user, file_google_protobuf_timestamp]);
+
+/**
+ * @generated from message chat.UserId
+ */
+export type UserId = Message$1<"chat.UserId"> & {
+  /**
+   * @generated from field: int64 userId = 1;
+   */
+  userId: bigint;
+};
+
+/**
+ * Describes the message chat.UserId.
+ * Use `create(UserIdSchema)` to create a new message.
+ */
+export const UserIdSchema: GenMessage<UserId> = /*@__PURE__*/
+  messageDesc(file_chat_chat, 0);
+
+/**
+ * @generated from message chat.ConversationId
+ */
+export type ConversationId = Message$1<"chat.ConversationId"> & {
+  /**
+   * @generated from field: int64 convId = 1;
+   */
+  convId: bigint;
+};
+
+/**
+ * Describes the message chat.ConversationId.
+ * Use `create(ConversationIdSchema)` to create a new message.
+ */
+export const ConversationIdSchema: GenMessage<ConversationId> = /*@__PURE__*/
+  messageDesc(file_chat_chat, 1);
+
+/**
+ * @generated from message chat.MessageReq
+ */
+export type MessageReq = Message$1<"chat.MessageReq"> & {
+  /**
+   * @generated from field: string text = 1;
+   */
+  text: string;
+
+  /**
+   * @generated from field: int64 convId = 2;
+   */
+  convId: bigint;
+
+  /**
+   * @generated from field: int64 userId = 3;
+   */
+  userId: bigint;
+};
+
+/**
+ * Describes the message chat.MessageReq.
+ * Use `create(MessageReqSchema)` to create a new message.
+ */
+export const MessageReqSchema: GenMessage<MessageReq> = /*@__PURE__*/
+  messageDesc(file_chat_chat, 2);
 
 /**
  * @generated from message chat.ConvMsgReq
@@ -31,7 +92,7 @@ export type ConvMsgReq = Message$1<"chat.ConvMsgReq"> & {
  * Use `create(ConvMsgReqSchema)` to create a new message.
  */
 export const ConvMsgReqSchema: GenMessage<ConvMsgReq> = /*@__PURE__*/
-  messageDesc(file_chat_chat, 0);
+  messageDesc(file_chat_chat, 3);
 
 /**
  * @generated from message chat.ConvMsgRes
@@ -58,7 +119,7 @@ export type ConvMsgRes = Message$1<"chat.ConvMsgRes"> & {
  * Use `create(ConvMsgResSchema)` to create a new message.
  */
 export const ConvMsgResSchema: GenMessage<ConvMsgRes> = /*@__PURE__*/
-  messageDesc(file_chat_chat, 1);
+  messageDesc(file_chat_chat, 4);
 
 /**
  * @generated from message chat.GetPrivConvReq
@@ -80,7 +141,7 @@ export type GetPrivConvReq = Message$1<"chat.GetPrivConvReq"> & {
  * Use `create(GetPrivConvReqSchema)` to create a new message.
  */
 export const GetPrivConvReqSchema: GenMessage<GetPrivConvReq> = /*@__PURE__*/
-  messageDesc(file_chat_chat, 2);
+  messageDesc(file_chat_chat, 5);
 
 /**
  * @generated from message chat.GetPrivConvRes
@@ -102,7 +163,7 @@ export type GetPrivConvRes = Message$1<"chat.GetPrivConvRes"> & {
  * Use `create(GetPrivConvResSchema)` to create a new message.
  */
 export const GetPrivConvResSchema: GenMessage<GetPrivConvRes> = /*@__PURE__*/
-  messageDesc(file_chat_chat, 3);
+  messageDesc(file_chat_chat, 6);
 
 /**
  * @generated from message chat.CreatePrivConvReq
@@ -124,7 +185,7 @@ export type CreatePrivConvReq = Message$1<"chat.CreatePrivConvReq"> & {
  * Use `create(CreatePrivConvReqSchema)` to create a new message.
  */
 export const CreatePrivConvReqSchema: GenMessage<CreatePrivConvReq> = /*@__PURE__*/
-  messageDesc(file_chat_chat, 4);
+  messageDesc(file_chat_chat, 7);
 
 /**
  * @generated from message chat.CreatePrivConvRes
@@ -156,7 +217,7 @@ export type CreatePrivConvRes = Message$1<"chat.CreatePrivConvRes"> & {
  * Use `create(CreatePrivConvResSchema)` to create a new message.
  */
 export const CreatePrivConvResSchema: GenMessage<CreatePrivConvRes> = /*@__PURE__*/
-  messageDesc(file_chat_chat, 5);
+  messageDesc(file_chat_chat, 8);
 
 /**
  * @generated from message chat.PrivateConvsReq
@@ -173,7 +234,7 @@ export type PrivateConvsReq = Message$1<"chat.PrivateConvsReq"> & {
  * Use `create(PrivateConvsReqSchema)` to create a new message.
  */
 export const PrivateConvsReqSchema: GenMessage<PrivateConvsReq> = /*@__PURE__*/
-  messageDesc(file_chat_chat, 6);
+  messageDesc(file_chat_chat, 9);
 
 /**
  * @generated from message chat.GetPrivConvsRes
@@ -200,7 +261,7 @@ export type GetPrivConvsRes = Message$1<"chat.GetPrivConvsRes"> & {
  * Use `create(GetPrivConvsResSchema)` to create a new message.
  */
 export const GetPrivConvsResSchema: GenMessage<GetPrivConvsRes> = /*@__PURE__*/
-  messageDesc(file_chat_chat, 7);
+  messageDesc(file_chat_chat, 10);
 
 /**
  * @generated from message chat.PrivateConv
@@ -237,7 +298,7 @@ export type PrivateConv = Message$1<"chat.PrivateConv"> & {
  * Use `create(PrivateConvSchema)` to create a new message.
  */
 export const PrivateConvSchema: GenMessage<PrivateConv> = /*@__PURE__*/
-  messageDesc(file_chat_chat, 8);
+  messageDesc(file_chat_chat, 11);
 
 /**
  * @generated from message chat.GroupConv
@@ -274,7 +335,7 @@ export type GroupConv = Message$1<"chat.GroupConv"> & {
  * Use `create(GroupConvSchema)` to create a new message.
  */
 export const GroupConvSchema: GenMessage<GroupConv> = /*@__PURE__*/
-  messageDesc(file_chat_chat, 9);
+  messageDesc(file_chat_chat, 12);
 
 /**
  * Message
@@ -328,7 +389,7 @@ export type Message = Message$1<"chat.Message"> & {
  * Use `create(MessageSchema)` to create a new message.
  */
 export const MessageSchema: GenMessage<Message> = /*@__PURE__*/
-  messageDesc(file_chat_chat, 10);
+  messageDesc(file_chat_chat, 13);
 
 /**
  * @generated from message chat.Empty
@@ -341,7 +402,7 @@ export type Empty = Message$1<"chat.Empty"> & {
  * Use `create(EmptySchema)` to create a new message.
  */
 export const EmptySchema: GenMessage<Empty> = /*@__PURE__*/
-  messageDesc(file_chat_chat, 11);
+  messageDesc(file_chat_chat, 14);
 
 /**
  * Message status enum
@@ -429,6 +490,30 @@ export const ChatService: GenService<{
     methodKind: "unary";
     input: typeof ConvMsgReqSchema;
     output: typeof ConvMsgResSchema;
+  },
+  /**
+   * @generated from rpc chat.ChatService.StreamPrivateConversations
+   */
+  streamPrivateConversations: {
+    methodKind: "server_streaming";
+    input: typeof UserIdSchema;
+    output: typeof PrivateConvSchema;
+  },
+  /**
+   * @generated from rpc chat.ChatService.SendMessage
+   */
+  sendMessage: {
+    methodKind: "unary";
+    input: typeof MessageReqSchema;
+    output: typeof EmptySchema;
+  },
+  /**
+   * @generated from rpc chat.ChatService.StreamMessages
+   */
+  streamMessages: {
+    methodKind: "server_streaming";
+    input: typeof ConversationIdSchema;
+    output: typeof MessageSchema;
   },
 }> = /*@__PURE__*/
   serviceDesc(file_chat_chat, 0);

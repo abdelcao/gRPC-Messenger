@@ -9,17 +9,26 @@
       <div v-if="loading" class="flex justify-center items-center h-full">
         <i class="pi pi-spinner animate-spin"></i>
       </div>
+
       <div v-else-if="error" class="text-rose-500 text-center p-4">
         {{ error }}
-        <Button v-if="error" class="mt-2" severity="secondary" size="small">
-          Retry Connection
-        </Button>
       </div>
-      <div v-else-if="true" class="flex justify-center items-center h-full text-gray-500">
+
+      <div
+        v-else-if="
+          chatStore.messages[Number(chatStore.currentChat?.id)] &&
+          chatStore.messages[Number(chatStore.currentChat?.id)].length === 0
+        "
+        class="flex justify-center items-center h-full text-gray-500"
+      >
         No messages yet. Start the conversation!
       </div>
       <template v-else>
-        <div v-for="(message, index) in messages" :key="index" class="flex flex-col">
+        <div
+          v-for="(message, index) in chatStore.messages[Number(chatStore.currentConv?.id)]"
+          :key="index"
+          class="flex flex-col items-end"
+        >
           <!-- <div v-if="shouldShowDateSeparator(index)" class="flex justify-center my-4">
             <span class="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
               {{ formatDate(message.createdAt) }}
@@ -53,37 +62,40 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { nextTick, onMounted, ref, useTemplateRef, watch } from 'vue'
 import { useChatService } from '@/composables/useChatService'
-import { useUserService } from '@/composables/useUserService'
 import { useChatStore } from '@/stores/chat'
 import { useAuthStore } from '@/stores/auth'
 import ChatSender from './ChatSender.vue'
 import ChatHeader from './ChatHeader.vue'
-import Button from 'primevue/button'
 import { MessageStatus, type Message } from '@/grpc/chat/chat_pb'
 import MessageBubble from './MessageBubble.vue'
 
 const loading = ref(false)
-const error = ref(null)
-const messages = ref<Message[]>([])
+const error = ref<unknown>(null)
+const messagesContainer = useTemplateRef('messagesContainer')
 
 const chatService = useChatService()
-const userService = useUserService()
 const chatStore = useChatStore()
 const authStore = useAuthStore()
 
 onMounted(async () => {
+  loading.value = true
   try {
     // get all messages by convId
     const res = await chatService.getConvMessage({ convId: chatStore.currentConv?.id })
     if (!res.success) {
       throw Error(res.message)
     }
-    console.log(res.messageList)
-    messages.value = res.messageList
-  } catch (error) {
-    console.log(error)
+    console.log(res)
+    if (!chatStore.currentConv?.id) throw Error('No current conversation')
+    chatStore.setMessages(res.messageList, chatStore.currentConv?.id)
+  } catch (err) {
+    console.log(err)
+    error.value = err
+  } finally {
+    smoothScrollToBottom()
+    loading.value = false
   }
 })
 
@@ -106,13 +118,25 @@ const getMessageStatus = (message: Message): string => {
   }
 }
 
-const scrollToBottom = () => {
-  console.log('scroll')
+function smoothScrollToBottom() {
+  if (messagesContainer.value) {
+    messagesContainer.value.scrollTo({
+      top: messagesContainer.value.scrollHeight,
+      behavior: 'smooth',
+    })
+  }
 }
 
-const handleScroll = async (event: Event) => {
-  console.log(scroll)
-}
+watch(
+  () => chatStore.messages[Number(chatStore.currentConv?.id)],
+  async (newMessages, oldMessages) => {
+    if (newMessages && newMessages.length > (oldMessages?.length || 0)) {
+      await nextTick() // Wait for DOM update
+      smoothScrollToBottom()
+    }
+  },
+  { deep: true },
+)
 </script>
 
 <style scoped>

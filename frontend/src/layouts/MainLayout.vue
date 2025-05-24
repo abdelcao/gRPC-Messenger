@@ -11,7 +11,6 @@
 
 <script setup lang="ts">
 import Sidebar from '@/components/TheSidebar.vue'
-import ChatInfoPanel from '@/components/ChatInfoPanel.vue'
 import SidebarWrapper from '@/components/SidebarWrapper.vue'
 import { onMounted } from 'vue'
 import { useNotificationService } from '@/composables/useNotifService'
@@ -20,6 +19,7 @@ import { useToast } from 'primevue/usetoast'
 import { useNotifStore } from '@/stores/notification'
 import { useChatService } from '@/composables/useChatService'
 import { useChatStore } from '@/stores/chat'
+import { useChatStreams } from '@/composables/useChatStreams'
 
 const notifService = useNotificationService()
 const chatService = useChatService()
@@ -29,21 +29,15 @@ const notifStore = useNotifStore()
 const chatStore = useChatStore()
 const toast = useToast()
 
+const { initializeChat } = useChatStreams()
+
 onMounted(async () => {
   try {
     if (authStore.user) {
       notifStore.notifications = []
       notifStore.unreadCount = 0
 
-      //=============  get conversations   ===============
-
-      const chatRes = await chatService.getPrivateConversations({ userId: authStore.user.id })
-      if (!chatRes.success) {
-        throw Error(chatRes.message)
-      }
-      console.log(chatRes);
-
-      chatStore.setPrivConc(chatRes.privateConvList)
+      await initializeChat()
 
       /*****    get notifications   ****** */
 
@@ -70,9 +64,15 @@ onMounted(async () => {
       //     notifStore.unreadCount++
       //   }
       // }
+    } else {
+      throw Error('User not defined')
     }
   } catch (error) {
-    console.log(error);
+    console.log(error)
+    toast.add({
+      severity: 'error',
+      detail: error,
+    })
   }
 })
 </script>
