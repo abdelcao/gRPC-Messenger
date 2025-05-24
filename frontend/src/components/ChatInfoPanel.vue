@@ -12,8 +12,9 @@
         <div class="flex-1 flex flex-col items-center gap-2 mb-2">
           <img src="/images/default_avatar.jpg" class="w-24 h-24 mb-4 rounded-full" />
           <div>
-            <div class="font-semibold text-xl mb-6">@username</div>
-            <p class="text-sm text-gray-300">some crazy bio</p>
+            <div class="font-semibold text-xl mb-6">
+              @{{ chatStore.currentChat?.username }}
+            </div>
           </div>
         </div>
 
@@ -44,9 +45,10 @@ import Button from 'primevue/button'
 import ConfirmDialog from 'primevue/confirmdialog'
 import { useConfirm } from 'primevue/useconfirm'
 import { useAppStore } from '@/stores/app'
+import { useChatStore } from '@/stores/chat'
 
 const appStore = useAppStore()
-
+const chatStore = useChatStore()
 const confirm = useConfirm()
 
 function confirmReport() {

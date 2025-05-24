@@ -40,10 +40,12 @@ dayjs.extend(utc)
  * @param date : 'yyyy-mm-ddThh:mm:ss'
  * @returns
  */
-export function timeAgo(mydate: string | Date | BigInt): string {
-  const target = dayjs.utc(mydate)
-  return target.fromNow()
+export function timeAgo(mydate: Timestamp): string {
+  const dateInput = Number(mydate.seconds) * 1000
+  const targetDate = dayjs.utc(dateInput)
+  return targetDate.fromNow()
 }
+
 
 export function timestampToDateSafe(ts?: { seconds?: bigint; nanos?: number }): Date {
   const seconds = ts?.seconds ?? 0n

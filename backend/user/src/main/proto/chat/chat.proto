@@ -14,9 +14,21 @@ service ChatService {
   
   rpc GetPrivateConversations(PrivateConvsReq) returns (GetPrivConvsRes);
   rpc GetPrivateConversation(GetPrivConvReq) returns (GetPrivConvRes);
-  rpc CreatePrivateConversation(CreatePrivConvReq) returns (CreatePrivConvRes);
+  rpc CreatePrivateConversation(CreatePrivConvReq) returns (PrivateConv);
+  rpc GetConvMessage (ConvMsgReq) returns (ConvMsgRes);
 
 }
+
+message ConvMsgReq {
+  int64 convId = 1;
+}
+
+message ConvMsgRes {
+  bool success = 1;
+  string message = 2;
+  repeated Message messageList = 3;
+}
+
 
 message GetPrivConvReq {
   int64 currUserId = 1;

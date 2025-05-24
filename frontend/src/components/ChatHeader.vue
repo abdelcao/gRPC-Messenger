@@ -1,26 +1,22 @@
 <script setup lang="ts">
 import { useAppStore } from '@/stores/app'
-import type { User } from '../grpc/user/user_pb';
+import type { User } from '../grpc/user/user_pb'
+import Avatar from 'primevue/avatar';
 
 defineProps<{
   user: User
 }>()
 
 const appStore = useAppStore()
-
-
 </script>
 
 <template>
   <div class="flex items-center justify-between px-4 py-3 border-b border-gray-500">
-    <div class="flex items-center gap-3">
-      <Avatar
-        image="/images/default_avatar.jpg"
-        class="bg-primary"
-        shape="circle"
-      />
-      <div>
-        <h3 class="text-lg font-semibold">{{ user.username }}</h3>
+    <div class="flex justify-center items-center gap-3">
+      <Avatar image="/images/default_avatar.jpg" class="bg-primary" size="large" shape="circle" />
+      <div class="flex flex-col justify-center">
+        <h3 class="font-semibold text-lg">{{ user.username }}</h3>
+        <span class="text-xs">Offline</span>
       </div>
     </div>
 

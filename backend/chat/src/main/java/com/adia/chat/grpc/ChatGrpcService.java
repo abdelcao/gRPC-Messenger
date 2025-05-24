@@ -19,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -28,6 +29,7 @@ public class    ChatGrpcService extends ChatServiceGrpc.ChatServiceImplBase {
 
     private static final Logger logger = LoggerFactory.getLogger(ChatGrpcService.class);
     private static final MessageBroadcaster messageBroadcaster = new MessageBroadcaster();
+    private static final PrivateConversationBroadcaster privateConvBroadcaster = new PrivateConversationBroadcaster();
 
     @GrpcClient("user-service")
     private UserServiceGrpc.UserServiceBlockingStub userService;
@@ -58,7 +60,7 @@ public class    ChatGrpcService extends ChatServiceGrpc.ChatServiceImplBase {
             }
 
             // Fetch private conversations for the user
-            List<PrivateConversationEntity> privConvs = privateConvRepo.findPrivateConversationsByUser(userId);
+            List<PrivateConversationEntity> privConvs = privateConvRepo.findByConversationOwnerIdOrReceiverId(userId);
             List<PrivateConv> result = new ArrayList<>();
 
             // Map each entity to a gRPC message
@@ -74,7 +76,7 @@ public class    ChatGrpcService extends ChatServiceGrpc.ChatServiceImplBase {
 
             // Build and send the response
             GetPrivConvsRes response = GetPrivConvsRes.newBuilder()
-                    .setMessage("Fetched " + result.size() + " conversations successfully")
+                    .setMessage("Fetched " + privConvs.size() + " () conversations successfully")
                     .setSuccess(true)
                     .addAllPrivateConvList(result)
                     .build();
@@ -95,7 +97,7 @@ public class    ChatGrpcService extends ChatServiceGrpc.ChatServiceImplBase {
     }
     
     @Override
-    public void createPrivateConversation(CreatePrivConvReq request, StreamObserver<CreatePrivConvRes> responseObserver) {
+    public void createPrivateConversation(CreatePrivConvReq request, StreamObserver<PrivateConv> responseObserver) {
         try {
             Long currUserId = request.getCurrUserId();
             Long otherUserId = request.getOtherUserId();
@@ -126,14 +128,21 @@ public class    ChatGrpcService extends ChatServiceGrpc.ChatServiceImplBase {
                 conversation.setPrivateConversationDetails(privateConversation);
                 conversationRepo.save(conversation);
             }
+
+            // get Other User
+            UserResponse userRes = userService.getUser(GetUserRequest.newBuilder().setId(otherUserId).build());
             
             // Build the response
-            CreatePrivConvRes response = CreatePrivConvRes.newBuilder()
-                .setConversationId(privateConversation.getId())
-                .setCurrUserId(privateConversation.getConversation().getOwnerId())
-                .setReceiverId(privateConversation.getReceiverId())
-                .setCreatedAt(privateConversation.getCreatedAt().toString())
-                .build();
+            PrivateConv response = PrivateConv.newBuilder()
+                    .setId(privateConversation.getId())
+                    .setOtherUser(userRes.getUser())
+                    .setUnreadCount(0)
+                    .setLastMessage("")
+                    .setLastUpdate(toProtoTimestamp(privateConversation.getUpdatedAt()))
+                    .build();
+
+            // broadcast the new conversation to the other user
+            privateConvBroadcaster.broadcast(response.getOtherUser().getId(), response);
             
             responseObserver.onNext(response);
             responseObserver.onCompleted();
@@ -190,11 +199,7 @@ public class    ChatGrpcService extends ChatServiceGrpc.ChatServiceImplBase {
         }
 
         // Convert LocalDateTime to Protobuf Timestamp
-        Instant updatedAtInstant = conversation.getUpdatedAt().atZone(ZoneId.systemDefault()).toInstant();
-        Timestamp lastUpdateTimestamp = Timestamp.newBuilder()
-                .setSeconds(updatedAtInstant.getEpochSecond())
-                .setNanos(updatedAtInstant.getNano())
-                .build();
+        Timestamp lastUpdateTimestamp = toProtoTimestamp(conversation.getUpdatedAt());
 
         // Build the PrivateConv message
         PrivateConv.Builder builder = PrivateConv.newBuilder()
@@ -248,6 +253,33 @@ public class    ChatGrpcService extends ChatServiceGrpc.ChatServiceImplBase {
         }
     }
 
+    @Override
+    public void getConvMessage(ConvMsgReq request, StreamObserver<ConvMsgRes> responseObserver) {
+        try {
+            long convId = request.getConvId();
+            Set<MessageEntity> messages = privateConvRepo.findById(convId)
+                    .orElseThrow()
+                    .getConversation()
+                    .getMessages();
+
+            List<Message> grpcMessages = messages.stream()
+                    .map(this::toGrpcMessage)
+                    .toList();
+            ConvMsgRes response = ConvMsgRes.newBuilder()
+                    .setMessage("Fetched " + grpcMessages.size() + " messages successfully")
+                    .setSuccess(true)
+                    .addAllMessageList(grpcMessages)
+                    .build();
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+        } catch (Exception e) {
+            responseObserver.onError(Status.INTERNAL
+                    .withDescription("Internal error")
+                    .augmentDescription(e.getMessage())
+                    .asRuntimeException());
+        }
+    }
+
     private Message toGrpcMessage(MessageEntity msg) {
         return Message.newBuilder()
                 .setId(msg.getId())
@@ -258,6 +290,17 @@ public class    ChatGrpcService extends ChatServiceGrpc.ChatServiceImplBase {
                 .setStatusValue(msg.getStatus().ordinal())
                 .setCreatedAt(msg.getCreatedAt().toString())
                 .setUpdatedAt(msg.getUpdatedAt().toString())
+                .build();
+    }
+
+    public static Timestamp toProtoTimestamp(LocalDateTime localDateTime) {
+        if (localDateTime == null) {
+            return null;
+        }
+        Instant instant = localDateTime.atZone(ZoneId.systemDefault()).toInstant();
+        return Timestamp.newBuilder()
+                .setSeconds(instant.getEpochSecond())
+                .setNanos(instant.getNano())
                 .build();
     }
 }

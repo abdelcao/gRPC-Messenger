@@ -42,16 +42,11 @@
     </div>
 
     <ul v-else class="flex flex-col gap-2 overflow-y-auto">
-      <!-- <ChatItem
-        v-for="conversation in filteredConversations"
-        :key="conversation.id.toString()"
-        :conversation="conversation"
-        :is-active="currentConversation?.id === conversation.id"
-        :current-user-id="currentUserId"
-        :last-message="getLastMessage(conversation)"
-        :other-user-name="conversationNames.get(conversation.id.toString()) || 'Loading...'"
-        @click="handleConversationSelect(conversation)"
-      /> -->
+      <ChatItem
+        v-for="([key, value]) in Object.entries(chatStore.privateConv)"
+        :key="key"
+        :conversation="value"
+      />
     </ul>
   </div>
 </template>
@@ -62,14 +57,12 @@ import { useChatService } from '@/composables/useChatService'
 import { useUserService } from '@/composables/useUserService'
 import { useChatStore } from '@/stores/chat'
 import { useAuthStore } from '@/stores/auth'
-import type { Conversation, PrivateConversation, GroupConversation } from '@/grpc/chat/chat_pb'
 import type { User } from '@/grpc/user/user_pb'
 import InputText from 'primevue/inputtext'
-import ProgressSpinner from 'primevue/progressspinner'
 import ChatItem from './ChatItem.vue'
 import { throttle } from '@/libs/utils'
 import Avatar from 'primevue/avatar'
-import { RouterLink, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 
 // Services and stores
 const chatService = useChatService()
@@ -113,11 +106,13 @@ async function handleSearchClick(user: User) {
     // set current chat user
     chatStore.currentChat = user
     // create new conversation
-    const res = await chatService.createPrivateConversation({otherUser: authStore.user?.id})
-    console.log(res)
+    const res = await chatService.createPrivateConversation({
+      currUserId: authStore.user.id,
+      otherUserId: user.id,
+    })
 
     // add conversation to store with otherUser.id as key
-    chatStore.privateConv[user.id.toString()] = res
+    chatStore.addPrivateConv(res);
 
     // route to chat/:id (id is conversation id)
     router.push({ name: 'chat', params: { id: res.id.toString() } })

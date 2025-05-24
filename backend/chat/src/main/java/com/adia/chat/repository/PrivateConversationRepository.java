@@ -16,8 +16,9 @@ public interface PrivateConversationRepository extends JpaRepository<PrivateConv
     @Query(value = """
         SELECT DISTINCT pc FROM PrivateConversationEntity pc
         WHERE pc.conversation.ownerId = :userId OR pc.receiverId = :userId
+        ORDER BY pc.id DESC
     """)
-    List<PrivateConversationEntity> findPrivateConversationsByUser(@Param("userId") Long userId);
+    List<PrivateConversationEntity> findByConversationOwnerIdOrReceiverId(@Param("userId") Long userId);
 
     @Query("""
     SELECT pc FROM PrivateConversationEntity pc

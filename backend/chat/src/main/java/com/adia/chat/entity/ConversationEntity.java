@@ -38,7 +38,11 @@ public class ConversationEntity {
     private LocalDateTime updatedAt;
 
     // Relationships
-    @OneToMany(mappedBy = "conversation", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(
+            mappedBy = "conversation",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.EAGER)
     private Set<MessageEntity> messages = new HashSet<>();
 
     // Link to specific conversation details
