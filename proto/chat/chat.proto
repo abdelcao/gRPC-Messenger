@@ -12,9 +12,20 @@ option java_outer_classname = "ChatProto";
 // Service definition
 service ChatService {
   
-  rpc GetPrivateConversations(PrivateConvReq) returns (GetPrivConvRes);
+  rpc GetPrivateConversations(PrivateConvsReq) returns (GetPrivConvsRes);
+  rpc GetPrivateConversation(GetPrivConvReq) returns (GetPrivConvRes);
   rpc CreatePrivateConversation(CreatePrivConvReq) returns (CreatePrivConvRes);
 
+}
+
+message GetPrivConvReq {
+  int64 currUserId = 1;
+  int64 otherUserId = 2;
+}
+
+message GetPrivConvRes {
+  int64 id = 1;
+  repeated Message messages = 2;
 }
 
 message CreatePrivConvReq {
@@ -29,11 +40,11 @@ message CreatePrivConvRes {
   string created_at = 4;
 }
 
-message PrivateConvReq {
+message PrivateConvsReq {
   int64 userId = 1;
 }
 
-message GetPrivConvRes {
+message GetPrivConvsRes {
   string message = 1;
   bool success = 2;
   repeated PrivateConv privateConvList = 3;

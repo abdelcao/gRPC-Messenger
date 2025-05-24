@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS messages (
 -- 5️⃣ private_conversations (1-to-1 meta)
 CREATE TABLE IF NOT EXISTS private_conversations (
   id              BIGINT AUTO_INCREMENT PRIMARY KEY,
-  conversation_id BIGINT NOT NULL UNIQUE,           -- ⚠️ 1-to-1 guard
+  conversation_id BIGINT NOT NULL,           -- ⚠️ 1-to-1 guard
   receiver_id     BIGINT NOT NULL,
   created_at      TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at      TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -67,7 +67,8 @@ CREATE TABLE IF NOT EXISTS private_conversations (
   CONSTRAINT fk_priv_conv FOREIGN KEY (conversation_id)
       REFERENCES conversations(id) ON DELETE CASCADE,
   CONSTRAINT fk_priv_receiver FOREIGN KEY (receiver_id)
-      REFERENCES users(id) ON DELETE CASCADE
+      REFERENCES users(id) ON DELETE CASCADE,
+  UNIQUE (conversation_id, receiver_id)
 ) ENGINE = InnoDB;
 
 -- 6️⃣ group_conversations (group meta)
@@ -91,7 +92,8 @@ CREATE TABLE IF NOT EXISTS group_members (
   PRIMARY KEY (user_id, group_id),
   CONSTRAINT fk_grp_mem_user  FOREIGN KEY (user_id)  REFERENCES users(id),
   CONSTRAINT fk_grp_mem_group FOREIGN KEY (group_id) REFERENCES group_conversations(id)
-                               ON DELETE CASCADE
+                               ON DELETE CASCADE,
+  UNIQUE (user_id, group_id)
 ) ENGINE = InnoDB;
 
 -- 8️⃣ notifications
@@ -146,42 +148,6 @@ VALUES
 ('youssef', 'youssef@gmail.com', '$2a$10$xDvcMBovSUWCkCVufKFjLOzpFf6bbXTfYCBy1F9gYkOlg5p.UGjpe', FALSE, TRUE ),
 ('hamid',   'hamid@gmail.com',   '$2a$10$xDvcMBovSUWCkCVufKFjLOzpFf6bbXTfYCBy1F9gYkOlg5p.UGjpe', FALSE, TRUE ),
 ('yasser',  'yasser@gmail.com',  '5e884898da28047151d0e56f8$3d0d6aabbdd62a11ef721d1542d8',        FALSE, FALSE);
-
--- Conversations
-INSERT INTO conversations (owner_id, `type`) VALUES
-(1, 'PRIVATE'),  -- id-1  admin ↔ yassine
-(2, 'PRIVATE'),  -- id-2  yassine ↔ admin
-(1, 'GROUP'  ),  -- id-3  Project Team
-(3, 'PRIVATE');  -- id-4  youssef ↔ hamid
-
--- Private conversation meta
-INSERT INTO private_conversations (conversation_id, receiver_id) VALUES
-(1, 2),
-(2, 1),
-(4, 4);  -- youssef owns id-4; receiver hamid (id-4)
-
--- Group conversation meta
-INSERT INTO group_conversations (conversation_id, `name`) VALUES
-(3, 'Project Team');  -- auto-id = 1
-
--- Group members
-INSERT INTO group_members (user_id, group_id, is_admin) VALUES
-(1, 1, TRUE),
-(2, 1, FALSE),
-(3, 1, FALSE),
-(4, 1, FALSE);
-
--- Messages
-INSERT INTO messages (`text`, user_id, conversation_id, `status`, is_edited) VALUES
-('Hey Jane, how are you?',                     1, 1, 'sent'     , FALSE),
-('I am doing well, thanks for asking!',        2, 1, 'read'     , FALSE),
-('Can we meet tomorrow for the project discussion?', 1, 1, 'read', FALSE),
-('Sure, what time works for you?',             2, 1, 'delivered', FALSE),
-('How about 10 AM?',                           1, 1, 'delivered', TRUE ),
-('Welcome everyone to our project team!',      1, 3, 'delivered', FALSE),
-('Thanks for adding me, John.',                2, 3, 'read'     , FALSE),
-('Looking forward to working with everyone.',  3, 3, 'read'     , FALSE),
-('Let me know the meeting schedule.',          4, 3, 'delivered', FALSE);
 
 -- Notifications
 INSERT INTO notifications (content, receiver_id, sender_id, `type`, title) VALUES
