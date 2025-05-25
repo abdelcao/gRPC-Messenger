@@ -17,14 +17,9 @@ public class MessageBroadcaster {
     private final Map<Long, List<StreamObserver<Message>>> observers = new ConcurrentHashMap<>();
 
     public void register(long conversationId, StreamObserver<Message> observer) {
-        if (observer instanceof ServerCallStreamObserver) {
-            ServerCallStreamObserver<Message> serverObserver = (ServerCallStreamObserver<Message>) observer;
-            serverObserver.setOnCancelHandler(() -> {
-                logger.debug("Client cancelled stream for conversation {}", conversationId);
-                unregister(conversationId, observer);
-            });
-        }
         observers.computeIfAbsent(conversationId, k -> new CopyOnWriteArrayList<>()).add(observer);
+        logger.debug("Registered observer for conversation {}. Total: {}",
+                conversationId, observers.get(conversationId).size());
     }
 
     public void unregister(long conversationId, StreamObserver<Message> observer) {

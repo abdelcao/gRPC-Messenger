@@ -4,7 +4,7 @@
     <Sidebar />
     <SidebarWrapper />
     <main class="flex-1 flex flex-col bg-white dark:bg-gray-800">
-      <slot />
+      <router-view />
     </main>
   </div>
 </template>
@@ -12,7 +12,7 @@
 <script setup lang="ts">
 import Sidebar from '@/components/TheSidebar.vue'
 import SidebarWrapper from '@/components/SidebarWrapper.vue'
-import { onMounted } from 'vue'
+import { onMounted, onUnmounted } from 'vue'
 import { useNotificationService } from '@/composables/useNotifService'
 import { useAuthStore } from '@/stores/auth'
 import { useToast } from 'primevue/usetoast'
@@ -29,7 +29,7 @@ const notifStore = useNotifStore()
 const chatStore = useChatStore()
 const toast = useToast()
 
-const { initializeChat } = useChatStreams()
+const { initializeChat, cleanup } = useChatStreams()
 
 onMounted(async () => {
   try {
@@ -75,4 +75,6 @@ onMounted(async () => {
     })
   }
 })
+
+onUnmounted(() => cleanup())
 </script>

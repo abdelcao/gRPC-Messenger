@@ -24,6 +24,7 @@ const handleSubmit = async () => {
     if (!chatStore.currentChat) {
       throw Error('No current conversation!')
     }
+    message.value = "";
   } catch (error: unknown) {
     toast.add({
       severity: 'error',

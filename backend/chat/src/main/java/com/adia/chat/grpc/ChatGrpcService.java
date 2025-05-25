@@ -132,19 +132,22 @@ public class    ChatGrpcService extends ChatServiceGrpc.ChatServiceImplBase {
             }
 
             // get Other User
-            UserResponse userRes = userService.getUser(GetUserRequest.newBuilder().setId(otherUserId).build());
+            UserResponse userResOther = userService.getUser(GetUserRequest.newBuilder().setId(otherUserId).build());
+            // get Current User
+            UserResponse userResCurr = userService.getUser(GetUserRequest.newBuilder().setId(currUserId).build());
             
             // Build the response
             PrivateConv response = PrivateConv.newBuilder()
                     .setId(privateConversation.getId())
-                    .setOtherUser(userRes.getUser())
+                    .setUser2(userResOther.getUser())
+                    .setUser1(userResCurr.getUser())
                     .setUnreadCount(0)
                     .setLastMessage("")
                     .setLastUpdate(toProtoTimestamp(privateConversation.getUpdatedAt()))
                     .build();
 
             // broadcast the new conversation to the other user
-            privateConvBroadcaster.broadcast(response.getOtherUser().getId(), response);
+            privateConvBroadcaster.broadcast(response.getUser2().getId(), response);
             
             responseObserver.onNext(response);
             responseObserver.onCompleted();
@@ -200,24 +203,38 @@ public class    ChatGrpcService extends ChatServiceGrpc.ChatServiceImplBase {
     public void getConvMessage(ConvMsgReq request, StreamObserver<ConvMsgRes> responseObserver) {
         try {
             long convId = request.getConvId();
-            Set<MessageEntity> messages = privateConvRepo.findById(convId)
-                    .orElseThrow()
+            logger.info("GetConvMsg: conversation with convId: {}", convId);
+
+            Optional<PrivateConversationEntity> conversationOpt = privateConvRepo.findById(convId);
+            if (conversationOpt.isEmpty()) {
+                logger.warn("Conversation not found for convId: {}", convId);
+                responseObserver.onError(Status.NOT_FOUND
+                        .withDescription("Conversation not found with ID: " + convId)
+                        .asRuntimeException());
+                return;
+            }
+
+            Set<MessageEntity> messages = conversationOpt.get()
                     .getConversation()
                     .getMessages();
 
             List<Message> grpcMessages = messages.stream()
                     .map(this::toGrpcMessage)
                     .toList();
+
             ConvMsgRes response = ConvMsgRes.newBuilder()
                     .setMessage("Fetched " + grpcMessages.size() + " messages successfully")
                     .setSuccess(true)
                     .addAllMessageList(grpcMessages)
                     .build();
+
             responseObserver.onNext(response);
             responseObserver.onCompleted();
+
         } catch (Exception e) {
+            logger.error("Error fetching conversation messages for convId: {}", request.getConvId(), e);
             responseObserver.onError(Status.INTERNAL
-                    .withDescription("Internal error")
+                    .withDescription("Internal error while fetching conversation messages")
                     .augmentDescription(e.getMessage())
                     .asRuntimeException());
         }
@@ -293,9 +310,14 @@ public class    ChatGrpcService extends ChatServiceGrpc.ChatServiceImplBase {
             logger.info("Streaming messages conversation ID: {}", convId);
 
             messageBroadcaster.register(convId, responseObserver);
-            ((ServerCallStreamObserver<Message>) responseObserver).setOnCancelHandler(() -> {
-                messageBroadcaster.unregister(convId, responseObserver);
-            });
+
+            // Handle cancellation in the service layer
+            if (responseObserver instanceof ServerCallStreamObserver) {
+                ((ServerCallStreamObserver<Message>) responseObserver).setOnCancelHandler(() -> {
+                    logger.debug("Client cancelled stream for conversation {}", convId);
+                    messageBroadcaster.unregister(convId, responseObserver);
+                });
+            }
         } catch (Exception e) {
             logger.error("Error in streamPrivateConversations: {}", e.getMessage(), e);
             responseObserver.onError(Status.INTERNAL
@@ -358,8 +380,11 @@ public class    ChatGrpcService extends ChatServiceGrpc.ChatServiceImplBase {
 
         // Set other user if available
         if (otherUser != null) {
-            builder.setOtherUser(otherUser);
+            builder.setUser2(otherUser);
         }
+        
+        User currUser = userService.getUser(GetUserRequest.newBuilder().setId(currentUserId).build()).getUser();
+        builder.setUser1(currUser);
 
         return builder.build();
     }

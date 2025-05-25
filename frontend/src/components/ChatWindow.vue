@@ -15,17 +15,14 @@
       </div>
 
       <div
-        v-else-if="
-          chatStore.messages[Number(chatStore.currentChat?.id)] &&
-          chatStore.messages[Number(chatStore.currentChat?.id)].length === 0
-        "
+        v-else-if="currentMessages && currentMessages.length === 0"
         class="flex justify-center items-center h-full text-gray-500"
       >
         No messages yet. Start the conversation!
       </div>
-      <template v-else>
+      <div v-else class="w-full flex flex-col justify-end">
         <div
-          v-for="(message, index) in chatStore.messages[Number(chatStore.currentConv?.id)]"
+          v-for="(message, index) in currentMessages"
           :key="index"
           class="flex flex-col items-end"
         >
@@ -51,7 +48,7 @@
             {{ message.text }}
           </MessageBubble>
         </div>
-      </template>
+      </div>
     </div>
 
     <!-- Input -->
@@ -62,7 +59,7 @@
 </template>
 
 <script setup lang="ts">
-import { nextTick, onMounted, ref, useTemplateRef, watch } from 'vue'
+import { computed, nextTick, onMounted, ref, useTemplateRef, watch } from 'vue'
 import { useChatService } from '@/composables/useChatService'
 import { useChatStore } from '@/stores/chat'
 import { useAuthStore } from '@/stores/auth'
@@ -70,6 +67,7 @@ import ChatSender from './ChatSender.vue'
 import ChatHeader from './ChatHeader.vue'
 import { MessageStatus, type Message } from '@/grpc/chat/chat_pb'
 import MessageBubble from './MessageBubble.vue'
+import { useRoute } from 'vue-router'
 
 const loading = ref(false)
 const error = ref<unknown>(null)
@@ -79,17 +77,27 @@ const chatService = useChatService()
 const chatStore = useChatStore()
 const authStore = useAuthStore()
 
+const route = useRoute()
+const routeConvId = computed(() => {
+  const id = route.params.id
+  const stringId = Array.isArray(id) ? id[0] : (id ?? '0')
+  return BigInt(stringId)
+})
+const currentConv = computed(() => chatStore.currentConv)
+const currentMessages = computed(() => {
+  const id = currentConv.value?.id
+  return chatStore.messages[Number(id)] || []
+})
+
 onMounted(async () => {
+  console.log('chat-window mounted')
   loading.value = true
+
   try {
-    // get all messages by convId
-    const res = await chatService.getConvMessage({ convId: chatStore.currentConv?.id })
-    if (!res.success) {
-      throw Error(res.message)
-    }
-    console.log(res)
-    if (!chatStore.currentConv?.id) throw Error('No current conversation')
-    chatStore.setMessages(res.messageList, chatStore.currentConv?.id)
+    // get all messages by convId if visiting for first time
+    //if (currentConv.value?.id && chatStore.convVisited.has(currentConv.value?.id)) return
+    chatStore.resetUnreadCount()
+    await getConvMessages()
   } catch (err) {
     console.log(err)
     error.value = err
@@ -98,6 +106,26 @@ onMounted(async () => {
     loading.value = false
   }
 })
+
+async function getConvMessages() {
+  const res = await chatService.getConvMessage({
+    convId: currentConv.value?.id || routeConvId.value,
+  })
+  if (!res.success) throw Error(res.message)
+  console.log('ConvMessage:', res)
+  if (!currentConv.value?.id) throw Error('No current conversation')
+  chatStore.addConvMessages(res.messageList, currentConv.value.id)
+}
+
+watch(
+  [currentConv],
+  async () => {
+    console.log('watch triggered')
+    await getConvMessages()
+    smoothScrollToBottom()
+  },
+  { deep: true },
+)
 
 const formatTime = (timestamp: string) => {
   return new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
@@ -126,17 +154,6 @@ function smoothScrollToBottom() {
     })
   }
 }
-
-watch(
-  () => chatStore.messages[Number(chatStore.currentConv?.id)],
-  async (newMessages, oldMessages) => {
-    if (newMessages && newMessages.length > (oldMessages?.length || 0)) {
-      await nextTick() // Wait for DOM update
-      smoothScrollToBottom()
-    }
-  },
-  { deep: true },
-)
 </script>
 
 <style scoped>

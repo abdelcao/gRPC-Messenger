@@ -7,6 +7,7 @@ import AdminLayout from '@/layouts/AdminLayout.vue'
 import UsersView from '@/views/admin/UsersView.vue'
 import ReportsView from '@/views/admin/ReportsView.vue'
 import SettingsView from '@/views/admin/SettingsView.vue'
+import MainLayout from '@/layouts/MainLayout.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -22,18 +23,25 @@ const router = createRouter({
       component: RegisterView,
     },
     {
-      path: '/chat/:id',
-      name: 'chat',
-      component: ChatView,
-    },
-    {
-      path: '/',
-      name: 'home',
-      component: HomeView,
+      name: 'main',
+      path: "/chat",
+      component: MainLayout,
+      children: [
+        {
+          path: '/chat/:id',
+          name: 'chat',
+          component: ChatView,
+        },
+        {
+          path: '/',
+          name: 'home',
+          component: HomeView,
+        },
+      ],
     },
     {
       path: '/admin/dashboard',
-      name: "dashboard",
+      name: 'dashboard',
       component: AdminLayout,
       children: [
         { name: 'users', path: '', component: UsersView },

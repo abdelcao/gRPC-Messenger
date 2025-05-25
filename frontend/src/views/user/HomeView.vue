@@ -4,7 +4,7 @@ import WelcomeScreen from '@/components/WelcomeScreen.vue';
 </script>
 
 <template>
-  <MainLayout>
+  <!-- <MainLayout> -->
     <WelcomeScreen />
-  </MainLayout>
+  <!-- </MainLayout> -->
 </template>

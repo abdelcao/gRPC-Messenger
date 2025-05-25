@@ -79,7 +79,8 @@ message GetPrivConvsRes {
 
 message PrivateConv {
   int64 id = 1;
-  user.User otherUser = 2;
+  user.User user1 = 2;
+  user.User user2 = 5;
   string lastMessage = 3;
   int32 unreadCount = 4;
   google.protobuf.Timestamp lastUpdate = 8;

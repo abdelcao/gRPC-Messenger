@@ -1,7 +1,9 @@
 <!-- src/components/ChatList.vue -->
 <template>
-  <div class="flex flex-col h-full">
-    <InputText v-model="search" placeholder="Search conversations..." class="w-full mb-4 h-10" />
+  <div class="h-full flex flex-col">
+    <div>
+      <InputText v-model="search" placeholder="Search conversations..." class="w-full mb-4 h-10" />
+    </div>
 
     <div v-if="loading" class="flex justify-center p-4">
       <i class="pi pi-spinner animate-spin"></i>
@@ -37,13 +39,15 @@
       </ul>
     </div>
 
-    <ul v-else class="flex flex-col gap-2 overflow-y-auto">
-      <ChatItem
-        v-for="[key, value] in Object.entries(chatStore.privateConv)"
-        :key="key"
-        :conversation="value"
-      />
-    </ul>
+    <div v-else class="flex-1">
+      <ul class="h-full w-full overflow-y-auto">
+        <ChatItem
+          v-for="[key, value] in Object.entries(chatStore.privateConv)"
+          :key="key"
+          :conversation="value"
+        />
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -59,6 +63,7 @@ import ChatItem from './ChatItem.vue'
 import { throttle } from '@/libs/utils'
 import Avatar from 'primevue/avatar'
 import { useRouter } from 'vue-router'
+import { useChatStreams } from '@/composables/useChatStreams'
 
 // Services and stores
 const chatService = useChatService()
@@ -107,6 +112,9 @@ async function handleSearchClick(user: User) {
       otherUserId: user.id,
     })
 
+    const { streamManager } = useChatStreams()
+    streamManager.startMessageStreamForConversation(res.id)
+
     // add conversation to store with otherUser.id as key
     chatStore.addPrivateConv(res)
 
@@ -119,7 +127,5 @@ async function handleSearchClick(user: User) {
 </script>
 
 <style scoped>
-.overflow-y-auto {
-  max-height: calc(100vh - 200px); /* Adjust based on your layout */
-}
+
 </style>

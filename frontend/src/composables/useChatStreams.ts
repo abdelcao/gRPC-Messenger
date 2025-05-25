@@ -16,6 +16,7 @@ class ChatStreamManager {
       const chatRes = await this.chatService.getPrivateConversations({
         userId: this.authStore.user?.id,
       })
+      console.log('initializeChatStreams: ', chatRes)
 
       if (!chatRes.success) {
         throw new Error(chatRes.message)
@@ -23,7 +24,7 @@ class ChatStreamManager {
 
       console.log('Initial conversations loaded:', chatRes)
       this.chatStore.setPrivConc(chatRes.privateConvList)
-
+      chatRes.privateConvList.forEach((c) => this.chatStore.addConvMessages([], c.id))
       // Start conversation stream
       await this.startConversationStream()
 
@@ -73,7 +74,7 @@ class ChatStreamManager {
 
   async startMessageStreams(conversations: any[]) {
     const streamPromises = conversations.map((conv) =>
-      this.startMessageStreamForConversation(conv.id),
+      this.startMessageStreamForConversation(conv.id)
     )
 
     const results = await Promise.allSettled(streamPromises)
@@ -176,5 +177,6 @@ export function useChatStreams() {
     initializeChat,
     cleanup,
     chatStore,
+    streamManager,
   }
 }

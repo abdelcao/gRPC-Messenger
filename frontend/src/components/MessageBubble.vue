@@ -25,8 +25,8 @@
         <span v-if="isEdited" class="text-xs italic">edited</span>
         <span v-if="time" class="text-xs">{{ time }}</span>
         <span v-if="isOwn && status" class="text-xs">
-          <i :class="getStatusIcon(status)" class="mr-1"></i>
-          {{ status }}
+          <i :class="getStatusIcon(status)" class="mr-1" style="font-size: 8px; font-weight: 900;"></i>
+          <!-- {{ status }} -->
         </span>
       </div>
     </div>

@@ -1,10 +1,10 @@
 <template>
-  <MainLayout>
+  <!-- <MainLayout> -->
     <div class="flex h-screen w-full">
       <ChatWindow />
       <ChatInfoPanel />
     </div>
-  </MainLayout>
+  <!-- </MainLayout> -->
 </template>
 
 <script setup lang="ts">

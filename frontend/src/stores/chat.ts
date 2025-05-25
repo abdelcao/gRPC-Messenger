@@ -2,15 +2,26 @@ import type { GroupConv, Message, PrivateConv } from '@/grpc/chat/chat_pb'
 import type { User } from '@/grpc/user/user_pb'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
+import { useAuthStore } from './auth'
 
 export const useChatStore = defineStore('chat', () => {
   const currentChat = ref<User | null>(null)
   const currentConv = ref<PrivateConv | null>(null)
-
+  const convVisited = ref<Set<bigint>>(new Set())
   // this is for sidebar list
   const privateConv = ref<Record<string, PrivateConv>>({})
   const groupConv = ref<Record<number, GroupConv[]>>({})
 
+  function addConvToVisited(conv: PrivateConv) {
+    if (convVisited.value.has(conv.id)) return
+    convVisited.value.add(conv.id)
+  }
+
+  function resetUnreadCount() {
+    if (currentConv.value) {
+      currentConv.value.unreadCount = 0
+    }
+  }
 
   // conversations data
   const messages = ref<Record<number, Message[]>>({})
@@ -22,18 +33,21 @@ export const useChatStore = defineStore('chat', () => {
     streamControllers: new Map<number, AbortController>(), // convId -> AbortController
   })
 
-  function setMessages (msgList: Message[], convId: bigint) {
-    const id = Number(convId);
+  function addConvMessages(msgList: Message[], convId: bigint) {
+    const id = Number(convId)
     const newObj: Record<number, Message[]> = {}
     newObj[id] = msgList
-    messages.value = newObj
+    messages.value = {
+      ...messages.value,
+      ...newObj,
+    }
   }
 
-  function pushMessage (msg: Message, convId: bigint) {
-    const id = Number(convId);
+  function pushMessage(msg: Message, convId: bigint) {
+    const id = Number(convId)
     messages.value[id].push(msg)
+    privateConv.value[convId.toString()].unreadCount += 1
   }
-
 
   function setPrivConc(list: PrivateConv[]) {
     const newObj: Record<string, PrivateConv> = {}
@@ -54,10 +68,17 @@ export const useChatStore = defineStore('chat', () => {
     privateConv.value[conv.id.toString()] = conv
   }
 
+  function getOtherUser(conv: PrivateConv) {
+    const { getUserId } = useAuthStore()
+    return Number(conv.user2.id) === getUserId() ? conv.user1 : conv.user2
+  }
+
   function setCurrentConv(conv: PrivateConv) {
-    if (conv && conv.otherUser) {
-      currentChat.value = conv.otherUser
+    if (conv && conv.user1 && conv.user2) {
+      const { getUserId } = useAuthStore()
+      currentChat.value = Number(conv.user2.id) === getUserId() ? conv.user1 : conv.user2
       currentConv.value = conv
+      addConvToVisited(conv)
     }
   }
 
@@ -119,7 +140,6 @@ export const useChatStore = defineStore('chat', () => {
     messages.value = {}
   }
 
-
   return {
     currentChat,
     currentConv,
@@ -127,13 +147,16 @@ export const useChatStore = defineStore('chat', () => {
     groupConv,
     messages,
     activeStreams,
+    convVisited,
 
     setPrivConc,
     updatePrivConv,
     setCurrentConv,
     addPrivateConv,
-    setMessages,
+    addConvMessages,
     pushMessage,
+    resetUnreadCount,
+    getOtherUser,
 
     // Stream management
     setConversationStream,
