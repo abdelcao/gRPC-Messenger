@@ -45,7 +45,7 @@ public class NotificationServiceImpl extends NotificationServiceGrpc.Notificatio
             responseObserver.onNext(response);
             responseObserver.onCompleted();
         } catch (Exception e) {
-            responseObserver.onError(Status.INTERNAL.withDescription("Failed to fetch notifications").withCause(e).asRuntimeException());
+            responseObserver.onError(Status.INTERNAL.withDescription("Failed to fetch notifications" + e.getMessage()).withCause(e).asRuntimeException());
         }
     }
 
@@ -61,7 +61,6 @@ public class NotificationServiceImpl extends NotificationServiceGrpc.Notificatio
                     .receiverId(request.getUserId())
                     .content(request.getMessage())
                     .title("Notification")
-                    .type(NotificationEntity.NotificationType.GLOBAL_ANNOUNCEMENT)
                     .unread(true)
                     .createdAt(Instant.now())
                     .build();
@@ -83,7 +82,6 @@ public class NotificationServiceImpl extends NotificationServiceGrpc.Notificatio
                     .senderId(request.getInviterId())
                     .content("You were invited to join group " + request.getGroupId())
                     .title("Group Invite")
-                    .type(NotificationEntity.NotificationType.GROUP_INVITE)
                     .link("/groups/" + request.getGroupId())
                     .unread(true)
                     .createdAt(Instant.now())
@@ -108,7 +106,6 @@ public class NotificationServiceImpl extends NotificationServiceGrpc.Notificatio
             entity.setReceiverId(request.getReceiverId());
             entity.setContent(request.getContent());
             entity.setTitle(request.getTitle());
-            entity.setType(NotificationEntity.NotificationType.ADMIN_WARNING);
             entity.setUnread(true);
             entity.setCreatedAt(Instant.now());
             entity.setSenderId(request.getSenderId());

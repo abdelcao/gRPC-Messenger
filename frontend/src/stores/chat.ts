@@ -47,6 +47,7 @@ export const useChatStore = defineStore('chat', () => {
     const id = Number(convId)
     messages.value[id].push(msg)
     privateConv.value[convId.toString()].unreadCount += 1
+    privateConv.value[convId.toString()].lastMessage = msg.text
   }
 
   function setPrivConc(list: PrivateConv[]) {

@@ -149,17 +149,17 @@ services:
     networks:
       - chat-net 
 
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile.dev
-    container_name: chat-frontend
-    ports:
-      - "${FRONTEND_PORT}:${FRONTEND_PORT}"
-    depends_on:
-      - envoy
-    networks:
-      - chat-net
+  # frontend:
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: Dockerfile.dev
+  #   container_name: chat-frontend
+  #   ports:
+  #     - "${FRONTEND_PORT}:${FRONTEND_PORT}"
+  #   depends_on:
+  #     - envoy
+  #   networks:
+  #     - chat-net
 
   envoy:
     image: envoyproxy/envoy:v1.28-latest

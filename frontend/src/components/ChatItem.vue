@@ -5,6 +5,7 @@ import type { PrivateConv } from '@/grpc/chat/chat_pb'
 import { timeAgo } from '@/libs/utils'
 import { useChatStore } from '@/stores/chat'
 import { useAuthStore } from '@/stores/auth'
+import { computed } from 'vue'
 
 const props = defineProps<{
   conversation: PrivateConv
@@ -17,6 +18,8 @@ const router = useRouter()
 // const unreadCount = computed(
 //   () => chatStore.privateConv[props.conversation.id.toString() ?? ''].unreadCount,
 // )
+
+const lastMessage = computed(() => chatStore.privateConv[props.conversation.id.toString()].lastMessage)
 
 const otherUser = () => {
   // console.log("user id!", getUserId());
@@ -45,14 +48,14 @@ function handleClick(conv: PrivateConv) {
   >
     <Avatar image="/images/default_avatar.jpg" class="bg-primary" shape="circle" />
     <div class="flex-1 min-w-0">
-      <div class="flex justify-between items-start">
+      <div class="flex justify-between items-center">
         <h4 class="font-medium truncate">{{ otherUser()?.username }}</h4>
         <span v-if="conversation.lastUpdate?.seconds" class="text-xs text-gray-500">{{
           timeAgo(conversation.lastUpdate)
         }}</span>
       </div>
       <p class="text-sm text-gray-500 truncate">
-        {{ conversation.lastMessage }}
+        {{ lastMessage }}
       </p>
     </div>
     <!-- <div v-if="unreadCount > 0" class="flex-shrink-0">

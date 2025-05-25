@@ -117,7 +117,7 @@ async function handleSearchClick(user: User) {
 
     // add conversation to store with otherUser.id as key
     chatStore.addPrivateConv(res)
-
+    chatStore.setCurrentConv(res)
     // route to chat/:id (id is conversation id)
     router.push({ name: 'chat', params: { id: res.id.toString() } })
   } catch (error: any) {

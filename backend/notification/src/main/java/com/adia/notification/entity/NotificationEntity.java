@@ -37,10 +37,6 @@ public class NotificationEntity {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private NotificationType type;
-
     @Column(nullable = false)
     private String title;
 
@@ -52,15 +48,5 @@ public class NotificationEntity {
 
     @Column(nullable = false)
     private boolean unread = true;
-
-    /**
-     * Enum representing different notification types
-     */
-    public enum NotificationType {
-        GROUP_INVITE,
-        ADMIN_WARNING,
-        GLOBAL_ANNOUNCEMENT,
-        UNRECOGNIZED
-    }
 }
 

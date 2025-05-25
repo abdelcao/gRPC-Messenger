@@ -88,7 +88,6 @@ import { useToast } from 'primevue/usetoast'
 import type { User } from '@/grpc/user/user_pb'
 import { useAuthStore } from '@/stores/auth'
 import { useNotificationService } from '@/composables/useNotifService'
-import { NotificationType } from '@/grpc/notification/notification_pb'
 
 const toast = useToast()
 const userService = useUserService()
@@ -236,7 +235,6 @@ const warnUser = async (user: User) => {
       senderId: authStore.user.id.toString(),
       content: 'You have violated our policy. Please adhere to the rules.',
       title: "Warning",
-      type: NotificationType.ADMIN_WARNING
     })
   } catch (err: any) {
     toast.add({ severity: 'error', detail: err.message || err })

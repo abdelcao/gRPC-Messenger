@@ -5,7 +5,7 @@
     <ChatHeader v-if="chatStore.currentChat" :user="chatStore.currentChat" />
 
     <!-- Messages -->
-    <div class="flex-1 p-4 overflow-y-auto space-y-4" ref="messagesContainer">
+    <div class="flex-1 p-4 overflow-y-auto space-y-4 flex justify-end" ref="messagesContainer">
       <div v-if="loading" class="flex justify-center items-center h-full">
         <i class="pi pi-spinner animate-spin"></i>
       </div>
@@ -16,7 +16,7 @@
 
       <div
         v-else-if="currentMessages && currentMessages.length === 0"
-        class="flex justify-center items-center h-full text-gray-500"
+        class="flex justify-center items-center h-full w-full text-gray-500"
       >
         No messages yet. Start the conversation!
       </div>

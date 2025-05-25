@@ -8,8 +8,6 @@ import java.util.List;
 
 public interface NotificationRepository extends JpaRepository<NotificationEntity, Long> {
     List<NotificationEntity> findByIdOrderByCreatedAtDesc(Long userId);
-    List<NotificationEntity> findByReceiverIdAndType(String receiverId, NotificationEntity.NotificationType type);
-
     List<NotificationEntity> findByReceiverIdOrderByCreatedAtDesc(String userId);
     List<NotificationEntity> findUnreadByReceiverId(String userId);
 }

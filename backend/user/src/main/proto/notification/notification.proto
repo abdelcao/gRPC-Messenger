@@ -19,12 +19,6 @@ service NotificationService {
   rpc MarkAsRead (ReadReq) returns (google.protobuf.Empty);
 }
 
-enum NotificationType {
-  GROUP_INVITE = 0;
-  ADMIN_WARNING = 1;
-  GLOBAL_ANNOUNCEMENT = 2;
-}
-
 message UserRequest {
   string userId = 1;
 }
@@ -34,7 +28,6 @@ message Notification {
   string receiverId = 2;
   string senderId = 3;
   string content = 4;
-  NotificationType type = 5;
   string title = 6;
   string link = 7; // Optional URL or frontend route (e.g. "/group/123")
   google.protobuf.Timestamp createdAt = 8;
@@ -45,7 +38,6 @@ message SendNotifReq {
   string receiverId = 2;
   string senderId = 3;
   string content = 4;
-  NotificationType type = 5;
   string title = 6;
 }
 
