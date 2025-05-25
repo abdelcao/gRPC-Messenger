@@ -44,7 +44,7 @@ const router = createRouter({
       name: 'dashboard',
       component: AdminLayout,
       children: [
-        { name: 'users', path: '', component: UsersView },
+        { name: 'users', path: 'users', component: UsersView },
         { name: 'reports', path: 'reports', component: ReportsView },
         { name: 'settings', path: 'settings', component: SettingsView },
       ],
