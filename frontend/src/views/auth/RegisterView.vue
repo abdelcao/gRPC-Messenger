@@ -150,7 +150,7 @@ const handleRegister = async () => {
     } else {
       await router.push({ name: 'home' })
     }
-  } catch (error) {
+  } catch (error: any) {
     toast.add({
       severity: 'error',
       summary: 'Registeration Failed',

@@ -15,7 +15,7 @@
         @click="elm.action"
       >
           <i :class="elm.icon" style="font-size: 1.125rem; position: relative;">
-            <span v-if="elm.counter > 0" class="absolute -top-4 -right-4 text-xs font-bold flex items-center justify-center w-4 h-4 rounded-full bg-lime-500 text-lime-900">
+            <span v-if="Number(elm.counter) > 0" class="absolute -top-4 -right-4 text-xs font-bold flex items-center justify-center w-4 h-4 rounded-full bg-lime-500 text-lime-900">
               {{ elm.counter }}
             </span>
           </i>
@@ -43,12 +43,11 @@
 <script setup lang="ts">
 import { useAppStore } from '@/stores/app'
 import SettingsModal from './SettingsModal.vue'
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { useNotifStore } from '@/stores/notification'
 
 const appStore = useAppStore()
 const notifStore = useNotifStore()
-const active = computed(() => appStore.activePanel)
 
 const elms = {
   top: [

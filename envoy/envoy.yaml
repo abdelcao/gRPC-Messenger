@@ -42,7 +42,7 @@ static_resources:
                       
                       cors:
                         allow_origin_string_match:
-                          - exact: "http://localhost:5173"
+                          - exact: "http://localhost:3000"
                         allow_methods: GET, PUT, DELETE, POST, OPTIONS
                         allow_headers: authorization,keep-alive,user-agent,cache-control,content-type,content-transfer-encoding,x-accept-content-transfer-encoding,x-accept-response-streaming,x-user-agent,x-grpc-web,grpc-timeout
                         expose_headers: grpc-status,grpc-message,grpc-status-details-bin

@@ -16,7 +16,7 @@ const handleSubmit = async () => {
   if (!message.value.trim()) return
   loading.value = true
   try {
-    const res = await chatService.sendMessage({
+    await chatService.sendMessage({
       text: message.value.trim(),
       userId: authStore.user?.id,
       convId: chatStore.currentConv?.id
@@ -25,10 +25,10 @@ const handleSubmit = async () => {
       throw Error('No current conversation!')
     }
     message.value = "";
-  } catch (error: unknown) {
+  } catch (error: any) {
     toast.add({
       severity: 'error',
-      detail: error.message,
+      detail: error?.message,
     })
     console.error(error)
   } finally {

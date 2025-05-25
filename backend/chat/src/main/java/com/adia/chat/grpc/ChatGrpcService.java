@@ -382,7 +382,7 @@ public class    ChatGrpcService extends ChatServiceGrpc.ChatServiceImplBase {
         if (otherUser != null) {
             builder.setUser2(otherUser);
         }
-        
+
         User currUser = userService.getUser(GetUserRequest.newBuilder().setId(currentUserId).build()).getUser();
         builder.setUser1(currUser);
 

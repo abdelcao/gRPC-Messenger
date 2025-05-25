@@ -53,7 +53,7 @@ build:
 
 up:
 	@echo "Starting dev containers..."
-	docker-compose -f $(COMPOSE_FILE_DEV) up
+	docker-compose -f $(COMPOSE_FILE_DEV) up -d
 
 down:
 	@echo "Stopping and removing dev containers..."

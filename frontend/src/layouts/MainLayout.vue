@@ -17,16 +17,12 @@ import { useNotificationService } from '@/composables/useNotifService'
 import { useAuthStore } from '@/stores/auth'
 import { useToast } from 'primevue/usetoast'
 import { useNotifStore } from '@/stores/notification'
-import { useChatService } from '@/composables/useChatService'
-import { useChatStore } from '@/stores/chat'
 import { useChatStreams } from '@/composables/useChatStreams'
 
 const notifService = useNotificationService()
-const chatService = useChatService()
 
 const authStore = useAuthStore()
 const notifStore = useNotifStore()
-const chatStore = useChatStore()
 const toast = useToast()
 
 const { initializeChat, cleanup } = useChatStreams()
@@ -51,7 +47,7 @@ onMounted(async () => {
 
       const stream = notifService.streamNotifications({
         userId: authStore.user.id.toString(),
-      }) as AsyncIterable<Notification>
+      })
 
       for await (const notification of stream) {
         notifStore.pushNotif(notification)
@@ -67,7 +63,7 @@ onMounted(async () => {
     } else {
       throw Error('User not defined')
     }
-  } catch (error) {
+  } catch (error: any) {
     console.log(error)
     toast.add({
       severity: 'error',

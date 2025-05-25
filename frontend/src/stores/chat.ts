@@ -70,7 +70,7 @@ export const useChatStore = defineStore('chat', () => {
 
   function getOtherUser(conv: PrivateConv) {
     const { getUserId } = useAuthStore()
-    return Number(conv.user2.id) === getUserId() ? conv.user1 : conv.user2
+    return Number(conv.user2?.id) === getUserId() ? conv.user1 : conv.user2
   }
 
   function setCurrentConv(conv: PrivateConv) {
@@ -111,7 +111,7 @@ export const useChatStore = defineStore('chat', () => {
     if (activeStreams.value.conversationStream) {
       try {
         activeStreams.value.conversationStream.cancel?.()
-      } catch (error) {
+      } catch (error: any) {
         console.warn('Error closing conversation stream:', error)
       }
       activeStreams.value.conversationStream = null
@@ -121,7 +121,7 @@ export const useChatStore = defineStore('chat', () => {
     for (const [convId, controller] of activeStreams.value.streamControllers) {
       try {
         controller.abort()
-      } catch (error) {
+      } catch (error: any) {
         console.warn(`Error closing message stream for conversation ${convId}:`, error)
       }
     }

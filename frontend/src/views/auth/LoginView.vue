@@ -113,7 +113,7 @@ const handleLogin = async () => {
       await router.push({ name: 'home' })
     }
 
-  } catch (error) {
+  } catch (error: any) {
     toast.add({
       severity: 'error',
       summary: 'Login failed',

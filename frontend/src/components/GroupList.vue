@@ -20,40 +20,10 @@
 
 <script setup lang="ts">
 import InputText from 'primevue/inputtext'
-import ChatItem from './ChatItem.vue'
 import { ref } from 'vue'
 import Button from 'primevue/button'
 import Divider from 'primevue/divider'
 
 const search = ref('')
 
-const groupChats = [
-  {
-    id: 1,
-    name: 'Team Alpha',
-    lastMessage: 'Meeting starts in 10 mins!',
-    time: '2:30 PM',
-    unread: 3,
-    avatar: '/images/default_avatar.jpg',
-    unred: 6,
-  },
-  {
-    id: 2,
-    name: 'Hackathon Squad',
-    lastMessage: "Let's deploy the app tonight.",
-    time: '1:15 PM',
-    unread: 0,
-    avatar: '/images/default_avatar.jpg',
-    unred: 0,
-  },
-  {
-    id: 3,
-    name: 'Vue Devs',
-    lastMessage: 'Check out the new PR.',
-    time: 'Yesterday',
-    unread: 1,
-    avatar: '/images/default_avatar.jpg',
-    unred: 99,
-  },
-]
 </script>

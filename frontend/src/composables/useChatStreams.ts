@@ -1,7 +1,8 @@
 import { useChatStore } from '@/stores/chat'
 import { useAuthStore } from '@/stores/auth' // Adjust import path
-import { inject, onUnmounted } from 'vue'
+import { onUnmounted } from 'vue'
 import { useChatService } from './useChatService'
+import type { PrivateConv } from '@/grpc/chat/chat_pb'
 
 class ChatStreamManager {
   constructor(
@@ -30,7 +31,7 @@ class ChatStreamManager {
 
       // Start message streams for existing conversations
       await this.startMessageStreams(chatRes.privateConvList)
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to initialize chat streams:', error)
       throw error
     }
@@ -57,8 +58,8 @@ class ChatStreamManager {
               await this.startMessageStreamForConversation(conv.id)
             }
           }
-        } catch (error) {
-          if (error.name === 'AbortError') {
+        } catch (error: any) {
+          if (error?.name === 'AbortError') {
             console.log('Conversation stream was cancelled')
             return
           }
@@ -66,13 +67,13 @@ class ChatStreamManager {
           this.handleStreamError('conversation', error)
         }
       })()
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to start conversation stream:', error)
       throw error
     }
   }
 
-  async startMessageStreams(conversations: any[]) {
+  async startMessageStreams(conversations: PrivateConv[]) {
     const streamPromises = conversations.map((conv) =>
       this.startMessageStreamForConversation(conv.id)
     )
@@ -108,7 +109,7 @@ class ChatStreamManager {
             console.log(`New message in conversation ${convId}:`, msg)
             this.chatStore.pushMessage(msg, convId)
           }
-        } catch (error) {
+        } catch (error: any) {
           if (error.name === 'AbortError' || controller.signal.aborted) {
             console.log(`Message stream for conversation ${convId} was cancelled`)
             return
@@ -120,7 +121,7 @@ class ChatStreamManager {
           this.chatStore.removeMessageStream(convId)
         }
       })()
-    } catch (error) {
+    } catch (error: any) {
       console.error(`Failed to start message stream for conversation ${convId}:`, error)
       throw error
     }
@@ -158,7 +159,7 @@ export function useChatStreams() {
   const initializeChat = async () => {
     try {
       await streamManager.initializeChatStreams()
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to initialize chat:', error)
       // Handle error (show notification, etc.)
     }

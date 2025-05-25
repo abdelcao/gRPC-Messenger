@@ -1,18 +1,21 @@
-FROM node:22-alpine
-
-# Install pnpm globally
-RUN corepack enable && corepack prepare pnpm@latest --activate
+# --- Build Stage ---
+FROM node:22-alpine AS builder
 
 WORKDIR /app
 
-# Copy and install dependencies using pnpm
-COPY pnpm-lock.yaml ./
-COPY package.json ./
-RUN pnpm install
+RUN corepack enable && corepack prepare pnpm@latest --activate
 
-# Copy the rest of the app
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
+
 COPY . .
+RUN pnpm build
 
-EXPOSE 5173
+# --- Production Stage ---
+FROM nginx:stable-alpine
 
-CMD ["pnpm", "dev"]
+COPY --from=builder /app/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/nginx.conf
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

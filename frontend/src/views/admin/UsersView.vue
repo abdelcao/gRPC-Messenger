@@ -85,7 +85,7 @@ import StatCard from '@/components/StatCard.vue'
 import InputText from 'primevue/inputtext'
 import { useUserService } from '@/composables/useUserService'
 import { useToast } from 'primevue/usetoast'
-import type { User, UserStatsResponse } from '@/grpc/user/user_pb'
+import type { User } from '@/grpc/user/user_pb'
 import { useAuthStore } from '@/stores/auth'
 import { useNotificationService } from '@/composables/useNotifService'
 import { NotificationType } from '@/grpc/notification/notification_pb'
@@ -109,7 +109,6 @@ onMounted(async () => {
 
   try {
     // Fetch users
-    const page = first.value / rows.value + 1
     const res = await userService.listUsers({ page: 1, limit: 10 })
     if (!res.success) throw new Error(res.message)
     users.value = res.users
@@ -165,7 +164,7 @@ const loadUsers = async () => {
 
     users.value = res.users
     total.value = res.total
-  } catch (error) {
+  } catch (error: any) {
     toast.add({ severity: 'error', detail: error.message || error })
   } finally {
     loading.value = false
@@ -222,38 +221,24 @@ const suspendUser = async (user: User) => {
 
     // Optionally reload users
     await loadUsers()
-  } catch (err) {
+  } catch (err: any) {
     toast.add({ severity: 'error', detail: err.message || err })
   }
 }
 
-const deleteUser = async (user: User) => {
-  try {
-    const res = await userService.deleteUser({
-      userId: user.id.toString(),
-    })
-
-    toast.add({ severity: res.success ? 'success' : 'error', detail: res.message })
-
-    // Optionally reload users
-    await loadUsers()
-  } catch (err) {
-    toast.add({ severity: 'error', detail: err.message || err })
-  }
-}
 
 const warnUser = async (user: User) => {
   try {
     if (!authStore.user) return
 
-    const res = await notifService.sendNotification({
+    await notifService.sendNotification({
       receiverId: user.id.toString(),
       senderId: authStore.user.id.toString(),
       content: 'You have violated our policy. Please adhere to the rules.',
       title: "Warning",
       type: NotificationType.ADMIN_WARNING
     })
-  } catch (err) {
+  } catch (err: any) {
     toast.add({ severity: 'error', detail: err.message || err })
   }
 }

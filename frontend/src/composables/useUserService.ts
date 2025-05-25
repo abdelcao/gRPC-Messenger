@@ -1,6 +1,5 @@
 import { createClient } from '@connectrpc/connect'
 import { createGrpcWebTransport } from '@connectrpc/connect-web'
-import { useConnectInterceptor } from './useConnectInterceptor';
 import { UserService } from '@/grpc/user/user_pb';
 
 export function useUserService() {

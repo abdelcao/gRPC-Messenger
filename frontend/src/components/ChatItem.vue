@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import Avatar from 'primevue/avatar'
-import Badge from 'primevue/badge'
 import { useRouter } from 'vue-router'
 import type { PrivateConv } from '@/grpc/chat/chat_pb'
 import { timeAgo } from '@/libs/utils'
 import { useChatStore } from '@/stores/chat'
-import { computed } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 
 const props = defineProps<{
@@ -16,9 +14,9 @@ const chatStore = useChatStore()
 const { getUserId } = useAuthStore()
 const router = useRouter()
 
-const unreadCount = computed(
-  () => chatStore.privateConv[props.conversation.id.toString() ?? ''].unreadCount,
-)
+// const unreadCount = computed(
+//   () => chatStore.privateConv[props.conversation.id.toString() ?? ''].unreadCount,
+// )
 
 const otherUser = () => {
   // console.log("user id!", getUserId());

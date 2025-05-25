@@ -30,7 +30,6 @@
 
 <script setup lang="ts">
 import Card from 'primevue/card'
-import { RouterLink } from 'vue-router';
 
 // Props to customize the title/subtitle per page (Login/Register)
 defineProps({

@@ -3,7 +3,6 @@ import { useAppStore } from '@/stores/app';
 import ChatList from './ChatList.vue';
 import NotificationList from './NotificationList.vue';
 import GroupList from './GroupList.vue';
-import { computed } from 'vue';
 
 const appStore = useAppStore()
 </script>

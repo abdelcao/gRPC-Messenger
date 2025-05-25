@@ -4,12 +4,8 @@ import Dialog from 'primevue/dialog'
 import { ref } from 'vue'
 import InputText from 'primevue/inputtext'
 import InputSwitch from 'primevue/inputswitch'
-import Password from 'primevue/password'
 import Button from 'primevue/button'
 import { useAuthStore } from '@/stores/auth'
-import { useAuthService } from '@/composables/useAuthService'
-import { useRouter } from 'vue-router'
-import TokenService from '@/services/TokenService';
 
 const appStore = useAppStore()
 const authStore = useAuthStore()

@@ -1,33 +1,33 @@
 services:
 
-  # admin-service:
-  #   build:
-  #     context: ./backend/admin
-  #     dockerfile: Dockerfile.dev
-  #   ports:
-  #     - "${ADMIN_PORT}:${ADMIN_PORT}"
-  #     - "${SERVER_ADMIN_PORT}:${SERVER_ADMIN_PORT}"
-  #   container_name: admin-service
-  #   environment:
-  #     - GRPC_SERVER_PORT=${ADMIN_PORT}
-  #     - SPRING_SERVER_PORT=${SERVER_ADMIN_PORT}
-  #     - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
-  #     - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
-  #     - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
-  #     - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
-  #     - SPRING_REDIS_HOST=${SPRING_REDIS_HOST}
-  #     - SPRING_REDIS_PORT=${SPRING_REDIS_PORT}
-  #     - SPRING_DEVTOOLS_RESTART_ENABLED=true
-  #     - SPRING_DEVTOOLS_LIVERELOAD_ENABLED=true
-  #   volumes:
-  #     - ./backend/admin/src:/app/src
-  #     - ./backend/admin/target:/app/target
-  #     - maven-cache:/root/.m2
-  #   depends_on:
-  #     - mysql
-  #     - redis
-  #   networks:
-  #     - chat-net
+  admin-service:
+    build:
+      context: ./backend/admin
+      dockerfile: Dockerfile.dev
+    ports:
+      - "${ADMIN_PORT}:${ADMIN_PORT}"
+      - "${SERVER_ADMIN_PORT}:${SERVER_ADMIN_PORT}"
+    container_name: admin-service
+    environment:
+      - GRPC_SERVER_PORT=${ADMIN_PORT}
+      - SPRING_SERVER_PORT=${SERVER_ADMIN_PORT}
+      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
+      - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
+      - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
+      - SPRING_REDIS_HOST=${SPRING_REDIS_HOST}
+      - SPRING_REDIS_PORT=${SPRING_REDIS_PORT}
+      - SPRING_DEVTOOLS_RESTART_ENABLED=true
+      - SPRING_DEVTOOLS_LIVERELOAD_ENABLED=true
+    volumes:
+      - ./backend/admin/src:/app/src
+      - ./backend/admin/target:/app/target
+      - maven-cache:/root/.m2
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      - chat-net
 
   user-service:
     build:
@@ -119,47 +119,47 @@ services:
     networks:
       - chat-net 
 
-  # notification-service:
-  #   build:
-  #     context: ./backend/notification
-  #     dockerfile: Dockerfile.dev
-  #   ports:
-  #     - "${NOTIFICATION_PORT}:${NOTIFICATION_PORT}"
-  #     - "${SERVER_NOTIFICATION_PORT}:${SERVER_NOTIFICATION_PORT}"
-  #   container_name: notification-service
-  #   environment:
-  #     - GRPC_SERVER_PORT=${NOTIFICATION_PORT}
-  #     - SERVER_PORT=${SERVER_NOTIFICATION_PORT}
-  #     - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
-  #     - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
-  #     - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
-  #     - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
-  #     - SPRING_DATA_REDIS_HOST=${REDIS_HOST}
-  #     - SPRING_DATA_REDIS_HOST=${SPRING_REDIS_HOST}
-  #     - SPRING_DATA_REDIS_PORT=${SPRING_REDIS_PORT}
-  #     - SPRING_DEVTOOLS_RESTART_ENABLED=true
-  #     - SPRING_DEVTOOLS_LIVERELOAD_ENABLED=true
-  #   volumes:
-  #     - ./backend/notification/src:/app/src
-  #     - ./backend/notification/target:/app/target
-  #     - maven-cache:/root/.m2
-  #   depends_on:
-  #     - mysql
-  #     - redis
-  #   networks:
-  #     - chat-net 
+  notification-service:
+    build:
+      context: ./backend/notification
+      dockerfile: Dockerfile.dev
+    ports:
+      - "${NOTIFICATION_PORT}:${NOTIFICATION_PORT}"
+      - "${SERVER_NOTIFICATION_PORT}:${SERVER_NOTIFICATION_PORT}"
+    container_name: notification-service
+    environment:
+      - GRPC_SERVER_PORT=${NOTIFICATION_PORT}
+      - SERVER_PORT=${SERVER_NOTIFICATION_PORT}
+      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
+      - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
+      - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
+      - SPRING_DATA_REDIS_HOST=${REDIS_HOST}
+      - SPRING_DATA_REDIS_HOST=${SPRING_REDIS_HOST}
+      - SPRING_DATA_REDIS_PORT=${SPRING_REDIS_PORT}
+      - SPRING_DEVTOOLS_RESTART_ENABLED=true
+      - SPRING_DEVTOOLS_LIVERELOAD_ENABLED=true
+    volumes:
+      - ./backend/notification/src:/app/src
+      - ./backend/notification/target:/app/target
+      - maven-cache:/root/.m2
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      - chat-net 
 
-  # frontend:
-  #   build:
-  #     context: ./frontend
-  #     dockerfile: Dockerfile
-  #   container_name: chat-frontend
-  #   ports:
-  #     - "${FRONTEND_PORT}:${FRONTEND_PORT}"
-  #   depends_on:
-  #     - envoy
-  #   networks:
-  #     - chat-net
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    container_name: chat-frontend
+    ports:
+      - "${FRONTEND_PORT}:${FRONTEND_PORT}"
+    depends_on:
+      - envoy
+    networks:
+      - chat-net
 
   envoy:
     image: envoyproxy/envoy:v1.28-latest
@@ -171,18 +171,6 @@ services:
     command: /usr/local/bin/envoy -c /etc/envoy/envoy.yaml --log-level debug
     networks:
       - chat-net
-
-  # nginx:
-  #   image: nginx:stable-alpine
-  #   container_name: nginx
-  #   ports:
-  #     - "${NGINX_PORT}:80"
-  #   volumes:
-  #     - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-  #   depends_on:
-  #     - frontend
-  #   networks:
-  #     - chat-net
 
   mysql:
     image: mysql:8.0

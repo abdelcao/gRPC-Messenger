@@ -52,7 +52,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, watch } from 'vue'
 import { useChatService } from '@/composables/useChatService'
 import { useUserService } from '@/composables/useUserService'
 import { useChatStore } from '@/stores/chat'
@@ -91,7 +91,7 @@ watch(
       const res = await userService.searchUsers({ searchTerm: search.value })
       console.log(res)
       searchRes.value = res.users
-    } catch (error) {
+    } catch (error: any) {
       console.error(error)
     } finally {
       loading.value = false
@@ -120,7 +120,7 @@ async function handleSearchClick(user: User) {
 
     // route to chat/:id (id is conversation id)
     router.push({ name: 'chat', params: { id: res.id.toString() } })
-  } catch (error) {
+  } catch (error: any) {
     console.error(error)
   }
 }

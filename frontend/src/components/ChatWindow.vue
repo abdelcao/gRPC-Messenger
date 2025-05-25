@@ -59,7 +59,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, onMounted, ref, useTemplateRef, watch } from 'vue'
+import { computed, onMounted, ref, useTemplateRef, watch } from 'vue'
 import { useChatService } from '@/composables/useChatService'
 import { useChatStore } from '@/stores/chat'
 import { useAuthStore } from '@/stores/auth'

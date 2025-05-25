@@ -37,7 +37,7 @@ export const useAuthStore = defineStore('auth', () => {
       await authService.logout({ userId: authStore.user?.id })
       const chatStore = useChatStore()
       chatStore.resetChatState()
-    } catch (error) {
+    } catch (error: any) {
       console.error(error)
     } finally {
       authStore.purge()

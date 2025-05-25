@@ -21,4 +21,12 @@ export default defineConfigWithVueTs(
   vueTsConfigs.recommended,
   ...pluginOxlint.configs['flat/recommended'],
   skipFormatting,
+
+  {
+    name: 'custom overrides',
+    files: ['**/*.{ts,mts,tsx,vue}'],
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
+    },
+  },
 )
