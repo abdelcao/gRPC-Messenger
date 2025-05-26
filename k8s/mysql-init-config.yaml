@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-init-config
+  namespace: grpc-messenger
+data:
+  init.sql: |
+    -- Add your database initialization SQL here
+    -- This should match the content from mysql/init/init.sql
+    CREATE DATABASE IF NOT EXISTS chatdb;
+    USE chatdb;
+    
+    -- Add your table creation scripts here
